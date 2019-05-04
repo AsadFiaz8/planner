@@ -9,12 +9,10 @@ import android.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import net.eagledev.planner.Adapter.ReminderAdapter;
 import net.eagledev.planner.Interface.ItemClickListener;
@@ -106,6 +104,12 @@ public class RemindersFragment extends Fragment {
                 reminder.setDone(1);
                 MainActivity.appDatabase.appDao().updateReminder(reminder);
                 setupList();
+                ObjectAnimator anim = ObjectAnimator.ofFloat(cardView, "y", 2500);
+                anim.setDuration(duration);
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(anim);
+                animatorSet.start();
+                buttonEnabled = false;
             }
         });
         cardView = view.findViewById(R.id.reminder_button_view);
@@ -183,4 +187,14 @@ public class RemindersFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    /**
+     * A simple {@link android.support.v4.app.Fragment} subclass.
+     * Activities that contain this fragment must implement the
+     * {@link OnFragmentInteractionListener} interface
+     * to handle interaction events.
+     * Use the {@link ContactFragment#newInstance} factory method to
+     * create an instance of this fragment.
+     */
+
 }

@@ -86,5 +86,23 @@
     <string name="december2">Grudnia</string>
     <string name="no_goals_for_today">Brak celów na dziś</string>
     <string name="contact">Kontakt</string>
+    <string name="you_have_premium">Masz już konto premium</string>
+    <string name="premium_reason1">Tylko użytkownicy premium mogą tworzyć więcej niż 3 rutyny</string>
+    <string name="premium_reason2">Tylko użytkownicy premium mogą tworzyć więcej niż 5 akcji dziennie</string>
+    <string name="premium_reason3">Aby korzystać z większej ilości ikonek wykup konto premium</string>
+    <string name="premium_reason4">Aby korzystać z większej ilości kolorów wykup konto premium</string>
+    <string name="premium_reason5">Tylko użytkownicy premium mogą tworyć więcej niż 2 cele dziennie</string>
+    <string name="premium_updated_by_one_day">Konto premium przedłużone reklamą o jeden dzień</string>
+    <string name="premium_features">Korzyści konta Premium:\n  Nieograniczona ilość rutyn oraz czynności\n  60 dodatkowych ikon dla rutyn i czynności\n  42 dodatkowe kolory\n  Brak dziennego limitu celów</string>
+    <string name="select_premium_plan">Wybierz plan premium!</string>
+    <string name="month_plan">Plan miesięczny</string>
+    <string name="month_prince">3zł / miesiąc</string>
+    <string name="yearly_plan">Plan roczny</string>
+    <string name="year_pince">2 zł / miesiąc</string>
+    <string name="free_premium_ad_account">Darmowe konto premium w zamian za oglądanie reklam</string>
+    <string name="watch_ad">Obejrzyj reklamę</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

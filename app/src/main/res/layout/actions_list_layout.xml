@@ -8,15 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:elevation="8dp"
-        android:translationZ="8dp"
+        android:elevation="0dp"
+        android:translationZ="0dp"
         android:stateListAnimator="@null"
         android:outlineProvider="bounds">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/routine_item_background"
+            android:background="@drawable/background_block"
             android:elevation="16dp"
             android:translationZ="16dp"
             android:stateListAnimator="@null">
@@ -44,7 +44,7 @@
                 android:text="Nazwa akcji"
                 android:layout_toRightOf="@id/actions_color_image_view"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="#000000"
+                android:textColor="@color/item_list"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"/>
 
@@ -57,7 +57,7 @@
                 android:layout_alignParentTop="true"
                 android:text="01.04.2019"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000"
+                android:textColor="@color/item_list"
                 android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"/>
@@ -73,7 +73,7 @@
                 android:paddingRight="15dp"
                 android:text="10:00 - 18:00"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000"/>
+                android:textColor="@color/item_list"/>
 
 
 

@@ -84,6 +84,23 @@
     <string name="september2">October</string>
     <string name="november2">November</string>
     <string name="december2">December</string>
+    <string name="contact">Contact</string>
     <string name="no_goals_for_today">No goals for today</string>
+    <string name="you_have_premium">You already have a premium account</string>
+    <string name="premium_reason1">Only premium users can create more than 3 routines</string>
+    <string name="premium_reason2">Only premium users can create more than 5 activities in day</string>
+    <string name="premium_reason3">You must have premium account to use more icons</string>
+    <string name="premium_reason4">You must have premium account to use more colors</string>
+    <string name="premium_reason5">Only premium users can create more than 2 goals for day</string>
+    <string name="premium_updated_by_one_day">The premium account has been extended by one day</string>
+    <string name="select_premium_plan">Select premium plan!</string>
+    <string name="month_plan">Monthly</string>
+    <string name="month_prince">1 $ / month</string>
+    <string name="yearly_plan">Yearly</string>
+    <string name="year_pince">0,6 $ / month</string>
+    <string name="free_premium_ad_account">Free premium account for watching ads</string>
+    <string name="watch_ad">Watch ad</string>
+    <string name="premium_features">Premium Features:\n  Unlimited amount of activities and routines\n  60 more incons for activities and routines\n  42 more colors\n  Unlimited goals</string>
+
 
 </resources>

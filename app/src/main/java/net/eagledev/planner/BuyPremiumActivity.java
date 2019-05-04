@@ -1,5 +1,6 @@
 package net.eagledev.planner;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,7 +45,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(MainActivity.valueHolder.isPremiumUser()){
-            featuresTextView.setText("Masz już konto premium");
+            featuresTextView.setText(getResources().getString(R.string.you_have_premium));
         }
         if(bundle!=null) {
             messageID = (int) bundle.get("messageID");
@@ -56,23 +57,22 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 reasonTextView.setText("");
                 break;
             case 1:
-                reasonTextView.setText("Tylko użytkownicy premium mogą tworzyć więcej niż 3 rutyny");
+                reasonTextView.setText(getResources().getString(R.string.premium_reason1));
                 break;
             case 2:
-                reasonTextView.setText("Tylko użytkownicy premium mogą tworzyć więcej niż 5 akcji dziennie");
+                reasonTextView.setText(getResources().getString(R.string.premium_reason2));
                 break;
             case 3:
-                reasonTextView.setText("Aby korzystać z większej ilości ikonek wykup konto premium");
+                reasonTextView.setText(getResources().getString(R.string.premium_reason3));
                 break;
             case 4:
-                reasonTextView.setText("Aby korzystać z większej ilości kolorów wykup konto premium");
+                reasonTextView.setText(getResources().getString(R.string.premium_reason4));
                 break;
             case 5:
-                reasonTextView.setText("Tylko użytkownicy premium mogą tworyć więcej niż 2 cele dziennie");
+                reasonTextView.setText(getResources().getString(R.string.premium_reason5));
                 break;
         }
         bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
-        // Test
         //bp = new BillingProcessor(this, null, this);
         bp.initialize();
 
@@ -86,9 +86,9 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.btn_premium_month:
-                //bp.subscribe(BuyPremiumActivity.this, "premium_month");
+                bp.subscribe(BuyPremiumActivity.this, "premium_month");
                 //Test
-                bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
+                //bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
 
                 break;
             case R.id.btn_premium_year:
@@ -99,7 +99,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
                 MainActivity.valueHolder.setAdsPremium(true);
                 finish();
-                Toast.makeText(this, "Konto premium przedłużone reklamą o jeden dzień", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.premium_updated_by_one_day), Toast.LENGTH_LONG).show();
                 break;
         }
     }

@@ -35,7 +35,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -59,6 +58,7 @@ import net.eagledev.planner.Activity.EditRoutineActivity;
 import net.eagledev.planner.Adapter.AimAdapter;
 import net.eagledev.planner.Fragment.ActionsFragment;
 import net.eagledev.planner.Fragment.AimsFragment;
+import net.eagledev.planner.Fragment.ContactFragment;
 import net.eagledev.planner.Fragment.RemindersFragment;
 import net.eagledev.planner.Fragment.RoutinesFragment;
 import net.eagledev.planner.Fragment.SettingsFragment;
@@ -371,7 +371,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case R.id.nav_premium:
                                 Intent premiumIntent = new Intent(context, BuyPremiumActivity.class);
                                 startActivity(premiumIntent);
+                                break;
 
+                            case R.id.nav_contact:
+                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ContactFragment()).commit();
+                                rl.setVisibility(View.INVISIBLE);
+                                toolbar.setTitle(R.string.contact);
 
 
                                 break;
@@ -1127,6 +1132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
+
+
 
 
 }
