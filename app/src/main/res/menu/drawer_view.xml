@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_main"
+            android:icon="@drawable/city01"
+            android:title="@string/main_page" />
+        <item
+            android:id="@+id/nav_actions"
+            android:icon="@drawable/finance50"
+            android:title="@string/scheduled_activities" />
+        <item
+            android:id="@+id/nav_routines"
+            android:icon="@drawable/finance44"
+            android:title="@string/routines" />
+        <item
+            android:id="@+id/nav_aims"
+            android:icon="@drawable/grid16"
+            android:title="@string/goals" />
+        <item
+            android:id="@+id/nav_reminders"
+            android:icon="@drawable/ui11"
+            android:title="@string/reminders" />
+
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/mail18"
+            android:title="@string/contact"/>
+
+        <item
+            android:id="@+id/nav_premium"
+            android:title="Premium"
+            android:icon="@drawable/ui02"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ui46"
+            android:title="@string/settings" />
+
+    </group>
+</menu>

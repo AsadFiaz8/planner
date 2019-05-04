@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="8dp"
+        android:translationZ="8dp"
+        android:stateListAnimator="@null">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/routine_item_background">
+
+            <ImageView
+                android:id="@+id/routines_color_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:src="@drawable/color_round"/>
+
+            <ImageView
+                android:id="@+id/routines_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                 />
+
+            <TextView
+                android:id="@+id/routine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nazwa rutyny"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/routines_color_image_view"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+
+            <TextView
+                android:id="@+id/routine_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/routine_name"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="10:00 - 18:00"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+
+            <TextView
+                android:id="@+id/routine_loops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/routine_name"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="*****--"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000"/>
+
+
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

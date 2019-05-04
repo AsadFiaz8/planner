@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.eagledev.planner">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <activity android:name=".WatchPremiumAdActivity"></activity>
+        <activity android:name=".BuyPremiumActivity" />
+        <activity
+            android:name=".SelectColor"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Activity.AddAimActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.AddActionAtivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.SelectIconActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Activity.EditActionActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.EditRoutineActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.EditAimActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activity.AddReminder"
+            android:screenOrientation="sensorPortrait" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:name=".Activity.AddRoutine"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme" />
+
+        <service
+            android:name=".BackgroundService"
+            android:exported="false" />
+        <service android:name=".NotificationService" />
+    </application>
+
+</manifest>

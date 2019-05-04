@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#51DF04</color>
+    <color name="colorPrimaryDark">#318D00</color>
+    <color name="colorAccent">#56B622</color>
+    <color name="bg_gray">#DBDBDB</color>
+    <color name="toolbar_icons">#F3F3F3</color>
+    <color name="background">#E5E5E5</color>
+
+
+    <color name="black_semi_transparent">#B2000000</color>
+
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="blue">#226BFF</color>
+    <color name="blue_dark">#1b4db2</color>
+    <color name="black">#000000</color>
+    <color name="gray_light">#F0F0F0</color>
+    <color name="white">#FFFFFF</color>
+
+
+
+
+    <color name="pie_gray">#64646464</color>
+    <color name="pie0">#CCFF0000</color>
+    <color name="pie1">#CC00FF00</color>
+    <color name="pie2">#CC0000FF</color>
+    <color name="pie3">#CC00FFFF</color>
+    <color name="pie4">#CCFFFF00</color>
+    <color name="pie5">#CCFF00FF</color>
+
+
+    <color name="pie_green1">#003a00</color>
+    <color name="pie_green2">#005600</color>
+    <color name="pie_green3">#017500</color>
+    <color name="pie_green4">#019900</color>
+    <color name="pie_green5">#01C800</color>
+    <color name="pie_green6">#0dff0c</color>
+
+    <color name="pie_yellow1">#434400</color>
+    <color name="pie_yellow2">#5a5b00</color>
+    <color name="pie_yellow3">#797a00</color>
+    <color name="pie_yellow4">#9fa000</color>
+    <color name="pie_yellow5">#cdce00</color>
+    <color name="pie_yellow6">#fdff00</color>
+
+    <color name="pie_orange1">#4c1c00</color>
+    <color name="pie_orange2">#702900</color>
+    <color name="pie_orange3">#8c3300</color>
+    <color name="pie_orange4">#b74200</color>
+    <color name="pie_orange5">#e55200</color>
+    <color name="pie_orange6">#ff5b00</color>
+
+    <color name="pie_red1">#3d0000</color>
+    <color name="pie_red2">#600000</color>
+    <color name="pie_red3">#840000</color>
+    <color name="pie_red4">#af0000</color>
+    <color name="pie_red5">#d30000</color>
+    <color name="pie_red6">#ff0000</color>
+
+    <color name="pie_pink1">#3d0031</color>
+    <color name="pie_pink2">#63004f</color>
+    <color name="pie_pink3">#89006d</color>
+    <color name="pie_pink4">#ad0089</color>
+    <color name="pie_pink5">#d600a9</color>
+    <color name="pie_pink6">#ff00c9</color>
+
+    <color name="pie_violet1">#3c0044</color>
+    <color name="pie_violet2">#5a0066</color>
+    <color name="pie_violet3">#770087</color>
+    <color name="pie_violet4">#9b00af</color>
+    <color name="pie_violet5">#ca00e5</color>
+    <color name="pie_violet6">#e630ff</color>
+
+    <color name="pie_blue1">#001f4f</color>
+    <color name="pie_blue2">#002d72</color>
+    <color name="pie_blue3">#003d9b</color>
+    <color name="pie_blue4">#004abc</color>
+    <color name="pie_blue5">#0059e2</color>
+    <color name="pie_blue6">#0a6aff</color>
+
+    <color name="pie_navy1">#004249</color>
+    <color name="pie_navy2">#00606b</color>
+    <color name="pie_navy3">#007d8c</color>
+    <color name="pie_navy4">#009fb2</color>
+    <color name="pie_navy5">#00c8e0</color>
+    <color name="pie_navy6">#14e5ff</color>
+
+
+
+
+
+
+
+
+    <color name="popup_start">#FFFFFF</color>
+    <color name="popup_end">#FFFFFF</color>
+</resources>

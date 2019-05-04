@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.eagledev.planner.Fragment.SettingsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/settings_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_time_by_digital_clock"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/black"/>
+        <Switch
+            android:id="@+id/settings_switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/settings_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_with_current_action"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/black"
+            android:layout_marginTop="40dp"
+            android:layout_alignTop="@id/settings_text_1"/>
+        <Switch
+            android:id="@+id/settings_switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+           android:layout_alignTop="@id/settings_text_2"/>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

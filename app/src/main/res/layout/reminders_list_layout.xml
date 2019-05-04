@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="8dp"
+        android:translationZ="8dp"
+        android:stateListAnimator="@null"
+        android:outlineProvider="bounds">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/routine_item_background"
+            android:elevation="16dp"
+            android:translationZ="16dp"
+            android:stateListAnimator="@null">
+
+            <TextView
+                android:id="@+id/reminder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nazwa akcji"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#000000"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+
+            <TextView
+                android:id="@+id/reminder_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reminder_name"
+                android:layout_alignParentLeft="true"
+                android:text="01.04.2019"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+
+            <TextView
+                android:id="@+id/reminader_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reminder_name"
+                android:layout_toRightOf="@id/reminder_date"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="10:00 - 18:00"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+
+    android:layout_gravity="left">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/main_linear_layout">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/colorAccent"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/white" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/contnet_frame">
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                tools:layout_editor_absoluteY="25dp"
+                tools:context=".MainActivity"
+
+                >
+
+
+                <Button
+                    android:id="@+id/btn_action_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Actions"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/my_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="200dp"
+                    android:text="routines"
+                    android:visibility="invisible" />
+
+                <RelativeLayout
+                    android:id="@+id/clock_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="265dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/gray_light">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/clock"
+                        android:layout_height="@dimen/clock"
+                        android:layout_centerHorizontal="true">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            fab:srcCompat="@drawable/clock_hours"
+                            />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/chartBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="15dp"
+                            android:layout_alignTop="@id/imageView"
+                            android:visibility="visible">
+
+                        </com.github.mikephil.charting.charts.PieChart>
+
+                        <ImageView
+                            android:id="@+id/clock"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/imageView"
+                            android:layout_centerHorizontal="true"
+                            android:rotation="90"
+                            fab:srcCompat="@drawable/clock" />
+
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/chart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="15dp"
+                            android:layout_alignTop="@id/imageView">
+
+                        </com.github.mikephil.charting.charts.PieChart>
+
+                        <TextView
+                            android:id="@+id/action_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="85dp"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+
+
+
+                    </RelativeLayout>
+                    <Button
+                        android:id="@+id/btn_edit"
+                        style="@style/AppTheme.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="@string/edit"
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/btn_new_action"
+                        style="@style/AppTheme.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="@string/lets_plan"
+                        android:visibility="invisible" />
+
+                    <Button
+                        android:id="@+id/btn_edit_routine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="@string/edit"
+                        android:visibility="invisible"
+                        style="@style/AppTheme.Button"/>
+
+                    <TextView
+                        android:id="@+id/action_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="16dp"
+                        android:text="Szczgóły akcji"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/action_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="10:00\n12:00"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:visibility="invisible"
+                        />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/date"
+                    android:visibility="invisible" />
+
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/btn_left"
+                    android:layout_alignParentEnd="true"
+                    fab:fab_colorNormal="@color/colorAccent"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    fab:fab_icon="@drawable/ic_right" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="180dp"
+                    fab:fab_colorNormal="@color/colorAccent"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    fab:fab_icon="@drawable/ic_left" />
+
+
+
+
+                <ScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="410dp"
+                    android:layout_alignTop="@+id/clock_layout"
+                    android:layout_marginTop="260dp"
+                    android:layout_alignParentEnd="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorAccent"
+                            android:background="@color/colorAccent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp"
+                                android:text="@string/goals_for_today"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                        </RelativeLayout>
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/aims_main_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"></android.support.v7.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/aims_null_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_goals_for_today"
+                            android:textColor="@color/black"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                            android:paddingTop="20dp"
+                            android:visibility="invisible"/>
+                    </LinearLayout>
+                </ScrollView>
+
+                <RelativeLayout
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="321dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="0dp"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="52dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="359dp"
+                        android:layout_marginBottom="207dp"
+                        android:text="X"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/bg_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/menu_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="0dp"
+                        android:clickable="false"
+                        android:contentDescription="@string/todo"
+                        android:scaleType="matrix"
+                        android:visibility="invisible"
+                        fab:srcCompat="@color/black_semi_transparent" />
+                </LinearLayout>
+
+                <com.getbase.floatingactionbutton.FloatingActionsMenu
+                    android:id="@+id/multiple_actions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    fab:fab_addButtonColorNormal="@color/colorAccent"
+                    fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
+                    fab:fab_addButtonPlusIconColor="@color/black"
+                    fab:fab_labelStyle="@style/menu_labels_style">
+
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/action_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorPrimaryDark"
+                        fab:fab_icon="@drawable/finance44"
+                        fab:fab_size="mini"
+                        fab:fab_title="@string/new_routine" />
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/action_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        fab:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorPrimaryDark"
+                        fab:fab_icon="@drawable/grid16"
+                        fab:fab_size="mini"
+                        fab:fab_title="@string/new_goal" />
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/action_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorPrimaryDark"
+                        fab:fab_icon="@drawable/ui11"
+                        fab:fab_size="mini"
+                        fab:fab_title="@string/new_reminder" />
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/action_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorPrimaryDark"
+                        fab:fab_icon="@drawable/finance50"
+                        fab:fab_size="mini"
+                        fab:fab_title="@string/new_action" />
+
+                </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            </RelativeLayout>
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/nav_header">
+
+    </android.support.design.widget.NavigationView>
+
+
+</android.support.v4.widget.DrawerLayout>

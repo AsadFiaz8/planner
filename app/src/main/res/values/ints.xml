@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="clock_anim_time">700</integer>
+
+    <integer name="premium_max_routines">3</integer>
+    <integer name="premium_max_actions_one_day">5</integer>
+    <integer name="premium_max_goals_one_day">2</integer>
+
+
+</resources>
