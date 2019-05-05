@@ -1,6 +1,7 @@
 package net.eagledev.planner;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,25 +13,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.util.Calendar;
+import java.util.List;
 
-public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler {
+public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
 
     int messageID;
     TextView reasonTextView, featuresTextView;
     ImageView toolbarConfirm;
     Button btnMonth, btnYear, btnAd;
-
+    Context context;
+    private RewardedVideoAd mRewardedVideoAd;
     BillingProcessor bp;
+    boolean adLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_premium);
 
+        context = getBaseContext();
+        // Use an activity context to get the rewarded video instance.
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
         toolbarConfirm = findViewById(R.id.toolbar_confirm);
         toolbarConfirm.setVisibility(View.INVISIBLE);
         featuresTextView=findViewById(R.id.text_premium_features);
@@ -75,6 +89,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
         //bp = new BillingProcessor(this, null, this);
         bp.initialize();
+        MobileAds.initialize(this, "ca-app-pub-6069706356094406~2925415895");
+        loadRewardedVideoAd();
 
     }
 
@@ -93,10 +109,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 bp.subscribe(BuyPremiumActivity.this, "premium_year");
                 break;
             case R.id.btn_premium_watch_ad:
-                MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
-                MainActivity.valueHolder.setAdsPremium(true);
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                }
                 finish();
-                Toast.makeText(this, getResources().getString(R.string.premium_was_erxtended_by_one_day), Toast.LENGTH_LONG).show();
+
                 break;
         }
     }
@@ -130,5 +147,61 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBillingInitialized() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        if (bp != null) {
+            bp.release();
+        }
+        super.onDestroy();
+    }
+
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        Toast.makeText(this, "onRewardedVideoClosd", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+        MainActivity.valueHolder.setAdsPremium(true);
+        MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
+        Toast.makeText(this, getResources().getString(R.string.premium_was_erxtended_by_one_day), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        Toast.makeText(this, "onRewardedVideoAdLeftApplication", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+        Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd("ca-app-pub-6069706356094406/5168435855",
+                new AdRequest.Builder().build());
     }
 }

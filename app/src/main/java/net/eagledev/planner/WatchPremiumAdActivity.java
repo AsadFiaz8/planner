@@ -86,4 +86,12 @@ public class WatchPremiumAdActivity extends AppCompatActivity implements View.On
     public void onBillingInitialized() {
 
     }
+
+    @Override
+    public void onDestroy() {
+        if (bp != null) {
+            bp.release();
+        }
+        super.onDestroy();
+    }
 }

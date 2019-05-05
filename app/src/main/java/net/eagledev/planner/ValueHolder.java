@@ -39,22 +39,35 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     public boolean isPremiumUser() {
         boolean purchaseResult = bp.loadOwnedPurchasesFromGoogle();
         if(purchaseResult){
+            boolean isAvailable = BillingProcessor.isIabServiceAvailable(MainActivity.context);
+            if(!isAvailable) {
+                return MainActivity.pref.getBoolean("premium_user", false);
+            }
             TransactionDetails subscriptionTransactionDetails = bp.getSubscriptionTransactionDetails("premium_month");
             if(subscriptionTransactionDetails!=null) {
+                editor.putBoolean("premium_user", true);
+                editor.commit();
                 //User is still subscribed
                 return true;
             } else {
                 //Not subscribed
+                editor.putBoolean("premium_user", false);
+                editor.commit();
             }
             subscriptionTransactionDetails = bp.getSubscriptionTransactionDetails("premium_year");
             if(subscriptionTransactionDetails!=null) {
+                editor.putBoolean("premium_user", true);
+                editor.commit();
                 //User is still subscribed
                 return true;
             } else {
                 //Not subscribed
+                editor.putBoolean("premium_user", false);
+                editor.commit();
             }
         }
-        //premiumUser = MainActivity.pref.getBoolean("premium_user", false);
+        editor.putBoolean("premium_user", false);
+        editor.commit();
         return false;
     }
 
@@ -140,4 +153,5 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     public void onBillingInitialized() {
 
     }
+
 }
