@@ -14,9 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Twoje konto premium straciło ważność\n
-obeejrz reklamę aby przedłużyć je o jeden dzień"
+        android:text="@string/your_premium_account_expired"
         android:textStyle="bold"
+
         android:textColor="@color/black"
         android:gravity="center_horizontal"/>
 
@@ -25,7 +25,8 @@ obeejrz reklamę aby przedłużyć je o jeden dzień"
         android:id="@+id/btn_premium_watch_ad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Obejrz reklamę"
+        android:text="@string/watch_ad"
+        android:backgroundTint="@color/colorAccent"
         style="@style/AppTheme.Button"
 
         />
@@ -34,7 +35,7 @@ obeejrz reklamę aby przedłużyć je o jeden dzień"
         android:layout_width="wrap_content"
         android:layout_height="51dp"
         android:layout_marginTop="10dp"
-        android:text="Możesz również skorzystać z abonamentów konta premium"
+        android:text="@string/you_can_also_buy_premium"
         android:textColor="@color/black"
         android:gravity="center_horizontal"/>
 
@@ -42,7 +43,7 @@ obeejrz reklamę aby przedłużyć je o jeden dzień"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Abonament miesięczny"
+        android:text="@string/month_plan"
         android:layout_gravity="center_horizontal"/>
 
     <Button
@@ -50,12 +51,13 @@ obeejrz reklamę aby przedłużyć je o jeden dzień"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         style="@style/AppTheme.Button"
-        android:text="3zł / miesiąc"/>
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/month_prince"/>
 
     <TextView
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:text="Abonament roczny"
+        android:text="@string/yearly_plan"
         android:textColor="@color/black"
         android:gravity="center_horizontal"/>
 
@@ -64,6 +66,7 @@ obeejrz reklamę aby przedłużyć je o jeden dzień"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         style="@style/AppTheme.Button"
-        android:text="2 zł / miesiąc"/>
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/year_pince"/>
 
 </LinearLayout>

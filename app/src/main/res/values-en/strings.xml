@@ -101,6 +101,9 @@
     <string name="free_premium_ad_account">Free premium account for watching ads</string>
     <string name="watch_ad">Watch ad</string>
     <string name="premium_features">Premium Features:\n  Unlimited amount of activities and routines\n  60 more incons for activities and routines\n  42 more colors\n  Unlimited goals</string>
+    <string name="your_premium_account_expired">Your premium account has expired,\n watch the ad to extend it by one day</string>
+    <string name="you_can_also_buy_premium">You can also use premium account subscriptions</string>
+    <string name="premium_was_erxtended_by_one_day">The premium account has been extended by one day</string>
 
 
 </resources>
