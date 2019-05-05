@@ -60,6 +60,16 @@ public class WatchPremiumAdActivity extends AppCompatActivity implements View.On
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
 
+        if(productId.equals("premium_month")){
+            MainActivity.valueHolder.setAdsPremium(false);
+            MainActivity.valueHolder.setPremiumUser(true);
+            finish();
+        }
+        if(productId.equals("premium_year")){
+            MainActivity.valueHolder.setAdsPremium(false);
+            MainActivity.valueHolder.setPremiumUser(true);
+            finish();
+        }
     }
 
     @Override

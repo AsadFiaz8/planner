@@ -87,19 +87,16 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btn_premium_month:
                 bp.subscribe(BuyPremiumActivity.this, "premium_month");
-                //Test
                 //bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
-
                 break;
             case R.id.btn_premium_year:
-
                 bp.subscribe(BuyPremiumActivity.this, "premium_year");
                 break;
             case R.id.btn_premium_watch_ad:
                 MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
                 MainActivity.valueHolder.setAdsPremium(true);
                 finish();
-                Toast.makeText(this, getResources().getString(R.string.premium_updated_by_one_day), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.premium_was_erxtended_by_one_day), Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -108,6 +105,16 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
 
+        if(productId.equals("premium_month")){
+            MainActivity.valueHolder.setAdsPremium(false);
+            MainActivity.valueHolder.setPremiumUser(true);
+            finish();
+        }
+        if(productId.equals("premium_year")){
+            MainActivity.valueHolder.setAdsPremium(false);
+            MainActivity.valueHolder.setPremiumUser(true);
+            finish();
+        }
     }
 
     @Override
