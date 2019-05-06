@@ -105,6 +105,8 @@
     <string name="your_premium_account_expired">Twoje konto premium straciło ważność\n  obeejrz reklamę aby przedłużyć je o jeden dzień</string>
     <string name="you_can_also_buy_premium">Możesz również skorzystać z abonamentów konta premium</string>
     <string name="premium_was_erxtended_by_one_day">Konto premium zostało przedłużone o jeden dzień</string>
+    <string name="premium_activatetd_by_ad">Konto premium zostało dzisiaj aktywowane przez reklame</string>
+    <string name="sorry_no_ads">Przepraszamy. Żadna reklama nie jest dostępna</string>
 
 
 </resources>

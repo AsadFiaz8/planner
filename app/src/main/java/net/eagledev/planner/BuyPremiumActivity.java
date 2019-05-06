@@ -34,7 +34,6 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     Context context;
     private RewardedVideoAd mRewardedVideoAd;
     BillingProcessor bp;
-    boolean adLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,9 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         Bundle bundle = intent.getExtras();
         if(MainActivity.valueHolder.isPremiumUser()){
             featuresTextView.setText(getResources().getString(R.string.you_have_premium));
+        }
+        if(MainActivity.valueHolder.getAdsPremium() && MainActivity.valueHolder.getAdsPremiumActive()) {
+            featuresTextView.setText(getString(R.string.premium_activatetd_by_ad));
         }
         if(bundle!=null) {
             messageID = (int) bundle.get("messageID");
@@ -111,8 +113,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_premium_watch_ad:
                 if (mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
+                    finish();
+                } else {
+                    Toast.makeText(context, getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
                 }
-                finish();
+
 
                 break;
         }
@@ -160,22 +165,22 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRewardedVideoAdLoaded() {
-        Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoAdOpened() {
-        Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoStarted() {
-        Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Toast.makeText(this, "onRewardedVideoClosd", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoClosd", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -187,17 +192,19 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        Toast.makeText(this, "onRewardedVideoAdLeftApplication", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoAdLeftApplication", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-        Toast.makeText(this, "onRewardedVideoAdFailedToLoad error: " + i, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoAdFailedToLoad error: " + i, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRewardedVideoCompleted() {
-        Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+        MainActivity.valueHolder.setAdsPremium(true);
+        MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
     }
 
     private void loadRewardedVideoAd() {

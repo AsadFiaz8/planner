@@ -47,6 +47,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
             if(subscriptionTransactionDetails!=null) {
                 editor.putBoolean("premium_user", true);
                 editor.commit();
+
                 //User is still subscribed
                 return true;
             } else {
@@ -100,6 +101,9 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     }
 
     public boolean getAdsPremium() {
+        if(isPremiumUser()){
+            return false;
+        }
         adsPremium = MainActivity.pref.getBoolean("ads_premium", false);
         return adsPremium;
     }
