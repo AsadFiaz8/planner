@@ -33,29 +33,29 @@
                 android:layout_gravity="center_horizontal">
 
                 <LinearLayout
-                android:id="@+id/action_day1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/action_day1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textColor="@color/action_fragment_day_text"
-                    android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/action_fragment_day_line"
-                    android:background="@color/action_fragment_day_line">
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textColor="@color/action_fragment_day_text"
+                        android:textStyle="bold"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/action_fragment_day_line"
+                        android:background="@color/action_fragment_day_line">
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/actions_reycler_view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </android.support.v7.widget.RecyclerView>
+
                 </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/actions_reycler_view1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/action_day2"

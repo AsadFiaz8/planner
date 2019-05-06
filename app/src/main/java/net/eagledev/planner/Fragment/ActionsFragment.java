@@ -55,6 +55,12 @@ public class ActionsFragment extends Fragment {
     View view;
     Context context = getContext();
 
+    List<List<Action>> actionLister = new ArrayList<>();
+    List<RecyclerView> recyclerList = new ArrayList<>();
+    List<ItemClickListener> itemListnerList = new ArrayList<>();
+
+
+
     ItemClickListener itemClickListener;
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,6 +120,7 @@ public class ActionsFragment extends Fragment {
         month = date.get(Calendar.MONTH);
         day = date.get(Calendar.DAY_OF_MONTH);
 
+        setupRecyclerList();
         SetupList();
 
         btnDate.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +149,41 @@ public class ActionsFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setupRecyclerList() {
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view1));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view2));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view3));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view4));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view5));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view6));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view7));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view8));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view9));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view10));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view11));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view12));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view13));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view14));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view15));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view16));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view17));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view18));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view19));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view20));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view21));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view22));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view23));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view24));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view25));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view26));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view27));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view28));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view29));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view30));
+        recyclerList.add((RecyclerView) view.findViewById(R.id.actions_reycler_view31));
+
     }
 
 
@@ -191,6 +233,7 @@ public class ActionsFragment extends Fragment {
     }
 
     public void SetupList() {
+        /*
         actionList = MainActivity.appDatabase.appDao().getActions();
         recyclerView = (RecyclerView) view.findViewById(R.id.actions_reycler_view);
         recyclerView.setHasFixedSize(true);
@@ -206,7 +249,31 @@ public class ActionsFragment extends Fragment {
             }
         };
         adapter = new ActionAdapter(context, actionList ,itemClickListener );
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
+
+
+        //New
+
+        Calendar cal = Calendar.getInstance();
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        for (int i = 1;i < max; i++){
+
+            actionLister.add(MainActivity.appDatabase.appDao().getActionsFromDay(i,cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)));
+            recyclerList.get(i).setHasFixedSize(true);
+            recyclerList.get(i).setLayoutManager(new LinearLayoutManager(context));
+            final List<Action> aList = actionLister.get(i-1);
+            itemListnerList.add(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    Action action = aList.get(position);
+                    Intent intentEdit = new Intent(context, EditActionActivity.class);
+                    intentEdit.putExtra("ID", action.getID());
+                    startActivityForResult(intentEdit, 1);
+                }
+            });
+            adapter = new ActionAdapter(context, actionLister.get(i-1) ,itemListnerList.get(i-1));
+            recyclerList.get(i-1).setAdapter(adapter);
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {

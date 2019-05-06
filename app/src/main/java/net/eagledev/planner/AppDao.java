@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.widget.LinearLayout;
 
 import java.util.Calendar;
 import java.util.List;
@@ -30,6 +31,9 @@ public interface AppDao {
 
     @Query("SELECT * FROM actions WHERE start_day = :day AND start_month = :month AND start_year = :year")
     public List<Action> getActionsFromDay(int day, int month, int year);
+
+    @Query("SELECT * FROM actions WHERE start_month = :month AND start_year = :year")
+    public List<Action> getActionsFromMonth(int month, int year);
 
     @Query("SELECT * FROM actions WHERE id = :id")
     public Action idAction(int id);
