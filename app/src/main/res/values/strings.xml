@@ -109,5 +109,13 @@
     <string name="premium_was_erxtended_by_one_day">Konto premium przedłużone reklamą o jeden dzień</string>
     <string name="premium_activatetd_by_ad">Konto premium zostało dzisiaj aktywowane przez reklame</string>
     <string name="sorry_no_ads">Przepraszamy. Żadna reklama nie jest dostępna</string>
+    <string name="everyday">Codzinnie</string>
+    <string name="pn">PN</string>
+    <string name="wt">WT</string>
+    <string name="sr">SR</string>
+    <string name="cz">CZ</string>
+    <string name="pt">PT</string>
+    <string name="so">SO</string>
+    <string name="nd">ND</string>
 
 </resources>

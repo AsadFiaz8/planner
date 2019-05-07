@@ -14,8 +14,9 @@
         android:outlineProvider="bounds">
 
         <RelativeLayout
+            android:id="@+id/actions_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@drawable/background_block"
             android:elevation="16dp"
             android:translationZ="16dp"
@@ -43,10 +44,12 @@
                 android:layout_height="wrap_content"
                 android:text="Nazwa akcji"
                 android:layout_toRightOf="@id/actions_color_image_view"
+                android:layout_alignParentBottom="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/item_list"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"/>
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"/>
 
             <TextView
                 android:id="@+id/actions_date"
@@ -60,17 +63,19 @@
                 android:textColor="@color/item_list"
                 android:layout_marginTop="5dp"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"/>
+                android:paddingRight="15dp"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/action_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/action_name"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
+                android:layout_toRightOf="@id/actions_color_image_view"
+                android:layout_alignParentTop="true"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:paddingTop="5dp"
                 android:text="10:00 - 18:00"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@color/item_list"/>

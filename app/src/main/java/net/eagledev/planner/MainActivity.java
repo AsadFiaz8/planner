@@ -542,7 +542,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         colors[52] = Color.argb(alp, 0, 200, 224) ;
         colors[53] = Color.argb(alp, 20, 229, 255) ;
 
-        colorGray = Color.argb(alp, 100, 100, 100);
+        int grayValue = 100;
+        colorGray = Color.argb(alp, grayValue, grayValue, grayValue);
     }
 
     private void setFloatingButtonControls() {
@@ -733,7 +734,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pieEntries.add(new PieEntry(60));
         }
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
-        int c = 0;
+        int c = 100;
         dataSet.setColor(Color.argb(255, c, c, c));
         dataSet.setValueTextSize(0);
         dataSet.setSliceSpace(2);

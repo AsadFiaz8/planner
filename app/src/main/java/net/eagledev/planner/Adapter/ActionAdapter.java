@@ -1,6 +1,7 @@
 package net.eagledev.planner.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.eagledev.planner.Action;
@@ -57,6 +59,10 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         actionViewHolder.textViewTime.setText(f.Time(action.getStart())+" - "+ f.Time(action.getStop()));
         actionViewHolder.drawable.setTint(action.getColor());
         actionViewHolder.imageView.setImageDrawable(context.getDrawable(action.getIcon()));
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {action.getColor()};
+        actionViewHolder.relativeLayout.setBackgroundTintList(new ColorStateList(all,colors));
 
         //actionViewHolder.colorImageView.setImageDrawable(actionViewHolder.drawable);
     }
@@ -71,6 +77,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         ImageView imageView, colorImageView;
         TextView textViewTittle, textViewDate, textViewTime;
         Drawable drawable;
+        RelativeLayout relativeLayout;
         public ActionViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setTag(this);
@@ -79,6 +86,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             textViewTittle = itemView.findViewById(R.id.action_name);
             textViewDate = itemView.findViewById(R.id.actions_date);
             textViewTime = itemView.findViewById(R.id.action_time);
+            relativeLayout = itemView.findViewById(R.id.actions_layout);
             drawable = colorImageView.getDrawable();
 
             itemView.setOnClickListener(new View.OnClickListener() {

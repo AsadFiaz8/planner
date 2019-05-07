@@ -1,6 +1,7 @@
 package net.eagledev.planner.Fragment;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -45,6 +46,7 @@ public class ActionsFragment extends Fragment {
     int year;
     int month;
     int day;
+    Dialog dialog;
     Formatter formatter = new Formatter();
 
     Drawable drawable;
@@ -121,31 +123,15 @@ public class ActionsFragment extends Fragment {
         day = date.get(Calendar.DAY_OF_MONTH);
 
         setupRecyclerList();
-        SetupList();
+        SetupList(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
 
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar now = Calendar.getInstance();
-                int nYear = now.get(Calendar.YEAR);
-                int nMonth = now.get(Calendar.MONTH);
-                int nDay = now.get(Calendar.DAY_OF_MONTH);
-                dpd = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
-
-                        date.set(Calendar.YEAR, mYear);
-                        date.set(Calendar.MONTH, mMonth);
-                        date.set(Calendar.DAY_OF_MONTH, mDay);
-                        btnDate.setText(formatter.Date(date));
-                        year = mYear;
-                        month = mMonth;
-                        day = mDay;
-
-                        LoadActions();
-                    }
-                },nYear, nMonth , nDay);
-                dpd.show();
+                dialog = new Dialog(context);
+                dialog.setTitle("Select Month");
+                dialog.setContentView(R.layout.dialog_set_month);
+                dialog.show();
             }
         });
         return view;
@@ -232,33 +218,14 @@ public class ActionsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void SetupList() {
-        /*
-        actionList = MainActivity.appDatabase.appDao().getActions();
-        recyclerView = (RecyclerView) view.findViewById(R.id.actions_reycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+    public void SetupList(int month, int year) {
 
-        itemClickListener = new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Action action = actionList.get(position);
-                Intent intentEdit = new Intent(context, EditActionActivity.class);
-                intentEdit.putExtra("ID", action.getID());
-                startActivityForResult(intentEdit, 1);
-            }
-        };
-        adapter = new ActionAdapter(context, actionList ,itemClickListener );
-        recyclerView.setAdapter(adapter);*/
-
-
-        //New
 
         Calendar cal = Calendar.getInstance();
         int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         for (int i = 1;i < max; i++){
 
-            actionLister.add(MainActivity.appDatabase.appDao().getActionsFromDay(i,cal.get(Calendar.MONTH),cal.get(Calendar.YEAR)));
+            actionLister.add(MainActivity.appDatabase.appDao().getActionsFromDay(i,month,year));
             recyclerList.get(i).setHasFixedSize(true);
             recyclerList.get(i).setLayoutManager(new LinearLayoutManager(context));
             final List<Action> aList = actionLister.get(i-1);
@@ -282,7 +249,7 @@ public class ActionsFragment extends Fragment {
         if (dataIntent != null) {
             String messageReturn = dataIntent.getStringExtra("message_return");
             if(messageReturn.equals("refresh")) {
-                SetupList();
+                //SetupList();
             }
         }
 

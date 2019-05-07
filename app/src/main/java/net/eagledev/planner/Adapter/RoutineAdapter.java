@@ -1,6 +1,7 @@
 package net.eagledev.planner.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.eagledev.planner.Formatter;
@@ -50,37 +52,47 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         routineViewHolder.textViewHours.setText(f.Time(routine.start())+" - "+ f.Time(routine.stop()));
         routineViewHolder.imageView.setImageDrawable(context.getDrawable(routine.getIcon()));
         routineViewHolder.drawable.setTint(routine.getColor());
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {routine.getColor()};
+        routineViewHolder.relativeLayout.setBackgroundTintList(new ColorStateList(all,colors));
 
         if (routine.isMonday()) {
-            pn = "PN  ";
+            pn = context.getString(R.string.pn);
+            pn = pn+ "  ";
         }else pn ="";
         if (routine.isTuesday()) {
-            wt = "WT  ";
+            wt = context.getString(R.string.wt);
+            wt = wt+ "  ";
         }else wt = "";
         if(routine.isWednesday()){
-            sr = "SR  ";
+            sr = context.getString(R.string.sr);
+            sr = sr+ "  ";
         }else sr="";
         if (routine.isThursday()){
-            cz = "CZ  ";
+            cz = context.getString(R.string.cz);
+            cz = cz+ "  ";
         }else cz="";
         if (routine.isFriday()) {
-            pt = "PT  ";
+            pt = context.getString(R.string.pt);
+            pt = pt+ "  ";
         }else pt="";
         if(routine.isSaturday()){
-            so = "SO  ";
+            so = context.getString(R.string.so);
+            so = so+ "  ";
         }else  so="";
         if (routine.isSunday()){
-            nd = "ND";
+            nd = context.getString(R.string.nd);
         }else nd="";
         routineViewHolder.textViewDays.setText(pn+wt+sr+cz+pt+so+nd);
         if(routine.isMonday() && routine.isTuesday() && routine.isWednesday() && routine.isThursday() && routine.isFriday() && !routine.isSaturday() && !routine.isSunday()){
-            routineViewHolder.textViewDays.setText("Dni robocze");
+            routineViewHolder.textViewDays.setText(context.getResources().getString(R.string.work_days));
         }
         if(!routine.isMonday() && !routine.isTuesday() && !routine.isWednesday() && !routine.isThursday() && !routine.isFriday() && routine.isSaturday() && routine.isSunday()){
-            routineViewHolder.textViewDays.setText("Weekendy");
+            routineViewHolder.textViewDays.setText(context.getResources().getString(R.string.weekends));
         }
         if(routine.isMonday() && routine.isTuesday() && routine.isWednesday() && routine.isThursday() && routine.isFriday() && routine.isSaturday() && routine.isSunday()){
-            routineViewHolder.textViewDays.setText("Codzinnie");
+            routineViewHolder.textViewDays.setText(context.getResources().getString(R.string.everyday));
         }
     }
 
@@ -94,6 +106,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         ImageView imageView, colorImageView;
         TextView textViewTittle, textViewHours, textViewDays;
         Drawable drawable;
+        RelativeLayout relativeLayout;
 
         public RoutineViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +116,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
             textViewHours = itemView.findViewById(R.id.routine_time);
             textViewDays = itemView.findViewById(R.id.routine_loops);
             colorImageView = itemView.findViewById(R.id.routines_color_image_view);
+            relativeLayout = itemView.findViewById(R.id.routines_layout);
             drawable = colorImageView.getDrawable();
 
             itemView.setOnClickListener(new View.OnClickListener() {

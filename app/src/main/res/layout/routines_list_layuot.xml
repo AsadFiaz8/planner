@@ -4,16 +4,17 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:elevation="8dp"
         android:translationZ="8dp"
         android:stateListAnimator="@null">
 
         <RelativeLayout
+            android:id="@+id/routines_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/routine_item_background">
+            android:background="@drawable/background_block">
 
             <ImageView
                 android:id="@+id/routines_color_image_view"
@@ -37,19 +38,21 @@
                 android:text="Nazwa rutyny"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/routines_color_image_view"
+                android:layout_alignParentBottom="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="#000000"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"/>
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="5dp"/>
 
             <TextView
                 android:id="@+id/routine_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/routine_name"
-                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/routines_color_image_view"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:text="10:00 - 18:00"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
@@ -60,11 +63,11 @@
                 android:id="@+id/routine_loops"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/routine_name"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
                 android:text="*****--"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"/>
