@@ -115,6 +115,9 @@
     <string name="pt">PT  </string>
     <string name="so">SO  </string>
     <string name="nd">ND  </string>
+    <string name="current_activity">Aktualna czynność</string>
+    <string name="select">Wybierz</string>
+    <string name="slect_month">Wybieerz misiąc</string>
 
 
 </resources>

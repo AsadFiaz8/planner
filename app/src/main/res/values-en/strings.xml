@@ -114,6 +114,9 @@
     <string name="pt">FR  </string>
     <string name="so">SA  </string>
     <string name="nd">SU</string>
+    <string name="current_activity">Current activity</string>
+    <string name="select">Select</string>
+    <string name="slect_month">Select month</string>
 
 
 </resources>

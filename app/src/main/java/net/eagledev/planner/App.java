@@ -18,7 +18,7 @@ public class App extends Application {
 
     private void createNotificationChannel() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ){
-            NotificationChannel serviceChannel = new NotificationChannel(CHANNEL_ID, "Usługa główna", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel serviceChannel = new NotificationChannel(CHANNEL_ID, getString(R.string.current_activity), NotificationManager.IMPORTANCE_DEFAULT);
 
             serviceChannel.setImportance(NotificationManager.IMPORTANCE_LOW);
             NotificationManager manager = getSystemService(NotificationManager.class);

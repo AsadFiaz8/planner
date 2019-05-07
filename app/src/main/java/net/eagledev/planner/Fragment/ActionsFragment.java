@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.NumberPicker;
 
 import net.eagledev.planner.Action;
 import net.eagledev.planner.Adapter.ActionAdapter;
@@ -48,6 +50,8 @@ public class ActionsFragment extends Fragment {
     int day;
     Dialog dialog;
     Formatter formatter = new Formatter();
+    NumberPicker monthPicker;
+    NumberPicker yearPicker;
 
     Drawable drawable;
 
@@ -122,7 +126,8 @@ public class ActionsFragment extends Fragment {
         month = date.get(Calendar.MONTH);
         day = date.get(Calendar.DAY_OF_MONTH);
 
-        setupRecyclerList();
+
+
         SetupList(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
 
         btnDate.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +136,35 @@ public class ActionsFragment extends Fragment {
                 dialog = new Dialog(context);
                 dialog.setTitle("Select Month");
                 dialog.setContentView(R.layout.dialog_set_month);
+
+                monthPicker = dialog.findViewById(R.id.month_picker);
+                yearPicker = dialog.findViewById(R.id.year_picker);
+
+                String[] displayMonth = {getString(R.string.january), getString(R.string.february), getString(R.string.march), getString(R.string.april), getString(R.string.may), getString(R.string.june), getString(R.string.july), getString(R.string.august), getString(R.string.september), getString(R.string.october), getString(R.string.november), getString(R.string.december)};
+                monthPicker.setMaxValue(11);
+                monthPicker.setMinValue(0);
+                monthPicker.setWrapSelectorWheel(false);
+                monthPicker.setValue(Calendar.getInstance().get(Calendar.MONTH));
+                monthPicker.setDisplayedValues(displayMonth);
+                monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+
+                yearPicker.setMaxValue(Calendar.getInstance().get(Calendar.YEAR)+10);
+                yearPicker.setMinValue(Calendar.getInstance().get(Calendar.YEAR)-10);
+                yearPicker.setWrapSelectorWheel(false);
+                yearPicker.setValue(Calendar.getInstance().get(Calendar.YEAR));
+                yearPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+
+                Button selectButton = dialog.findViewById(R.id.btn_select_month);
+                selectButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SetupList(monthPicker.getValue(), yearPicker.getValue());
+                        dialog.dismiss();
+                    }
+                });
+
                 dialog.show();
             }
         });
@@ -219,11 +253,12 @@ public class ActionsFragment extends Fragment {
     }
 
     public void SetupList(int month, int year) {
-
-
+        setupRecyclerList();
+        actionLister.clear();
         Calendar cal = Calendar.getInstance();
         int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         for (int i = 1;i < max; i++){
+
 
             actionLister.add(MainActivity.appDatabase.appDao().getActionsFromDay(i,month,year));
             recyclerList.get(i).setHasFixedSize(true);

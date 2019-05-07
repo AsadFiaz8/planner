@@ -43,7 +43,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "REMINDERS";
             NotificationChannel channel = new NotificationChannel(channelId,
-                    "Przypomnienia",
+                    context.getResources().getString(R.string.reminders),
                     NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
             builder.setChannelId(channelId);
