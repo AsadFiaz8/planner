@@ -392,8 +392,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDrawerSlide(@NonNull View view, float v) {
                 floatingActionsMenu.collapse();
                 if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
+                    if(!valueHolder.isPremiumUser()){
+                        Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
+                        startActivity(adPremiumIntent);
+                    }
+
                 }
             }
 
@@ -553,8 +556,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onMenuExpanded() {
                 //backgroundDimmer.setVisibility(View.VISIBLE);
                 if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
+                    if(!valueHolder.isPremiumUser()){
+                        Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
+                        startActivity(adPremiumIntent);
+                    }
                 }
                 params.height = bgH;
                 params.width = bgW;
@@ -772,8 +777,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!notify){
             todayActions= appDatabase.appDao().getActionsFromDay(currentDay(), currentMonth(), currentYear());
             if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
+                if(!valueHolder.isPremiumUser()){
+                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
+                    startActivity(adPremiumIntent);
+                }
             }
         } else {
             actionList.clear();

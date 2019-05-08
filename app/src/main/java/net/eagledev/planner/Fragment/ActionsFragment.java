@@ -28,6 +28,7 @@ import net.eagledev.planner.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -260,7 +261,32 @@ public class ActionsFragment extends Fragment {
         for (int i = 1;i < max; i++){
 
 
-            actionLister.add(MainActivity.appDatabase.appDao().getActionsFromDay(i,month,year));
+            List<Action> actions = MainActivity.appDatabase.appDao().getActionsFromDay(i,month,year);
+
+
+            List <Integer> startTimes = new ArrayList<>();
+            for(int s = 0; s<actions.size(); s++){
+                startTimes.add(actions.get(s).getStartMinutes());
+            }
+            Collections.sort(startTimes);
+            List<Action> act = new ArrayList<>();
+            for (int s = 0;  s < actions.size(); s++){
+                for(int l = 0; l<actions.size(); l++){
+                    if(startTimes.get(s) == actions.get(l).getStartMinutes()){
+                        act.add(actions.get(l));
+                    }
+                }
+
+            }
+
+
+
+
+            actionLister.add(act);
+
+
+
+
             recyclerList.get(i).setHasFixedSize(true);
             recyclerList.get(i).setLayoutManager(new LinearLayoutManager(context));
             final List<Action> aList = actionLister.get(i-1);

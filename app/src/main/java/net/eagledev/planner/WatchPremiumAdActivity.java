@@ -34,6 +34,8 @@ public class WatchPremiumAdActivity extends AppCompatActivity implements View.On
         context = getBaseContext();
         toolbarConfirm = findViewById(R.id.toolbar_confirm);
         toolbarConfirm.setVisibility(View.INVISIBLE);
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
         findViewById(R.id.btn_premium_watch_ad).setOnClickListener(this);
         findViewById(R.id.btn_premium_month).setOnClickListener(this);
