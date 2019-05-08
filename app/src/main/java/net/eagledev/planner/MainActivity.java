@@ -390,6 +390,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View view, float v) {
+
+
+
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
                 floatingActionsMenu.collapse();
                 if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
                     if(!valueHolder.isPremiumUser()){
@@ -398,12 +406,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
 
                 }
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View view) {
-
-
             }
 
             @Override

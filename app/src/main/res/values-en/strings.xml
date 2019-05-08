@@ -117,6 +117,7 @@
     <string name="current_activity">Current activity</string>
     <string name="select">Select</string>
     <string name="slect_month">Select month</string>
+    <string name="select_month">Select month</string>
 
 
 </resources>
