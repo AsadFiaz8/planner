@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,7 +52,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     Calendar date_stop;
     Formatter f = new Formatter();
 
-    Button btn_select_icon;
+    ImageView btn_select_icon;
     Button btn_date;
     int aDay;
     int aMonth;
@@ -81,9 +82,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_action);
-        btn_select_icon = (Button) findViewById(R.id.btn_select_icon);
+        btn_select_icon = findViewById(R.id.icon_view);
         btn_select_icon.setOnClickListener(this);
-        findViewById(R.id.btn_select_color).setOnClickListener(this);
+        //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.input_action_name);
         findViewById(R.id.btn_date_left).setOnClickListener(this);
         findViewById(R.id.btn_date_right).setOnClickListener(this);
@@ -97,7 +98,12 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         imageConfirm = findViewById(R.id.toolbar_confirm);
         imageConfirm.setOnClickListener(this);
         imageColor = findViewById(R.id.color_view);
-        imageColor.setBackgroundColor(MainActivity.colors[0]);
+        imageColor.setOnClickListener(this);
+        //imageColor.setBackgroundColor(MainActivity.colors[0]);
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {MainActivity.colors[0]};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
 
         startHourPicker = findViewById(R.id.start_hour_picker);
         startMinutePicker = findViewById(R.id.start_minute_picker);
@@ -108,15 +114,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
         paramsLinear = dateLinearLayout.getLayoutParams();
         paramsRelative =  dateRelativeLayout.getLayoutParams();
-
-
-
-
-
         SetupDate();
-
-
-
     }
 
     @Override
@@ -149,7 +147,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     private void clickColor(int id) {
         switch (id) {
 
-            case R.id.btn_select_color:
+            case R.id.color_view:
                 d2 = new Dialog(AddActionAtivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
@@ -214,32 +212,32 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
             case R.id.color_button0:
                 colorID = MainActivity.colors[0];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button1:
                 colorID = MainActivity.colors[1];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button2:
                 colorID = MainActivity.colors[2];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button3:
                 colorID = MainActivity.colors[3];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button4:
                 colorID = MainActivity.colors[4];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button5:
                 colorID = MainActivity.colors[5];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
 
@@ -424,7 +422,11 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     private void setPremiumColor() {
         if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
             colorID = MainActivity.colors[premiumColor];
-            imageColor.setBackgroundColor(colorID);
+            int[] ints = {0};
+            int[][] all = {ints};
+            int[] colors = {colorID};
+            imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+            //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
             if (MainActivity.valueHolder.getAdsPremium()){
@@ -438,9 +440,16 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         }
     }
 
+    private void setColor() {
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {colorID};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+    }
+
     private void clickIcon(int id) {
         switch (id){
-            case R.id.btn_select_icon:
+            case R.id.icon_view:
                 d1 = new Dialog(AddActionAtivity.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);

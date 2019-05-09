@@ -1093,6 +1093,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         serviceIntent.putExtra("tittle", getResources().getString(R.string.no_scheduled_activity));
         serviceIntent.putExtra("text",getResources().getString(R.string.add_now));
         startService(serviceIntent);
+
     }
 
     public void setServiceText() {

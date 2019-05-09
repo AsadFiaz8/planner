@@ -7,8 +7,8 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="start_hour">Godzina rozpoczęcia</string>
-    <string name="stop_hour">Godzina zakończenia</string>
+    <string name="start_hour">Rozpoczęcie</string>
+    <string name="stop_hour">Zakończenie</string>
     <string name="select_icon">Wybierz ikonę</string>
     <string name="name">Nazwa</string>
     <string name="hour">Godzina</string>

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         Calendar date_start;
         Calendar date_stop;
 
-        Button btn_select_icon;
+        ImageView btn_select_icon;
         Button btn_date;
         int aDay;
         int aMonth;
@@ -102,8 +103,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             date_stop =  Calendar.getInstance();
             setIcon();
             checker = new Checker();
-            setColor();
-            //SetupWindow();
             SetValues();
             SetupDate();
             setListeners();
@@ -113,7 +112,10 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             imageIcon = findViewById(R.id.icon_view);
             imageIcon.setImageDrawable(getDrawable(iconID));
             imageColor = findViewById(R.id.color_view);
-            imageColor.setBackgroundColor(colorID);
+            int[] ints = {0};
+            int[][] all = {ints};
+            int[] colors = {colorID};
+            imageColor.setBackgroundTintList(new ColorStateList(all,colors));
         }
 
         private void SetValues() {
@@ -123,7 +125,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             if(bundle!=null) {
                 actionID = (int) bundle.get("ID");
                 selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
-                findViewById(R.id.btn_select_color).setOnClickListener(this);
+                findViewById(R.id.color_view).setOnClickListener(this);
                 desc = selectedAction.getDesc();
                 year = selectedAction.getStart_year();
                 month = selectedAction.getStart_month();
@@ -274,8 +276,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 }
             });
             btn_date.setText(f.DateText(date_start));
-            dateActionStartButton.setText("Godzina: " +  f.z(startHour) + ":" + f.z(startMinute) );
-            dateActionStopButton.setText("Godzina: " +  f.z(stopHour) + ":" + f.z(stopMinute) );
+            dateActionStartButton.setText(f.z(startHour) + ":" + f.z(startMinute) );
+            dateActionStopButton.setText(f.z(stopHour) + ":" + f.z(stopMinute) );
         }
 
 
@@ -305,13 +307,10 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         }
 
         private void setIcon() {
-            btn_select_icon = (Button) findViewById(R.id.btn_select_icon);
+            btn_select_icon = (ImageView) findViewById(R.id.icon_view);
             btn_select_icon.setOnClickListener(this);
         }
 
-        private void setColor() {
-
-        }
 
         private void setListeners() {
 
@@ -357,14 +356,14 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 btn_date.setText(f.Date(date_start));
                 break;
         }
-        imageColor.setBackgroundColor(colorID);
+
 
     }
 
     private void clickColor(int id) {
         switch (id) {
 
-            case R.id.btn_select_color:
+            case R.id.color_view:
                 d2 = new Dialog(EditActionActivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
@@ -429,32 +428,37 @@ public class EditActionActivity extends Activity implements View.OnClickListener
 
             case R.id.color_button0:
                 colorID = MainActivity.colors[0];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
+
                 d2.dismiss();
                 break;
             case R.id.color_button1:
                 colorID = MainActivity.colors[1];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
+
                 d2.dismiss();
                 break;
             case R.id.color_button2:
                 colorID = MainActivity.colors[2];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
+
                 d2.dismiss();
                 break;
             case R.id.color_button3:
                 colorID = MainActivity.colors[3];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
+
                 d2.dismiss();
                 break;
             case R.id.color_button4:
                 colorID = MainActivity.colors[4];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
+
                 d2.dismiss();
                 break;
             case R.id.color_button5:
                 colorID = MainActivity.colors[5];
-                imageColor.setBackgroundColor(colorID);
+                setColor();
                 d2.dismiss();
                 break;
 
@@ -639,7 +643,10 @@ public class EditActionActivity extends Activity implements View.OnClickListener
     private void setPremiumColor() {
         if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
             colorID = MainActivity.colors[premiumColor];
-            imageColor.setBackgroundColor(colorID);
+            int[] ints = {0};
+            int[][] all = {ints};
+            int[] colors = {colorID};
+            imageColor.setBackgroundTintList(new ColorStateList(all,colors));
             d2.dismiss();
         } else {
             if (MainActivity.valueHolder.getAdsPremium()){
@@ -653,9 +660,16 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         }
     }
 
+    private void setColor() {
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {colorID};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+    }
+
     private void clickIcon(int id) {
         switch (id){
-            case R.id.btn_select_icon:
+            case R.id.icon_view:
                 d1 = new Dialog(EditActionActivity.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);
