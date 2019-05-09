@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "533407481588",
+    "firebase_url": "https://dege-planner.firebaseio.com",
+    "project_id": "dege-planner",
+    "storage_bucket": "dege-planner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533407481588:android:80253c58e40e2e78",
+        "android_client_info": {
+          "package_name": "net.degeapps.planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533407481588-vuq57l4u8ev88k42lvfv719tk6oj1r4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.degeapps.planner",
+            "certificate_hash": "a70e37996f376e8339dedde98a81b9f06708ebd5"
+          }
+        },
+        {
+          "client_id": "533407481588-3lnimtsoiq8m5m46luf394i9a89h5i97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB93KWvasV6us16g1Uozcutr5nI4gPyCiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533407481588-3lnimtsoiq8m5m46luf394i9a89h5i97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
