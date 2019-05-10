@@ -51,13 +51,14 @@
 
                 <ImageButton
                     android:id="@+id/btn_date_left"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="@dimen/button_height"
                     android:src="@drawable/common060"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     style="@style/AppTheme.Button"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/button"
+                    android:background="@drawable/btn_round"
                     android:layout_alignParentLeft="true"
                     android:elevation="0dp"
                     android:translationZ="0dp"
@@ -70,20 +71,21 @@
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
                     style="@style/AppTheme.Button"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/button"
                     android:elevation="5dp"
                     android:translationZ="5dp"/>
 
                 <ImageButton
                     android:id="@+id/btn_date_right"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="@dimen/button_height"
                     android:src="@drawable/common06"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     style="@style/AppTheme.Button"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/button"
                     android:layout_alignParentRight="true"
+                    android:background="@drawable/btn_round"
                     android:translationZ="0dp"
                     android:elevation="0dp"
                     android:tint="@color/white"/>
@@ -105,7 +107,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
-
                         <Button
                             android:id="@+id/input_action_date_start"
                             style="@style/AppTheme.Button"
@@ -115,13 +116,11 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:backgroundTint="@color/colorAccent"
                             android:text="@string/start_hour" />
 
                         <Button
                             android:id="@+id/input_action_date_stop"
                             style="@style/AppTheme.Button"
-                            android:backgroundTint="@color/colorAccent"
                             android:layout_width="130dp"
                             android:layout_height="@dimen/button_height"
                             android:layout_alignParentTop="true"
@@ -194,34 +193,65 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginRight="15dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_icon"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:id="@+id/icon_view"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        style="@style/AppTheme.Button"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/city18"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:padding="10dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/button"
+                        />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/icon_view"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/city18"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:padding="10dp"
-                    android:background="@drawable/btn_round"
-                    android:backgroundTint="@color/colorAccent"
-                    />
-
-                <ImageView
-                    android:id="@+id/color_view"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/btn_round"
-                    android:backgroundTint="@color/pie0"
-                    />
-
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_color"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:id="@+id/color_view"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        style="@style/AppTheme.Button"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/btn_round"
+                        android:backgroundTint="@color/pie0"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -85,7 +86,10 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         imageColor = findViewById(R.id.color_view);
         icon = MainActivity.icons[0];
         color = MainActivity.colors[0];
-        imageColor.setBackgroundColor(color);
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {color};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
 
     }
 
@@ -96,11 +100,11 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         btnStartHour.setOnClickListener(this);
         btnStopHour = findViewById(R.id.input_routine_stop);
         btnStopHour.setOnClickListener(this);
-        btnSelectIcon = findViewById(R.id.btn_select_icon);
-        btnSelectIcon.setOnClickListener(this);
+        findViewById(R.id.icon_view).setOnClickListener(this);
+        //btnSelectIcon.setOnClickListener(this);
         imageCancel = findViewById(R.id.toolbar_cancel);
         imageCancel.setOnClickListener(this);
-        findViewById(R.id.btn_select_color).setOnClickListener(this);
+        findViewById(R.id.color_view).setOnClickListener(this);
 
     }
 
@@ -281,7 +285,6 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
 
         }
         imageIcon.setImageDrawable(getDrawable(icon));
-        imageColor.setBackgroundColor(color);
     }
 
     private void confirm() {
@@ -359,7 +362,7 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
     private void clickColor(int id) {
         switch (id) {
 
-            case R.id.btn_select_color:
+            case R.id.color_view:
                 d2 = new Dialog(AddRoutine.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
@@ -424,32 +427,32 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
 
             case R.id.color_button0:
                 color = MainActivity.colors[0];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button1:
                 color = MainActivity.colors[1];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button2:
                 color = MainActivity.colors[2];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button3:
                 color = MainActivity.colors[3];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button4:
                 color = MainActivity.colors[4];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button5:
                 color = MainActivity.colors[5];
-                imageColor.setBackgroundColor(color);
+                setColor();
                 d2.dismiss();
                 break;
 
@@ -634,7 +637,11 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
     private void setPremiumColor() {
         if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
             color = MainActivity.colors[premiumColor];
-            imageColor.setBackgroundColor(color);
+            //imageColor.setBackgroundColor(color);
+            int[] ints = {0};
+            int[][] all = {ints};
+            int[] colors = {color};
+            imageColor.setBackgroundTintList(new ColorStateList(all,colors));
             d2.dismiss();
         } else {
             if (MainActivity.valueHolder.getAdsPremium()){
@@ -648,9 +655,16 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         }
     }
 
+    private void setColor() {
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {color};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+    }
+
     private void clickIcon(int id) {
         switch (id){
-            case R.id.btn_select_icon:
+            case R.id.icon_view:
                 d1 = new Dialog(AddRoutine.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);
