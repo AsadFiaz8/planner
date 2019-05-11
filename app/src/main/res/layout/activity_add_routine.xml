@@ -36,7 +36,7 @@
                 android:layout_marginTop="17dp"
                 android:ems="10"
                 android:hint="@string/name"
-                android:inputType="text" />
+                android:inputType="textCapSentences"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

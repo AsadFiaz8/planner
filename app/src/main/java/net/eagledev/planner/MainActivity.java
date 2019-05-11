@@ -10,7 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -633,7 +635,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
                         } else {
                             //Czas trwania mniejszy niż 90 minut
-                            pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+
+                            //Drawable d = getDrawable(currentAction.getIcon());
+                            if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(currentAction.getIcon(),50)));
+                            } else {
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+                            }
                         }
 
                         pieColors.add(currentAction.getColor());
@@ -644,7 +652,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
                         } else {
                             //Czas trwania mniejszy niż 90 minut
-                            pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+                            if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(currentAction.getIcon(),50)));
+                            } else {
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+                            }
                         }
                         pieColors.add(currentAction.getColor());
                         t=currentAction.getStopMinutes();
@@ -1142,6 +1154,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    private Drawable scaleDrawable(int drawable, int scale){
+        Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(drawable)).getBitmap();
+        return new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, scale, scale, true));
     }
 
 
