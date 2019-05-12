@@ -5,7 +5,10 @@ import android.animation.ObjectAnimator;
 import android.app.AlarmManager;
 import android.app.FragmentManager;
 import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.arch.persistence.room.Room;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -166,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(valueHolder.isMainNotification()) {
             startService();
         }
+        scheduleJob();
         startService(new Intent(this, BackgroundService.class));
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
         //setNotifications();
@@ -175,6 +179,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //--------------------------------------------------------
     }
+
+    private void scheduleJob(){
+
+        ComponentName componentName = new ComponentName(this,NotificationJobService.class);
+        JobInfo jobInfo = new JobInfo.Builder(1, componentName)
+                .setRequiresCharging(false)
+                .setPersisted(true)
+                .setOverrideDeadline(1000)
+                .build();
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = jobScheduler.schedule(jobInfo);
+        if(resultCode == JobScheduler.RESULT_SUCCESS){
+            Log.d("JobScheduler ", "Job Scheduled");
+        } else {
+            Log.d("JobScheduler ", "Job scheduling failed");
+        }
+    }
+
+    private void cancelJob(View view){
+
+        JobScheduler jobScheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+        jobScheduler.cancel(1);
+        Log.d("JobScheduler ", "Job cancelled");
+
+    }
+
 
     private void setOthers() {
         clockOut = AnimationUtils.loadAnimation(this, R.anim.clock_out);

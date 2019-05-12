@@ -3,6 +3,7 @@
     package="net.eagledev.planner">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -12,11 +13,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <service
+            android:name="net.degeapps.planner.FirebaseMessages"
+            android:enabled="true"
+            android:exported="true"></service>
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-6069706356094406~2925415895"/>
-        <activity android:name=".WatchPremiumAdActivity"></activity>
+            android:value="ca-app-pub-6069706356094406~2925415895" />
+
+        <activity android:name=".WatchPremiumAdActivity" />
         <activity android:name=".BuyPremiumActivity" />
         <activity
             android:name=".SelectColor"
@@ -68,9 +74,10 @@
         <service
             android:name=".BackgroundService"
             android:exported="false" />
-
-
         <service android:name=".NotificationService" />
+        <service
+            android:name=".NotificationJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

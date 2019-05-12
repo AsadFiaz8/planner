@@ -40,7 +40,23 @@ public class WatchPremiumAdActivity extends AppCompatActivity implements View.On
         findViewById(R.id.btn_premium_watch_ad).setOnClickListener(this);
         findViewById(R.id.btn_premium_month).setOnClickListener(this);
         findViewById(R.id.btn_premium_year).setOnClickListener(this);
-        bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
+        if(MainActivity.valueHolder != null){
+            bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
+        }
+        else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000*5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
+            bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
+        }
         bp.initialize();
         MobileAds.initialize(this, "ca-app-pub-6069706356094406~2925415895");
         loadRewardedVideoAd();
