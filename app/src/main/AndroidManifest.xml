@@ -64,7 +64,7 @@
 
         <receiver
             android:name=".AlarmReceiver"
-            android:screenOrientation="sensorPortrait" />
+             />
 
         <activity
             android:name=".Activity.AddRoutine"

@@ -160,14 +160,14 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("TEXT", name);
 
             // getBroadcast(context, requestCode, intent, flags)
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(AddReminder.this, 0,
-                    intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(AddReminder.this, 0, intent, 0);
 
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             long alarmStartTime = date.getTimeInMillis();
 
-            alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
+            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            //alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
             finish();
         } else {
