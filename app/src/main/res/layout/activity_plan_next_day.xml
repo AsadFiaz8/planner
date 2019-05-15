@@ -1,9 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.eagledev.planner.PlanNextDayActivity">
+    tools:context="net.eagledev.planner.PlanNextDayActivity"
+    android:orientation="vertical"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <RelativeLayout
+            android:layout_width="@dimen/clock"
+            android:layout_height="@dimen/clock"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/clock_hours"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pndChartBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"
+                android:visibility="visible">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pndChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"
+                >
+
+            </com.github.mikephil.charting.charts.PieChart>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+
+        <EditText
+            android:id="@+id/pndTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+
+            />
+
+        <Button
+            android:id="@+id/pndStartHour"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pndTittle"
+            android:text="@string/start_hour"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"/>
+
+        <Button
+            android:id="@+id/pndStopHour"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_hour"
+            android:layout_below="@id/pndTittle"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"/>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
