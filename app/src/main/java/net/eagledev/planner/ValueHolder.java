@@ -22,13 +22,15 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     Checker checker = new Checker();
     public String licence_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgiu1qd45rq20wP3/5taqJ/LTpJFp7S+tllkgtJU3nkM1HJgGU0EHQRXw0JUgSAv8mM2vcCuiKopf5MiASCW3AVeD7FUeRPpKqjOJEmABEJPhFrmtpb8eyHd75DhCP9bgscVHeRe7ljrSqepnDDhq5Xh76tcXqXhzcITVZYQH/l/Vy+3zZ8zvTl28JtZ2Lcg3l3+I9k/uI7kLelWW63o5nRBX5dg68KiqN71kj83RyYxgcXMzkt7aCAAyo+aCMqsRPwOeTEjCH2NjUTdBaVrNPEp9B4OasOpx/FErBTiCaAhfmTd1DX6/knT3Q4N9+Al5lOCOjww59J4Zre921PEc8QIDAQAB";
 
-    BillingProcessor bp;
+    BillingHolder billingHolder;
+    //BillingProcessor bp;
 
     ValueHolder() {
         editor = MainActivity.pref.edit();
 
-        bp = new BillingProcessor(MainActivity.context, licence_key, this);
-        bp.initialize();
+        //billingHolder = new BillingHolder();
+        //bp = new BillingProcessor(MainActivity.context, licence_key, this);
+        //bp.initialize();
 
 
 
@@ -37,39 +39,25 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
 
 
     public boolean isPremiumUser() {
-        boolean purchaseResult = bp.loadOwnedPurchasesFromGoogle();
-        if(purchaseResult){
-            boolean isAvailable = BillingProcessor.isIabServiceAvailable(MainActivity.context);
-            if(!isAvailable) {
+        billingHolder = new BillingHolder();
+        if(billingHolder.isPremium()){
+            //User is still subscribed
+            editor.putBoolean("premium_user", true);
+            editor.commit();
+            billingHolder = null;
+            return true;
+        } else {
+            if (!billingHolder.isBillingAvailable()){
+                billingHolder = null;
                 return MainActivity.pref.getBoolean("premium_user", false);
-            }
-            TransactionDetails subscriptionTransactionDetails = bp.getSubscriptionTransactionDetails("premium_month");
-            if(subscriptionTransactionDetails!=null) {
-                editor.putBoolean("premium_user", true);
-                editor.commit();
-
-                //User is still subscribed
-                return true;
             } else {
-                //Not subscribed
                 editor.putBoolean("premium_user", false);
                 editor.commit();
-            }
-            subscriptionTransactionDetails = bp.getSubscriptionTransactionDetails("premium_year");
-            if(subscriptionTransactionDetails!=null) {
-                editor.putBoolean("premium_user", true);
-                editor.commit();
-                //User is still subscribed
-                return true;
-            } else {
-                //Not subscribed
-                editor.putBoolean("premium_user", false);
-                editor.commit();
+                billingHolder = null;
+                return false;
             }
         }
-        editor.putBoolean("premium_user", false);
-        editor.commit();
-        return false;
+
     }
 
     public void setPremiumUser(boolean premiumUser) {

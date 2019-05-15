@@ -13,11 +13,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <activity android:name=".PlanNextDayActivity"></activity>
+
         <service
             android:name="net.degeapps.planner.FirebaseMessages"
             android:enabled="true"
-            android:exported="true"></service>
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:exported="true" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6069706356094406~2925415895" />
@@ -62,9 +63,7 @@
             android:name=".Activity.AddReminder"
             android:screenOrientation="sensorPortrait" />
 
-        <receiver
-            android:name=".AlarmReceiver"
-             />
+        <receiver android:name=".AlarmReceiver" />
 
         <activity
             android:name=".Activity.AddRoutine"

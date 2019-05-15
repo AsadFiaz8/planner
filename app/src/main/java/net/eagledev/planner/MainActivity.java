@@ -475,13 +475,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
 
 // setRepeating() lets you specify a precise custom interval--in this case,
 // 20 minutes.
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, alarmIntent);
+                1000 * 60 * 60 * 24, alarmIntent);
         //alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), time, alarmIntent);
         //alarm.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),alarmIntent);
 

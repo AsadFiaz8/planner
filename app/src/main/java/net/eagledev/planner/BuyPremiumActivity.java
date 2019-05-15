@@ -21,6 +21,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GooglePlayServicesUtilLight;
 
 import java.util.Calendar;
 import java.util.List;
@@ -44,6 +47,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
+
         toolbarConfirm = findViewById(R.id.toolbar_confirm);
         toolbarConfirm.setVisibility(View.INVISIBLE);
         featuresTextView=findViewById(R.id.text_premium_features);
@@ -101,6 +105,10 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId())
         {
             case R.id.toolbar_cancel:
+                if (bp != null) {
+                    bp.release();
+                }
+
                 finish();
                 break;
             case R.id.btn_premium_month:
@@ -159,6 +167,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         if (bp != null) {
             bp.release();
         }
+
         super.onDestroy();
     }
 
@@ -210,5 +219,15 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     private void loadRewardedVideoAd() {
         mRewardedVideoAd.loadAd("ca-app-pub-6069706356094406/5168435855",
                 new AdRequest.Builder().build());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (bp != null) {
+            bp.release();
+        }
+        bp = null;
+        finish();
     }
 }

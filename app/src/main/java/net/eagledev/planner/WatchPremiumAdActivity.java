@@ -166,6 +166,7 @@ public class WatchPremiumAdActivity extends AppCompatActivity implements View.On
     public void onRewardedVideoCompleted() {
         MainActivity.valueHolder.setAdsPremium(true);
         MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
+        finish();
     }
 
     private void loadRewardedVideoAd() {
