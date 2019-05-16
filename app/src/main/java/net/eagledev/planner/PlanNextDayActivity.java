@@ -5,25 +5,45 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class PlanNextDayActivity extends AppCompatActivity implements View.OnClickListener {
 
     Calendar c;
 
     TimePickerDialog tpd;
-    Button dateActionStartButton;
-    Button dateActionStopButton;
+    Button btnStart;
+    Button btnStop;
+    Drawable d;
 
     int iconID;
     int premiumIcon;
@@ -37,6 +57,8 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
 
     ImageView btn_select_icon;
 
+    int hour = 0;
+    int minute = 0;
     int aDay;
     int aMonth;
     int aYear;
@@ -45,18 +67,29 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     ImageView imageColor;
     Dialog d1;
     Dialog d2;
+    List<Action> ac = new ArrayList<Action>();
+    List<Integer> startRoutinesTime = new ArrayList<>();
+    List<Integer> stopRoutinesTime = new ArrayList<>();
+    public String emptyLabel = "432534253425345435345342532453425";
+    int grayValue = 100;
+    PieChart chart;
+    int colorGray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_next_day);
-
+        colorGray = Color.argb(200, grayValue, grayValue, grayValue);
         btn_select_icon = findViewById(R.id.icon_view);
         btn_select_icon.setOnClickListener(this);
         //findViewById(R.id.color_view).setOnClickListener(this);
-        textView = findViewById(R.id.input_action_name);
+        textView = findViewById(R.id.pndTittle);
 
-
+        btnStart = findViewById(R.id.pndStartHour);
+        btnStart.setOnClickListener(this);
+        btnStop = findViewById(R.id.pndStopHour);
+        btnStop.setOnClickListener(this);
+        findViewById(R.id.pndAdd).setOnClickListener(this);
         imageIcon = findViewById(R.id.icon_view);
         date_start = Calendar.getInstance();
         date_stop = Calendar.getInstance();
@@ -70,13 +103,313 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
 
 
+
     }
 
     @Override
     public void onClick(View v) {
         clickIcon(v.getId());
         clickColor(v.getId());
+
+        switch (v.getId()){
+
+            case R.id.pndAdd:
+                confirm();
+                break;
+            case R.id.pndStartHour:
+
+                tpd = new TimePickerDialog(PlanNextDayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                        date_start.set(Calendar.HOUR_OF_DAY, mHour);
+                        date_start.set(Calendar.MINUTE, mMinute);
+                        btnStart.setText(f.Time(date_start) );
+                    }
+                }, hour, minute, true);
+                tpd.show();
+            break;
+            case R.id.pndStopHour:
+                tpd = new TimePickerDialog(PlanNextDayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+
+                        if(mHour == 0 && mMinute == 0) {
+                            date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                            date_stop.set(Calendar.MINUTE, 59);
+                        } else {
+                            date_stop.set(Calendar.HOUR_OF_DAY, mHour);
+                            date_stop.set(Calendar.MINUTE, mMinute);
+                        }
+                        btnStop.setText(f.Time(date_stop));
+                        hour = mHour;
+                        minute = mMinute;
+                    }
+                }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
+                tpd.show();
+
+                break;
+        }
+
     }
+
+
+    private void confirm() {
+        Checker checker = new Checker();
+
+
+        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+            if(checker.Before(date_start,date_stop)) {
+                checked = true;
+            }
+            else {
+                Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+            }
+        }
+        else {
+            if(checker.DateTimeInFuture(date_start)) {
+                if(checker.DateTimeInFuture(date_stop)) {
+                    if(checker.Before(date_start,date_stop)) {
+                        checked = true;
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.stop_date_in_future, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.start_date_in_future, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+        if(checked) {
+
+            List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
+            int actionsCount = actionsFromDay.size();
+            Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
+
+            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+                //Spełnia warunki lub jest premium lub premium reklamowe
+                CreateAction();
+            } else {
+                if(MainActivity.valueHolder.getAdsPremium()){
+                    //Premium reklamowe wygasło
+                    Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
+                    startActivity(adPremiumIntent);
+                }
+                //Brak premium
+                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
+                premiumIntent.putExtra("messageID", 2);
+                startActivity(premiumIntent);
+            }
+
+
+
+        }
+    }
+
+    private void CreateAction() {
+        int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
+        Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().addAction(newAction);
+        hour = date_stop.get(Calendar.HOUR_OF_DAY);
+        minute = date_stop.get(Calendar.MINUTE);
+        //Odśwież wykres
+
+
+
+        date_start = date_stop;
+        btnStart.setText(f.Time(date_start) );
+        colorID = MainActivity.colors[0];
+        iconID = MainActivity.icons[0];
+        setColor();
+        imageIcon.setImageDrawable(getDrawable(iconID));
+        textView.setText("");
+
+    }
+
+    private void setupPieChart() {
+        final List<PieEntry> pieEntries = new ArrayList<>();
+        List<Integer> pieColors = new ArrayList<>();
+        int t = 0;
+        boolean isRoutine = false;
+
+        if(ac.size() > 0) {
+            Action currentAction = ac.get(0);
+            int currentActionNumber = 0;
+            int actionTime = 24*60;
+            //Powtarzaj dopki czas nie osiągie 24h
+            while(t<24*60) {
+                if(!ac.isEmpty()) {
+                    for (int i = 0; i<ac.size(); i++) {
+                        if (actionTime > ac.get(i).getStartMinutes()) {
+                            actionTime = ac.get(i).getStartMinutes();
+                            currentAction = ac.get(i);
+                            currentActionNumber = i;
+                        }
+                    } ac.remove(currentActionNumber);
+                    isRoutine = false;
+                    //Sprawdzanie akcja czy rutyna
+                    if(startRoutinesTime.size() > 0) {
+                        for (int r = 0; startRoutinesTime.size()>r ; r++) {
+                            if (startRoutinesTime.get(r) == currentAction.getStartMinutes() && stopRoutinesTime.get(r) == currentAction.getStopMinutes()){
+                                isRoutine = true;
+                            }
+                        }
+                    }
+                    String acID = String.valueOf(currentAction.getID());
+                    if(isRoutine) {
+                        acID="r"+String.valueOf(currentAction.getID());
+                    }
+                    if(currentAction.getStartMinutes() > t) {
+                        pieEntries.add(new PieEntry(currentAction.getStartMinutes()-t,emptyLabel));
+                        pieColors.add(colorGray);
+                        if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>90){
+                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
+                        } else {
+                            //Czas trwania mniejszy niż 90 minut
+
+                            //Drawable d = getDrawable(currentAction.getIcon());
+                            if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, f.scaleDrawable(currentAction.getIcon(),50)));
+                            } else {
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+                            }
+                        }
+
+                        pieColors.add(currentAction.getColor());
+                        t=currentAction.getStopMinutes();
+                        actionTime = 24*60;
+                    } else {
+                        if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>90){
+                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
+                        } else {
+                            //Czas trwania mniejszy niż 90 minut
+                            if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, f.scaleDrawable(currentAction.getIcon(),50)));
+                            } else {
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
+                            }
+                        }
+
+                        pieColors.add(currentAction.getColor());
+                        t=currentAction.getStopMinutes();
+                        actionTime = 24*60;
+                    }
+                } else {
+                    pieEntries.add(new PieEntry(24*60-t, emptyLabel));
+                    pieColors.add(colorGray);
+                    t=24*60;
+                }
+            }
+        }
+        else {
+            pieEntries.add(new PieEntry(24*60,emptyLabel));
+            pieColors.add(colorGray);
+            t=24*60;
+        }
+        PieDataSet dataSet = new PieDataSet(pieEntries, "Test");
+        int color[] = new int[pieColors.size()];
+        for (int i = 0; i<pieColors.size(); i++) {
+            color[i] = pieColors.get(i);
+        }
+        dataSet.setColors(color);
+        dataSet.setValueTextSize(0);
+        dataSet.setSliceSpace(2);
+        PieData data = new PieData(dataSet);
+        //Get the chart
+        chart = (PieChart) findViewById(R.id.chart);
+        chart.setHighlightPerTapEnabled(true);
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                // pobieranie actions z danego dnia
+                //sprawdzanie czy nazwa oraz długość akcji w minutach są takie same jak pie entry
+                PieEntry pe = (PieEntry) e;
+                String s = pe.getLabel();
+
+                if(!s.equals(emptyLabel)){
+                    if(s.charAt(0)=='r') {
+                        s = s.replaceFirst("r","");
+                        Routine selectedRoutine = MainActivity.appDatabase.appDao().idRoutine(Integer.parseInt(s));
+                        selectedID = Integer.parseInt(s);
+                        actionTimeText.setText(f.Time(selectedRoutine.start())+"\n"+f.Time(selectedRoutine.stop()));
+                        actionTimeText.setVisibility(View.VISIBLE);
+                        actionInfoText.setText(selectedRoutine.getName());
+                        actionInfoText.setVisibility(View.VISIBLE);
+                        btnEditRoutine.setVisibility(View.VISIBLE);
+                        btnEdit.setVisibility(View.INVISIBLE);
+
+                    } else {
+                        Action selectedAction = appDatabase.appDao().idAction(Integer.parseInt(s));
+                        selectedID = Integer.parseInt(s);
+                        actionTimeText.setText(f.Time(selectedAction.getStart())+"\n"+f.Time(selectedAction.getStop()));
+                        actionTimeText.setVisibility(View.VISIBLE);
+                        actionInfoText.setText(selectedAction.getDesc());
+                        actionInfoText.setVisibility(View.VISIBLE);
+                        btnEdit.setVisibility(View.VISIBLE);
+                        btnEditRoutine.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    actionInfo.setText(showDate);
+                    HideButtons();
+                    btn_new_action.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onNothingSelected() {
+                actionInfo.setText(showDate);
+                HideButtons();
+            }
+        });
+        chart.setDragDecelerationEnabled(false);
+        chart.setRotationEnabled(false);
+        chart.setDrawSliceText(false);
+        chart.setData(data);
+        chart.animateY(0);
+        chart.setTransparentCircleRadius(0f);
+        Description desc = new Description();
+        desc.setText("");
+        chart.setDescription(desc);
+        chart.invalidate();
+        Legend legend = chart.getLegend();
+        legend.setEnabled(false);
+
+        //Setup clock
+        clockArrow = findViewById(R.id.clock);
+        actionInfo = findViewById(R.id.action_info);
+        actionInfo.setText(showDate);
+    }
+
+    private void setupPieChartBackground() {
+        List<PieEntry> pieEntries = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            pieEntries.add(new PieEntry(60));
+        }
+        PieDataSet dataSet = new PieDataSet(pieEntries, "");
+        int c = 100;
+        dataSet.setColor(Color.argb(255, c, c, c));
+        dataSet.setValueTextSize(0);
+        dataSet.setSliceSpace(2);
+        PieData data = new PieData(dataSet);
+        //Get the chart
+        PieChart bgchart = (PieChart) findViewById(R.id.chartBg);
+        bgchart.setDragDecelerationEnabled(false);
+        bgchart.setDrawSliceText(false);
+        bgchart.setData(data);
+        bgchart.animateY(0);
+        bgchart.setRotationEnabled(false);
+        bgchart.setTransparentCircleRadius(0f);
+        bgchart.setCenterText("Test");
+        Description desc = new Description();
+        desc.setText("");
+        bgchart.setDescription(desc);
+        bgchart.invalidate();
+        Legend legend = bgchart.getLegend();
+        legend.setEnabled(false);
+    }
+
 
     private void clickColor(int id) {
         switch (id) {

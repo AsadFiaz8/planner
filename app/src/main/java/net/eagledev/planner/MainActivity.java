@@ -207,13 +207,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     private void setOthers() {
         clockOut = AnimationUtils.loadAnimation(this, R.anim.clock_out);
         clockIn = AnimationUtils.loadAnimation(this, R.anim.clock_in);
         clockLayout = findViewById(R.id.clock_layout);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -342,7 +340,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
 
     private void setupBars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -693,6 +690,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
                         }
+
+
 
                         pieColors.add(currentAction.getColor());
                         t=currentAction.getStopMinutes();

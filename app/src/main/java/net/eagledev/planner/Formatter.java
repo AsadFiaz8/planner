@@ -1,5 +1,7 @@
 package net.eagledev.planner;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Calendar;
 
 public final class Formatter {
@@ -163,6 +165,12 @@ public final class Formatter {
         }
         return month;
     }
+
+    public Drawable scaleDrawable(Drawable drawable, int scale){
+        return scaleDrawable(drawable, scale);
+
+    }
+
 
     private String s (int i) {
         return MainActivity.context.getResources().getString(i);
