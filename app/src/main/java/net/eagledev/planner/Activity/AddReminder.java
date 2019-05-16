@@ -4,6 +4,10 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +38,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
     Button dateButton;
     Button timeButton;
     EditText nameText;
+    Context context;
 
     DatePickerDialog dpd;
     TimePickerDialog tpd;
@@ -41,6 +46,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
     String name;
     Calendar date = Calendar.getInstance();
+    public static final int MY_NOTIFICATION_JOB = 0;
 
 
     private int sDay;
@@ -60,6 +66,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
         setButtons();
         date = Calendar.getInstance();
         dateButton.setText(f.DateText(date));
+        context = this;
 
     }
 
@@ -164,15 +171,28 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-            long alarmStartTime = date.getTimeInMillis();
-
             alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
             //alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
+            
+            
+            
+            scheduleJob();
+            
             finish();
         } else {
             Toast.makeText(getApplicationContext(), R.string.date_in_future , Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    private void scheduleJob() {
+
+        JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobInfo job = new JobInfo.Builder(MY_NOTIFICATION_JOB, new ComponentName(context, AlarmReceiver.class))
+                .setPeriodic(date.getTimeInMillis())
+                .build();
+        js.schedule(job);
 
     }
 }

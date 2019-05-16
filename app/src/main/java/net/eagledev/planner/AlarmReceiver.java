@@ -54,6 +54,39 @@ public class AlarmReceiver extends BroadcastReceiver {
                 nm1.notify(notificationId, b1.build());
                 break;
 
+
+
+            case 0:
+                // When notification is tapped, call MainActivity.
+                Intent i2 = new Intent(context, MainActivity.class);
+                PendingIntent pi2 = PendingIntent.getActivity(context, 0, i2, 0);
+
+                NotificationManager nm2 =
+                        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                // Prepare notification.
+                Notification.Builder b2 = new Notification.Builder(context);
+                b2.setSmallIcon(R.drawable.finance43)
+                        .setContentTitle("Test")
+                        .setContentText("123")
+                        .setAutoCancel(true)
+                        .setShowWhen(true)
+                        .setWhen(System.currentTimeMillis())
+                        .setContentIntent(pi2)
+                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setCategory(Notification.CATEGORY_MESSAGE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    String channelId = "REMINDERS";
+                    NotificationChannel channel = new NotificationChannel(channelId,
+                            context.getResources().getString(R.string.reminders),
+                            NotificationManager.IMPORTANCE_HIGH);
+                    nm2.createNotificationChannel(channel);
+                    b2.setChannelId(channelId);
+                }
+                nm2.notify(notificationId, b2.build());
+                break;
+
+
                 default:
                     // When notification is tapped, call MainActivity.
                     Intent mainIntent = new Intent(context, MainActivity.class);
