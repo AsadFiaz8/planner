@@ -156,7 +156,7 @@
         android:id="@+id/pndAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dodaj"
+        android:text="@string/add"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
@@ -165,7 +165,7 @@
         android:id="@+id/pndExit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyjdź"
+        android:text="@string/exit"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
 

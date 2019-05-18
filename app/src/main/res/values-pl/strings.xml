@@ -119,6 +119,8 @@
     <string name="select">Wybierz</string>
     <string name="slect_month">Wybieerz misiąc</string>
     <string name="select_month">Wybierz miesiąc</string>
+    <string name="add">Dodaj</string>
+    <string name="exit">Wyjdź</string>
 
 
 </resources>
