@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             case -1:
                 // When notification is tapped, call MainActivity.
-                Intent i1 = new Intent(context, MainActivity.class);
+                Intent i1 = new Intent(context, PlanNextDayActivity.class);
                 PendingIntent pi1 = PendingIntent.getActivity(context, 0, i1, 0);
 
                 NotificationManager nm1 =

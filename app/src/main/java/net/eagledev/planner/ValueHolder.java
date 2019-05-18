@@ -3,6 +3,7 @@ package net.eagledev.planner;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -49,11 +50,14 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         } else {
             if (!billingHolder.isBillingAvailable()){
                 billingHolder = null;
+                Log.e("Value Holder", "Billing is not available");
                 return MainActivity.pref.getBoolean("premium_user", false);
             } else {
                 editor.putBoolean("premium_user", false);
                 editor.commit();
+                Log.e("Value Holder", "Billing is available");
                 billingHolder = null;
+
                 return false;
             }
         }

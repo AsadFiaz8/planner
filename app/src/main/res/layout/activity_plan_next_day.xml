@@ -64,9 +64,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences"
             android:hint="Name"
-
             />
 
         <Button
@@ -157,13 +156,18 @@
         android:id="@+id/pndAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dodaj" />
+        android:text="Dodaj"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
 
     <Button
         android:id="@+id/pndExit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyjdź" />
+        android:text="Wyjdź"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
 
 
 </LinearLayout>

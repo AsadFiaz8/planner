@@ -3,6 +3,8 @@ package net.eagledev.planner;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -74,25 +76,47 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     int grayValue = 100;
     PieChart chart;
     int colorGray;
+    TextView actionInfoText;
+    TextView actionTimeText;
+    Button btnEdit;
+    Button btnEditRoutine;
+    TextView actionInfo;
+    String showDate;
+    Button btn_new_action;
+    ImageView clockArrow;
+    int selectedID;
+    Context context;
+    List<Action> todayActions = new ArrayList<>();
+    List<Action> actionList = new ArrayList<>();
+    Calendar currentDate = Calendar.getInstance();
+
+    int actionColor;
+    int colorValue = 255;
+    boolean colorUp = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_next_day);
+        context = this;
         colorGray = Color.argb(200, grayValue, grayValue, grayValue);
         btn_select_icon = findViewById(R.id.icon_view);
         btn_select_icon.setOnClickListener(this);
         //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.pndTittle);
-
+        actionColor = Color.argb(200, colorValue, colorValue, colorValue);
         btnStart = findViewById(R.id.pndStartHour);
         btnStart.setOnClickListener(this);
         btnStop = findViewById(R.id.pndStopHour);
         btnStop.setOnClickListener(this);
         findViewById(R.id.pndAdd).setOnClickListener(this);
+        findViewById(R.id.pndExit).setOnClickListener(this);
         imageIcon = findViewById(R.id.icon_view);
         date_start = Calendar.getInstance();
+        date_start.add(Calendar.DATE,1);
         date_stop = Calendar.getInstance();
+        date_stop.add(Calendar.DATE,1);
         iconID = MainActivity.icons[0];
         imageColor = findViewById(R.id.color_view);
         imageColor.setOnClickListener(this);
@@ -101,7 +125,16 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         int[][] all = {ints};
         int[] colors = {MainActivity.colors[0]};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-
+        date_start.set(Calendar.HOUR_OF_DAY,0);
+        date_start.set(Calendar.MINUTE,0);
+        btnStart.setText(f.Time(date_start) );
+        date_stop.set(Calendar.HOUR_OF_DAY,1);
+        date_stop.set(Calendar.MINUTE,0);
+        btnStop.setText(f.Time(date_stop) );
+        ReadData();
+        setupPieChartBackground();
+        setupPieChart();
+        setupUpdate();
 
 
     }
@@ -124,6 +157,20 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                         date_start.set(Calendar.HOUR_OF_DAY, mHour);
                         date_start.set(Calendar.MINUTE, mMinute);
                         btnStart.setText(f.Time(date_start) );
+                        if(date_start.get(Calendar.HOUR_OF_DAY)>date_stop.get(Calendar.HOUR_OF_DAY)){
+                            date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                            date_stop.set(Calendar.MINUTE, 0);
+                            hour = date_stop.get(Calendar.HOUR_OF_DAY);
+                            minute = date_stop.get(Calendar.MINUTE);
+                            btnStop.setText(f.Time(date_stop));
+                        }
+                        if(date_start.get(Calendar.HOUR_OF_DAY) == date_stop.get(Calendar.HOUR_OF_DAY) && date_start.get(Calendar.MINUTE) - date_stop.get(Calendar.MINUTE)<=30){
+                            date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                            date_stop.set(Calendar.MINUTE, 0);
+                            hour = date_stop.get(Calendar.HOUR_OF_DAY);
+                            minute = date_stop.get(Calendar.MINUTE);
+                            btnStop.setText(f.Time(date_stop));
+                        }
                     }
                 }, hour, minute, true);
                 tpd.show();
@@ -148,10 +195,13 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                 tpd.show();
 
                 break;
+
+            case R.id.pndExit:
+                finish();
+                break;
         }
 
     }
-
 
     private void confirm() {
         Checker checker = new Checker();
@@ -187,7 +237,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
 
             List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
             int actionsCount = actionsFromDay.size();
-            Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
+            //Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
 
             if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
                 //Spełnia warunki lub jest premium lub premium reklamowe
@@ -215,19 +265,57 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         MainActivity.appDatabase.appDao().addAction(newAction);
         hour = date_stop.get(Calendar.HOUR_OF_DAY);
         minute = date_stop.get(Calendar.MINUTE);
+        if(date_stop.get(Calendar.HOUR_OF_DAY)==23){
+            if (date_stop.get(Calendar.MINUTE) <= 30){
+                date_start = date_stop;
+                date_stop.set(Calendar.MINUTE, 59);
+                btnStart.setText(f.Time(date_start));
+                btnStop.setText(f.Time(date_stop));
+            } else finish();
+        } else {
+            date_start.set(Calendar.HOUR_OF_DAY, date_stop.get(Calendar.HOUR_OF_DAY));
+            date_start.set(Calendar.MINUTE, date_stop.get(Calendar.MINUTE));
+            btnStart.setText(f.Time(date_start) );
+            date_stop.set(Calendar.HOUR_OF_DAY,date_start.get(Calendar.HOUR_OF_DAY)+1);
+            date_stop.set(Calendar.MINUTE,0);
+            btnStop.setText(f.Time(date_stop));
+            colorID = MainActivity.colors[0];
+            iconID = MainActivity.icons[0];
+            setColor();
+            imageIcon.setImageDrawable(getDrawable(iconID));
+            textView.setText("");
+        }
         //Odśwież wykres
 
+        ReadData();
 
 
-        date_start = date_stop;
-        btnStart.setText(f.Time(date_start) );
-        colorID = MainActivity.colors[0];
-        iconID = MainActivity.icons[0];
-        setColor();
-        imageIcon.setImageDrawable(getDrawable(iconID));
-        textView.setText("");
+
+
 
     }
+
+    private void Update() {
+        if(colorUp){
+            if(colorValue<=240){
+                colorValue += 10;
+            } else {
+                colorUp = false;
+                colorValue -=10;
+            }
+        } else {
+            if(colorValue>=100){
+                colorValue -= 10;
+            } else {
+                colorUp = true;
+                colorValue +=10;
+            }
+        }
+        actionColor = Color.argb(200, colorValue, colorValue, colorValue);
+        ReadData();
+        setupPieChart();
+    }
+
 
     private void setupPieChart() {
         final List<PieEntry> pieEntries = new ArrayList<>();
@@ -272,7 +360,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
 
                             //Drawable d = getDrawable(currentAction.getIcon());
                             if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
-                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, f.scaleDrawable(currentAction.getIcon(),50)));
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             } else {
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
@@ -287,7 +375,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                         } else {
                             //Czas trwania mniejszy niż 90 minut
                             if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
-                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, f.scaleDrawable(currentAction.getIcon(),50)));
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             } else {
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
@@ -319,7 +407,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         dataSet.setSliceSpace(2);
         PieData data = new PieData(dataSet);
         //Get the chart
-        chart = (PieChart) findViewById(R.id.chart);
+        chart = (PieChart) findViewById(R.id.pndChart);
         chart.setHighlightPerTapEnabled(true);
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -334,33 +422,19 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                         s = s.replaceFirst("r","");
                         Routine selectedRoutine = MainActivity.appDatabase.appDao().idRoutine(Integer.parseInt(s));
                         selectedID = Integer.parseInt(s);
-                        actionTimeText.setText(f.Time(selectedRoutine.start())+"\n"+f.Time(selectedRoutine.stop()));
-                        actionTimeText.setVisibility(View.VISIBLE);
-                        actionInfoText.setText(selectedRoutine.getName());
-                        actionInfoText.setVisibility(View.VISIBLE);
-                        btnEditRoutine.setVisibility(View.VISIBLE);
-                        btnEdit.setVisibility(View.INVISIBLE);
+
+
 
                     } else {
-                        Action selectedAction = appDatabase.appDao().idAction(Integer.parseInt(s));
+                        Action selectedAction = MainActivity.appDatabase.appDao().idAction(Integer.parseInt(s));
                         selectedID = Integer.parseInt(s);
-                        actionTimeText.setText(f.Time(selectedAction.getStart())+"\n"+f.Time(selectedAction.getStop()));
-                        actionTimeText.setVisibility(View.VISIBLE);
-                        actionInfoText.setText(selectedAction.getDesc());
-                        actionInfoText.setVisibility(View.VISIBLE);
-                        btnEdit.setVisibility(View.VISIBLE);
-                        btnEditRoutine.setVisibility(View.INVISIBLE);
                     }
                 } else {
-                    actionInfo.setText(showDate);
-                    HideButtons();
-                    btn_new_action.setVisibility(View.VISIBLE);
                 }
             }
             @Override
             public void onNothingSelected() {
-                actionInfo.setText(showDate);
-                HideButtons();
+                //HideButtons();
             }
         });
         chart.setDragDecelerationEnabled(false);
@@ -378,8 +452,6 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
 
         //Setup clock
         clockArrow = findViewById(R.id.clock);
-        actionInfo = findViewById(R.id.action_info);
-        actionInfo.setText(showDate);
     }
 
     private void setupPieChartBackground() {
@@ -394,7 +466,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         dataSet.setSliceSpace(2);
         PieData data = new PieData(dataSet);
         //Get the chart
-        PieChart bgchart = (PieChart) findViewById(R.id.chartBg);
+        PieChart bgchart = (PieChart) findViewById(R.id.pndChartBg);
         bgchart.setDragDecelerationEnabled(false);
         bgchart.setDrawSliceText(false);
         bgchart.setData(data);
@@ -410,6 +482,155 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         legend.setEnabled(false);
     }
 
+    private void ReadData() {
+        MainActivity.appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
+        startRoutinesTime.clear();
+        stopRoutinesTime.clear();
+        ac.clear();
+        boolean today = false;
+        //Log.e("date equals", String.valueOf(checker.DateEquals(currentDate, Calendar.getInstance())));
+
+        Calendar c = Calendar.getInstance();
+        //if(checker.DateEquals(currentDate, Calendar.getInstance())){
+          //  today = true;
+         //   actionList.clear();
+        //}
+            todayActions= MainActivity.appDatabase.appDao().getActionsFromDay(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+            if (!MainActivity.valueHolder.getAdsPremiumActive() && MainActivity.valueHolder.getAdsPremium()) {
+                if(!MainActivity.valueHolder.isPremiumUser()){
+                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
+                    startActivity(adPremiumIntent);
+                }
+            }
+
+        Action action = new Action(0,textView.getText().toString(), date_start, date_stop, iconID, actionColor );
+        actionList.add(action);
+        ac.add(action);
+        for(int i = 0; i<todayActions.size(); i++) {
+            ac.add(todayActions.get(i));
+            if(today){
+                actionList.add(todayActions.get(i));
+            }
+
+
+        }
+
+        List<Routine> routineAdapter = new ArrayList<>();
+        currentDate.setFirstDayOfWeek(Calendar.MONDAY);
+        switch (currentDate.get(Calendar.DAY_OF_WEEK)){
+            case 2:
+                routineAdapter = MainActivity.appDatabase.appDao().getMonday();
+                break;
+            case 3:
+                routineAdapter = MainActivity.appDatabase.appDao().getTuesday();
+                break;
+            case 4:
+                routineAdapter = MainActivity.appDatabase.appDao().getWednesday();
+                break;
+            case 5:
+                routineAdapter = MainActivity.appDatabase.appDao().getThursday();
+                break;
+            case 6:
+                routineAdapter = MainActivity.appDatabase.appDao().getFriday();
+                break;
+            case 7:
+                routineAdapter = MainActivity.appDatabase.appDao().getSaturday();
+                break;
+            case 1:
+                routineAdapter = MainActivity.appDatabase.appDao().getSunday();
+                break;
+        }
+        for(int i = 0; i<routineAdapter.size(); i++) {
+            Routine r = routineAdapter.get(i);
+            Calendar start =  r.start();
+            int startR = start.get(Calendar.HOUR_OF_DAY)*60+start.get(Calendar.MINUTE);
+            Calendar stop = r.stop();
+            int stopR = stop.get(Calendar.HOUR_OF_DAY)*60+stop.get(Calendar.MINUTE);
+            boolean createAction = true;
+            int startM = 0;
+            int startH = 0;
+            int stopM = 0;
+            int stopH = 0;
+            for (int l = 0; l<ac.size(); l++) {
+
+                //Funkcja sprawdz tylko kolizję z jedną akcją
+
+                int startA = ac.get(l).getStart_hour()*60+ac.get(l).getStart_minute();
+                int stopA = ac.get(l).getStop_hour()*60+ac.get(l).getStop_minute();
+                //Nie koliduje
+                if(stopA <= startR || startA >= stopR) {
+                    //Log.e(r.getName(),"Nie koliduje z "+ac.get(l).getDesc());
+                }
+                //Koliduje na początku
+                if(stopA > startR && stopA < stopR && startA < startR) {
+                    //Log.e(r.getName(),"Koliduje na początku z "+ac.get(l).getDesc());
+                    startR = stopA;
+                }
+                //Koliduje na końcu
+                if(startA < stopR && startA > startR && stopA > stopR) {
+                    //Log.e(r.getName(),"Koliduje na końcu z "+ac.get(l).getDesc());
+                    stopR = startA;
+                }
+                //Kolidujee wewnątrz
+                if(startA >= startR && stopA <= stopR) {
+                    //Log.e(r.getName(),"Kolidujee wewnątrz z "+ac.get(l).getDesc());
+                    if(startA == startR) {
+                        startR = stopA;
+                    }
+                    if(stopA == stopR) {
+                        stopR = startA;
+                    }
+                    if(startA == startR && stopA == stopR || startA > startR && stopA < stopR){
+                        createAction = false;
+                    }
+                }
+                //Całkowicie koliduje
+                if(startA <= startR && stopA >= stopR) {
+                    //Log.e(r.getName(),"Całkowicie koliduje z "+ac.get(l).getDesc());
+                    createAction = false;
+                }
+            }
+            boolean test = true;
+            if (createAction && test) {
+
+                while(startR > 0) {
+                    if(startR>=60) {
+                        startR -= 60;
+                        startH++;
+                    } else {
+                        startM = startR;
+                        startR = 0;
+                    }
+                }
+                while (stopR > 0) {
+                    if(stopR>=60) {
+                        stopR -=60;
+                        stopH++;
+                    } else {
+                        stopM = stopR;
+                        stopR = 0;
+                    }
+                }
+                Calendar startTimeR = Calendar.getInstance();
+                startTimeR.set(Calendar.HOUR_OF_DAY, startH);
+                startTimeR.set(Calendar.MINUTE, startM);
+                Calendar stopTimeR = Calendar.getInstance();
+                stopTimeR.set(Calendar.HOUR_OF_DAY, stopH);
+                stopTimeR.set(Calendar.MINUTE, stopM);
+                //Log.e(r.getName(), "Crating action from routine");
+                Action a = new Action(r.getId(), r.getName(), startTimeR, stopTimeR, r.getIcon(), r.getColor());
+
+                    startRoutinesTime.add(a.getStartMinutes());
+                    stopRoutinesTime.add(a.getStopMinutes());
+                    ac.add(a);
+                    actionList.add(a);
+
+
+            }
+        }
+
+
+    }
 
     private void clickColor(int id) {
         switch (id) {
@@ -1186,5 +1407,28 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                 startActivity(premiumIntent);
             }
         }
+    }
+
+    private void setupUpdate() {
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(50);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Update();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        thread.start();
     }
 }

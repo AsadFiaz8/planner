@@ -2,6 +2,7 @@ package net.eagledev.planner;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -19,6 +20,7 @@ public class BillingHolder implements BillingProcessor.IBillingHandler {
     }
 
     public boolean isPremium() {
+        //Log.e("BillingHolder","Billing Holder is Premium check");
         bp = new BillingProcessor(MainActivity.context, licence_key, this);
         bp.initialize();
         boolean purchaseResult = bp.loadOwnedPurchasesFromGoogle();
@@ -27,6 +29,7 @@ public class BillingHolder implements BillingProcessor.IBillingHandler {
             if(!isAvailable) {
                 isBillingAvailable = false;
                 bp.release();
+                //Log.e("BillingHolder","Is not Avanaible");
                 return false;
             }
             TransactionDetails subscriptionTransactionDetails = bp.getSubscriptionTransactionDetails("premium_month");
@@ -34,10 +37,12 @@ public class BillingHolder implements BillingProcessor.IBillingHandler {
 
 
                 //User is still subscribed
+                //Log.e("BillingHolder","Subscribed month");
                 bp.release();
                 return true;
             } else {
                 //Not subscribed
+                //Log.e("BillingHolder","Month not Subscribed");
 
 
             }
@@ -46,14 +51,16 @@ public class BillingHolder implements BillingProcessor.IBillingHandler {
 
                 //User is still subscribed
                 bp.release();
+                //Log.e("BillingHolder","Subscribed year");
                 return true;
             } else {
                 //Not subscribed
-
+                //Log.e("BillingHolder","Year not Subscribed");
 
             }
         }
         bp.release();
+        //Log.e("BillingHolder","Not Subscribed");
         return false;
     }
 

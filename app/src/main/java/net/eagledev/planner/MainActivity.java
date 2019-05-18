@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
         valueHolder = new ValueHolder();
-        findViewById(R.id.button3).setOnClickListener(this);
         setupBars();
         ReadData(false);
         setColors();
@@ -217,11 +216,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Context cnt = findViewById(R.id.relative_layout).getContext();
         switch (view.getId()) {
-
-            case R.id.button3:
-                Intent intencik = new Intent(cnt, PlanNextDayActivity.class);
-                startActivity(intencik);
-                break;
 
             case R.id.action_1:
 
