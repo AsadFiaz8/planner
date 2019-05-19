@@ -146,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentDate = Calendar.getInstance();
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
         setContentView(R.layout.activity_main);
+        //View mainView = findViewById(R.id.drawer_layout);
+        //mainView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
         setupLanguage();
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);

@@ -491,6 +491,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         //Log.e("date equals", String.valueOf(checker.DateEquals(currentDate, Calendar.getInstance())));
 
         Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE,1);
         //if(checker.DateEquals(currentDate, Calendar.getInstance())){
           //  today = true;
          //   actionList.clear();
