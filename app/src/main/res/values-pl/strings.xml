@@ -121,6 +121,8 @@
     <string name="select_month">Wybierz miesiąc</string>
     <string name="add">Dodaj</string>
     <string name="exit">Wyjdź</string>
+    <string name="privacy_policy">Polityka prywatności</string>
+    <string name="delete_all_data">Usuń wszystkie dane</string>
 
 
 </resources>

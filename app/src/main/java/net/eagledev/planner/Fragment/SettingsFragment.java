@@ -22,7 +22,7 @@ import net.eagledev.planner.R;
  * Use the {@link ActionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements View.OnClickListener {
 
 
     Context context;
@@ -100,6 +100,9 @@ public class SettingsFragment extends Fragment {
                 } else MainActivity.valueHolder.setMainNotification(false);
             }
         });
+        view.findViewById(R.id.settings_button1).setOnClickListener(this);
+        view.findViewById(R.id.settings_button2).setOnClickListener(this);
+
         return view;
     }
 
@@ -125,6 +128,23 @@ public class SettingsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.settings_button1:
+                Uri uriUrl = Uri.parse("https://degeapps.wixsite.com/mojawitryna/privacy-policy");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
+                break;
+            case R.id.settings_button2:
+                MainActivity.appDatabase.appDao().nukeActionsTable();
+                MainActivity.appDatabase.appDao().nukeAimsTable();
+                MainActivity.appDatabase.appDao().nukeRemindersTable();
+                MainActivity.appDatabase.appDao().nukeRoutinesTable();
+                break;
+        }
     }
 
 
