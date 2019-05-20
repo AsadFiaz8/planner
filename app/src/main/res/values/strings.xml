@@ -103,7 +103,7 @@
     <string name="watch_ad">Obejrzyj reklamę</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="your_premium_account_expired">Twoje konto premium straciło ważność  obeejrz reklamę aby przedłużyć je o jeden dzień</string>
     <string name="you_can_also_buy_premium">Możesz również skorzystać z abonamentów konta premium</string>
     <string name="premium_was_erxtended_by_one_day">Konto premium przedłużone reklamą o jeden dzień</string>
@@ -126,4 +126,12 @@
     <string name="privacy_policy">Polityka prywatności</string>
     <string name="delete_all_data">Usuń wszystkie dane</string>
 
+
+    <string-array name="contact_messages">
+        <item>Problem z subskrybcją</item>
+        <item>Problem techniczny</item>
+        <item>Błąd w tłumaczeniu</item>
+        <item>Zaproponuj zmiany</item>
+        <item>Inne</item>
+    </string-array>
 </resources>

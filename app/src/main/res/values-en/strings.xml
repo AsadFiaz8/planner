@@ -105,7 +105,7 @@
     <string name="you_can_also_buy_premium">You can also use premium account subscriptions</string>
     <string name="premium_was_erxtended_by_one_day">The premium account has been extended by one day</string>
     <string name="premium_activatetd_by_ad">Premium account was activated for today by ad</string>
-    <string name="sorry_no_ads">No advertising is available. Sorry</string>
+    <string name="sorry_no_ads">No ads loaded. Please try again in a moment</string>
     <string name="everyday">Everyday</string>
     <string name="pn">MO  </string>
     <string name="wt">TU  </string>

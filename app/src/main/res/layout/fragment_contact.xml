@@ -8,15 +8,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
+        >
+
 
         <TextView
-            android:layout_width="wrap_content"
+
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
             android:text="Mail: degeapps@gmail.com"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"/>
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/input_mail"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="353dp"
+            android:layout_height="279dp"
+            android:layout_below="@id/spinner"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/input_mail"
+            android:layout_width="339dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wyślij"
+            android:layout_below="@id/editText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
     </RelativeLayout>
 
 
