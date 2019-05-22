@@ -125,6 +125,11 @@
     <string name="exit">Wyjdź</string>
     <string name="privacy_policy">Polityka prywatności</string>
     <string name="delete_all_data">Usuń wszystkie dane</string>
+    <string name="your_email">Twój email</string>
+    <string name="issue_desc">Opis problemu</string>
+    <string name="send">Wyślij</string>
+    <string name="message_send_error">Bład wysyłania wiadomości</string>
+    <string name="messagee_send">Wiadomość wysłana</string>
 
 
     <string-array name="contact_messages">

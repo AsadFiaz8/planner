@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Calendar notificationDate = Calendar.getInstance();
     Button button;
     ImageView menuBg;
+    public  static boolean needShowMainPage = false;
     Checker checker =  new Checker();
     FloatingActionButton btnLeft;
     FloatingActionButton btnRight;
@@ -335,6 +336,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(needRefresh) {
             Refresh();
             needRefresh = false;
+        }
+        if(needShowMainPage){
+            showMainPage();
         }
 
     }
@@ -1208,6 +1212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, scale, scale, true));
     }
 
+    public void showMainPage(){
+        android.app.Fragment frag = new android.app.Fragment();
+        fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+        rl.setVisibility(View.VISIBLE);
+        toolbar.setTitle(R.string.main_page);
+        needShowMainPage = false;
+    }
 
 
 

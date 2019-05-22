@@ -4,15 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.*;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -33,9 +46,17 @@ public class ContactFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public static final String TAG = "ContactFragment";
     private OnFragmentInteractionListener mListener;
 
     Spinner spinneer;
+    TextView emailText;
+    TextView descText;
+    Button btnSend;
+    String email;
+    String tittle;
+    String desc;
+    FirebaseFirestore db;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -75,14 +96,13 @@ public class ContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
          spinneer = view.findViewById(R.id.spinner);
          final Context context = getContext();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.contact_messages, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.contact_messages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinneer.setAdapter(adapter);
         spinneer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String text = parent.getItemAtPosition(position).toString();
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                tittle = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -90,6 +110,47 @@ public class ContactFragment extends Fragment {
 
             }
         });
+        db = FirebaseFirestore.getInstance();
+        emailText = view.findViewById(R.id.input_mail);
+        descText = view.findViewById(R.id.contact_desc);
+        btnSend = view.findViewById(R.id.btn_contact_send);
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email = String.valueOf(emailText.getText());
+                desc = String.valueOf(descText.getText());
+
+                Map<String, Object> message = new HashMap<>();
+                message.put("mail", email);
+                message.put("tittle", tittle);
+                message.put("desc", desc);
+                message.put("read", false);
+
+                db.collection("contact_messages")
+                        .add(message)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                MainActivity.needShowMainPage = true;
+                                Toast.makeText(context, getResources().getString(R.string.messagee_send), Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                                Toast.makeText(context, getResources().getString(R.string.message_send_error), Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });
+
+
+
+
+
+
 
 
         return view;

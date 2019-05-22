@@ -13,7 +13,7 @@
 
         <TextView
 
-            android:layout_width="340dp"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
@@ -25,38 +25,42 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="250dp"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:spinnerMode="dialog"
             android:gravity="center_horizontal"
             android:layout_below="@id/input_mail"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            />
 
         <EditText
-            android:id="@+id/editText"
-            android:layout_width="353dp"
+            android:id="@+id/contact_desc"
+            android:layout_width="360dp"
             android:layout_height="279dp"
             android:layout_below="@id/spinner"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:hint="@string/issue_desc"/>
 
         <EditText
             android:id="@+id/input_mail"
-            android:layout_width="339dp"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress"
+            android:hint="@string/your_email"
             android:layout_centerHorizontal="true"/>
 
         <Button
+            android:id="@+id/btn_contact_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wyślij"
-            android:layout_below="@id/editText"
+            android:text="@string/send"
+            android:layout_below="@id/contact_desc"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
 
