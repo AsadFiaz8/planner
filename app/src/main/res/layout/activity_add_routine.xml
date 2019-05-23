@@ -40,31 +40,96 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-                <Button
-                    android:id="@+id/input_routine_start"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/start_hour"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentLeft="true"/>
+                <RelativeLayout
+                    android:id="@+id/date_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/input_routine_stop"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    <Button
+                        android:id="@+id/input_routine_start"
+                        android:layout_width="130dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/start_hour"
+                        style="@style/AppTheme.Button"
+                        android:layout_alignParentLeft="true"/>
+
+                    <Button
+                        android:id="@+id/input_routine_stop"
+                        android:layout_width="130dp"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/stop_hour"
+                        style="@style/AppTheme.Button"
+                        android:layout_alignParentRight="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/date_pickers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/stop_hour"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentRight="true"/>
+                    android:visibility="invisible"
+                    >
+                    <TextView
+                        android:id="@+id/start_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_hour"
+                        android:layout_alignParentLeft="true"/>
+                    <TextView
+                        android:id="@+id/stop_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stop_hour"
+                        android:layout_alignParentRight="true"/>
+
+                    <NumberPicker
+                        android:id="@+id/start_hour_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@id/start_time_text"
+                        android:layout_marginTop="20dp">
+                    </NumberPicker>
+                    <NumberPicker
+                        android:id="@+id/start_minute_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/start_hour_picker"
+                        android:layout_alignTop="@id/start_hour_picker"
+                        android:layout_marginLeft="5dp">
+                    </NumberPicker>
+
+                    <NumberPicker
+                        android:id="@+id/stop_hour_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/stop_minute_picker"
+                        android:layout_marginRight="5dp"
+                        android:layout_alignTop="@id/start_hour_picker"
+                        >
+                    </NumberPicker>
+                    <NumberPicker
+                        android:id="@+id/stop_minute_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@id/start_hour_picker">
+                    </NumberPicker>
+                </RelativeLayout>
 
             </RelativeLayout>
+
+
 
 
 

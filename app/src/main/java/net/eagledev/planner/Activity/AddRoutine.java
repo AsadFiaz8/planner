@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -61,12 +64,21 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
     EditText nameText;
     Button btnStartHour;
     Button btnStopHour;
+    NumberPicker startHourPicker;
+    NumberPicker startMinutePicker;
+    NumberPicker stopHourPicker;
+    NumberPicker stopMinutePicker;
     Button btnSelectIcon;
     TimePickerDialog tpd;
     ImageView imageConfirm;
     ImageView imageCancel;
     ImageView imageIcon;
     ImageView imageColor;
+
+    RelativeLayout buttonsLayout;
+    RelativeLayout pickersLayout;
+    ViewGroup.LayoutParams paramsButtons;
+    ViewGroup.LayoutParams paramsPickers;
 
     Formatter f = new Formatter();
     Dialog d1;
@@ -90,6 +102,89 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         int[][] all = {ints};
         int[] colors = {color};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+        startHourPicker = findViewById(R.id.start_hour_picker);
+        startMinutePicker = findViewById(R.id.start_minute_picker);
+        stopHourPicker = findViewById(R.id.stop_hour_picker);
+        stopMinutePicker = findViewById(R.id.stop_minute_picker);
+        buttonsLayout = findViewById(R.id.date_buttons);
+        pickersLayout = findViewById(R.id.date_pickers);
+
+        paramsButtons = buttonsLayout.getLayoutParams();
+        paramsPickers =  pickersLayout.getLayoutParams();
+        setupDate();
+
+    }
+
+    private void setupDate() {
+
+        setTimePicker(MainActivity.valueHolder.isDatePickerButton());
+
+        // Number pickers
+
+        String[] displayHours = new String[24];
+        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
+        for (int h = 0; h < displayHours.length; h++) {
+            displayHours[h] = f.z(h);
+        }
+        startHourPicker.setMinValue(0);
+        startHourPicker.setMaxValue(23);
+        startHourPicker.setDisplayedValues(displayHours);
+        startMinutePicker.setMinValue(0);
+        startMinutePicker.setMaxValue(5);
+        startMinutePicker.setValue(0);
+        startMinutePicker.setDisplayedValues(displayMinutes);
+        stopHourPicker.setMinValue(0);
+        stopHourPicker.setMaxValue(23);
+        stopHourPicker.setDisplayedValues(displayHours);
+        stopMinutePicker.setMinValue(0);
+        stopMinutePicker.setMaxValue(5);
+        startMinutePicker.setValue(0);
+        stopMinutePicker.setDisplayedValues(displayMinutes);
+        start.set(Calendar.HOUR_OF_DAY,0);
+        stop.set(Calendar.HOUR_OF_DAY,1);
+        stopHourPicker.setValue(1);
+        start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
+        stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
+
+
+        startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+
+                start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
+            }
+        });
+
+        startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
+            }
+        });
+
+        stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
+                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
+                    stop.set(Calendar.HOUR_OF_DAY, 23);
+                    stop.set(Calendar.MINUTE, 59);
+                }
+            }
+        });
+
+        stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
+                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
+                    stop.set(Calendar.HOUR_OF_DAY, 23);
+                    stop.set(Calendar.MINUTE, 59);
+                }
+            }
+        });
 
     }
 
@@ -1152,6 +1247,19 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         }
     }
 
+    private void setTimePicker(boolean buttonPicker) {
+        if(!buttonPicker) {
 
+            //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+            buttonsLayout.setVisibility(View.INVISIBLE);
+            //dateRelativeLayout.setLayoutParams(paramsRelative);
+            pickersLayout.setVisibility(View.VISIBLE);
+        } else {
+            buttonsLayout.setLayoutParams(paramsButtons);
+            buttonsLayout.setVisibility(View.VISIBLE);
+            pickersLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
+            pickersLayout.setVisibility(View.INVISIBLE);
+        }
+    }
 
 }
