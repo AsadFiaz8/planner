@@ -127,6 +127,10 @@
     <string name="send">Send</string>
     <string name="message_send_error">Error sending a message</string>
     <string name="messagee_send">Message sent</string>
+    <string name="day_is_coming_to_end">The day is coming to an end</string>
+    <string name="plan_next_day">Plan next one!</string>
+    <string name="notify_plan_next_day">Plan next day</string>
+
 
     <string-array name="contact_messages">
                <item> Problem with subscribing </item>

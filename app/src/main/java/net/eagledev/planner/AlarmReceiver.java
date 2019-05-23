@@ -12,11 +12,17 @@ import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.Calendar;
+
 public class AlarmReceiver extends BroadcastReceiver {
+
+    Checker checker;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
 
+        checker = new Checker();
         // Get id & message from intent.
         int notificationId = intent.getIntExtra("ID", 0);
         String message = intent.getStringExtra("TEXT");
@@ -34,8 +40,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 // Prepare notification.
                 Notification.Builder b1 = new Notification.Builder(context);
                 b1.setSmallIcon(R.drawable.finance43)
-                        .setContentTitle("Dzień dobiega końca")
-                        .setContentText("Zaplanuj kolejny!")
+                        .setContentTitle(context.getResources().getString(R.string.day_is_coming_to_end))
+                        .setContentText(context.getResources().getString(R.string.plan_next_day))
                         .setAutoCancel(true)
                         .setShowWhen(true)
                         .setWhen(System.currentTimeMillis())
@@ -46,12 +52,15 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     String channelId = "REMINDERS";
                     NotificationChannel channel = new NotificationChannel(channelId,
-                            context.getResources().getString(R.string.reminders),
+                            context.getResources().getString(R.string.notify_plan_next_day),
                             NotificationManager.IMPORTANCE_HIGH);
                     nm1.createNotificationChannel(channel);
                     b1.setChannelId(channelId);
                 }
-                nm1.notify(notificationId, b1.build());
+                if(checker.TimeEquals(MainActivity.planNextDayCal, Calendar.getInstance())){
+                    nm1.notify(notificationId, b1.build());
+                }
+
                 break;
 
 

@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -195,8 +196,11 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
                     date_stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
+                    if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
+                        date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                        date_stop.set(Calendar.MINUTE, 59);
+                    }
                 }
             });
 
@@ -204,8 +208,11 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
                     date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
+                    if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
+                        date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                        date_stop.set(Calendar.MINUTE, 59);
+                    }
                 }
             });
 

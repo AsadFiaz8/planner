@@ -943,20 +943,24 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         startHourPicker.setDisplayedValues(displayHours);
         startMinutePicker.setMinValue(0);
         startMinutePicker.setMaxValue(5);
+        startMinutePicker.setValue(0);
         startMinutePicker.setDisplayedValues(displayMinutes);
         stopHourPicker.setMinValue(0);
         stopHourPicker.setMaxValue(23);
         stopHourPicker.setDisplayedValues(displayHours);
         stopMinutePicker.setMinValue(0);
         stopMinutePicker.setMaxValue(5);
+        startMinutePicker.setValue(0);
         stopMinutePicker.setDisplayedValues(displayMinutes);
+        date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
+        date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
 
 
         startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-                Log.e("start Hour", String.valueOf(startHourPicker.getValue()));
+
                 date_start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
             }
         });
@@ -964,7 +968,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.e("start Minute", String.valueOf(startMinutePicker.getValue()));
+
                 date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
             }
         });
@@ -972,16 +976,22 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.e("stop Hour", String.valueOf(stopHourPicker.getValue()));
                 date_stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
+                if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
+                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                    date_stop.set(Calendar.MINUTE, 59);
+                }
             }
         });
 
         stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.e("stop Minute", String.valueOf(stopMinutePicker.getValue()));
                 date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
+                if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
+                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                    date_stop.set(Calendar.MINUTE, 59);
+                }
             }
         });
 

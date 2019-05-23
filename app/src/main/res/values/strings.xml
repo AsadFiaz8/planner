@@ -130,6 +130,9 @@
     <string name="send">Wyślij</string>
     <string name="message_send_error">Bład wysyłania wiadomości</string>
     <string name="messagee_send">Wiadomość wysłana</string>
+    <string name="day_is_coming_to_end">Dzień dobiega końca</string>
+    <string name="plan_next_day">Zaplanuj kolejny!</string>
+    <string name="notify_plan_next_day">Planowanie kolejnego dnia</string>
 
 
     <string-array name="contact_messages">
