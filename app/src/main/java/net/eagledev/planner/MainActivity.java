@@ -53,6 +53,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Activity.AddAimActivity;
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Calendar now = Calendar.getInstance();
     public static AppDatabase appDatabase;
     FragmentManager fragmentManager = getFragmentManager();
+    public static FirebaseAnalytics mFirebaseAnalytics;
 
     PieChart chart;
     Button btn;
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         //View mainView = findViewById(R.id.drawer_layout);
         //mainView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setupLanguage();
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);

@@ -24,6 +24,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.GooglePlayServicesUtilLight;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Calendar;
 import java.util.List;
@@ -134,6 +135,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, productId);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "sub");
+        MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         if(productId.equals("premium_month")){
             MainActivity.valueHolder.setAdsPremium(false);
