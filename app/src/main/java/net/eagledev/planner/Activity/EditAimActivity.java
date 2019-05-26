@@ -63,6 +63,9 @@ public class EditAimActivity extends Activity implements View.OnClickListener {
         textView = findViewById(R.id.input_name);
         if(bundle!=null) {
         selectedAim = MainActivity.appDatabase.appDao().idAim((int) bundle.get("ID"));
+        if(selectedAim == null){
+            finish();
+        }
         id = selectedAim.getId();
         type = selectedAim.getType();
         textView.setText(selectedAim.getName());
@@ -76,6 +79,8 @@ public class EditAimActivity extends Activity implements View.OnClickListener {
                 completed = b;
             }
         });
+        } else {
+            finish();
         }
 
 

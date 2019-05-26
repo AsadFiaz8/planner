@@ -9,6 +9,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
     EditText nameText;
     Context context;
 
+    int id;
     DatePickerDialog dpd;
     TimePickerDialog tpd;
     Formatter f = new Formatter();
@@ -65,6 +67,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_add_reminder);
         setButtons();
         date = Calendar.getInstance();
+        date.setTimeInMillis(System.currentTimeMillis());
         dateButton.setText(f.DateText(date));
         context = this;
 
@@ -158,6 +161,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             int newID = MainActivity.appDatabase.appDao().getMaxRemindersID()+1;
             Reminder reminder = new Reminder(newID, name, date);
             MainActivity.appDatabase.appDao().addReminder(reminder);
+            id = newID;
             //setNotification();
 
             // Set notificationId & text.
@@ -171,13 +175,13 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
-            //alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            //alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
             
             
             
-            scheduleJob();
+            //scheduleJob();
             
             finish();
         } else {
@@ -188,9 +192,14 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
     private void scheduleJob() {
 
+        PersistableBundle persistableBundle = new PersistableBundle();
+        persistableBundle.putInt("ID", id);
+        persistableBundle.putString("TITTLE", getResources().getString(R.string.reminder));
+        persistableBundle.putString("TEXT", name);
         JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        JobInfo job = new JobInfo.Builder(MY_NOTIFICATION_JOB, new ComponentName(context, AlarmReceiver.class))
+        JobInfo job = new JobInfo.Builder(MY_NOTIFICATION_JOB, new ComponentName(context, AlarmService.class))
                 .setPeriodic(date.getTimeInMillis())
+                .setExtras(persistableBundle)
                 .build();
         js.schedule(job);
 

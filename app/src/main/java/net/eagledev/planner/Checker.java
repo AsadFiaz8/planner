@@ -77,6 +77,7 @@ public class Checker {
     }
 
     public boolean TimeEquals(Calendar cal1, Calendar cal2){
+        if (cal1 == null) return false;
         if(cal1.get(Calendar.HOUR) != cal2.get(Calendar.HOUR)) return false;
         if(cal1.get(Calendar.MINUTE) != cal2.get(Calendar.MINUTE)) return false;
         return true;

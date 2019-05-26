@@ -4,13 +4,17 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import java.util.Calendar;
 
@@ -57,9 +61,13 @@ public class AlarmReceiver extends BroadcastReceiver {
                     nm1.createNotificationChannel(channel);
                     b1.setChannelId(channelId);
                 }
-                if(checker.TimeEquals(MainActivity.planNextDayCal, Calendar.getInstance())){
-                    nm1.notify(notificationId, b1.build());
+                if(MainActivity.planNextDayCal != null){
+                    if(checker.TimeEquals(MainActivity.planNextDayCal, Calendar.getInstance())){
+                        nm1.notify(notificationId, b1.build());
+                    }
+
                 }
+
 
                 break;
 
@@ -130,4 +138,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
     }
+
+
 }
