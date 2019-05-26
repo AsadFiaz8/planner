@@ -17,6 +17,10 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
 
     boolean premiumUser;
     boolean adsPremium;
+
+
+
+    boolean tut;
     Calendar premiumAdTime = Calendar.getInstance();
     boolean mainNotification = true;
     boolean  datePickerButton = true;
@@ -100,9 +104,6 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         return adsPremium;
     }
 
-
-
-
     public boolean isDatePickerButton() {
         datePickerButton = MainActivity.pref.getBoolean("piker_button", true);
         return datePickerButton;
@@ -115,8 +116,6 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         editor.commit();
     }
 
-
-
     public boolean isMainNotification() {
         mainNotification = MainActivity.pref.getBoolean("main_notification", true);
         return mainNotification;
@@ -126,6 +125,18 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         this.mainNotification = mainNotification;
         editor = MainActivity.pref.edit();
         editor.putBoolean("main_notification", mainNotification);
+        editor.commit();
+    }
+
+    public boolean isTut() {
+        tut = MainActivity.pref.getBoolean("tutorial", false);
+        return tut;
+    }
+
+    public void setTut(boolean tut) {
+        this.tut = tut;
+        editor = MainActivity.pref.edit();
+        editor.putBoolean("tutorial", tut);
         editor.commit();
     }
 

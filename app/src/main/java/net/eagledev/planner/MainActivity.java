@@ -159,6 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
         valueHolder = new ValueHolder();
+        if(!valueHolder.isTut()){
+            Intent tutIntent = new Intent(context, TutorialActivity.class);
+            startActivity(tutIntent);
+        }
         setupBars();
         ReadData(false);
         getDatabasePath("planner");
@@ -353,29 +357,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
                                 Refresh();
                                 rl.setVisibility(View.VISIBLE);
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.main_page);
                                 break;
                             case R.id.nav_actions:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.scheduled_activities);
 
                                 break;
                             case R.id.nav_routines:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RoutinesFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.routines);
 
                                 break;
                             case R.id.nav_aims:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AimsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.aims);
 
                                 break;
                             case R.id.nav_reminders:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RemindersFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.reminders);
 
                                 break;
@@ -384,6 +393,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new SettingsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.settings);
+                                floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 break;
 
                             case R.id.nav_premium:
@@ -394,6 +404,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case R.id.nav_contact:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ContactFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
+                                floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.contact);
 
 

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TutorialActivity"
+   >
+
+    <ImageView
+        android:id="@+id/tut_image"
+        android:layout_width="300dp"
+        android:layout_height="265dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/tut_img1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/tut_text_box"
+        android:layout_width="301dp"
+        android:layout_height="195dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/tut_text_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tut_image" />
+
+    <TextView
+        android:id="@+id/tut_text"
+        android:layout_width="272dp"
+        android:layout_height="168dp"
+        android:layout_alignStart="@+id/tut_text_box"
+        android:layout_alignTop="@+id/tut_text_box"
+        android:layout_alignEnd="@+id/tut_text_box"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:text="Test"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tut_text_box"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="@+id/tut_text_box"
+        app:layout_constraintTop_toTopOf="@+id/tut_text_box" />
+
+
+    <ImageButton
+        android:id="@+id/tut_btn_skip"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/tut_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tut_btn_next"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tut_btn_skip"
+        app:layout_constraintEnd_toEndOf="@+id/tut_btn_skip"
+        app:layout_constraintVertical_bias="0.4"
+
+        app:layout_constraintStart_toStartOf="@+id/tut_btn_skip"
+        app:layout_constraintTop_toTopOf="@+id/tut_btn_skip" />
+
+    <ImageButton
+        android:id="@+id/tut_btn_next"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/tut_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintBottom_toBottomOf="@+id/tut_btn_next"
+        app:layout_constraintEnd_toEndOf="@+id/tut_btn_next"
+        app:layout_constraintStart_toStartOf="@+id/tut_btn_next"
+        app:layout_constraintTop_toTopOf="@+id/tut_btn_next" />
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

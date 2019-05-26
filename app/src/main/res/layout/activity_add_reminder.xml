@@ -54,6 +54,15 @@
                 android:layout_marginTop="10dp"
                 style="@style/AppTheme.Button"/>
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reminders_issue"
+                android:textAlignment="center"
+                android:textColor="@color/pie_red6"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"/>
 
 
         </LinearLayout>

@@ -131,6 +131,13 @@
     <string name="day_is_coming_to_end">Dzień dobiega końca</string>
     <string name="plan_next_day">Zaplanuj kolejny!</string>
     <string name="notify_plan_next_day">Planowanie kolejnego dnia</string>
+    <string name="skip">Pomiń</string>
+    <string name="next">Dalej</string>
+    <string name="tut1">Na tym wykresie wyświetlane będą wszystkie rutyny oraz aktywności z wybranego dnia</string>
+    <string name="tut2">Możesz przełączać dni używając strzałek umiejscowionych po bokach wykresu</string>
+    <string name="tut3">Gdy kliknisz w czynność lub rutynę na wykresie będziesz mógł zoabczyć jej szczegóły lub rozpocząć edycję</string>
+    <string name="tut4">Gdy klikniesz w przycisk na dole ekranu będziesz mieć możliwość dodania nowych czynności, rutyn, powiadomień lub celów.</string>
+    <string name="reminders_issue">Na niektórych urządzeniach powiadomienia mogą się nie wyświetlać. Pracujemy nad rozwiązaniem tego problemu. Dziękujemy za ciepliwość.</string>
 
     <string-array name="contact_messages">
         <item>Problem z subskrybcją</item>

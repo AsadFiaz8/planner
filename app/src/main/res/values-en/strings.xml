@@ -130,6 +130,13 @@
     <string name="day_is_coming_to_end">The day is coming to an end</string>
     <string name="plan_next_day">Plan next one!</string>
     <string name="notify_plan_next_day">Plan next day</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="tut1"> This chart will display all routines and activities from the selected day </string>
+    <string name="tut2"> You can switch days using the arrows located on the sides of the chart </string>
+    <string name="tut3"> When you click on an activity or a routine in the chart, you will be able to get the details or start editing </string>
+    <string name="tut4"> When you click on the button at the bottom of the screen you will be able to add new activities, routines, reminders or goals. </string>
+    <string name="reminders_issue">On some devices, notifications may not be displayed. We are working on solving this problem. Thank you for the warmth.</string>
 
 
     <string-array name="contact_messages">

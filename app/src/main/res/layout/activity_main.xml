@@ -12,7 +12,6 @@
     android:layout_gravity="left">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,9 +33,6 @@
             android:layout_height="match_parent"
             android:id="@+id/contnet_frame">
 
-
-
-
             <RelativeLayout
                 android:id="@+id/relative_layout"
                 android:layout_width="match_parent"
@@ -44,7 +40,6 @@
                 android:layout_gravity="center"
                 tools:layout_editor_absoluteY="25dp"
                 tools:context=".MainActivity"
-
                 >
 
 
@@ -330,78 +325,86 @@
                         fab:srcCompat="@color/black_semi_transparent" />
                 </LinearLayout>
 
-                <com.getbase.floatingactionbutton.FloatingActionsMenu
-                    android:id="@+id/multiple_actions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    fab:fab_addButtonColorNormal="@color/colorAccent"
-                    fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
-                    fab:fab_addButtonPlusIconColor="@color/black"
-                    fab:fab_labelStyle="@style/menu_labels_style">
 
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/action_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_colorNormal="@color/colorAccent"
-                        app:fab_colorPressed="@color/colorPrimaryDark"
-                        fab:fab_icon="@drawable/finance44"
-                        fab:fab_size="mini"
-                        fab:fab_title="@string/new_routine" />
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/action_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        fab:fab_colorNormal="@color/colorAccent"
-                        app:fab_colorPressed="@color/colorPrimaryDark"
-                        fab:fab_icon="@drawable/grid16"
-                        fab:fab_size="mini"
-                        fab:fab_title="@string/new_goal" />
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/action_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_colorNormal="@color/colorAccent"
-                        app:fab_colorPressed="@color/colorPrimaryDark"
-                        fab:fab_icon="@drawable/ui11"
-                        fab:fab_size="mini"
-                        fab:fab_title="@string/new_reminder" />
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/action_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_colorNormal="@color/colorAccent"
-                        app:fab_colorPressed="@color/colorPrimaryDark"
-                        fab:fab_icon="@drawable/finance50"
-                        fab:fab_size="mini"
-                        fab:fab_title="@string/new_action" />
-
-                </com.getbase.floatingactionbutton.FloatingActionsMenu>
             </RelativeLayout>
         </FrameLayout>
 
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            fab:fab_addButtonColorNormal="@color/colorAccent"
+            fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
+            fab:fab_addButtonPlusIconColor="@color/black"
+            fab:fab_labelStyle="@style/menu_labels_style">
+
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_icon="@drawable/finance44"
+                fab:fab_size="mini"
+                fab:fab_title="@string/new_routine" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_icon="@drawable/grid16"
+                fab:fab_size="mini"
+                fab:fab_title="@string/new_goal" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_icon="@drawable/ui11"
+                fab:fab_size="mini"
+                fab:fab_title="@string/new_reminder" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                fab:fab_colorNormal="@color/colorAccent"
+                fab:fab_icon="@drawable/finance50"
+                fab:fab_size="mini"
+                fab:fab_title="@string/new_action" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </RelativeLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/nav_header">
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_view">
 
     </android.support.design.widget.NavigationView>
 
