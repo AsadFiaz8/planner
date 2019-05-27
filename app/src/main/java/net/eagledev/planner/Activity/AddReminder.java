@@ -176,7 +176,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             //alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
-            alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            alarm.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
             
             
