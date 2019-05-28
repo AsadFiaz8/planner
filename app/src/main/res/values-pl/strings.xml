@@ -138,6 +138,7 @@
     <string name="tut3">Gdy kliknisz w czynność lub rutynę na wykresie będziesz mógł zoabczyć jej szczegóły lub rozpocząć edycję</string>
     <string name="tut4">Gdy klikniesz w przycisk na dole ekranu będziesz mieć możliwość dodania nowych czynności, rutyn, powiadomień lub celów.</string>
     <string name="reminders_issue">Na niektórych urządzeniach powiadomienia mogą się nie wyświetlać. Pracujemy nad rozwiązaniem tego problemu. Dziękujemy za ciepliwość.</string>
+    <string name="error_loading_activities">Błąd wczytywania czynności. Jeśli problem nie ustąpi uruchom aplikację ponownie.</string>
 
     <string-array name="contact_messages">
         <item>Problem z subskrybcją</item>

@@ -41,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -837,7 +838,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else {
             actionList.clear();
-            todayActions= appDatabase.appDao().getActionsFromDay(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+            try {
+                todayActions= appDatabase.appDao().getActionsFromDay(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+            } catch (Exception e)
+            {
+                Log.e("MainActivity", e.getMessage());
+                Toast.makeText(context, getString(R.string.error_loading_activities), Toast.LENGTH_LONG).show();
+            }
+
+
         }
 
         for(int i = 0; i<todayActions.size(); i++) {
