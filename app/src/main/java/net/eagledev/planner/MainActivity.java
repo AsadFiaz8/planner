@@ -20,7 +20,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -42,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -148,14 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (BuildConfig.DEBUG) {
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
-        }
         super.onCreate(savedInstanceState);
         currentDate = Calendar.getInstance();
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
@@ -479,10 +471,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         planNextDayCal = Calendar.getInstance();
         planNextDayCal.setTimeInMillis(System.currentTimeMillis());
-        planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
-        planNextDayCal.set(Calendar.MINUTE, 0);
-        planNextDayCal.set(Calendar.SECOND, 0);
+        //planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
+        //planNextDayCal.set(Calendar.MINUTE, 0);
+        //planNextDayCal.set(Calendar.SECOND, 0);
 
+        //TODO zmianić czas na 20
 
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, planNextDayCal.getTimeInMillis(),
                 1000 * 60 * 60 * 24, alarmIntent);
@@ -848,10 +841,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionList.clear();
             try {
                 todayActions= appDatabase.appDao().getActionsFromDay(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-
-            } catch (Exception e){
-                Log.e("MainAvtivity", "Get Actions From Day Error");
+            } catch (Exception e)
+            {
+                Log.e("MainActivity", e.getMessage());
+                Toast.makeText(context, getString(R.string.error_loading_activities), Toast.LENGTH_LONG).show();
             }
+
+
         }
 
         for(int i = 0; i<todayActions.size(); i++) {

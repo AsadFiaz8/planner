@@ -21,9 +21,11 @@ import java.util.Calendar;
 public class AlarmReceiver extends BroadcastReceiver {
 
     Checker checker;
+    public static final String TAG = "AlarmReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
 
 
         checker = new Checker();
@@ -31,7 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         int notificationId = intent.getIntExtra("ID", 0);
         String message = intent.getStringExtra("TEXT");
         String tittle = intent.getStringExtra("TITTLE");
-
+        Log.e(TAG, intent.getIntExtra("ID", 0) + " "+intent.getStringExtra("TEXT") + " " + intent.getStringExtra("TITTLE"));
         switch (notificationId){
 
             case -1:
@@ -105,6 +107,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
                 default:
+                    Log.e(TAG, "default");
                     // When notification is tapped, call MainActivity.
                     Intent mainIntent = new Intent(context, MainActivity.class);
                     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);

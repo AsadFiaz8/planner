@@ -13,6 +13,9 @@ import android.widget.TextView;
 public class TutorialActivity extends AppCompatActivity {
 
     ImageView image;
+    ImageView image2;
+    ImageView image3;
+    ImageView image4;
     TextView textView;
     ImageButton buttonSkip;
     ImageButton buttonNext;
@@ -25,6 +28,9 @@ public class TutorialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutorial);
 
         image = findViewById(R.id.tut_image);
+        image2 = findViewById(R.id.tut_image2);
+        image3 = findViewById(R.id.tut_image3);
+        image4 = findViewById(R.id.tut_image4);
         textView = findViewById(R.id.tut_text);
         buttonSkip = findViewById(R.id.tut_btn_skip);
         buttonNext = findViewById(R.id.tut_btn_next);
@@ -42,15 +48,24 @@ public class TutorialActivity extends AppCompatActivity {
                 part++;
                 switch (part){
                     case 2:
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.tut_img2));
+                        image.setVisibility(View.INVISIBLE);
+                        image2.setVisibility(View.VISIBLE);
+                        image3.setVisibility(View.INVISIBLE);
+                        image4.setVisibility(View.INVISIBLE);
                         textView.setText(getResources().getString(R.string.tut2));
                         break;
                     case 3:
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.tut_img3));
+                        image.setVisibility(View.INVISIBLE);
+                        image2.setVisibility(View.INVISIBLE);
+                        image3.setVisibility(View.VISIBLE);
+                        image4.setVisibility(View.INVISIBLE);
                         textView.setText(getResources().getString(R.string.tut3));
                         break;
                     case 4:
-                        image.setImageDrawable(getResources().getDrawable(R.drawable.tut_img4));
+                        image.setVisibility(View.INVISIBLE);
+                        image2.setVisibility(View.INVISIBLE);
+                        image3.setVisibility(View.INVISIBLE);
+                        image4.setVisibility(View.VISIBLE);
                         textView.setText(getResources().getString(R.string.tut4));
                         break;
                     case 5:
