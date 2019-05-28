@@ -309,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Update() {
         clockArrow.setRotation((Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*60+Calendar.getInstance().get(Calendar.MINUTE))/4);
         //clockArrow.setRotation(Calendar.getInstance().get(Calendar.SECOND));
-        Log.e("Update" ,"working");
 
         if(!checker.DateEquals(notificationDate, Calendar.getInstance()))
         {
@@ -471,16 +470,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         planNextDayCal = Calendar.getInstance();
         planNextDayCal.setTimeInMillis(System.currentTimeMillis());
-        //planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
-        //planNextDayCal.set(Calendar.MINUTE, 0);
-        //planNextDayCal.set(Calendar.SECOND, 0);
-
-        //TODO zmianić czas na 20
+        planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
+        planNextDayCal.set(Calendar.MINUTE, 0);
+        planNextDayCal.set(Calendar.SECOND, 0);
 
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, planNextDayCal.getTimeInMillis(),
                 1000 * 60 * 60 * 24, alarmIntent);
-        //alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), time, alarmIntent);
-        //alarm.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),alarmIntent);
 
     }
 

@@ -33,8 +33,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         int notificationId = intent.getIntExtra("ID", 0);
         String message = intent.getStringExtra("TEXT");
         String tittle = intent.getStringExtra("TITTLE");
-        Log.e(TAG, intent.getIntExtra("ID", 0) + " "+intent.getStringExtra("TEXT") + " " + intent.getStringExtra("TITTLE"));
         switch (notificationId){
+
 
             case -1:
                 // When notification is tapped, call MainActivity.
@@ -63,9 +63,17 @@ public class AlarmReceiver extends BroadcastReceiver {
                     nm1.createNotificationChannel(channel);
                     b1.setChannelId(channelId);
                 }
+                Formatter f = new Formatter();
+
                 if(MainActivity.planNextDayCal != null){
+                    Log.e(TAG, "planNextDayCal   "+f.dateWithTime(MainActivity.planNextDayCal));
+                    Log.e(TAG, "now   "+f.dateWithTime(Calendar.getInstance()));
                     if(checker.TimeEquals(MainActivity.planNextDayCal, Calendar.getInstance())){
                         nm1.notify(notificationId, b1.build());
+                        Log.e(TAG, "Match");
+                    } else {
+                        nm1.notify(notificationId, b1.build());
+                        Log.e(TAG, "Not match");
                     }
 
                 }

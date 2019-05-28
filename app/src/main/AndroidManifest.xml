@@ -67,6 +67,7 @@
             android:screenOrientation="sensorPortrait" />
 
         <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".ReminderReceiver"/>
 
         <service
             android:name=".AlarmService"

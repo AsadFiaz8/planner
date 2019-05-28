@@ -165,7 +165,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             //setNotification();
 
             // Set notificationId & text.
-            Intent intent = new Intent(AddReminder.this, AlarmReceiver.class);
+            Intent intent = new Intent(AddReminder.this, ReminderReceiver.class);
 
             intent.putExtra("ID", newID);
             intent.putExtra("TITTLE", R.string.reminder);
@@ -174,22 +174,17 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
 
 
-            Calendar planNextDayCal;
-            Intent nIntent = new Intent(MainActivity.context, AlarmReceiver.class);
-            nIntent.putExtra("ID", -1);
+            Intent nIntent = new Intent(MainActivity.context, ReminderReceiver.class);
+            nIntent.putExtra("ID", newID);
+            nIntent.putExtra("TITTLE", getResources().getString(R.string.reminder));
+            nIntent.putExtra("TEXT", name);
             PendingIntent alarmIntent = PendingIntent.getBroadcast(MainActivity.context, 0, nIntent, 0);
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-            planNextDayCal = Calendar.getInstance();
-            planNextDayCal.setTimeInMillis(System.currentTimeMillis());
-            //planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
-            //planNextDayCal.set(Calendar.MINUTE, 0);
-            //planNextDayCal.set(Calendar.SECOND, 0);
+            date.set(Calendar.SECOND, 0);
 
-            //TODO zmianić czas na 20
 
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, planNextDayCal.getTimeInMillis(),
-                    1000 * 60 * 60 * 24, alarmIntent);
+            alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
             //scheduleJob();
             

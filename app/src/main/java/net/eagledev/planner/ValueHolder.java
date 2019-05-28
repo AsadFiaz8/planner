@@ -18,6 +18,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     boolean premiumUser;
     boolean adsPremium;
 
+    public static final String TAG = "ValueHolder";
 
 
     boolean tut;
@@ -54,12 +55,12 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         } else {
             if (!billingHolder.isBillingAvailable()){
                 billingHolder = null;
-                Log.e("Value Holder", "Billing is not available");
+                Log.e(TAG, "Billing is not available");
                 return MainActivity.pref.getBoolean("premium_user", false);
             } else {
                 editor.putBoolean("premium_user", false);
                 editor.commit();
-                Log.e("Value Holder", "Billing is available");
+                Log.e(TAG, "Billing is available");
                 billingHolder = null;
 
                 return false;
