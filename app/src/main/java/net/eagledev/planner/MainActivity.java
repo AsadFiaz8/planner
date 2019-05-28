@@ -471,10 +471,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         planNextDayCal = Calendar.getInstance();
         planNextDayCal.setTimeInMillis(System.currentTimeMillis());
-        planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
-        planNextDayCal.set(Calendar.MINUTE, 0);
-        planNextDayCal.set(Calendar.SECOND, 0);
+        //planNextDayCal.set(Calendar.HOUR_OF_DAY, 20);
+        //planNextDayCal.set(Calendar.MINUTE, 0);
+        //planNextDayCal.set(Calendar.SECOND, 0);
 
+        //TODO zmianić czas na 20
 
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, planNextDayCal.getTimeInMillis(),
                 1000 * 60 * 60 * 24, alarmIntent);
