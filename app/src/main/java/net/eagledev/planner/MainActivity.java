@@ -55,6 +55,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Activity.AddAimActivity;
@@ -142,6 +144,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     PieChart chart;
     Button btn;
     public static boolean needRefresh = false;
+    public static FirebaseAuth mAuth;
+    public static FirebaseUser currentUser;
+
 
     private final static int REQUEST_CODE_1 = 1;
     private final static int REQUEST_CODE_2 = 2;
@@ -170,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setColors();
         setupPieChartBackground();
         setupPieChart();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         setupList();
         setDate();
         setupUpdate();
