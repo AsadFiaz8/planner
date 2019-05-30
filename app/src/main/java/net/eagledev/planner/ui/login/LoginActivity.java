@@ -3,6 +3,7 @@ package net.eagledev.planner.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,17 +21,32 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 import static net.eagledev.planner.MainActivity.mAuth;
 
 public class LoginActivity extends AppCompatActivity {
+
+
+    private static final int MY_REQUEST_CODE = 5646;
+    List<AuthUI.IdpConfig> providers;
+
+
+
 
    public static final String TAG = "LoginActivity";
     EditText usernameEditText;
@@ -45,35 +61,55 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         
 
-          usernameEditText = findViewById(R.id.username);
-          passwordEditText = findViewById(R.id.password);
+        providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build()
+        );
+
+        showSignInOptions();
           loginButton = findViewById(R.id.login);
-         ProgressBar loadingProgressBar = findViewById(R.id.loading);
-       
-         loginButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 email = String.valueOf(usernameEditText.getText());
-                 pass = String.valueOf(passwordEditText.getText());
-                 mAuth.createUserWithEmailAndPassword(email, pass)
-                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                             @Override
-                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                 if (task.isSuccessful()) {
-                                     // Sign in success, update UI with the signed-in user's information
-                                     Log.d(TAG, "createUserWithEmail:success");
-                                     FirebaseUser user = mAuth.getCurrentUser();
-                                     updateUI(user);
-                                 } else {
-                                     // If sign in fails, display a message to the user.
-                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                     
-                                 }
-                             }
-                         })
-             }
-         });
-        
+       loginButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               AuthUI.getInstance()
+                       .signOut(MainActivity.context)
+                       .addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull Task<Void> task) {
+
+                               showSignInOptions();
+                           }
+                       }).addOnFailureListener(new OnFailureListener() {
+                   @Override
+                   public void onFailure(@NonNull Exception e) {
+
+                   }
+               });
+           }
+       });
+
+
+    }
+
+    private void showSignInOptions() {
+        startActivityForResult(
+                AuthUI.getInstance().createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .setTheme(R.style.AuthTheme)
+                .build(), MY_REQUEST_CODE
+        );
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MY_REQUEST_CODE){
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (requestCode == RESULT_OK){
+                MainActivity.currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                Log.d(TAG, "Current User Email: : "+ MainActivity.currentUser.getEmail());
+            }
+        }
     }
 
     private void updateUI(FirebaseUser user) {

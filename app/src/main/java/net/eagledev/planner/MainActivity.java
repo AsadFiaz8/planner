@@ -73,6 +73,7 @@ import net.eagledev.planner.Fragment.RemindersFragment;
 import net.eagledev.planner.Fragment.RoutinesFragment;
 import net.eagledev.planner.Fragment.SettingsFragment;
 import net.eagledev.planner.Interface.ItemClickListener;
+import net.eagledev.planner.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -407,6 +408,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case R.id.nav_premium:
                                 Intent premiumIntent = new Intent(context, BuyPremiumActivity.class);
                                 startActivity(premiumIntent);
+                                break;
+
+                            case R.id.nav_login:
+                                Intent loginIntent = new Intent(context, LoginActivity.class);
+                                startActivity(loginIntent);
                                 break;
 
                             case R.id.nav_contact:
