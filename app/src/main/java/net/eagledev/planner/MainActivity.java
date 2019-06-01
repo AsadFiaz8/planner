@@ -54,9 +54,14 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Activity.AddAimActivity;
@@ -77,11 +82,14 @@ import net.eagledev.planner.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener {
 
+    public static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     Calendar data = Calendar.getInstance();
     List<Action> ac = new ArrayList<Action>();
@@ -89,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton btnNewAction;
     FloatingActionButton btnNewReminder;
     FloatingActionButton btnAims;
+    FirestoreDatabase fireDB = new FirestoreDatabase();
     public static Calendar planNextDayCal;
     Calendar notificationDate = Calendar.getInstance();
     Button button;
@@ -126,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static RelativeLayout rl;
     Formatter f = new Formatter();
     Toolbar toolbar;
+    NavigationView navigationView;
     Intent serviceIntent;
     RecyclerView recyclerView;
     ItemClickListener itemClickListener;
@@ -147,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static boolean needRefresh = false;
     public static FirebaseAuth mAuth;
     public static FirebaseUser currentUser;
+    public FirebaseFirestore fdb;
 
 
     private final static int REQUEST_CODE_1 = 1;
@@ -197,6 +208,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //startService(new Intent(this, BackgroundService.class));
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
         //------------------ Tutaj tymczasowo będę wrzucać nowy kod
+        TextView navText = navigationView.getHeaderView(0).findViewById(R.id.nav_header);
+        if (currentUser != null){
+            navText.setText(currentUser.getDisplayName());
+            fdb = FirebaseFirestore.getInstance();
+            Map<String, Object> user = new HashMap<>();
+            String mail = currentUser.getEmail();
+            String userID = currentUser.getUid();
+            user.put("id", userID);
+            CollectionReference users = fdb.collection("users");
+            users.document(mail).set(user);
+
+        }
+        else {
+            if(navText != null){
+                navText.setText("Zaloguj sie");
+            }
+
+        }
+
+
+        navText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(context, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
 
 
 
@@ -350,7 +388,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -1162,7 +1201,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         serviceIntent.putExtra("tittle", getResources().getString(R.string.no_scheduled_activity));
         serviceIntent.putExtra("text",getResources().getString(R.string.add_now));
-        startService(serviceIntent);
+        if(!isServiceRunning(NotificationService.class)){
+            startService(serviceIntent);
+        }
 
     }
 
@@ -1264,5 +1305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
+
+
 }
 

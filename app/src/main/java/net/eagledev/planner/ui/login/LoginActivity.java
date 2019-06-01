@@ -108,6 +108,8 @@ public class LoginActivity extends AppCompatActivity {
             if (requestCode == RESULT_OK){
                 MainActivity.currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 Log.d(TAG, "Current User Email: : "+ MainActivity.currentUser.getEmail());
+
+
             }
         }
     }

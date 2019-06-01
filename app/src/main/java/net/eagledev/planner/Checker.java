@@ -1,12 +1,17 @@
 package net.eagledev.planner;
 
+import android.app.ActivityManager;
+import android.content.Context;
+
 import java.util.Calendar;
 
 public class Checker {
 
     Calendar now;
+    Context context;
 
     public Checker() {
+
 
     }
 
@@ -82,6 +87,7 @@ public class Checker {
         if(cal1.get(Calendar.MINUTE) != cal2.get(Calendar.MINUTE)) return false;
         return true;
     }
+
 
 
 }
