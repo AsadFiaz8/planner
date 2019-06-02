@@ -7,11 +7,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity(tableName = "actions")
 public class Action {
@@ -140,10 +138,6 @@ public class Action {
 
     public void setColor(int color) {
         this.color = color;
-    }
-
-    public int getID() {
-        return  id;
     }
 
     public String getDesc() {

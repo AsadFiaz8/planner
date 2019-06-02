@@ -211,14 +211,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView navText = navigationView.getHeaderView(0).findViewById(R.id.nav_header);
         if (currentUser != null){
             navText.setText(currentUser.getDisplayName());
-            fdb = FirebaseFirestore.getInstance();
-            Map<String, Object> user = new HashMap<>();
-            String mail = currentUser.getEmail();
-            String userID = currentUser.getUid();
-            user.put("id", userID);
-            CollectionReference users = fdb.collection("users");
-            users.document(mail).set(user);
-
         }
         else {
             if(navText != null){
@@ -238,6 +230,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+        fireDB = new FirestoreDatabase();
+        if(appDatabase.appDao().getMaxActionID() > 0){
+            List<Action> act = appDatabase.appDao().getActions();
+            fireDB.addAction(act.get(0));
+        }
         //--------------------------------------------------------
     }
 
@@ -711,9 +708,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                     }
-                    String acID = String.valueOf(currentAction.getID());
+                    String acID = String.valueOf(currentAction.getId());
                     if(isRoutine) {
-                        acID="r"+String.valueOf(currentAction.getID());
+                        acID="r"+String.valueOf(currentAction.getId());
                     }
                     if(currentAction.getStartMinutes() > t) {
                         pieEntries.add(new PieEntry(currentAction.getStartMinutes()-t,emptyLabel));

@@ -308,7 +308,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         }
 
         private void CreateAction() {
-            Action newAction = new Action(selectedAction.getID(),textView.getText().toString(), date_start, date_stop, iconID, colorID );
+            Action newAction = new Action(selectedAction.getId(),textView.getText().toString(), date_start, date_stop, iconID, colorID );
             MainActivity.appDatabase.appDao().updateAction(newAction);
 
         }
@@ -345,7 +345,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 break;
 
             case R.id.toolbar_delete:
-                MainActivity.appDatabase.appDao().deleteAction(selectedAction.getID());
+                MainActivity.appDatabase.appDao().deleteAction(selectedAction.getId());
                 refresh();
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();

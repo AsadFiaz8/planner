@@ -295,7 +295,7 @@ public class ActionsFragment extends Fragment {
                 public void onClick(View view, int position) {
                     Action action = aList.get(position);
                     Intent intentEdit = new Intent(context, EditActionActivity.class);
-                    intentEdit.putExtra("ID", action.getID());
+                    intentEdit.putExtra("ID", action.getId());
                     startActivityForResult(intentEdit, 1);
                 }
             });

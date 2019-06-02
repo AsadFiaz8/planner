@@ -346,9 +346,9 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                             }
                         }
                     }
-                    String acID = String.valueOf(currentAction.getID());
+                    String acID = String.valueOf(currentAction.getId());
                     if(isRoutine) {
-                        acID="r"+String.valueOf(currentAction.getID());
+                        acID="r"+String.valueOf(currentAction.getId());
                     }
                     if(currentAction.getStartMinutes() > t) {
                         pieEntries.add(new PieEntry(currentAction.getStartMinutes()-t,emptyLabel));
