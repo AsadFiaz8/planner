@@ -7,7 +7,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Color;
-import android.util.Log;
 
 import java.util.Calendar;
 
@@ -24,7 +23,7 @@ public class Action {
     @ColumnInfo(name = "color")
     private int color;
 
-    //Date start
+    //Date getStart
     @ColumnInfo(name = "start_year")
     private int start_year;
     @ColumnInfo(name = "start_month")
@@ -37,7 +36,7 @@ public class Action {
     private int start_minute;
 
 
-    //Date stop
+    //Date getStop
     @ColumnInfo(name = "stop_year")
     private int stop_year;
     @ColumnInfo(name = "stop_month")
@@ -128,7 +127,6 @@ public class Action {
         stop_month=date_stop.get(Calendar.MONTH);
         stop_day=date_stop.get(Calendar.DAY_OF_MONTH);
         stop_hour=date_stop.get(Calendar.HOUR_OF_DAY);
-        Log.e("Actrion set minutes", String.valueOf(date_stop.get(Calendar.MINUTE)));
         stop_minute=date_stop.get(Calendar.MINUTE);
     }
 

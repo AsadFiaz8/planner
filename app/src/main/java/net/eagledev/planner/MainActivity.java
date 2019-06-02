@@ -54,13 +54,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
@@ -82,10 +78,8 @@ import net.eagledev.planner.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener {
 
@@ -97,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton btnNewAction;
     FloatingActionButton btnNewReminder;
     FloatingActionButton btnAims;
-    FirestoreDatabase fireDB = new FirestoreDatabase();
+    public static FirestoreDatabase fDatabase = new FirestoreDatabase();
     public static Calendar planNextDayCal;
     Calendar notificationDate = Calendar.getInstance();
     Button button;
@@ -176,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
         valueHolder = new ValueHolder();
         if(!valueHolder.isTut()){
             Intent tutIntent = new Intent(context, TutorialActivity.class);
@@ -208,6 +203,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //startService(new Intent(this, BackgroundService.class));
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
         //------------------ Tutaj tymczasowo będę wrzucać nowy kod
+        setNavText();
+
+
+
+        fDatabase = new FirestoreDatabase();
+        if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
+            fDatabase.addActions(appDatabase.appDao().getActions());
+        }
+        fDatabase.downloadActions();
+        fDatabase.downloadRoutines();
+        //--------------------------------------------------------
+    }
+
+    private void setNavText() {
         TextView navText = navigationView.getHeaderView(0).findViewById(R.id.nav_header);
         if (currentUser != null){
             navText.setText(currentUser.getDisplayName());
@@ -216,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(navText != null){
                 navText.setText("Zaloguj sie");
             }
-
         }
 
 
@@ -227,17 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(loginIntent);
             }
         });
-
-
-
-        fireDB = new FirestoreDatabase();
-        if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
-            fireDB.addActions(appDatabase.appDao().getActions());
-        }
-        fireDB.downloadActions();
-        //--------------------------------------------------------
     }
-
 
 
     private void setOthers() {
@@ -363,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else stopService();
         if(needRefresh) {
             Refresh();
-            needRefresh = false;
+
         }
         if(needShowMainPage){
             showMainPage();
@@ -785,7 +783,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         s = s.replaceFirst("r","");
                         Routine selectedRoutine = appDatabase.appDao().idRoutine(Integer.parseInt(s));
                         selectedID = Integer.parseInt(s);
-                        actionTimeText.setText(f.Time(selectedRoutine.start())+"\n"+f.Time(selectedRoutine.stop()));
+                        actionTimeText.setText(f.Time(selectedRoutine.getStart())+"\n"+f.Time(selectedRoutine.getStop()));
                         actionTimeText.setVisibility(View.VISIBLE);
                         actionInfoText.setText(selectedRoutine.getName());
                         actionInfoText.setVisibility(View.VISIBLE);
@@ -862,7 +860,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void ReadData(boolean notify) {
-        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
+        if(appDatabase == null){
+            appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
+
+        }
         startRoutinesTime.clear();
         stopRoutinesTime.clear();
         ac.clear();
@@ -902,8 +903,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         }
-        List<Action> actionAdapters = appDatabase.appDao().getActions();
-        List<Reminder> reminderAdapter = appDatabase.appDao().getReminders();
         List<Routine> routineAdapter = new ArrayList<>();
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
         switch (currentDate.get(Calendar.DAY_OF_WEEK)){
@@ -931,9 +930,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for(int i = 0; i<routineAdapter.size(); i++) {
             Routine r = routineAdapter.get(i);
-            Calendar start =  r.start();
+            Calendar start =  r.getStart();
             int startR = start.get(Calendar.HOUR_OF_DAY)*60+start.get(Calendar.MINUTE);
-            Calendar stop = r.stop();
+            Calendar stop = r.getStop();
             int stopR = stop.get(Calendar.HOUR_OF_DAY)*60+stop.get(Calendar.MINUTE);
             boolean createAction = true;
             int startM = 0;
@@ -1185,11 +1184,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void Refresh(){
+        Log.e(TAG,"Refresh");
         setupBars();
         ReadData(false);
         setupPieChart();
         setupList();
         showDate = f.DateForClock(currentDate);
+        setNavText();
+        needRefresh = false;
     }
 
     public void startService(){
@@ -1303,6 +1305,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    public static void setValueHolder(){
+        valueHolder = new ValueHolder();
+    }
 
 }
 

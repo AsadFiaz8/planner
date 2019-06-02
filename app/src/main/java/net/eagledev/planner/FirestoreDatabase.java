@@ -25,12 +25,170 @@ public class FirestoreDatabase {
     CollectionReference users;
     DocumentReference user;
     CollectionReference actions;
+    CollectionReference routines;
     Formatter f = new Formatter();
 
 
     FirestoreDatabase() {
         db = FirebaseFirestore.getInstance();
+            setup();
+    }
 
+    public void addAction(Action action){
+        if(MainActivity.currentUser != null) {
+            if(actions==null){
+                setup();
+            }
+            actions.document(String.valueOf(action.getId())).set(action);
+
+        }
+    }
+
+    public void addActions(List<Action> actionsList){
+        if(MainActivity.currentUser != null){
+            if(actions == null){
+                setup();
+            }
+            for (int i = 0; i < actionsList.size(); i++){
+                actions.document(String.valueOf(actionsList.get(i).getId())).set(actionsList.get(i));
+            }
+        }
+    }
+
+    public void downloadActions(){
+        if(MainActivity.currentUser != null){
+            if(actions == null){
+                setup();
+            }
+            actions.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    try {
+                                        Calendar start = Calendar.getInstance();
+                                        Calendar stop = Calendar.getInstance();
+                                        Action action;
+                                        Map<String, Object> map = document.getData();
+                                        Map<String, Object> startMap = (Map<String, Object>) map.get("start");
+
+                                        start.setTimeInMillis((Long) startMap.get("timeInMillis"));
+                                        Map<String, Object> stopMap = (Map<String, Object>) map.get("stop");
+                                        stop.setTimeInMillis((Long) stopMap.get("timeInMillis"));
+
+                                        long lcolor = (long) map.get("color");
+                                        long licon = (long) map.get("icon");
+                                        String desc = (String) map.get("desc");
+                                        int id = Integer.parseInt(document.getId());
+                                        int color = (int) lcolor;
+                                        int icon = (int) licon;
+
+                                        action = new Action(id, desc, start, stop, (int) icon, color);
+
+                                        Log.e(TAG, "Action  " + desc);
+                                        if (MainActivity.appDatabase.appDao().idAction(id) != null) {
+                                            //Akcja istnieje
+                                            MainActivity.appDatabase.appDao().updateAction(action);
+                                        } else {
+                                            //Akcja nie istnieje
+                                            MainActivity.appDatabase.appDao().addAction(action);
+                                        }
+                                    } catch (Exception e){
+                                        Log.e(TAG,"Actions  "+  e.getMessage());
+                                    }
+                                }
+                            }
+                            MainActivity.needRefresh = true;
+                        }
+                    });
+        }
+
+
+
+    }
+
+    public void addRoutine(Routine routine){
+        if(MainActivity.currentUser != null) {
+            if(routines==null){
+                setup();
+            }
+            routines.document(String.valueOf(routine.getId())).set(routine);
+
+        }
+    }
+
+    public void addRoutine(List<Routine> routinesList){
+        if(MainActivity.currentUser != null){
+            if(routines == null){
+                setup();
+            }
+            for (int i = 0; i < routinesList.size(); i++){
+                routines.document(String.valueOf(routinesList.get(i).getId())).set(routinesList.get(i));
+            }
+        }
+    }
+
+    public void downloadRoutines(){
+        if(MainActivity.currentUser != null){
+            if(routines == null){
+                setup();
+            }
+            routines.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    try {
+                                        Calendar start = Calendar.getInstance();
+                                        Calendar stop = Calendar.getInstance();
+                                        Routine routine;
+                                        Map<String, Object> map = document.getData();
+                                        Map<String, Object> startMap = (Map<String, Object>) map.get("start");
+                                        start.setTimeInMillis((Long) startMap.get("timeInMillis"));
+                                        Map<String, Object> stopMap = (Map<String, Object>) map.get("stop");
+                                        stop.setTimeInMillis((Long) stopMap.get("timeInMillis"));
+                                        boolean monday = (boolean) map.get("monday");
+                                        boolean tuesday = (boolean) map.get("tuesday");
+                                        boolean wednesday = (boolean) map.get("wednesday");
+                                        boolean thursday = (boolean) map.get("thursday");
+                                        boolean friday = (boolean) map.get("friday");
+                                        boolean saturday = (boolean) map.get("saturday");
+                                        boolean sunday = (boolean) map.get("sunday");
+
+                                        long lcolor = (long) map.get("color");
+                                        long licon = (long) map.get("icon");
+                                        String name = (String) map.get("name");
+                                        int id = Integer.parseInt(document.getId());
+                                        int color = (int) lcolor;
+                                        int icon = (int) licon;
+
+                                        routine = new Routine(id, name, icon, color, start, stop, monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+
+                                        Log.e(TAG, "Routine  " + name);
+                                        if (MainActivity.appDatabase.appDao().idRoutine(id) != null) {
+                                            //Akcja istnieje
+                                            MainActivity.appDatabase.appDao().updateRoutine(routine);
+                                        } else {
+                                            //Akcja nie istnieje
+                                            MainActivity.appDatabase.appDao().addRoutine(routine);
+                                        }
+                                    } catch (Exception e){
+                                        Log.e(TAG,"Routines  "+ e.getMessage());
+                                    }
+                                }
+                            }
+                            MainActivity.needRefresh = true;
+                        }
+                    });
+        }
+
+
+
+    }
+
+    public void setup(){
         if(MainActivity.currentUser != null){
             String mail = MainActivity.currentUser.getEmail();
             String userID = MainActivity.currentUser.getUid();
@@ -39,75 +197,10 @@ public class FirestoreDatabase {
             userMap.put("id", userID);
             users.document(mail).set(userMap);
             user = users.document(mail);
-
             actions = user.collection("actions");
-            /*
-            Log.e(TAG, actions.getPath());
-            //dokument to akcja
-            Map<String, Object> actionMap = new HashMap<>();
-            actionMap.put("id", 0);
-            actionMap.put("desc", "Test");
-            actionMap.put("icon", MainActivity.icons[1]);
-            actionMap.put("color", MainActivity.colors[1]);
-            actionMap.put("start_year",0);
-            actionMap.put("start_month",0);
-            actionMap.put("start_day",0);
-            actionMap.put("start_hour",0);
-            actionMap.put("start_minute",0);
-            actionMap.put("stop_year",0);
-            actionMap.put("stop_month",0);
-            actionMap.put("stop_day",0);
-            actionMap.put("stop_hour",0);
-            actionMap.put("stop_minute",0);
-            actions.document("0").set(actionMap);*/
+            routines = user.collection("routines");
         }
-    }
 
-    public void addAction(Action action){
-        if(MainActivity.currentUser != null) {
-            actions.document(String.valueOf(action.getId())).set(action);
-
-        }
-    }
-
-    public void addActions(List<Action> actionsList){
-        if(MainActivity.currentUser != null){
-            for (int i = 0; i < actionsList.size(); i++){
-                actions.document(String.valueOf(actionsList.get(i).getId())).set(actionsList.get(i));
-            }
-        }
-    }
-
-    public void downloadActions(){
-        actions.get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                if(MainActivity.appDatabase.appDao().idAction(Integer.parseInt(document.getId())) != null){
-                                    Calendar start = Calendar.getInstance();
-                                    Map<String, Object> map = document.getData();
-                                    Long start_year = (Long) document.get("start_year");
-                                    Long start_month = (Long) document.get("start_month");
-                                    Long start_day = (Long) document.get("start_day");
-                                    Long start_hour = (Long) document.get("start_hour");
-                                    Long start_minute = (Long) document.get("start_minute");
-                                    start.set(Calendar.YEAR, start_year.intValue());
-                                    start.set(Calendar.MONTH, start_month.intValue());
-                                    start.set(Calendar.DAY_OF_MONTH, start_day.intValue());
-                                    start.set(Calendar.HOUR_OF_DAY, start_hour.intValue());
-                                    start.set(Calendar.MINUTE, start_minute.intValue());
-
-                                    Log.e(TAG, "cal  " + f.dateWithTime(start));
-                                }
-
-                            }
-                        } else {
-
-                        }
-                    }
-                });
     }
 
 

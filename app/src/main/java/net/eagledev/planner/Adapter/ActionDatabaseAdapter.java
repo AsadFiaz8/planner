@@ -19,7 +19,7 @@ public class ActionDatabaseAdapter {
     @ColumnInfo(name = "color")
     private int color;
 
-    //Date start
+    //Date getStart
     @ColumnInfo(name = "start_year")
     private int start_year;
     @ColumnInfo(name = "start_month")
@@ -35,7 +35,7 @@ public class ActionDatabaseAdapter {
     private int start_minute;
 
 
-    //Date stop
+    //Date getStop
     @ColumnInfo(name = "stop_year")
     private int stop_year;
     @ColumnInfo(name = "stop_month")

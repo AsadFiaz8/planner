@@ -44,7 +44,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         Routine routine = routineList.get(i);
         String pn, wt, sr, cz, pt, so, nd;
         routineViewHolder.textViewTittle.setText(routine.getName());
-        routineViewHolder.textViewHours.setText(f.Time(routine.start())+" - "+ f.Time(routine.stop()));
+        routineViewHolder.textViewHours.setText(f.Time(routine.getStart())+" - "+ f.Time(routine.getStop()));
         routineViewHolder.imageView.setImageDrawable(context.getDrawable(routine.getIcon()));
         routineViewHolder.drawable.setTint(routine.getColor());
 

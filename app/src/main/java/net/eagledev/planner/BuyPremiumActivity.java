@@ -38,12 +38,14 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     Context context;
     private RewardedVideoAd mRewardedVideoAd;
     BillingProcessor bp;
+    ValueHolder valueHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_premium);
 
+        valueHolder = new ValueHolder();
         context = getBaseContext();
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -61,11 +63,15 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
         reasonTextView = findViewById(R.id.text_premium_reason);
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if(MainActivity.valueHolder.isPremiumUser()){
+        Bundle bundle = null;
+        if(intent != null){
+            bundle = intent.getExtras();
+        }
+
+        if(valueHolder.isPremiumUser()){
             featuresTextView.setText(getResources().getString(R.string.you_have_premium));
         }
-        if(MainActivity.valueHolder.getAdsPremium() && MainActivity.valueHolder.getAdsPremiumActive()) {
+        if(valueHolder.getAdsPremium() && valueHolder.getAdsPremiumActive()) {
             featuresTextView.setText(getString(R.string.premium_activatetd_by_ad));
         }
         if(bundle!=null) {
@@ -93,7 +99,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 reasonTextView.setText(getResources().getString(R.string.premium_reason5));
                 break;
         }
-        bp = new BillingProcessor(this, MainActivity.valueHolder.licence_key, this);
+        bp = new BillingProcessor(this, valueHolder.licence_key, this);
         //bp = new BillingProcessor(this, null, this);
         bp.initialize();
         MobileAds.initialize(this, "ca-app-pub-6069706356094406~2925415895");
@@ -142,13 +148,13 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         if(productId.equals("premium_month")){
-            MainActivity.valueHolder.setAdsPremium(false);
-            MainActivity.valueHolder.setPremiumUser(true);
+            valueHolder.setAdsPremium(false);
+            valueHolder.setPremiumUser(true);
             finish();
         }
         if(productId.equals("premium_year")){
-            MainActivity.valueHolder.setAdsPremium(false);
-            MainActivity.valueHolder.setPremiumUser(true);
+            valueHolder.setAdsPremium(false);
+            valueHolder.setPremiumUser(true);
             finish();
         }
     }
@@ -200,8 +206,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        MainActivity.valueHolder.setAdsPremium(true);
-        MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
+        valueHolder.setAdsPremium(true);
+        valueHolder.setPremiumAdTime(Calendar.getInstance());
         Toast.makeText(this, getResources().getString(R.string.premium_was_erxtended_by_one_day), Toast.LENGTH_LONG).show();
     }
 
@@ -218,8 +224,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRewardedVideoCompleted() {
         //Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
-        MainActivity.valueHolder.setAdsPremium(true);
-        MainActivity.valueHolder.setPremiumAdTime(Calendar.getInstance());
+        valueHolder.setAdsPremium(true);
+        valueHolder.setPremiumAdTime(Calendar.getInstance());
     }
 
     private void loadRewardedVideoAd() {

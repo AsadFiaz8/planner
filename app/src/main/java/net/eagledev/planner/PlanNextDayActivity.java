@@ -1,6 +1,5 @@
 package net.eagledev.planner;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
@@ -11,16 +10,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -31,8 +26,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import net.eagledev.planner.Activity.AddActionAtivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -543,9 +536,9 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         }
         for(int i = 0; i<routineAdapter.size(); i++) {
             Routine r = routineAdapter.get(i);
-            Calendar start =  r.start();
+            Calendar start =  r.getStart();
             int startR = start.get(Calendar.HOUR_OF_DAY)*60+start.get(Calendar.MINUTE);
-            Calendar stop = r.stop();
+            Calendar stop = r.getStop();
             int stopR = stop.get(Calendar.HOUR_OF_DAY)*60+stop.get(Calendar.MINUTE);
             boolean createAction = true;
             int startM = 0;

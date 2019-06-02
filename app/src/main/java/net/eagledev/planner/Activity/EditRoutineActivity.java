@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
@@ -200,9 +199,9 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
             nameText.setText(name);
             icon=selectedRoutine.getIcon();
             color=selectedRoutine.getColor();
-            start=selectedRoutine.start();
+            start=selectedRoutine.getStart();
             btnStartHour.setText(f.Time(start));
-            stop=selectedRoutine.stop();
+            stop=selectedRoutine.getStop();
             btnStopHour.setText(f.Time(stop));
             monday=selectedRoutine.isMonday();
             CheckboxMonday.setChecked(monday);
@@ -222,7 +221,6 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
 
 
     }
-
 
     private void setButtons() {
         imageConfirm = findViewById(R.id.toolbar_confirm);
@@ -385,7 +383,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(monday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getMonday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -393,7 +391,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(tuesday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getTuesday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -401,7 +399,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(wednesday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getWednesday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -409,7 +407,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(thursday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getThursday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -417,7 +415,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(friday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getFriday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -425,7 +423,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(saturday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getSaturday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -433,7 +431,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(sunday) {
                     List<Routine> routines = MainActivity.appDatabase.appDao().getSunday();
                     for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).start(), routines.get(r).stop()) && routineID != routines.get(r).getId()){
+                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
                             isOK = false;
                         }
                     }
@@ -441,6 +439,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(isOK) {
                     Routine newRoutine = new Routine(routineID, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
                     MainActivity.appDatabase.appDao().updateRoutine(newRoutine);
+                    MainActivity.fDatabase.addRoutine(newRoutine);
                     refresh();
                     finish();
                 } else Toast.makeText(getApplicationContext(), R.string.routine_cant_interfere, Toast.LENGTH_LONG).show();

@@ -26,6 +26,7 @@ import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
+import net.eagledev.planner.ValueHolder;
 import net.eagledev.planner.WatchPremiumAdActivity;
 
 import java.util.Calendar;
@@ -52,6 +53,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     Calendar date_stop;
     Formatter f = new Formatter();
 
+    ValueHolder valueHolder;
     ImageView btn_select_icon;
     Button btn_date;
     int aDay;
@@ -88,6 +90,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         textView = findViewById(R.id.input_action_name);
         findViewById(R.id.btn_date_left).setOnClickListener(this);
         findViewById(R.id.btn_date_right).setOnClickListener(this);
+
 
         imageIcon = findViewById(R.id.icon_view);
         date_start = Calendar.getInstance();
@@ -930,6 +933,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         final int min = c.get(Calendar.MINUTE);
         colorID = MainActivity.colors[0];
 
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
         setTimePicker(MainActivity.valueHolder.isDatePickerButton());
         // Number pickers
 
@@ -1093,12 +1099,15 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
         Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
         MainActivity.appDatabase.appDao().addAction(newAction);
+        MainActivity.fDatabase.addAction(newAction);
     }
 
     private void confirm() {
         Checker checker = new Checker();
 
-
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
         if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
             if(checker.Before(date_start,date_stop)) {
                 checked = true;
@@ -1126,7 +1135,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
 
         if(checked) {
-
+            if(MainActivity.valueHolder == null){
+                MainActivity.setValueHolder();
+            }
             List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
             int actionsCount = actionsFromDay.size();
             Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));

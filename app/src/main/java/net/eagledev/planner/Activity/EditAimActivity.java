@@ -65,20 +65,22 @@ public class EditAimActivity extends Activity implements View.OnClickListener {
         selectedAim = MainActivity.appDatabase.appDao().idAim((int) bundle.get("ID"));
         if(selectedAim == null){
             finish();
+        } else {
+            id = selectedAim.getId();
+            type = selectedAim.getType();
+            textView.setText(selectedAim.getName());
+            start.set(selectedAim.getStartYear(), selectedAim.getStartMonth(), selectedAim.getStartDay());
+            stop.set(selectedAim.getYear(), selectedAim.getMonth(), selectedAim.getDay());
+            completed = selectedAim.isCompleted();
+            aimSwitch.setChecked(completed);
+            aimSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    completed = b;
+                }
+            });
         }
-        id = selectedAim.getId();
-        type = selectedAim.getType();
-        textView.setText(selectedAim.getName());
-        start.set(selectedAim.getStartYear(), selectedAim.getStartMonth(), selectedAim.getStartDay());
-        stop.set(selectedAim.getYear(), selectedAim.getMonth(), selectedAim.getDay());
-        completed = selectedAim.isCompleted();
-        aimSwitch.setChecked(completed);
-        aimSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                completed = b;
-            }
-        });
+
         } else {
             finish();
         }

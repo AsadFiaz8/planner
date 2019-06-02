@@ -126,6 +126,9 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             if(bundle!=null) {
                 actionID = (int) bundle.get("ID");
                 selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
+                if(selectedAction == null){
+                    finish();
+                }
                 findViewById(R.id.color_view).setOnClickListener(this);
                 desc = selectedAction.getDesc();
                 year = selectedAction.getStart_year();
@@ -310,6 +313,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         private void CreateAction() {
             Action newAction = new Action(selectedAction.getId(),textView.getText().toString(), date_start, date_stop, iconID, colorID );
             MainActivity.appDatabase.appDao().updateAction(newAction);
+            MainActivity.fDatabase.addAction(newAction);
 
         }
 

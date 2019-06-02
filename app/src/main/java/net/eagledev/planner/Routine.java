@@ -68,27 +68,36 @@ public class Routine {
         stop_hour = stop.get(Calendar.HOUR_OF_DAY);
         stop_minute = stop.get(Calendar.MINUTE);
         this.monday = monday;
-        this. tuesday = tuesday;
+        this.tuesday = tuesday;
         this.wednesday = wednesday;
         this.thursday = thursday;
         this.friday = friday;
         this.saturday = saturday;
         this.sunday = sunday;
-        Log.e("ROUTINE","                         start "+start_hour+"   stop "+stop_hour);
     }
 
-    public Calendar start() {
+    public Calendar getStart() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, start_hour);
         cal.set(Calendar.MINUTE, start_minute);
         return  cal;
     }
 
-    public Calendar stop() {
+    public void setStart(Calendar cal){
+        start_hour = cal.get(Calendar.HOUR_OF_DAY);
+        start_minute = cal.get(Calendar.MINUTE);
+    }
+
+    public Calendar getStop() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, stop_hour);
         cal.set(Calendar.MINUTE, stop_minute);
         return  cal;
+    }
+
+    public void setStop(Calendar cal){
+        stop_hour = cal.get(Calendar.HOUR_OF_DAY);
+        stop_minute = cal.get(Calendar.MINUTE);
     }
 
     public int getId() {
