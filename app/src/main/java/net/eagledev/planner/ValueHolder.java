@@ -141,6 +141,16 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         editor.commit();
     }
 
+    public void setFirstBackup(boolean firstBackup){
+        editor=MainActivity.pref.edit();
+        editor.putBoolean("first_backup", firstBackup);
+        editor.commit();
+    }
+
+    public boolean getFirstBackup(){
+        return MainActivity.pref.getBoolean("first_backup", false);
+    }
+
 
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {

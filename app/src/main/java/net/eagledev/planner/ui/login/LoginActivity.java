@@ -110,6 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "Current User Email: : "+ MainActivity.currentUser.getEmail());
 
 
+
+
+
+
+
             }
         }
     }

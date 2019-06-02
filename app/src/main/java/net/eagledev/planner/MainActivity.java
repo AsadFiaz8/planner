@@ -231,10 +231,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         fireDB = new FirestoreDatabase();
-        if(appDatabase.appDao().getMaxActionID() > 0){
-            List<Action> act = appDatabase.appDao().getActions();
-            fireDB.addAction(act.get(0));
+        if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
+            fireDB.addActions(appDatabase.appDao().getActions());
         }
+        fireDB.downloadActions();
         //--------------------------------------------------------
     }
 
