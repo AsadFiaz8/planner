@@ -57,7 +57,7 @@ public class AddAimActivity extends Activity implements View.OnClickListener {
         stop.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
         typePicker.setMinValue(0);
         typePicker.setMaxValue(2);
-        typePicker.setDisplayedValues(new String[] {"Dzień", "Miesiąc" , " Rok"});
+        typePicker.setDisplayedValues(new String[] {getString(R.string.day), getString(R.string.month) , getString(R.string.year)});
         typePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
@@ -67,7 +67,7 @@ public class AddAimActivity extends Activity implements View.OnClickListener {
                     case 0:
                         timePickrer.setMinValue(0);
                         timePickrer.setMaxValue(1);
-                        timePickrer.setDisplayedValues(new String[] {"Dzisiaj","Jutro"});
+                        timePickrer.setDisplayedValues(new String[] {getString(R.string.today),getString(R.string.tomorrow)});
                         break;
                     case 1:
                         timePickrer.setMinValue(0);
@@ -91,7 +91,7 @@ public class AddAimActivity extends Activity implements View.OnClickListener {
         });
         timePickrer.setMinValue(0);
         timePickrer.setMaxValue(1);
-        timePickrer.setDisplayedValues(new String[] {"Dzisiaj","Jutro"});
+        timePickrer.setDisplayedValues(new String[] {getString(R.string.today),getString(R.string.tomorrow)});
         timePickrer.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
