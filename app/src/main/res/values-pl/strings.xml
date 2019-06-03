@@ -145,6 +145,7 @@
     <string name="user_name">Nazwa użytkownika</string>
     <string name="e_mail_adress">Adres e-mail</string>
     <string name="logout">Wyloguj</string>
+    <string name="completed">Ukończone</string>
 
     <string-array name="contact_messages">
         <item>Problem z subskrybcją</item>

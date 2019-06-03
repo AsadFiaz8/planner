@@ -144,6 +144,7 @@
     <string name="user_name">User name</string>
     <string name="e_mail_adress">E-mail adress</string>
     <string name="logout">Logout</string>
+    <string name="completed">Completed</string>
 
 
     <string-array name="contact_messages">
