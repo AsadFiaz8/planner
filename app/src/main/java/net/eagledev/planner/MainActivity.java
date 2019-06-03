@@ -74,7 +74,6 @@ import net.eagledev.planner.Fragment.RemindersFragment;
 import net.eagledev.planner.Fragment.RoutinesFragment;
 import net.eagledev.planner.Fragment.SettingsFragment;
 import net.eagledev.planner.Interface.ItemClickListener;
-import net.eagledev.planner.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String showDate;
     public static RelativeLayout rl;
     Formatter f = new Formatter();
-    Toolbar toolbar;
+    public static Toolbar toolbar;
     NavigationView navigationView;
     Intent serviceIntent;
     RecyclerView recyclerView;
@@ -163,14 +162,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentDate = Calendar.getInstance();
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
         setContentView(R.layout.activity_main);
-        //View mainView = findViewById(R.id.drawer_layout);
-        //mainView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         setupLanguage();
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
+        fDatabase = new FirestoreDatabase();
         valueHolder = new ValueHolder();
         if(!valueHolder.isTut()){
             Intent tutIntent = new Intent(context, TutorialActivity.class);
@@ -198,51 +196,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(valueHolder.isMainNotification()) {
             startService();
         }
-
-
-        //startService(new Intent(this, BackgroundService.class));
-        aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
-        //------------------ Tutaj tymczasowo będę wrzucać nowy kod
         setNavText();
+        aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
+
+
+        //------------------ Tutaj tymczasowo będę wrzucać nowy kod
 
 
 
-        fDatabase = new FirestoreDatabase();
+
+
         if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
-            fDatabase.addActions(appDatabase.appDao().getActions());
+            fDatabase.AddActions(appDatabase.appDao().getActions());
         }
-        fDatabase.downloadActions();
-        fDatabase.downloadRoutines();
+        fDatabase.DownloadActions();
+        fDatabase.DownloadRoutines();
         //--------------------------------------------------------
     }
 
-    private void setNavText() {
-        TextView navText = navigationView.getHeaderView(0).findViewById(R.id.nav_header);
-        if (currentUser != null){
-            navText.setText(currentUser.getDisplayName());
-        }
-        else {
-            if(navText != null){
-                navText.setText("Zaloguj sie");
-            }
-        }
 
-
-        navText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loginIntent = new Intent(context, LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
-    }
-
-
-    private void setOthers() {
-        clockOut = AnimationUtils.loadAnimation(this, R.anim.clock_out);
-        clockIn = AnimationUtils.loadAnimation(this, R.anim.clock_in);
-        clockLayout = findViewById(R.id.clock_layout);
-    }
 
     @Override
     public void onClick(View view) {
@@ -343,6 +315,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i5);
                 break;
 
+            case R.id.header_layout:
+                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AccountFragment()).commit();
+                rl.setVisibility(View.INVISIBLE);
+                floatingActionsMenu.setVisibility(View.INVISIBLE);
+                toolbar.setTitle(R.string.account);
+                drawerLayout.closeDrawers();
+                break;
 
         }
 
@@ -442,11 +421,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case R.id.nav_premium:
                                 Intent premiumIntent = new Intent(context, BuyPremiumActivity.class);
                                 startActivity(premiumIntent);
-                                break;
-
-                            case R.id.nav_login:
-                                Intent loginIntent = new Intent(context, LoginActivity.class);
-                                startActivity(loginIntent);
                                 break;
 
                             case R.id.nav_contact:
@@ -1307,6 +1281,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static void setValueHolder(){
         valueHolder = new ValueHolder();
+    }
+
+    private void setNavText() {
+        TextView navText = navigationView.getHeaderView(0).findViewById(R.id.nav_header);
+        if (currentUser != null){
+            navText.setText(currentUser.getDisplayName());
+        }
+        else {
+            if(navText != null){
+                navText.setText(getResources().getString(R.string.sign_in));
+            }
+        }
+        navigationView.getHeaderView(0).findViewById(R.id.header_layout).setOnClickListener(this);
+    }
+
+
+    private void setOthers() {
+        clockOut = AnimationUtils.loadAnimation(this, R.anim.clock_out);
+        clockIn = AnimationUtils.loadAnimation(this, R.anim.clock_in);
+        clockLayout = findViewById(R.id.clock_layout);
     }
 
 }

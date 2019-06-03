@@ -1099,7 +1099,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
         Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
         MainActivity.appDatabase.appDao().addAction(newAction);
-        MainActivity.fDatabase.addAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
     }
 
     private void confirm() {

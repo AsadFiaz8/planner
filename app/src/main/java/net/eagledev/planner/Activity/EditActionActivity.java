@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -313,7 +312,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         private void CreateAction() {
             Action newAction = new Action(selectedAction.getId(),textView.getText().toString(), date_start, date_stop, iconID, colorID );
             MainActivity.appDatabase.appDao().updateAction(newAction);
-            MainActivity.fDatabase.addAction(newAction);
+            MainActivity.fDatabase.AddAction(newAction);
 
         }
 

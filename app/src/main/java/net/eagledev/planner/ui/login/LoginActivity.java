@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -30,15 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int MY_REQUEST_CODE = 5646;
     List<AuthUI.IdpConfig> providers;
 
-
-
-
    public static final String TAG = "LoginActivity";
-    EditText usernameEditText;
-    EditText passwordEditText;
     Button loginButton;
-    String email;
-    String pass;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,13 +91,10 @@ public class LoginActivity extends AppCompatActivity {
                 MainActivity.currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if(MainActivity.currentUser != null){
                     Log.e(TAG, "Current User Email: : "+ MainActivity.currentUser.getEmail());
-                    MainActivity.fDatabase.downloadActions();
-                    MainActivity.fDatabase.downloadRoutines();
+                    MainActivity.fDatabase.DownloadActions();
+                    MainActivity.fDatabase.DownloadRoutines();
                     MainActivity.needRefresh = true;
                 }
-
-
-
         }
     }
 

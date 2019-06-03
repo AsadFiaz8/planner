@@ -36,10 +36,7 @@
             android:icon="@drawable/ui46"
             android:title="@string/settings" />
 
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ui46"
-            android:title="Login" />
+
 
     </group>
 </menu>

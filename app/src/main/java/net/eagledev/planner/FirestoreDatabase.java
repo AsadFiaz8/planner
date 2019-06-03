@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,7 +36,7 @@ public class FirestoreDatabase {
             setup();
     }
 
-    public void addAction(Action action){
+    public void AddAction(Action action){
         if(MainActivity.currentUser != null) {
             if(actions==null){
                 setup();
@@ -44,7 +46,7 @@ public class FirestoreDatabase {
         }
     }
 
-    public void addActions(List<Action> actionsList){
+    public void AddActions(List<Action> actionsList){
         if(MainActivity.currentUser != null){
             if(actions == null){
                 setup();
@@ -55,7 +57,7 @@ public class FirestoreDatabase {
         }
     }
 
-    public void downloadActions(){
+    public void DownloadActions(){
         if(MainActivity.currentUser != null){
             if(actions == null){
                 setup();
@@ -108,7 +110,7 @@ public class FirestoreDatabase {
 
     }
 
-    public void addRoutine(Routine routine){
+    public void AddRoutine(Routine routine){
         if(MainActivity.currentUser != null) {
             if(routines==null){
                 setup();
@@ -118,7 +120,7 @@ public class FirestoreDatabase {
         }
     }
 
-    public void addRoutine(List<Routine> routinesList){
+    public void AddRoutines(List<Routine> routinesList){
         if(MainActivity.currentUser != null){
             if(routines == null){
                 setup();
@@ -129,7 +131,7 @@ public class FirestoreDatabase {
         }
     }
 
-    public void downloadRoutines(){
+    public void DownloadRoutines(){
         if(MainActivity.currentUser != null){
             if(routines == null){
                 setup();
@@ -186,6 +188,92 @@ public class FirestoreDatabase {
 
 
 
+    }
+
+    public void NukeData(){
+
+        deleteActions();
+        deleteRoutines();
+    }
+
+    private void deleteActions(){
+        if(MainActivity.currentUser != null) {
+            if (actions == null) {
+                setup();
+            }
+            actions.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    try {
+                                        String id = document.getId();
+                                        actions.document(id)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.e(TAG, "Document action deleted");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error deleting action document", e);
+                                                    }
+                                                });
+                                    } catch (Exception e){
+                                        Log.e(TAG,"DeletingActions  "+  e.getMessage());
+                                    }
+                                }
+                            }
+                            MainActivity.needRefresh = true;
+                        }
+                    });
+
+
+        }
+    }
+
+    private void deleteRoutines(){
+        if(MainActivity.currentUser != null) {
+            if (routines == null) {
+                setup();
+            }
+            routines.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    try {
+                                        String id = document.getId();
+                                        routines.document(id)
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.e(TAG, "Document routine deleted");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error deleting routine", e);
+                                                    }
+                                                });
+                                    } catch (Exception e){
+                                        Log.e(TAG,"DeletingActions  "+  e.getMessage());
+                                    }
+                                }
+                            }
+                            MainActivity.needRefresh = true;
+                        }
+                    });
+
+
+        }
     }
 
     public void setup(){

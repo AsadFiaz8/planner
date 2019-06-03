@@ -439,7 +439,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
                 if(isOK) {
                     Routine newRoutine = new Routine(routineID, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
                     MainActivity.appDatabase.appDao().updateRoutine(newRoutine);
-                    MainActivity.fDatabase.addRoutine(newRoutine);
+                    MainActivity.fDatabase.AddRoutine(newRoutine);
                     refresh();
                     finish();
                 } else Toast.makeText(getApplicationContext(), R.string.routine_cant_interfere, Toast.LENGTH_LONG).show();

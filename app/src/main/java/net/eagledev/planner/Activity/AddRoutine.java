@@ -447,7 +447,7 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         if(isOK){
             Routine newRoutine = new Routine(newID+1, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
             MainActivity.appDatabase.appDao().addRoutine(newRoutine);
-            MainActivity.fDatabase.addRoutine(newRoutine);
+            MainActivity.fDatabase.AddRoutine(newRoutine);
             MainActivity.needRefresh = true;
             finish();
         } else Toast.makeText(getApplicationContext(), R.string.routine_cant_interfere, Toast.LENGTH_LONG).show();

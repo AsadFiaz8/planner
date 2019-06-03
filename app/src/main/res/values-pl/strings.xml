@@ -139,6 +139,12 @@
     <string name="tut4">Gdy klikniesz w przycisk na dole ekranu będziesz mieć możliwość dodania nowych czynności, rutyn, powiadomień lub celów.</string>
     <string name="reminders_issue">Na niektórych urządzeniach powiadomienia mogą się nie wyświetlać. Pracujemy nad rozwiązaniem tego problemu. Dziękujemy za ciepliwość.</string>
     <string name="error_loading_activities">Błąd wczytywania czynności. Jeśli problem nie ustąpi uruchom aplikację ponownie.</string>
+    <string name="account">Konto</string>
+    <string name="sign_in">Zaloguj się</string>
+    <string name="you_must_sign_in_to_see_your_account">Musisz się zalogować aby zobaczyć swoje konto</string>
+    <string name="user_name">Nazwa użytkownika</string>
+    <string name="e_mail_adress">Adres e-mail</string>
+    <string name="logout">Wyloguj</string>
 
     <string-array name="contact_messages">
         <item>Problem z subskrybcją</item>

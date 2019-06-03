@@ -138,6 +138,12 @@
     <string name="tut4"> When you click on the button at the bottom of the screen you will be able to add new activities, routines, reminders or goals. </string>
     <string name="reminders_issue">On some devices, notifications may not be displayed. We are working on solving this problem. Thank you for the warmth.</string>
     <string name="error_loading_activities">Error loading activities. If the problem persists, restart the app.</string>
+    <string name="account">Account</string>
+    <string name="sign_in">Sign in</string>
+    <string name="you_must_sign_in_to_see_your_account">You must sign in to see your account</string>
+    <string name="user_name">User name</string>
+    <string name="e_mail_adress">E-mail adress</string>
+    <string name="logout">Logout</string>
 
 
     <string-array name="contact_messages">
