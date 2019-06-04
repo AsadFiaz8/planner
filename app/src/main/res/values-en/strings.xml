@@ -145,6 +145,9 @@
     <string name="e_mail_adress">E-mail adress</string>
     <string name="logout">Logout</string>
     <string name="completed">Completed</string>
+    <string name="your_planner">Your Planner</string>
+    <string name="tut5">Log in with an email or Google account to have a copy of your plan saved on the cloud.</string>
+    <string name="signed_in_by_mail">Signed in by email </string>
 
 
     <string-array name="contact_messages">

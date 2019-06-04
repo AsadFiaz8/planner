@@ -1,5 +1,6 @@
 package net.eagledev.planner;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class TutorialActivity extends AppCompatActivity {
     ImageView image2;
     ImageView image3;
     ImageView image4;
+    ImageView image5;
     TextView textView;
     ImageButton buttonSkip;
     ImageButton buttonNext;
@@ -31,6 +33,7 @@ public class TutorialActivity extends AppCompatActivity {
         image2 = findViewById(R.id.tut_image2);
         image3 = findViewById(R.id.tut_image3);
         image4 = findViewById(R.id.tut_image4);
+        image5 = findViewById(R.id.tut_image5);
         textView = findViewById(R.id.tut_text);
         buttonSkip = findViewById(R.id.tut_btn_skip);
         buttonNext = findViewById(R.id.tut_btn_next);
@@ -52,6 +55,7 @@ public class TutorialActivity extends AppCompatActivity {
                         image2.setVisibility(View.VISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         image4.setVisibility(View.INVISIBLE);
+                        image5.setVisibility(View.INVISIBLE);
                         textView.setText(getResources().getString(R.string.tut2));
                         break;
                     case 3:
@@ -59,6 +63,7 @@ public class TutorialActivity extends AppCompatActivity {
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.VISIBLE);
                         image4.setVisibility(View.INVISIBLE);
+                        image5.setVisibility(View.INVISIBLE);
                         textView.setText(getResources().getString(R.string.tut3));
                         break;
                     case 4:
@@ -66,12 +71,25 @@ public class TutorialActivity extends AppCompatActivity {
                         image2.setVisibility(View.INVISIBLE);
                         image3.setVisibility(View.INVISIBLE);
                         image4.setVisibility(View.VISIBLE);
+                        image5.setVisibility(View.INVISIBLE);
                         textView.setText(getResources().getString(R.string.tut4));
                         break;
                     case 5:
+                        image.setVisibility(View.INVISIBLE);
+                        image2.setVisibility(View.INVISIBLE);
+                        image3.setVisibility(View.INVISIBLE);
+                        image4.setVisibility(View.INVISIBLE);
+                        image5.setVisibility(View.VISIBLE);
+                        textView.setText(getResources().getString(R.string.tut5));
+                        break;
+                    case 6:
                         MainActivity.valueHolder.setTut(true);
                         Log.d("Tutorial", String.valueOf(MainActivity.valueHolder.isTut()));
+                        Intent returnIntent = new Intent();
+                        setResult(MainActivity.RESULT_CODE_TUT,returnIntent);
                         finish();
+
+
                         break;
                 }
             }

@@ -146,6 +146,9 @@
     <string name="e_mail_adress">Adres e-mail</string>
     <string name="logout">Wyloguj</string>
     <string name="completed">Ukończone</string>
+    <string name="your_planner">Twój Planner</string>
+    <string name="tut5">Zaloguj się za pomocą maila lub konta Google aby kopia twojego planu zapisywała się na chmurze.</string>
+    <string name="signed_in_by_mail">Zalogowana używając email </string>
 
     <string-array name="contact_messages">
         <item>Problem z subskrybcją</item>

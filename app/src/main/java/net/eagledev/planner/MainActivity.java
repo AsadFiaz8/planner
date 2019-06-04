@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -80,7 +81,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener {
+public final class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener {
 
     public static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btn_new_action;
     TextView actionInfoText;
     TextView actionTimeText;
+    public static boolean setMainPage = false;
     int selectedID;
     int notificationID = 1;
     float menuBgPos = 800;
@@ -155,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final static int REQUEST_CODE_1 = 1;
     private final static int REQUEST_CODE_2 = 2;
+    private final static int REQUEST_CODE_TUT = 3;
+    public final static int RESULT_CODE_TUT = 4355;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         valueHolder = new ValueHolder();
         if(!valueHolder.isTut()){
             Intent tutIntent = new Intent(context, TutorialActivity.class);
-            startActivity(tutIntent);
+            startActivityForResult(tutIntent, REQUEST_CODE_TUT);
         }
         setupBars();
         ReadData(false);
@@ -327,6 +331,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void openLogin(){
+
+    }
+
     private void Update() {
         clockArrow.setRotation((Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*60+Calendar.getInstance().get(Calendar.MINUTE))/4);
         //clockArrow.setRotation(Calendar.getInstance().get(Calendar.SECOND));
@@ -344,6 +352,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(needShowMainPage){
             showMainPage();
+        }
+        if(setMainPage){
+            android.app.Fragment frag = new android.app.Fragment();
+            fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+            Refresh();
+            rl.setVisibility(View.VISIBLE);
+            floatingActionsMenu.setVisibility(View.VISIBLE);
+            toolbar.setTitle(R.string.main_page);
+            setMainPage = false;
         }
 
     }
@@ -1174,9 +1191,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         serviceIntent.putExtra("tittle", getResources().getString(R.string.no_scheduled_activity));
         serviceIntent.putExtra("text",getResources().getString(R.string.add_now));
-        if(!isServiceRunning(NotificationService.class)){
+        try {
             startService(serviceIntent);
+        } catch (Exception e){
+            Log.e(TAG, "startservice()   "+e.getMessage());
         }
+
+
 
     }
 
@@ -1201,9 +1222,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         serviceIntent.putExtra("tittle", tittle);
         serviceIntent.putExtra("text", text);
-        if(!isServiceRunning(NotificationService.class)){
+        try {
             startService(serviceIntent);
+        } catch (Exception e){
+            Log.e(TAG, "setServiceText()   "+e.getMessage());
         }
+
 
 
     }
@@ -1303,5 +1327,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clockLayout = findViewById(R.id.clock_layout);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_CODE_TUT){
+            fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AccountFragment()).commit();
+            rl.setVisibility(View.INVISIBLE);
+            floatingActionsMenu.setVisibility(View.INVISIBLE);
+            toolbar.setTitle(R.string.account);
+            drawerLayout.closeDrawers();
+        }
+    }
 }
 

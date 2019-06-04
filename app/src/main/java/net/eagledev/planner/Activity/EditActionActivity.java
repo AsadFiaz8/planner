@@ -349,6 +349,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
 
             case R.id.toolbar_delete:
                 MainActivity.appDatabase.appDao().deleteAction(selectedAction.getId());
+                MainActivity.fDatabase.DeleteAction(selectedAction.getId());
                 refresh();
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();

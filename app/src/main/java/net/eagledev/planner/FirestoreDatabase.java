@@ -196,6 +196,59 @@ public class FirestoreDatabase {
         deleteRoutines();
     }
 
+    public void DeleteAction(int id){
+        String sid = String.valueOf(id);
+        if(MainActivity.currentUser != null) {
+            if (actions == null) {
+                setup();
+            }
+            try {
+                actions.document(sid).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e(TAG, "Document action deleted");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting action document", e);
+                            }
+                        });
+            } catch (Exception e){
+                Log.e(TAG, "DeleteAction()   "+e.getMessage());
+            }
+        }
+    }
+
+    public void DeleteRoutine(int id){
+        String sid = String.valueOf(id);
+        if(MainActivity.currentUser != null) {
+            if (routines == null) {
+                setup();
+            }
+            try {
+                routines.document(sid).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.e(TAG, "Document routine deleted");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting routine document", e);
+                            }
+                        });
+            } catch (Exception e){
+                Log.e(TAG, "DeleteRoutine()   "+e.getMessage());
+            }
+        }
+    }
+
+
     private void deleteActions(){
         if(MainActivity.currentUser != null) {
             if (actions == null) {

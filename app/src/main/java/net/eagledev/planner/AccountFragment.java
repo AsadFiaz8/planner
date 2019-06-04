@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -228,6 +229,8 @@ public class AccountFragment extends Fragment {
                 userMailText.setText(MainActivity.currentUser.getEmail());
                 MainActivity.toolbar.setTitle(R.string.account);
                 MainActivity.needRefresh = true;
+                MainActivity.setMainPage = true;
+                Toast.makeText(MainActivity.context, getString(R.string.signed_in_by_mail)+"  "+MainActivity.currentUser.getEmail(),Toast.LENGTH_LONG).show();
             }
         }
     }

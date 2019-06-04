@@ -482,6 +482,7 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
 
             case R.id.toolbar_delete:
                 MainActivity.appDatabase.appDao().deleteRoutine(selectedRoutine.getId());
+                MainActivity.fDatabase.DeleteRoutine(selectedRoutine.getId());
                 refresh();
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.routine_deleted, Toast.LENGTH_LONG).show();
