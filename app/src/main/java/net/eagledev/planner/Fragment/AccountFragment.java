@@ -20,6 +20,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import net.eagledev.planner.MainActivity;
@@ -27,6 +28,8 @@ import net.eagledev.planner.R;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static net.eagledev.planner.MainActivity.mFirebaseAnalytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -231,6 +234,9 @@ public class AccountFragment extends Fragment {
                 MainActivity.toolbar.setTitle(R.string.account);
                 MainActivity.needRefresh = true;
                 MainActivity.setMainPage = true;
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.METHOD, "Login");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
                 Toast.makeText(MainActivity.context, getString(R.string.signed_in_by_mail)+"  "+MainActivity.currentUser.getEmail(),Toast.LENGTH_LONG).show();
             }
         }
