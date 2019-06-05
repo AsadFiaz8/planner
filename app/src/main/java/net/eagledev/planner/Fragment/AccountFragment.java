@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Fragment;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 
 import java.util.Arrays;

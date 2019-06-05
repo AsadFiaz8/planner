@@ -68,6 +68,7 @@ import net.eagledev.planner.Activity.EditActionActivity;
 import net.eagledev.planner.Activity.EditAimActivity;
 import net.eagledev.planner.Activity.EditRoutineActivity;
 import net.eagledev.planner.Adapter.AimAdapter;
+import net.eagledev.planner.Fragment.AccountFragment;
 import net.eagledev.planner.Fragment.ActionsFragment;
 import net.eagledev.planner.Fragment.AimsFragment;
 import net.eagledev.planner.Fragment.ContactFragment;
@@ -212,6 +213,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
         if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
             fDatabase.AddActions(appDatabase.appDao().getActions());
+            fDatabase.AddRoutines(appDatabase.appDao().getRoutines());
         }
         fDatabase.DownloadActions();
         fDatabase.DownloadRoutines();

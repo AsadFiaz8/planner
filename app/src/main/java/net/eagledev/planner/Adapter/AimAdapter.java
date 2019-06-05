@@ -84,7 +84,7 @@ public class AimAdapter extends RecyclerView.Adapter<AimAdapter.AimViewHolder> {
                     break;
 
                 case 2:
-                    aimViewHolder.time.setText(aim.getYear());
+                    aimViewHolder.time.setText("");
                     break;
             }
         }

@@ -41,7 +41,12 @@ public class FirestoreDatabase {
             if(actions==null){
                 setup();
             }
-            actions.document(String.valueOf(action.getId())).set(action);
+            try{
+                actions.document(String.valueOf(action.getId())).set(action);
+
+            } catch(Exception e){
+                Log.e(TAG, "AddAction"+e.getMessage());
+            }
 
         }
     }
@@ -51,9 +56,14 @@ public class FirestoreDatabase {
             if(actions == null){
                 setup();
             }
-            for (int i = 0; i < actionsList.size(); i++){
-                actions.document(String.valueOf(actionsList.get(i).getId())).set(actionsList.get(i));
+            try{
+                for (int i = 0; i < actionsList.size(); i++){
+                    actions.document(String.valueOf(actionsList.get(i).getId())).set(actionsList.get(i));
+                }
+            } catch(Exception e){
+                Log.e(TAG, "AddActions"+e.getMessage());
             }
+
         }
     }
 
@@ -115,7 +125,12 @@ public class FirestoreDatabase {
             if(routines==null){
                 setup();
             }
-            routines.document(String.valueOf(routine.getId())).set(routine);
+            try{
+                routines.document(String.valueOf(routine.getId())).set(routine);
+
+            } catch (Exception e) {
+                Log.e(TAG, "AddRoutine "+e.getMessage());
+            }
 
         }
     }
@@ -125,9 +140,14 @@ public class FirestoreDatabase {
             if(routines == null){
                 setup();
             }
-            for (int i = 0; i < routinesList.size(); i++){
-                routines.document(String.valueOf(routinesList.get(i).getId())).set(routinesList.get(i));
+            try{
+                for (int i = 0; i < routinesList.size(); i++){
+                    routines.document(String.valueOf(routinesList.get(i).getId())).set(routinesList.get(i));
+                }
+            } catch(Exception e){
+                Log.e(TAG, "AddRoutines"+e.getMessage());
             }
+
         }
     }
 
