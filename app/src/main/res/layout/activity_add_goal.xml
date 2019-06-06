@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.eagledev.planner.AddGoalActivity">
+    tools:context="net.eagledev.planner.AddGoalActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="60dp"/>
+
+        <TextView
+            android:id="@+id/textViewDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText"
+            android:text="@string/day"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="5dp"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDay"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/white"
+            android:elevation="0dp"
+            android:text="Button"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:translationZ="0dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
