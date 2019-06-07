@@ -32,7 +32,12 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     //BillingProcessor bp;
 
     ValueHolder() {
-        editor = MainActivity.pref.edit();
+        try {
+            editor = MainActivity.pref.edit();
+
+        } catch (Exception e){
+            Log.e(TAG, e.getMessage());
+        }
 
         //billingHolder = new BillingHolder();
         //bp = new BillingProcessor(MainActivity.context, licence_key, this);

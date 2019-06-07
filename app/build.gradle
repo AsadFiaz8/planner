@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\Damian\\Documents\\Android Studio\\Keystores\\key_planner.jks')
+            storePassword '10Xcombo'
+            keyPassword '10Xcombo'
+            keyAlias = 'key_planner'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "net.degeapps.planner"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     packagingOptions {

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -489,7 +490,11 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
           //  today = true;
          //   actionList.clear();
         //}
+        try{
             todayActions= MainActivity.appDatabase.appDao().getActionsFromDay(c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+        } catch (Exception e){
+            Log.e("PlanNextDayActivity", e.getMessage());
+        }
             if (!MainActivity.valueHolder.getAdsPremiumActive() && MainActivity.valueHolder.getAdsPremium()) {
                 if(!MainActivity.valueHolder.isPremiumUser()){
                     Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);

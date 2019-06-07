@@ -129,19 +129,24 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                     finish();
                 }
                 findViewById(R.id.color_view).setOnClickListener(this);
-                desc = selectedAction.getDesc();
-                year = selectedAction.getStart_year();
-                month = selectedAction.getStart_month();
-                day = selectedAction.getStart_day();
-                startHour = selectedAction.getStart_hour();
-                startMinute = selectedAction.getStart_minute();
-                stopHour = selectedAction.getStop_hour();
-                stopMinute = selectedAction.getStop_minute();
-                date_start.set(year,month,day,startHour,startMinute);
-                date_stop.set(year,month,day,stopHour,stopMinute);
-                iconID = selectedAction.getIcon();
-                colorID = selectedAction.getColor();
-                textView.setText(desc);
+                if(selectedAction != null){
+                    desc = selectedAction.getDesc();
+                    year = selectedAction.getStart_year();
+                    month = selectedAction.getStart_month();
+                    day = selectedAction.getStart_day();
+                    startHour = selectedAction.getStart_hour();
+                    startMinute = selectedAction.getStart_minute();
+                    stopHour = selectedAction.getStop_hour();
+                    stopMinute = selectedAction.getStop_minute();
+                    date_start.set(year,month,day,startHour,startMinute);
+                    date_stop.set(year,month,day,stopHour,stopMinute);
+                    iconID = selectedAction.getIcon();
+                    colorID = selectedAction.getColor();
+                    textView.setText(desc);
+                } else {
+                    finish();
+                }
+
 
             }
         }
