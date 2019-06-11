@@ -20,7 +20,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import net.eagledev.planner.Action;
-import net.eagledev.planner.Adapter.CustomSpinnerAdapter;
 import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
@@ -54,7 +53,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         int aDay;
         int aMonth;
         int aYear;
-        CustomSpinnerAdapter customSpinnerAdapter;
         int images[] = {R.drawable.color_red, R.drawable.color_green, R.drawable.color_blue, R.drawable.color_gray, R.drawable.color_yellow, R.drawable.color_gray};
         String names[] = {"red", "green", "blue", "gray", "yellow", "huj wi"};
 

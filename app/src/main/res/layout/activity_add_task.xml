@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/name"
-            android:inputType="text"
+            android:inputType="textCapSentences"
+
             android:layout_marginLeft="60dp"/>
 
         <TextView
@@ -72,7 +73,7 @@
             android:text="Powtarzanie" />
 
         <Spinner
-            android:id="@+id/task_repaeat_spinner"
+            android:id="@+id/task_repeat_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/task_repeat_view"
@@ -84,7 +85,7 @@
             android:id="@+id/task_repeat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_repaeat_spinner"
+            android:layout_below="@id/task_repeat_spinner"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="5dp">
 
@@ -226,21 +227,28 @@
             android:layout_marginTop="5dp">
 
             <ImageButton
+                android:id="@+id/task_priority1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/others17"/>
+                android:src="@drawable/others17" />
+
             <ImageButton
+                android:id="@+id/task_priority2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/others17"/>
+                android:src="@drawable/others17" />
+
             <ImageButton
+                android:id="@+id/task_priority3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/others17"/>
+                android:src="@drawable/others17" />
+
             <ImageButton
+                android:id="@+id/task_priority4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/others17"/>
+                android:src="@drawable/others17" />
         </LinearLayout>
 
         <ImageView
@@ -260,14 +268,14 @@
             android:text="Komentarz" />
 
         <EditText
+            android:id="@+id/task_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:layout_marginLeft="60dp"
             android:layout_below="@id/task_comment_view"
+            android:layout_marginLeft="60dp"
 
-            android:maxLength="250"
-            />
+            android:inputType="textMultiLine"
+            android:maxLength="250" />
 
 
     </RelativeLayout>

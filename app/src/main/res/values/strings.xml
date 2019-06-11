@@ -150,6 +150,18 @@
         <item>Zaproponuj zmiany</item>
         <item>Inne</item>
     </string-array>
+
+    <string-array name="task_repeat_array">
+        <item>W wybrane dni</item>
+        <item>W odstępach czasu</item>
+    </string-array>
+
+    <string-array name="task_time_array">
+        <item>dni</item>
+        <item>tygodni</item>
+        <item>miesięcy</item>
+    </string-array>
+
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -160,13 +172,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="account">Account</string>
     <string name="sign_in">Sign in</string>
     <string name="you_must_sign_in_to_see_your_account">You must sign in to see your account</string>
     <string name="user_name">User name</string>
-    <string name="e_mail_adress">E-mail adress</string>
+    <string name="e_mail_address">E-mail adress</string>
     <string name="logout">Logout</string>
     <string name="completed">Completed</string>
     <string name="your_planner">Twój Planner</string>

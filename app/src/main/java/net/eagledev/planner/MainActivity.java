@@ -253,8 +253,8 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 cnt = findViewById(R.id.relative_layout).getContext();
 
 
- //               Intent i2 = new Intent(cnt, AddAimActivity.class);
-                Intent i2 = new Intent(cnt, AddGoalActivity.class);
+                Intent i2 = new Intent(cnt, AddTaskActivity.class);
+                //Intent i2 = new Intent(cnt, AddAimActivity.class);
 
                 startActivity(i2);
                 floatingActionsMenu.collapse();

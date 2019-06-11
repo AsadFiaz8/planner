@@ -143,7 +143,7 @@
     <string name="sign_in">Zaloguj się</string>
     <string name="you_must_sign_in_to_see_your_account">Musisz się zalogować aby zobaczyć swoje konto</string>
     <string name="user_name">Nazwa użytkownika</string>
-    <string name="e_mail_adress">Adres e-mail</string>
+    <string name="e_mail_address">Adres e-mail</string>
     <string name="logout">Wyloguj</string>
     <string name="completed">Ukończone</string>
     <string name="your_planner">Twój Planner</string>
@@ -157,4 +157,25 @@
         <item>Zaproponuj zmiany</item>
         <item>Inne</item>
     </string-array>
+
+    <string-array name="task_repeat_array">
+        <item>W wybrane dni</item>
+        <item>W odstępach czasu</item>
+    </string-array>
+
+    <string-array name="task_time_array">
+        <item>dni</item>
+        <item>tygodni</item>
+        <item>miesięcy</item>
+    </string-array>
+
+    <string name="action_sign_in">Zaloguj się lub zarejestruj</string>
+    <string name="action_sign_in_short">Zaloguj się</string>
+    <string name="invalid_password">Hasło musi zawierać minimum 5 znaków</string>
+    <string name="invalid_username">Niepoprawna nazwa użytkownika</string>
+    <string name="login_failed">Logowanie nieudane</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Hasło</string>
+    <string name="title_activity_login">Zaloguj się</string>
+    <string name="welcome">Witamy</string>
 </resources>
