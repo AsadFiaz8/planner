@@ -15,7 +15,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-        <activity android:name=".AddGoalActivity"></activity>
+        <activity android:name=".AddTaskActivity"></activity>
+        <activity android:name=".AddGoalActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />

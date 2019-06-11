@@ -6,8 +6,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Calendar;
 
-@Entity(tableName = "goals")
-public class Goal {
+@Entity(tableName = "tasks")
+public class Task {
 
     @PrimaryKey
     private  int id;
@@ -54,21 +54,15 @@ public class Goal {
     @ColumnInfo(name = "repeat_gap")
     int repeat_gap;
 
-    @ColumnInfo(name = "repeat_time")
-    int repeat_time;
-
     @ColumnInfo(name = "days")
     String days = "0000000";
 
-    @ColumnInfo (name = "label")
-    String label;
 
-
-    public Goal(){
+    public Task(){
 
     }
 
-    public Goal(int id, String name, int priority, String comment, int time, boolean repeat, boolean reminder){
+    public Task(int id, String name, int priority, String comment, int time, boolean repeat, boolean reminder){
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -77,7 +71,7 @@ public class Goal {
         this.repeat = repeat;
         this.reminder = false;
         //Na razie bez powiadomień
-        Calendar  calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -89,7 +83,7 @@ public class Goal {
 
 
 
-    public Goal(int id, String name, int priority, String comment, int time, String label, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int repeat_time, String days){
+    public Task(int id, String name, int priority, String comment, int time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, String days){
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -100,8 +94,6 @@ public class Goal {
         this.repeat_type = repeat_type;
         this.repeat_gap = repeat_gap;
         this.days = days;
-        this.label = label;
-        this.repeat_time = repeat_time;
         //Na razie bez powiadomień
         Calendar  calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
@@ -242,19 +234,5 @@ public class Goal {
         this.days = days;
     }
 
-    public int getRepeat_time() {
-        return repeat_time;
-    }
 
-    public void setRepeat_time(int repeat_time) {
-        this.repeat_time = repeat_time;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 }
