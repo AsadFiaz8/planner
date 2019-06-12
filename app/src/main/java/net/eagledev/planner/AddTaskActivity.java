@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,6 +56,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     int timeType;
     int gap;
     String label;
+    List<String> labelList = new ArrayList<String>();
 
 
 
@@ -110,13 +113,13 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
-        final String[] testLabels = {"main", "other", "cos"};
-        TaskLabelAdapter labelAdapter = new TaskLabelAdapter(this,testLabels);
+        labelList.add("main");
+        ArrayAdapter<String> labelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                label = testLabels[position];
+                label = labelList.get(position);
             }
 
             @Override

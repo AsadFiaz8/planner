@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_name"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/ui83"/>
 
         <Button
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_date_button"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/grid18"/>
 
         <TextView
@@ -181,6 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_repeat_layout"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/ui33"/>
 
         <TextView
@@ -206,6 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_label_spinner"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/finance45"/>
 
         <TextView
@@ -228,27 +232,34 @@
 
             <ImageButton
                 android:id="@+id/task_priority1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/others17" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/priority1"
+                android:background="@drawable/task_round_button"/>
 
             <ImageButton
                 android:id="@+id/task_priority2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/others17" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/priority2"
+                android:background="@drawable/task_round_button"
+                android:layout_marginLeft="5dp"/>
 
             <ImageButton
                 android:id="@+id/task_priority3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/others17" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/priority3"
+                android:background="@drawable/task_round_button"
+                android:layout_marginLeft="5dp"/>
 
             <ImageButton
                 android:id="@+id/task_priority4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/others17" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/priority4"
+                android:background="@drawable/task_round_button"
+                android:layout_marginLeft="5dp"/>
         </LinearLayout>
 
         <ImageView
@@ -256,6 +267,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_priority_layout"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/finance34"/>
 
         <TextView
