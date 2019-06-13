@@ -1,6 +1,7 @@
 package net.eagledev.planner;
 
 import android.app.DatePickerDialog;
+import android.content.res.ColorStateList;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String label;
     List<String> labelList = new ArrayList<String>();
 
+    int priority;
 
 
 
@@ -186,6 +188,18 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 },year, month, day);
                 datePickerDialog.show();
                 break;
+                case R.id.task_priority1:
+                    setPriority(1);
+                    break;
+            case R.id.task_priority2:
+                setPriority(2);
+                break;
+            case R.id.task_priority3:
+                setPriority(3);
+                break;
+            case R.id.task_priority4:
+                setPriority(4);
+                break;
 
         }
 
@@ -207,6 +221,32 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         } else {
             daysLayout.setVisibility(View.INVISIBLE);
             intervalsLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setPriority(int priority){
+        this.priority = priority;
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colorBackground = {getColor(R.color.background)};
+        int[] colorAccent = {getColor(R.color.colorAccent)};
+        priorityButton1.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        priorityButton2.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        priorityButton3.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        priorityButton4.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        switch (priority){
+            case 1:
+                priorityButton1.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                break;
+            case 2:
+                priorityButton2.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                break;
+            case 3:
+                priorityButton3.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                break;
+            case 4:
+                priorityButton4.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                break;
         }
     }
 }
