@@ -203,10 +203,39 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.task_priority4:
                 setPriority(4);
                 break;
+            case R.id.task_mo:
+                setDay(0);
+                break;
+            case R.id.task_tu:
+                setDay(1);
+                break;
+            case R.id.task_we:
+                setDay(2);
+                break;
+            case R.id.task_th:
+                setDay(3);
+                break;
+            case R.id.task_fr:
+                setDay(4);
+                break;
+            case R.id.task_sa:
+                setDay(5);
+                break;
+            case R.id.task_su:
+                setDay(6);
+                break;
 
         }
 
 
+    }
+
+    private void setDay(int i) {
+        if(days.charAt(i)=='0'){
+
+        } else {
+
+        }
     }
 
     private void createTask() {
