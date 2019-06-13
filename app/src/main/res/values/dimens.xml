@@ -19,7 +19,8 @@
     <dimen name="toolbar_height">56dp</dimen>
 
     <dimen name="action_fragment_day_line">1dp</dimen>
-    <dimen name="task_days_button">40dp</dimen>
+    <dimen name="task_days_button">36dp</dimen>
+    <dimen name="task_days_margin">3dp</dimen>
 
 
 </resources>

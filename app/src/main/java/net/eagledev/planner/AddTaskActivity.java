@@ -1,7 +1,9 @@
 package net.eagledev.planner;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,6 +65,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     int repeatType;
     int priority;
     String days = "0000000";
+    boolean checked = false;
+    boolean error = false;
+    Context context;
 
 
 
@@ -204,25 +210,25 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 setPriority(4);
                 break;
             case R.id.task_mo:
-                setDay(0);
+                setDay(1, dayButton1);
                 break;
             case R.id.task_tu:
-                setDay(1);
+                setDay(2, dayButton2);
                 break;
             case R.id.task_we:
-                setDay(2);
+                setDay(3, dayButton3);
                 break;
             case R.id.task_th:
-                setDay(3);
+                setDay(4, dayButton4);
                 break;
             case R.id.task_fr:
-                setDay(4);
+                setDay(5, dayButton5);
                 break;
             case R.id.task_sa:
-                setDay(5);
+                setDay(6, dayButton6);
                 break;
             case R.id.task_su:
-                setDay(6);
+                setDay(7, dayButton7);
                 break;
 
         }
@@ -230,18 +236,37 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void setDay(int i) {
-        if(days.charAt(i)=='0'){
+    private void setDay(int i, TextView textView) {
+        int index = i-1;
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colorBackground = {getColor(R.color.background)};
+        int[] colorAccent = {getColor(R.color.colorAccent)};
+        if(days.charAt(index)=='0'){
+            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
+            if(index!=7){
+                days = days.substring(0, index)+"1"+days.substring(index+1);
+            } else days = days.substring(0, index)+"1";
 
         } else {
-
+            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
+            if(i!=7){
+                days = days.substring(0, index)+"0"+days.substring(index+1);
+            } else days = days.substring(0, index)+"0";
         }
     }
+
 
     private void createTask() {
         name = String.valueOf(nameText.getText());
         comment = String.valueOf(commentText.getText());
         gap = Integer.parseInt(String.valueOf(gapText.getText()));
+
+        if(name.length() <= 3){
+            error = true;
+            Toast.makeText(this, "Nazwa musi składać się z minimum 3 znaków", Toast.LENGTH_LONG).show();
+        }
+
 
 
     }

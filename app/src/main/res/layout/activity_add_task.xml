@@ -107,7 +107,8 @@
                     android:layout_height="@dimen/task_days_button"
                     android:background="@drawable/task_round_button"
                     android:text="@string/mo"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
 
 
@@ -118,7 +119,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/tu"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
                 <TextView
                     android:id="@+id/task_we"
@@ -127,7 +129,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/we"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
                 <TextView
                     android:id="@+id/task_th"
@@ -136,7 +139,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/th"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
                 <TextView
                     android:id="@+id/task_fr"
@@ -145,7 +149,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/fr"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
                 <TextView
                     android:id="@+id/task_sa"
@@ -154,7 +159,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/sa"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/task_days_margin"/>
 
                 <TextView
                     android:id="@+id/task_su"
@@ -163,7 +169,8 @@
                     android:src="@drawable/others17"
                     android:background="@drawable/task_round_button"
                     android:text="@string/su"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    />
             </LinearLayout>
 
             <LinearLayout
