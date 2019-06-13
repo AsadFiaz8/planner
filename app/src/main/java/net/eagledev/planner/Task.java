@@ -22,7 +22,7 @@ public class Task {
     private String comment;
 
     @ColumnInfo(name = "time")
-    private int time;
+    private long time;
 
     @ColumnInfo(name = "completed")
     boolean completed;
@@ -50,6 +50,9 @@ public class Task {
 
     @ColumnInfo(name = "repeat_type")
     int repeat_type;
+
+    @ColumnInfo(name = "time_type")
+    int time_type;
 
     @ColumnInfo(name = "repeat_gap")
     int repeat_gap;
@@ -83,7 +86,7 @@ public class Task {
 
 
 
-    public Task(int id, String name, int priority, String comment, int time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, String days){
+    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days){
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -92,6 +95,7 @@ public class Task {
         this.repeat = repeat;
         this.reminder = false;
         this.repeat_type = repeat_type;
+        this.time_type = time_type;
         this.repeat_gap = repeat_gap;
         this.days = days;
         //Na razie bez powiadomień
@@ -138,11 +142,11 @@ public class Task {
         this.comment = comment;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -234,5 +238,11 @@ public class Task {
         this.days = days;
     }
 
+    public int getTime_type() {
+        return time_type;
+    }
 
+    public void setTime_type(int time_type) {
+        this.time_type = time_type;
+    }
 }

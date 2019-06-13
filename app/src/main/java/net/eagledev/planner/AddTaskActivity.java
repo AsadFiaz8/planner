@@ -2,10 +2,12 @@ package net.eagledev.planner;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,7 @@ import java.util.List;
 
 public class AddTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String TAG = "AddTaskActivity";
     ImageView toolbar_confirm;
     ImageView toolbar_cancel;
     TextView nameText;
@@ -62,11 +65,11 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String label;
     List<String> labelList = new ArrayList<String>();
 
-    int repeatType;
-    int priority;
+    boolean repeat = false;
+    Checker checker = new Checker();
+    int repeatType = 0;
+    int priority = 0;
     String days = "0000000";
-    boolean checked = false;
-    boolean error = false;
     Context context;
 
 
@@ -98,6 +101,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 repeatType = position;
                 setRepeatLayout(position);
+                if(position > 0){
+                    repeat = true;
+                } else repeat = false;
             }
 
             @Override
@@ -167,10 +173,12 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         toolbar_cancel.setOnClickListener(this);
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        dateButton.setText(f.DateText(calendar));
+        dateButton.setText(f.Date(calendar));
         setRepeatLayout(0);
     }
 
@@ -192,7 +200,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         day = ddayOfMonth;
                         calendar .set(year, month, day);
                         time = (int) calendar.getTimeInMillis();
-                        dateButton.setText(f.DateText(calendar));
+                        dateButton.setText(f.Date(calendar));
                     }
                 },year, month, day);
                 datePickerDialog.show();
@@ -263,8 +271,34 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         gap = Integer.parseInt(String.valueOf(gapText.getText()));
 
         if(name.length() <= 3){
-            error = true;
             Toast.makeText(this, "Nazwa musi składać się z minimum 3 znaków", Toast.LENGTH_LONG).show();
+        } else if(!checker.DateTimeInFuture(calendar)){
+            Toast.makeText(this, "Data nie może być z przeszłości", Toast.LENGTH_LONG).show();
+        } else {
+
+            try {
+                String m = String.valueOf(calendar.getTimeInMillis());
+
+                Task task = new Task(0, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days);
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(task.getTime());
+                Log.e(TAG, "\nId: " + task.getId()+
+                        "\nName: "+task.getName()+
+                        "\nPriority: "+task.getPriority()+
+                        "\nComment: "+task.getComment()+
+                        "\nTime:" + f.dateWithTime(cal)+
+                        "\nRepeat: "+task.isRepeat()+
+                        "\nReminder: "+task.isReminder()+
+                        "\nRepeat Type: "+task.getRepeat_type()+
+                        "\nRepeat Gap: "+task.getRepeat_gap()+
+                        "\nTime Type: "+task.getTime_type()+
+                        "\nDays: " +task.getDays());
+
+            } catch (Exception e){
+                Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();
+                Log.e(TAG, e.getMessage());
+                finish();
+            }
         }
 
 
