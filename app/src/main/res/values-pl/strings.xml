@@ -159,6 +159,7 @@
     </string-array>
 
     <string-array name="task_repeat_array">
+        <item>Wyłączone</item>
         <item>W wybrane dni</item>
         <item>W odstępach czasu</item>
     </string-array>
@@ -178,4 +179,12 @@
     <string name="prompt_password">Hasło</string>
     <string name="title_activity_login">Zaloguj się</string>
     <string name="welcome">Witamy</string>
+    <string name="mo">Pn</string>
+    <string name="tu">Wt</string>
+    <string name="we">Śr</string>
+    <string name="th">Cz</string>
+    <string name="fr">Pt</string>
+    <string name="sa">So</string>
+    <string name="su">Nd</string>
+
 </resources>

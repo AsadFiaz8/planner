@@ -98,58 +98,72 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal"
-                android:visibility="invisible">
+                android:visibility="visible">
 
 
-
-                <ImageView
+                <TextView
                     android:id="@+id/task_mo"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
-                    android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/mo"
+                    android:gravity="center"/>
 
-                <ImageView
+
+
+                <TextView
                     android:id="@+id/task_tu"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/tu"
+                    android:gravity="center"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/task_we"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/we"
+                    android:gravity="center"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/task_th"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/th"
+                    android:gravity="center"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/task_fr"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/fr"
+                    android:gravity="center"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/task_sa"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/sa"
+                    android:gravity="center"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/task_su"
                     android:layout_width="@dimen/task_days_button"
                     android:layout_height="@dimen/task_days_button"
                     android:src="@drawable/others17"
-                    android:background="@drawable/task_round_button"/>
+                    android:background="@drawable/task_round_button"
+                    android:text="@string/su"
+                    android:gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +171,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -299,6 +314,7 @@
 
             android:inputType="textMultiLine"
             android:maxLength="250" />
+
 
 
     </RelativeLayout>

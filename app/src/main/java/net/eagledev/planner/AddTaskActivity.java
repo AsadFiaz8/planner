@@ -37,13 +37,13 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout daysLayout;
     LinearLayout intervalsLayout;
     EditText commentText;
-    ImageView dayButton1;
-    ImageView dayButton2;
-    ImageView dayButton3;
-    ImageView dayButton4;
-    ImageView dayButton5;
-    ImageView dayButton6;
-    ImageView dayButton7;
+    TextView dayButton1;
+    TextView dayButton2;
+    TextView dayButton3;
+    TextView dayButton4;
+    TextView dayButton5;
+    TextView dayButton6;
+    TextView dayButton7;
     String name;
     String comment;
     int year;
@@ -59,7 +59,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String label;
     List<String> labelList = new ArrayList<String>();
 
+    int repeatType;
     int priority;
+    String days = "0000000";
 
 
 
@@ -88,6 +90,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                repeatType = position;
                 setRepeatLayout(position);
             }
 
@@ -215,12 +218,20 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setRepeatLayout(int layout){
-        if(layout == 0){
-            daysLayout.setVisibility(View.VISIBLE);
-            intervalsLayout.setVisibility(View.INVISIBLE);
-        } else {
-            daysLayout.setVisibility(View.INVISIBLE);
-            intervalsLayout.setVisibility(View.VISIBLE);
+        switch (layout){
+            case 0:
+                daysLayout.setVisibility(View.INVISIBLE);
+                intervalsLayout.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                daysLayout.setVisibility(View.VISIBLE);
+                intervalsLayout.setVisibility(View.INVISIBLE);
+                break;
+
+            case 2:
+                daysLayout.setVisibility(View.INVISIBLE);
+                intervalsLayout.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
