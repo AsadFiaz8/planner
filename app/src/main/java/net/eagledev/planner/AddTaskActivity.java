@@ -85,6 +85,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setup() {
+        context = this;
         daysLayout = findViewById(R.id.task_days_layout);
         intervalsLayout = findViewById(R.id.task_other_layout);
         nameText = findViewById(R.id.task_name);
@@ -131,12 +132,18 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
         labelList.add("main");
+        labelList.add("Dodaj");
         ArrayAdapter<String> labelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                label = labelList.get(position);
+                if(position == labelList.size()-1){
+                    addLabel();
+                } else {
+                    label = labelList.get(position);
+                }
+
             }
 
             @Override
@@ -180,6 +187,10 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         day = calendar.get(Calendar.DAY_OF_MONTH);
         dateButton.setText(f.Date(calendar));
         setRepeatLayout(0);
+    }
+
+    private void addLabel() {
+        Toast.makeText(this, "Adding new label", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -277,9 +288,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         } else {
 
             try {
-                String m = String.valueOf(calendar.getTimeInMillis());
-
-                Task task = new Task(0, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days);
+                int id = MainActivity.appDatabase.appDao().getMaxTasksID()+1;
+                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTime());
                 Log.e(TAG, "\nId: " + task.getId()+
@@ -293,6 +303,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         "\nRepeat Gap: "+task.getRepeat_gap()+
                         "\nTime Type: "+task.getTime_type()+
                         "\nDays: " +task.getDays());
+                MainActivity.appDatabase.appDao().addTask(task);
+                finish();
 
             } catch (Exception e){
                 Toast.makeText(this, "Error", Toast.LENGTH_LONG).show();

@@ -153,6 +153,39 @@ public interface AppDao {
     public List<Aim> getAimsCompleted(boolean completed);
 
 
+    //Tasks
+
+    @Insert
+    public void addTask(Task task);
+
+    @Query("DELETE FROM tasks")
+    public void nukeTasksTable();
+
+    @Query("DELETE FROM tasks WHERE id = :id")
+    public void deleteTask(int id);
+
+    @Query("SELECT * FROM tasks")
+    public List<Task> getTasks();
+
+    @Query("SELECT MAX(id) FROM tasks")
+    public int getMaxTasksID();
+
+    @Query("SELECT * FROM tasks WHERE id=:id")
+    public Task idTask(int id);
+
+    @Update
+    public void updateTask(Task task);
+
+    @Query("SELECT * FROM tasks WHERE repeat_type = :type")
+    public List<Task> getTasksRepeatType(int type);
+
+    @Query("SELECT * FROM tasks WHERE year = :year AND month = :month AND day = :day")
+    public List<Task> getTaskDate(int year, int month, int day);
+
+    @Query("SELECT * FROM tasks WHERE completed = :completed AND year = :year AND month = :month AND day = :day")
+    public List<Task> getTasksCompleted(boolean completed, int year, int month, int day);
+
+
 
 
 

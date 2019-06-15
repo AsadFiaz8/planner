@@ -8,7 +8,9 @@ import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +70,7 @@ import net.eagledev.planner.Activity.EditActionActivity;
 import net.eagledev.planner.Activity.EditAimActivity;
 import net.eagledev.planner.Activity.EditRoutineActivity;
 import net.eagledev.planner.Adapter.AimAdapter;
+import net.eagledev.planner.Adapter.TaskAdapter;
 import net.eagledev.planner.Fragment.AccountFragment;
 import net.eagledev.planner.Fragment.ActionsFragment;
 import net.eagledev.planner.Fragment.AimsFragment;
@@ -172,7 +175,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
-        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().build();
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().addMigrations(MIGRATION_4_6,MIGRATION_5_6).build();
         fDatabase = new FirestoreDatabase();
         valueHolder = new ValueHolder();
         if(!valueHolder.isTut()){
@@ -1143,8 +1146,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
     private void setupList() {
         final List<Aim> aimList = appDatabase.appDao().getAimsDateType(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 0);
+        final List<Task> taskList = appDatabase.appDao().getTasks();
         TextView aimNullText = findViewById(R.id.aims_null_text);
-        if(aimList.size() == 0) {
+        if(taskList.size() == 0) {
             aimNullText.setVisibility(View.VISIBLE);
         } else aimNullText.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.aims_main_list);
@@ -1155,6 +1159,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view, int position) {
                 Aim aim = aimList.get(position);
+                Task task = taskList.get(position);
                 Intent intentEdit = new Intent(getApplicationContext(), EditAimActivity.class);
                 intentEdit.putExtra("ID", aim.getId());
                 startActivityForResult(intentEdit, 1);
@@ -1164,19 +1169,19 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view, int position) {
 
-                Aim aim = aimList.get(position);
-                aim.setCompleted(!aim.isCompleted());
-                ImageButton imageButton = view.findViewById(R.id.aim_list_button);
-                if(aim.isCompleted()) {
+                Task task = taskList.get(position);
+                task.setCompleted(!task.isCompleted());
+                ImageView imageButton = view.findViewById(R.id.task_list_button);
+                if(task.isCompleted()) {
                     imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
                 }else {
                     imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
                 }
-                appDatabase.appDao().updateAim(aim);
+                appDatabase.appDao().updateTask(task);
 
             }
         };
-        AimAdapter adapter = new AimAdapter(getApplicationContext(), aimList, itemClickListener, longListener);
+        TaskAdapter adapter = new TaskAdapter(getApplicationContext(), taskList, itemClickListener, longListener);
         recyclerView.setAdapter(adapter);
     }
 
@@ -1344,5 +1349,25 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             drawerLayout.closeDrawers();
         }
     }
+
+    static final Migration MIGRATION_4_6 = new Migration(4, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+            // Create the new table
+            database.execSQL(
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
+        }
+    };
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+            // Create the new table
+            database.execSQL(
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
+        }
+    };
+
 }
 

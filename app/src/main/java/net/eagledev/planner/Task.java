@@ -60,6 +60,15 @@ public class Task {
     @ColumnInfo(name = "days")
     String days = "0000000";
 
+    @ColumnInfo(name = "cyear")
+    int cyear = -1;
+
+    @ColumnInfo(name = "cmonth")
+    int cmonth = -1;
+
+    @ColumnInfo(name = "cday")
+    int cday = -1;
+
 
     public Task(){
 
@@ -244,5 +253,29 @@ public class Task {
 
     public void setTime_type(int time_type) {
         this.time_type = time_type;
+    }
+
+    public int getCyear() {
+        return cyear;
+    }
+
+    public void setCyear(int cyear) {
+        this.cyear = cyear;
+    }
+
+    public int getCmonth() {
+        return cmonth;
+    }
+
+    public void setCmonth(int cmonth) {
+        this.cmonth = cmonth;
+    }
+
+    public int getCday() {
+        return cday;
+    }
+
+    public void setCday(int cday) {
+        this.cday = cday;
     }
 }
