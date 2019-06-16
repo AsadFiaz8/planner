@@ -69,6 +69,9 @@ public class Task {
     @ColumnInfo(name = "cday")
     int cday = -1;
 
+    @ColumnInfo(name = "label")
+    String label;
+
 
     public Task(){
 
@@ -95,7 +98,7 @@ public class Task {
 
 
 
-    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days){
+    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days, String label){
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -107,6 +110,7 @@ public class Task {
         this.time_type = time_type;
         this.repeat_gap = repeat_gap;
         this.days = days;
+        this.label = label;
         //Na razie bez powiadomień
         Calendar  calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
@@ -277,5 +281,13 @@ public class Task {
 
     public void setCday(int cday) {
         this.cday = cday;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

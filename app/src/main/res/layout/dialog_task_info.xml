@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nazwa"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/dialog_task_info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sfsdfs"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_task_info_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powtarzanie"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_task_info_repeating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Codziennie"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Etykieta"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_task_info_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="main"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Komentarz"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_task_info_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ggdffd"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ukończone"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_task_info_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nie"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/dialog_task_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/AppTheme.Button"
+        android:text="Edytuj"/>
+
+
+</LinearLayout>

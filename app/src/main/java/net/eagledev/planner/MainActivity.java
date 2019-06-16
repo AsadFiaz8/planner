@@ -4,6 +4,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.job.JobInfo;
@@ -93,6 +95,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     List<Action> ac = new ArrayList<Action>();
     FloatingActionsMenu floatingActionsMenu;
     FloatingActionButton btnNewAction;
+    Dialog taskInfoDialog;
     FloatingActionButton btnNewReminder;
     FloatingActionButton btnAims;
     public static FirestoreDatabase fDatabase = new FirestoreDatabase();
@@ -1158,11 +1161,39 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         longListener = new ItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Aim aim = aimList.get(position);
-                Task task = taskList.get(position);
-                Intent intentEdit = new Intent(getApplicationContext(), EditAimActivity.class);
-                intentEdit.putExtra("ID", aim.getId());
-                startActivityForResult(intentEdit, 1);
+                final Task task = taskList.get(position);
+                taskInfoDialog = new Dialog(MainActivity.this);
+                taskInfoDialog.setTitle("Task info");
+                taskInfoDialog.setContentView(R.layout.dialog_task_info);
+                taskInfoDialog.show();
+                TextView name = taskInfoDialog.findViewById(R.id.dialog_task_info_name);
+                name.setText(task.getName());
+                TextView date = taskInfoDialog.findViewById(R.id.dialog_task_info_date);
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(task.getTime());
+                date.setText(f.Date(c));
+                TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
+                repeating.setText("na razie nia ma");
+                final TextView comment = taskInfoDialog.findViewById(R.id.dialog_task_info_comment);
+                comment.setText(task.getComment());
+                TextView label = taskInfoDialog.findViewById(R.id.dialog_task_info_label);
+                label.setText(task.getLabel());
+                TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
+                if (task.isCompleted()){
+                    completed.setText("Tak");
+                } else {
+                    completed.setText("Nie");
+                }
+                Button button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent editTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
+                        editTaskIntent.putExtra("ID", task.getId());
+                        editTaskIntent.putExtra("edit", true);
+                        taskInfoDialog.dismiss();
+                    }
+                });
             }
         };
         itemClickListener = new ItemClickListener() {
@@ -1356,7 +1387,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             // Create the new table
             database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
         }
     };
     static final Migration MIGRATION_5_6 = new Migration(5, 6) {
@@ -1365,7 +1396,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             // Create the new table
             database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
         }
     };
 

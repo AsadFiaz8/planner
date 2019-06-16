@@ -21,6 +21,8 @@
     <dimen name="action_fragment_day_line">1dp</dimen>
     <dimen name="task_days_button">36dp</dimen>
     <dimen name="task_days_margin">3dp</dimen>
+    <dimen name="select_color_icon">40dp</dimen>
+    <dimen name="select_color_margins">2dp</dimen>
 
 
 </resources>

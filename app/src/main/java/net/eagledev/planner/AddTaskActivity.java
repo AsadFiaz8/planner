@@ -81,7 +81,19 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_task);
 
         setup();
+        setValues();
 
+    }
+
+    private void setValues() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle!= null){
+            if (bundle.getBoolean("edit")){
+                Task task = MainActivity.appDatabase.appDao().idTask(bundle.getInt("ID"));
+                //TODO fchuj rzeczy tu
+            }
+        }
     }
 
     private void setup() {
@@ -289,7 +301,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
             try {
                 int id = MainActivity.appDatabase.appDao().getMaxTasksID()+1;
-                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days);
+                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTime());
                 Log.e(TAG, "\nId: " + task.getId()+
@@ -304,6 +316,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         "\nTime Type: "+task.getTime_type()+
                         "\nDays: " +task.getDays());
                 MainActivity.appDatabase.appDao().addTask(task);
+                MainActivity.needRefresh = true;
                 finish();
 
             } catch (Exception e){
