@@ -116,10 +116,34 @@ public class Task {
         calendar.setTimeInMillis(time);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_WEEK);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         completed = false;
+    }
+
+    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days, String label, boolean completed){
+        this.id = id;
+        this.name = name;
+        this.priority = priority;
+        this.comment = comment;
+        this.time = time;
+        this.repeat = repeat;
+        this.reminder = false;
+        this.repeat_type = repeat_type;
+        this.time_type = time_type;
+        this.repeat_gap = repeat_gap;
+        this.days = days;
+        this.label = label;
+        //Na razie bez powiadomień
+        Calendar  calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minute = calendar.get(Calendar.MINUTE);
+        this.completed = completed;
     }
 
 

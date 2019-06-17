@@ -30,6 +30,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     public static final String TAG = "AddTaskActivity";
     ImageView toolbar_confirm;
     ImageView toolbar_cancel;
+    ImageView toolbar_delete;
     TextView nameText;
     Button dateButton;
     Spinner repeatSpinner;
@@ -65,12 +66,16 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String label;
     List<String> labelList = new ArrayList<String>();
 
+    boolean edit;
+    int id;
     boolean repeat = false;
     Checker checker = new Checker();
     int repeatType = 0;
     int priority = 0;
     String days = "0000000";
     Context context;
+    boolean completed;
+
 
 
 
@@ -79,7 +84,6 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
         setup();
         setValues();
 
@@ -90,8 +94,64 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         Bundle bundle = intent.getExtras();
         if (bundle!= null){
             if (bundle.getBoolean("edit")){
+                edit = true;
+                toolbar_delete = findViewById(R.id.toolbar_delete);
+                toolbar_delete.setVisibility(View.VISIBLE);
+                toolbar_delete.setOnClickListener(this);
                 Task task = MainActivity.appDatabase.appDao().idTask(bundle.getInt("ID"));
-                //TODO fchuj rzeczy tu
+                id = task.getId();
+                name = task.getName();
+                nameText.setText(name);
+                comment = task.getComment();
+                commentText.setText(comment);
+                calendar.setTimeInMillis(task.getTime());
+                dateButton.setText(f.Date(calendar));
+                setPriority(task.getPriority());
+                label = task.getLabel();
+                completed = task.isCompleted();
+                for (int i = 0; i < labelList.size(); i++){
+                    if(labelList.get(i).equals(label)){
+                        labelSpinner.setSelection(i);
+                    }
+                }
+
+                repeatSpinner.setSelection(task.getRepeat_type());
+                repeatType = task.getRepeat_type();
+                setRepeatLayout(repeatType);
+                if(repeatType > 0){
+                    repeat = true;
+                } else repeat = false;
+                if(repeatType == 1){
+                    if(task.getDays().charAt(0)=='1'){
+                        setDay(1, dayButton1);
+                    }
+                    if(task.getDays().charAt(1)=='1'){
+                        setDay(2, dayButton2);
+                    }
+                    if(task.getDays().charAt(2)=='1'){
+                        setDay(3, dayButton3);
+                    }
+                    if(task.getDays().charAt(3)=='1'){
+                        setDay(4, dayButton4);
+                    }
+                    if(task.getDays().charAt(4)=='1'){
+                        setDay(5, dayButton5);
+                    }
+                    if(task.getDays().charAt(5)=='1'){
+                        setDay(6, dayButton6);
+                    }
+                    if(task.getDays().charAt(6)=='1'){
+                        setDay(7, dayButton7);
+                    }
+                }
+                if (repeatType == 2){
+                    gap = task.getRepeat_gap();
+                    timeType = task.getTime_type();
+                    timeSpinner.setSelection(timeType);
+                    gapText = findViewById(R.id.task_amout_edittext);
+                    gapText.setText(String.valueOf(gap));
+                }
+
             }
         }
     }
@@ -209,9 +269,19 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.toolbar_confirm:
-                createTask();
+                if(edit){
+                    updateTask();
+                } else {
+                    createTask();
+
+                }
                 break;
             case R.id.toolbar_cancel:
+                finish();
+                break;
+            case R.id.toolbar_delete:
+                MainActivity.appDatabase.appDao().deleteTask(id);
+                MainActivity.needRefresh = true;
                 finish();
                 break;
             case R.id.task_date_button:
@@ -226,7 +296,11 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         dateButton.setText(f.Date(calendar));
                     }
                 },year, month, day);
-                datePickerDialog.show();
+                try {
+                    datePickerDialog.show();
+                } catch (Exception e){
+                    Log.e(TAG, e.getMessage());
+                }
                 break;
                 case R.id.task_priority1:
                     setPriority(1);
@@ -267,6 +341,45 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    private void updateTask() {
+        name = String.valueOf(nameText.getText());
+        comment = String.valueOf(commentText.getText());
+        gap = Integer.parseInt(String.valueOf(gapText.getText()));
+
+        if(name.length() <= 3){
+            Toast.makeText(this, "Nazwa musi składać się z minimum 3 znaków", Toast.LENGTH_LONG).show();
+        } else if(!checker.DateTimeInFuture(calendar)){
+            Toast.makeText(this, "Data nie może być z przeszłości", Toast.LENGTH_LONG).show();
+        } else {
+
+            try {
+                //Log.e(TAG, days);
+                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label, completed);
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(task.getTime());
+                Log.e(TAG, "\nId: " + task.getId()+
+                        "\nName: "+task.getName()+
+                        "\nPriority: "+task.getPriority()+
+                        "\nComment: "+task.getComment()+
+                        "\nTime:" + f.dateWithTime(cal)+
+                        "\nRepeat: "+task.isRepeat()+
+                        "\nReminder: "+task.isReminder()+
+                        "\nRepeat Type: "+task.getRepeat_type()+
+                        "\nRepeat Gap: "+task.getRepeat_gap()+
+                        "\nTime Type: "+task.getTime_type()+
+                        "\nDays: " +task.getDays());
+                MainActivity.appDatabase.appDao().updateTask(task);
+                MainActivity.needRefresh = true;
+                finish();
+            } catch (Exception e){
+                Log.e(TAG, "updateTask: "+e.getMessage());
+            }
+
+
+
+        }
+    }
+
     private void setDay(int i, TextView textView) {
         int index = i-1;
         int[] ints = {0};
@@ -302,6 +415,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             try {
                 int id = MainActivity.appDatabase.appDao().getMaxTasksID()+1;
                 Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label);
+
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTime());
                 Log.e(TAG, "\nId: " + task.getId()+

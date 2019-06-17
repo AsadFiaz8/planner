@@ -1149,7 +1149,110 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
     private void setupList() {
         final List<Aim> aimList = appDatabase.appDao().getAimsDateType(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 0);
-        final List<Task> taskList = appDatabase.appDao().getTasks();
+        List<Task> dayTaskList = appDatabase.appDao().getTaskDate(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+        List<Task> repeatTaskList = appDatabase.appDao().getTasksRepeatType(1);
+        List<Task> todayRepeatTypDay = new ArrayList<Task>();
+        now.setFirstDayOfWeek(Calendar.MONDAY);
+        for (int i = 0; i< repeatTaskList.size(); i++){
+            if(repeatTaskList.get(i).getDays().charAt(now.get(Calendar.DAY_OF_WEEK)) == '1'){
+                todayRepeatTypDay.add(repeatTaskList.get(i));
+            }
+        }
+        List<Task> todayRepeatTypInterval = appDatabase.appDao().getTasksRepeatType(2);
+        Log.e(TAG, "Ilość: "+String.valueOf(todayRepeatTypDay.size()));
+
+        //arweaqfd
+
+
+        Calendar cal = Calendar.getInstance();
+        //cal.set(2020, 4, 12);
+        //long differneceDays = Math.abs((cal.getTimeInMillis()-now.getTimeInMillis())/86400000);
+
+        //Log.e("Difference", String.valueOf(differneceDays));
+
+        //qrwqwrda
+
+
+        List<Task> allTaskLists = new ArrayList<Task>();
+        for (int i = 0 ; i<dayTaskList.size(); i++){
+            boolean isExist = false;
+            for (int l = 0; l<allTaskLists.size(); l++){
+                if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
+                    //Sparwdzanie czy zadanie o danym id już zostało dodane
+                    isExist = true;
+                }
+            }
+            if (!isExist){
+                allTaskLists.add(dayTaskList.get(i));
+            }
+        }
+        for (int i = 0 ; i<todayRepeatTypDay.size(); i++){
+            boolean isExist = false;
+            for (int l = 0; l<allTaskLists.size(); l++){
+                if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
+                    //Sparwdzanie czy zadanie o danym id już zostało dodane
+                    isExist = true;
+                }
+            }
+            if (!isExist){
+                allTaskLists.add(todayRepeatTypDay.get(i));
+            }
+
+
+            //allTaskLists.add(todayRepeatTypDay.get(i));
+        }
+        Log.e("todayRepeatTypInterval", String.valueOf(todayRepeatTypInterval.size()));
+        for (int i = 0 ; i<todayRepeatTypInterval.size(); i++){
+            Task task = todayRepeatTypInterval.get(i);
+            Calendar tCal = Calendar.getInstance();
+            tCal.setTimeInMillis(task.getTime());
+            if(task.getTime_type() == 0){
+                //Dni
+                if(Math.abs((tCal.getTimeInMillis()-now.getTimeInMillis())/86400000) % task.getRepeat_gap() == 0){
+                    boolean isExist = false;
+                    for (int l = 0; l<allTaskLists.size(); l++){
+                        if(task.getId() == allTaskLists.get(l).getId()){
+                            //Sparwdzanie czy zadanie o danym id już zostało dodane
+                            isExist = true;
+                        }
+                    }
+                    if (!isExist){
+                        allTaskLists.add(task);
+                    }
+                }
+            }
+            if(task.getTime_type() == 1){
+                //Tygodnie
+                if(Math.abs((tCal.getTimeInMillis()-now.getTimeInMillis())/604800000) % task.getRepeat_gap() == 0){
+                    boolean isExist = false;
+                    for (int l = 0; l<allTaskLists.size(); l++){
+                        if(task.getId() == allTaskLists.get(l).getId()){
+                            //Sparwdzanie czy zadanie o danym id już zostało dodane
+                            isExist = true;
+                        }
+                    }
+                    if (!isExist){
+                        allTaskLists.add(task);
+                    }
+                }
+
+            }
+            if(task.getTime_type() == 2){
+                //Miesiące
+
+            }
+
+            //allTaskLists.add(todayRepeatTypInterval.get(i));
+        }
+
+
+
+
+
+
+
+        final List<Task> taskList = allTaskLists;
+        //final List<Task> taskList = appDatabase.appDao().getTasks();
         TextView aimNullText = findViewById(R.id.aims_null_text);
         if(taskList.size() == 0) {
             aimNullText.setVisibility(View.VISIBLE);
@@ -1191,6 +1294,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         Intent editTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
                         editTaskIntent.putExtra("ID", task.getId());
                         editTaskIntent.putExtra("edit", true);
+                        startActivity(editTaskIntent);
                         taskInfoDialog.dismiss();
                     }
                 });
