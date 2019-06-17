@@ -13,7 +13,7 @@
             android:icon="@drawable/finance44"
             android:title="@string/routines" />
         <item
-            android:id="@+id/nav_aims"
+            android:id="@+id/nav_tasks"
             android:icon="@drawable/grid16"
             android:title="@string/goals" />
         <item

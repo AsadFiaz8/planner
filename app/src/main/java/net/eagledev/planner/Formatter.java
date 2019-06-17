@@ -175,4 +175,19 @@ public final class Formatter {
     private String s (int i) {
         return MainActivity.context.getResources().getString(i);
     }
+
+    public int DayOfWeek(Calendar c){
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+        if (c.get(Calendar.MONDAY) == dayOfWeek) return 1;
+        else if (c.get(Calendar.TUESDAY) == dayOfWeek) return 2;
+        else if (c.get(Calendar.WEDNESDAY) == dayOfWeek) return 3;
+        else if (c.get(Calendar.THURSDAY) == dayOfWeek) return 4;
+        else if (c.get(Calendar.FRIDAY) == dayOfWeek) return 5;
+        else if (c.get(Calendar.SATURDAY) == dayOfWeek) return 6;
+        else if (c.get(Calendar.SUNDAY) == dayOfWeek) return 7;
+        else return 0;
+
+    }
+
 }

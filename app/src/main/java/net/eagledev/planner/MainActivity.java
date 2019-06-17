@@ -80,6 +80,7 @@ import net.eagledev.planner.Fragment.ContactFragment;
 import net.eagledev.planner.Fragment.RemindersFragment;
 import net.eagledev.planner.Fragment.RoutinesFragment;
 import net.eagledev.planner.Fragment.SettingsFragment;
+import net.eagledev.planner.Fragment.TasksFragment;
 import net.eagledev.planner.Interface.ItemClickListener;
 
 import java.util.ArrayList;
@@ -178,7 +179,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);
         context = getApplicationContext();
-        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().addMigrations(MIGRATION_4_6,MIGRATION_5_6).build();
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().addMigrations(MIGRATION_4_5).build();
         fDatabase = new FirestoreDatabase();
         valueHolder = new ValueHolder();
         if(!valueHolder.isTut()){
@@ -425,8 +426,8 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 toolbar.setTitle(R.string.routines);
 
                                 break;
-                            case R.id.nav_aims:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AimsFragment()).commit();
+                            case R.id.nav_tasks:
+                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.aims);
@@ -1153,27 +1154,20 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         List<Task> repeatTaskList = appDatabase.appDao().getTasksRepeatType(1);
         List<Task> todayRepeatTypDay = new ArrayList<Task>();
         now.setFirstDayOfWeek(Calendar.MONDAY);
+        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+        dayOfWeek -=1;
+        if (dayOfWeek<1){
+            dayOfWeek = 7;
+        }
         for (int i = 0; i< repeatTaskList.size(); i++){
-            if(repeatTaskList.get(i).getDays().charAt(now.get(Calendar.DAY_OF_WEEK)) == '1'){
+            if(repeatTaskList.get(i).getDays().charAt(dayOfWeek-1) == '1'){
                 todayRepeatTypDay.add(repeatTaskList.get(i));
             }
         }
         List<Task> todayRepeatTypInterval = appDatabase.appDao().getTasksRepeatType(2);
-        Log.e(TAG, "Ilość: "+String.valueOf(todayRepeatTypDay.size()));
+        Log.e(TAG, "Ilość: "+String.valueOf(todayRepeatTypInterval.size()));
 
-        //arweaqfd
-
-
-        Calendar cal = Calendar.getInstance();
-        //cal.set(2020, 4, 12);
-        //long differneceDays = Math.abs((cal.getTimeInMillis()-now.getTimeInMillis())/86400000);
-
-        //Log.e("Difference", String.valueOf(differneceDays));
-
-        //qrwqwrda
-
-
-        List<Task> allTaskLists = new ArrayList<Task>();
+        List<Task> allTaskLists = new ArrayList<>();
         for (int i = 0 ; i<dayTaskList.size(); i++){
             boolean isExist = false;
             for (int l = 0; l<allTaskLists.size(); l++){
@@ -1201,7 +1195,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             //allTaskLists.add(todayRepeatTypDay.get(i));
         }
-        Log.e("todayRepeatTypInterval", String.valueOf(todayRepeatTypInterval.size()));
         for (int i = 0 ; i<todayRepeatTypInterval.size(); i++){
             Task task = todayRepeatTypInterval.get(i);
             Calendar tCal = Calendar.getInstance();
@@ -1239,7 +1232,8 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             }
             if(task.getTime_type() == 2){
                 //Miesiące
-                if((tCal.get(Calendar.YEAR)*12+tCal.get(Calendar.MONTH))-((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))) % task.getRepeat_gap() == 0){
+                Log.e(TAG, String.valueOf((tCal.get(Calendar.YEAR)*12)+tCal.get(Calendar.MONTH))+"   "+String.valueOf((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))));
+                if(((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))-(tCal.get(Calendar.YEAR)*12+tCal.get(Calendar.MONTH))) % task.getRepeat_gap() == 0){
                     boolean isExist = false;
                     for (int l = 0; l<allTaskLists.size(); l++){
                         if(task.getId() == allTaskLists.get(l).getId()){
@@ -1289,7 +1283,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 c.setTimeInMillis(task.getTime());
                 date.setText(f.Date(c));
                 TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
-                repeating.setText("na razie nia ma");
+                repeating.setText(String.valueOf(task.getRepeat_type()));
                 final TextView comment = taskInfoDialog.findViewById(R.id.dialog_task_info_comment);
                 comment.setText(task.getComment());
                 TextView label = taskInfoDialog.findViewById(R.id.dialog_task_info_label);
@@ -1320,11 +1314,26 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 Task task = taskList.get(position);
                 task.setCompleted(!task.isCompleted());
                 ImageView imageButton = view.findViewById(R.id.task_list_button);
-                if(task.isCompleted()) {
-                    imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
-                }else {
-                    imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
+                if (task.getRepeat_type()>0){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(task.getCompletedTime());
+                    if (checker.Before(calendar, now)){
+                        task.setCompletedTime(now.getTimeInMillis());
+                        imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
+                    } else {
+                        Calendar cal = Calendar.getInstance();
+                        cal.add(Calendar.DATE, -1);
+                        task.setCompletedTime(cal.getTimeInMillis());
+                        imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
+                    }
+                } else {
+                    if(task.isCompleted()) {
+                        imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
+                    }else {
+                        imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
+                    }
                 }
+
                 appDatabase.appDao().updateTask(task);
 
             }
@@ -1498,22 +1507,14 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    static final Migration MIGRATION_4_6 = new Migration(4, 6) {
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
 
             // Create the new table
             database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
-        }
-    };
-    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-
-            // Create the new table
-            database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, PRIMARY KEY(id))");
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, completed_time INTEGEAR NOT NULL, PRIMARY KEY(id))");
         }
     };
 

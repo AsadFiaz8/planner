@@ -75,6 +75,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String days = "0000000";
     Context context;
     boolean completed;
+    long completedTime;
 
 
 
@@ -354,7 +355,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
             try {
                 //Log.e(TAG, days);
-                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label, completed);
+                Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label, completed, completedTime);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTime());
                 Log.e(TAG, "\nId: " + task.getId()+

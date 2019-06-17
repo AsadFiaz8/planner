@@ -72,6 +72,9 @@ public class Task {
     @ColumnInfo(name = "label")
     String label;
 
+    @ColumnInfo(name = "completed_time")
+    long completedTime;
+
 
     public Task(){
 
@@ -122,7 +125,7 @@ public class Task {
         completed = false;
     }
 
-    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days, String label, boolean completed){
+    public Task(int id, String name, int priority, String comment, long time, boolean repeat, boolean reminder, int repeat_type, int repeat_gap, int time_type , String days, String label, boolean completed, long completedTime){
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -135,6 +138,7 @@ public class Task {
         this.repeat_gap = repeat_gap;
         this.days = days;
         this.label = label;
+        this.completedTime = completedTime;
         //Na razie bez powiadomień
         Calendar  calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
@@ -313,5 +317,23 @@ public class Task {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public long getCompletedTime() {
+        return completedTime;
+    }
+
+    public void setCompletedTime(long completedTime) {
+        this.completedTime = completedTime;
+    }
+
+    public Calendar CompletedTime(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        return  calendar;
+    }
+
+    public void setCompletedTimeMilis(Calendar calendar){
+        this.completedTime = calendar.getTimeInMillis();
     }
 }

@@ -192,4 +192,7 @@
     <string name="sa">Sa</string>
     <string name="su">Su</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
