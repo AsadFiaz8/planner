@@ -1239,6 +1239,19 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             }
             if(task.getTime_type() == 2){
                 //Miesiące
+                if((tCal.get(Calendar.YEAR)*12+tCal.get(Calendar.MONTH))-((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))) % task.getRepeat_gap() == 0){
+                    boolean isExist = false;
+                    for (int l = 0; l<allTaskLists.size(); l++){
+                        if(task.getId() == allTaskLists.get(l).getId()){
+                            //Sparwdzanie czy zadanie o danym id już zostało dodane
+                            isExist = true;
+                        }
+                    }
+                    if (!isExist){
+                        allTaskLists.add(task);
+                    }
+                }
+
 
             }
 
