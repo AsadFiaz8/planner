@@ -64,6 +64,19 @@ public class Checker {
         return cal1.get(Calendar.HOUR_OF_DAY)*60+cal1.get(Calendar.MINUTE) > cal2.get(Calendar.HOUR_OF_DAY)*60+cal2.get(Calendar.MINUTE);
     }
 
+    public boolean BeforeDay(Calendar cal2, Calendar cal1) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        if (cal1.get(Calendar.ERA) < cal2.get(Calendar.ERA)) return false;
+        if (cal1.get(Calendar.ERA) > cal2.get(Calendar.ERA)) return true;
+        if (cal1.get(Calendar.YEAR) < cal2.get(Calendar.YEAR)) return false;
+        if (cal1.get(Calendar.YEAR) > cal2.get(Calendar.YEAR)) return true;
+        if (cal1.get(Calendar.DAY_OF_YEAR) < cal2.get(Calendar.DAY_OF_YEAR)) return false;
+        return  (cal1.get(Calendar.DAY_OF_YEAR) > cal2.get(Calendar.DAY_OF_YEAR)) ;
+
+    }
+
     public boolean TimeCollision(Calendar cal1, Calendar cal2, Calendar cal3, Calendar cal4){
         int a1 = cal1.get(Calendar.HOUR_OF_DAY)*60+cal1.get(Calendar.MINUTE);
         int a2 = cal2.get(Calendar.HOUR_OF_DAY)*60+cal2.get(Calendar.MINUTE);

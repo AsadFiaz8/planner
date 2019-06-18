@@ -1,5 +1,6 @@
 package net.eagledev.planner.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.eagledev.planner.Action;
@@ -18,6 +21,7 @@ import net.eagledev.planner.Activity.EditActionActivity;
 import net.eagledev.planner.Adapter.ActionAdapter;
 import net.eagledev.planner.Adapter.TaskAdapter;
 import net.eagledev.planner.AddTaskActivity;
+import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
@@ -48,11 +52,14 @@ public class TasksFragment extends Fragment {
     Context context = getContext();
     ItemClickListener itemClickListener;
     ItemClickListener mainListener;
+    Checker checker = new Checker();
+    Dialog taskInfoDialog;
 
     Formatter f = new Formatter();
     List<List<Task>> taskLister = new ArrayList<>();
     List<RecyclerView> recyclerList = new ArrayList<>();
     List<ItemClickListener> itemListnerList = new ArrayList<>();
+    List<ItemClickListener> longListeneerList = new ArrayList<>();
     List<TextView> dateNameList = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
@@ -104,27 +111,24 @@ public class TasksFragment extends Fragment {
 
 
         for (int t = 0; t< 7; t++){
-            Calendar date = Calendar.getInstance();
+            final Calendar date = Calendar.getInstance();
             date.setFirstDayOfWeek(Calendar.MONDAY);
-            Log.e("Date1" , f.Date(date));
             Log.e("t" , String.valueOf(t));
             date.add(Calendar.DATE, t);
-            Log.e("Date2" , f.Date(date));
             dateNameList.get(t).setText(f.Date(date));
             List<Task> dayTaskList = MainActivity.appDatabase.appDao().getTaskDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
             List<Task> repeatTaskList = MainActivity.appDatabase.appDao().getTasksRepeatType(1);
             List<Task> todayRepeatTypDay = new ArrayList<>();
 
             for (int i = 0; i< repeatTaskList.size(); i++){
-                //Log.e("days", repeatTaskList.get(i).getDays());
                 int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
                 dayOfWeek -=1;
                 if (dayOfWeek<1){
                     dayOfWeek = 7;
                 }
-                Log.e("day", f.Date(date)+"   "+String.valueOf(date.get(Calendar.DAY_OF_WEEK)));
 
                 if(repeatTaskList.get(i).getDays().charAt(dayOfWeek-1) == '1'){
+                    repeatTaskList.get(i).setUsingDate(date);
                     todayRepeatTypDay.add(repeatTaskList.get(i));
                 }
             }
@@ -139,6 +143,8 @@ public class TasksFragment extends Fragment {
                     }
                 }
                 if (!isExist){
+                    Log.e("Addeed" , "2");
+                    dayTaskList.get(i).setUsingDate(date);
                     allTaskLists.add(dayTaskList.get(i));
                 }
             }
@@ -151,6 +157,7 @@ public class TasksFragment extends Fragment {
                     }
                 }
                 if (!isExist){
+                    todayRepeatTypDay.get(i).setUsingDate(date);
                     allTaskLists.add(todayRepeatTypDay.get(i));
                 }
             }
@@ -169,6 +176,7 @@ public class TasksFragment extends Fragment {
                             }
                         }
                         if (!isExist){
+                            task.setUsingDate(date);
                             allTaskLists.add(task);
                         }
                     }
@@ -184,6 +192,7 @@ public class TasksFragment extends Fragment {
                             }
                         }
                         if (!isExist){
+                            task.setUsingDate(date);
                             allTaskLists.add(task);
                         }
                     }
@@ -199,6 +208,7 @@ public class TasksFragment extends Fragment {
                             }
                         }
                         if (!isExist){
+                            task.setUsingDate(date);
                             allTaskLists.add(task);
                         }
                     }
@@ -210,17 +220,78 @@ public class TasksFragment extends Fragment {
             recyclerList.get(taskDay).setHasFixedSize(true);
             recyclerList.get(taskDay).setLayoutManager(new LinearLayoutManager(context));
             final List<Task> tList = taskLister.get(taskDay);
+
+
+            longListeneerList.add(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    final Task task = tList.get(position);
+                    taskInfoDialog = new Dialog(context);
+                    taskInfoDialog.setTitle("Task info");
+                    taskInfoDialog.setContentView(R.layout.dialog_task_info);
+                    taskInfoDialog.show();
+                    TextView name = taskInfoDialog.findViewById(R.id.dialog_task_info_name);
+                    name.setText(task.getName());
+                    TextView date = taskInfoDialog.findViewById(R.id.dialog_task_info_date);
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(task.getTime());
+                    date.setText(f.Date(c));
+                    TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
+                    repeating.setText(String.valueOf(task.getRepeat_type()));
+                    final TextView comment = taskInfoDialog.findViewById(R.id.dialog_task_info_comment);
+                    comment.setText(task.getComment());
+                    TextView label = taskInfoDialog.findViewById(R.id.dialog_task_info_label);
+                    label.setText(task.getLabel());
+                    TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
+                    if (task.isCompleted()){
+                        completed.setText("Tak");
+                    } else {
+                        completed.setText("Nie");
+                    }
+                    Button button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent editTaskIntent = new Intent(context, AddTaskActivity.class);
+                            editTaskIntent.putExtra("ID", task.getId());
+                            editTaskIntent.putExtra("edit", true);
+                            startActivity(editTaskIntent);
+                            taskInfoDialog.dismiss();
+                        }
+                    });
+                }
+            });
+
             itemListnerList.add(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    //TODO listenery do ogarnięcia
                     Task task = tList.get(position);
-                    Intent intentEdit = new Intent(context, AddTaskActivity.class);
-                    intentEdit.putExtra("ID", task.getId());
-                    startActivityForResult(intentEdit, 1);
+                    task.setCompleted(!task.isCompleted());
+                    ImageView imageButton = view.findViewById(R.id.task_list_button);
+                    if (task.getRepeat_type()>0){
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(task.getCompletedTime());
+                        if (checker.Before(calendar, date)){
+                            task.setCompletedTime(date.getTimeInMillis());
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui21));
+                        } else {
+                            task.setCompletedTime(date.getTimeInMillis()-86400000);
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui96));
+                        }
+                    } else {
+                        if(task.isCompleted()) {
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui21));
+                        }else {
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui96));
+                        }
+                    }
+
+                    MainActivity.appDatabase.appDao().updateTask(task);
                 }
             });
-            adapter = new TaskAdapter(context, taskLister.get(taskDay) ,itemListnerList.get(taskDay));
+
+
+            adapter = new TaskAdapter(context, taskLister.get(taskDay) ,itemListnerList.get(taskDay), longListeneerList.get(taskDay));
             recyclerList.get(taskDay).setAdapter(adapter);
 
 

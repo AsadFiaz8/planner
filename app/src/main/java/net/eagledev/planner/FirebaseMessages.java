@@ -1,4 +1,4 @@
-package net.degeapps.planner;
+package net.eagledev.planner;
 
 import android.app.Service;
 import android.content.Intent;

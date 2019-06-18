@@ -1149,7 +1149,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupList() {
-        final List<Aim> aimList = appDatabase.appDao().getAimsDateType(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 0);
         List<Task> dayTaskList = appDatabase.appDao().getTaskDate(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
         List<Task> repeatTaskList = appDatabase.appDao().getTasksRepeatType(1);
         List<Task> todayRepeatTypDay = new ArrayList<Task>();
@@ -1161,12 +1160,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         }
         for (int i = 0; i< repeatTaskList.size(); i++){
             if(repeatTaskList.get(i).getDays().charAt(dayOfWeek-1) == '1'){
+                repeatTaskList.get(i).setUsingDate(now);
                 todayRepeatTypDay.add(repeatTaskList.get(i));
             }
         }
         List<Task> todayRepeatTypInterval = appDatabase.appDao().getTasksRepeatType(2);
-        Log.e(TAG, "Ilość: "+String.valueOf(todayRepeatTypInterval.size()));
-
         List<Task> allTaskLists = new ArrayList<>();
         for (int i = 0 ; i<dayTaskList.size(); i++){
             boolean isExist = false;
@@ -1177,6 +1175,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 }
             }
             if (!isExist){
+                dayTaskList.get(i).setUsingDate(now);
                 allTaskLists.add(dayTaskList.get(i));
             }
         }
@@ -1189,6 +1188,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 }
             }
             if (!isExist){
+                todayRepeatTypDay.get(i).setUsingDate(now);
                 allTaskLists.add(todayRepeatTypDay.get(i));
             }
 
@@ -1210,6 +1210,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
@@ -1225,14 +1226,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
-
             }
             if(task.getTime_type() == 2){
                 //Miesiące
-                Log.e(TAG, String.valueOf((tCal.get(Calendar.YEAR)*12)+tCal.get(Calendar.MONTH))+"   "+String.valueOf((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))));
                 if(((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))-(tCal.get(Calendar.YEAR)*12+tCal.get(Calendar.MONTH))) % task.getRepeat_gap() == 0){
                     boolean isExist = false;
                     for (int l = 0; l<allTaskLists.size(); l++){
@@ -1242,22 +1242,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
-
-
             }
-
-            //allTaskLists.add(todayRepeatTypInterval.get(i));
         }
-
-
-
-
-
-
-
         final List<Task> taskList = allTaskLists;
         //final List<Task> taskList = appDatabase.appDao().getTasks();
         TextView aimNullText = findViewById(R.id.aims_null_text);
@@ -1321,9 +1311,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         task.setCompletedTime(now.getTimeInMillis());
                         imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
                     } else {
-                        Calendar cal = Calendar.getInstance();
-                        cal.add(Calendar.DATE, -1);
-                        task.setCompletedTime(cal.getTimeInMillis());
+                        task.setCompletedTime(now.getTimeInMillis()-86400000);
                         imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
                     }
                 } else {
@@ -1514,7 +1502,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             // Create the new table
             database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, completed_time INTEGEAR NOT NULL, PRIMARY KEY(id))");
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, completed_time INTEGEAR NOT NULL, using_time INTEGEAR NOT NULL, PRIMARY KEY(id))");
         }
     };
 

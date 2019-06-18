@@ -3,6 +3,7 @@ package net.eagledev.planner.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.eagledev.planner.Aim;
+import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Task;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
@@ -71,10 +74,26 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         Task task = taskList.get(i);
         taskViewHolder.name.setText(task.getName());
-        if(task.isCompleted()) {
+        Checker checker = new Checker();
+        if(task.getRepeat_type()>0){
+            Calendar now = Calendar.getInstance();
+            now = task.usingDate();
+            Calendar cal = task.CompletedTime();
+            if(checker.BeforeDay(cal, now)){
+                taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(1));
+            } else {
+                taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(0));
+            }
+            Log.e("Completed Time ", f.Date(cal));
+            Log.e("Now  ", f.Date(now));
+        } else {
 
-            taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(0));
-        } else taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(1));
+            if(task.isCompleted()) {
+
+                taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(0));
+            } else taskViewHolder.checker.setImageDrawable(MainActivity.drawables.get(1));
+        }
+
 
 
 

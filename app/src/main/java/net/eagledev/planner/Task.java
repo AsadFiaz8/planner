@@ -75,6 +75,9 @@ public class Task {
     @ColumnInfo(name = "completed_time")
     long completedTime;
 
+    @ColumnInfo(name = "using_date")
+    long usingDateMilis;
+
 
     public Task(){
 
@@ -327,13 +330,24 @@ public class Task {
         this.completedTime = completedTime;
     }
 
-    public Calendar CompletedTime(long time){
+    public Calendar CompletedTime(){
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
+        calendar.setTimeInMillis(completedTime);
         return  calendar;
     }
 
     public void setCompletedTimeMilis(Calendar calendar){
         this.completedTime = calendar.getTimeInMillis();
     }
+
+    public void setUsingDate(Calendar calendar){
+        usingDateMilis = calendar.getTimeInMillis();
+    }
+
+    public Calendar usingDate(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(usingDateMilis);
+        return cal;
+    }
+
 }
