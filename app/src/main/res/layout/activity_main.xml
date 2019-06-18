@@ -312,27 +312,27 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/bg_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/menu_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="0dp"
-            android:clickable="false"
-            android:contentDescription="@string/todo"
-            android:scaleType="matrix"
-            android:visibility="invisible"
-            fab:srcCompat="@color/black_semi_transparent" />
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/bg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/menu_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+                android:clickable="false"
+                android:contentDescription="@string/todo"
+                android:scaleType="matrix"
+                android:visibility="invisible"
+                fab:srcCompat="@color/black_semi_transparent" />
+        </LinearLayout>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"

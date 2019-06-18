@@ -208,12 +208,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         if(valueHolder.isMainNotification()) {
             startService();
         }
+
         setNavText();
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
 
 
         //------------------ Tutaj tymczasowo będę wrzucać nowy kod
-
 
 
 
@@ -1273,17 +1273,63 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 c.setTimeInMillis(task.getTime());
                 date.setText(f.Date(c));
                 TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
-                repeating.setText(String.valueOf(task.getRepeat_type()));
+                switch (task.getRepeat_type()){
+                    case 0:
+                        repeating.setText("Brak");
+                        break;
+                    case 2:
+                        String timeType="";
+                        if(task.time_type==0) timeType = "dni";
+                        if(task.time_type==1) timeType = "tygodnie";
+                        if(task.time_type==2) timeType = "miesiące";
+                        repeating.setText("Co "+task.getRepeat_gap()+" "+timeType);
+                        break;
+                    case 1:
+                        String repeatDays = "";
+                        if(task.getDays().charAt(0)=='1') repeatDays = repeatDays + " " +getString(R.string.mo);
+                        if(task.getDays().charAt(1)=='1') repeatDays = repeatDays + " " +getString(R.string.tu);
+                        if(task.getDays().charAt(2)=='1') repeatDays = repeatDays + " " +getString(R.string.we);
+                        if(task.getDays().charAt(3)=='1') repeatDays = repeatDays + " " +getString(R.string.th);
+                        if(task.getDays().charAt(4)=='1') repeatDays = repeatDays + " " +getString(R.string.fr);
+                        if(task.getDays().charAt(5)=='1') repeatDays = repeatDays + " " +getString(R.string.sa);
+                        if(task.getDays().charAt(6)=='1') repeatDays = repeatDays + " " +getString(R.string.su);
+
+
+                        if (task.getDays().charAt(0)=='1' && task.getDays().charAt(1)=='1' && task.getDays().charAt(2)=='1' && task.getDays().charAt(3)=='1' && task.getDays().charAt(4)=='1'){
+                            repeatDays = getString(R.string.work_days);
+                        }
+                        if (task.getDays().charAt(5)=='1' && task.getDays().charAt(6)=='1'){
+                            repeatDays = getString(R.string.weekends);
+                        }
+                        if (task.getDays().charAt(0)=='1' && task.getDays().charAt(1)=='1' && task.getDays().charAt(2)=='1' && task.getDays().charAt(3)=='1' && task.getDays().charAt(4)=='1' && task.getDays().charAt(5)=='1' && task.getDays().charAt(6)=='1'){
+                            repeatDays = getString(R.string.everyday);
+                        }
+                        repeating.setText(repeatDays);
+                        break;
+                }
+
+
+
+
                 final TextView comment = taskInfoDialog.findViewById(R.id.dialog_task_info_comment);
                 comment.setText(task.getComment());
                 TextView label = taskInfoDialog.findViewById(R.id.dialog_task_info_label);
                 label.setText(task.getLabel());
                 TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
-                if (task.isCompleted()){
-                    completed.setText("Tak");
+                if (task.getRepeat_type()>0){
+                    if (task.isCompleted()){
+                        completed.setText("Ostatni ukończony z dnia "+f.Date(task.CompletedTime()));
+                    } else {
+                        completed.setText("Nie");
+                    }
                 } else {
-                    completed.setText("Nie");
+                    if (task.isCompleted()){
+                        completed.setText("Tak");
+                    } else {
+                        completed.setText("Nie");
+                    }
                 }
+
                 Button button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
