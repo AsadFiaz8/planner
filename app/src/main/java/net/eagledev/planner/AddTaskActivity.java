@@ -213,7 +213,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
         loadLabelList();
-        ArrayAdapter<String> labelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, labelList);
+        ArrayAdapter<String> labelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -290,14 +290,28 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
 
         dialog = new Dialog(context);
+        dialog.setTitle("New label");
+        dialog.setContentView(R.layout.dialog_new_label);
+        dialog.show();
+        final EditText labelName = dialog.findViewById(R.id.newlabel_name);
+        Button labelButton = dialog.findViewById(R.id.newlabel_button);
+        labelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                labelList.set(labelList.size()-1, String.valueOf(labelName.getText()));
+                SharedPreferences sharedPreferences = getSharedPreferences("shared_preferences", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(labelList);
+                editor.putString("label_list",json);
+                editor.apply();
+                labelList.add(getString(R.string.add));
+                labelSpinner.setSelection(labelList.size()-2);
+                dialog.dismiss();
+            }
+        });
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("shared_preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(labelList);
-        editor.putString("label_list",json);
-        editor.apply();
     }
 
     @Override
@@ -389,6 +403,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
             try {
                 //Log.e(TAG, days);
+                if (label.equals(getString(R.string.add))){
+                    label = labelList.get(labelList.size()-2);
+                }
                 Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label, completed, completedTime);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTime());
@@ -449,6 +466,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
 
             try {
                 int id = MainActivity.appDatabase.appDao().getMaxTasksID()+1;
+                if (label.equals(getString(R.string.add))){
+                    label = labelList.get(labelList.size()-2);
+                }
                 Task task = new Task(id, name, priority, comment, calendar.getTimeInMillis(), repeat, false, repeatType, gap, timeType, days, label);
 
                 Calendar cal = Calendar.getInstance();
