@@ -24,7 +24,7 @@
         <activity android:name=".PlanNextDayActivity" />
 
         <service
-            android:name="net.degeapps.planner.FirebaseMessages"
+            android:name=".FirebaseMessages"
             android:enabled="true"
             android:exported="true" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data

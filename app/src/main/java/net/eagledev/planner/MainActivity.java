@@ -208,12 +208,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         if(valueHolder.isMainNotification()) {
             startService();
         }
+
         setNavText();
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
 
 
         //------------------ Tutaj tymczasowo będę wrzucać nowy kod
-
 
 
 
@@ -1149,7 +1149,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupList() {
-        final List<Aim> aimList = appDatabase.appDao().getAimsDateType(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH), 0);
         List<Task> dayTaskList = appDatabase.appDao().getTaskDate(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
         List<Task> repeatTaskList = appDatabase.appDao().getTasksRepeatType(1);
         List<Task> todayRepeatTypDay = new ArrayList<Task>();
@@ -1161,12 +1160,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         }
         for (int i = 0; i< repeatTaskList.size(); i++){
             if(repeatTaskList.get(i).getDays().charAt(dayOfWeek-1) == '1'){
+                repeatTaskList.get(i).setUsingDate(now);
                 todayRepeatTypDay.add(repeatTaskList.get(i));
             }
         }
         List<Task> todayRepeatTypInterval = appDatabase.appDao().getTasksRepeatType(2);
-        Log.e(TAG, "Ilość: "+String.valueOf(todayRepeatTypInterval.size()));
-
         List<Task> allTaskLists = new ArrayList<>();
         for (int i = 0 ; i<dayTaskList.size(); i++){
             boolean isExist = false;
@@ -1177,6 +1175,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 }
             }
             if (!isExist){
+                dayTaskList.get(i).setUsingDate(now);
                 allTaskLists.add(dayTaskList.get(i));
             }
         }
@@ -1189,6 +1188,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 }
             }
             if (!isExist){
+                todayRepeatTypDay.get(i).setUsingDate(now);
                 allTaskLists.add(todayRepeatTypDay.get(i));
             }
 
@@ -1210,6 +1210,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
@@ -1225,14 +1226,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
-
             }
             if(task.getTime_type() == 2){
                 //Miesiące
-                Log.e(TAG, String.valueOf((tCal.get(Calendar.YEAR)*12)+tCal.get(Calendar.MONTH))+"   "+String.valueOf((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))));
                 if(((now.get(Calendar.YEAR)*12+now.get(Calendar.MONTH))-(tCal.get(Calendar.YEAR)*12+tCal.get(Calendar.MONTH))) % task.getRepeat_gap() == 0){
                     boolean isExist = false;
                     for (int l = 0; l<allTaskLists.size(); l++){
@@ -1242,22 +1242,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                     if (!isExist){
+                        task.setUsingDate(now);
                         allTaskLists.add(task);
                     }
                 }
-
-
             }
-
-            //allTaskLists.add(todayRepeatTypInterval.get(i));
         }
-
-
-
-
-
-
-
         final List<Task> taskList = allTaskLists;
         //final List<Task> taskList = appDatabase.appDao().getTasks();
         TextView aimNullText = findViewById(R.id.aims_null_text);
@@ -1283,17 +1273,63 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 c.setTimeInMillis(task.getTime());
                 date.setText(f.Date(c));
                 TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
-                repeating.setText(String.valueOf(task.getRepeat_type()));
+                switch (task.getRepeat_type()){
+                    case 0:
+                        repeating.setText("Brak");
+                        break;
+                    case 2:
+                        String timeType="";
+                        if(task.time_type==0) timeType = "dni";
+                        if(task.time_type==1) timeType = "tygodnie";
+                        if(task.time_type==2) timeType = "miesiące";
+                        repeating.setText("Co "+task.getRepeat_gap()+" "+timeType);
+                        break;
+                    case 1:
+                        String repeatDays = "";
+                        if(task.getDays().charAt(0)=='1') repeatDays = repeatDays + " " +getString(R.string.mo);
+                        if(task.getDays().charAt(1)=='1') repeatDays = repeatDays + " " +getString(R.string.tu);
+                        if(task.getDays().charAt(2)=='1') repeatDays = repeatDays + " " +getString(R.string.we);
+                        if(task.getDays().charAt(3)=='1') repeatDays = repeatDays + " " +getString(R.string.th);
+                        if(task.getDays().charAt(4)=='1') repeatDays = repeatDays + " " +getString(R.string.fr);
+                        if(task.getDays().charAt(5)=='1') repeatDays = repeatDays + " " +getString(R.string.sa);
+                        if(task.getDays().charAt(6)=='1') repeatDays = repeatDays + " " +getString(R.string.su);
+
+
+                        if (task.getDays().charAt(0)=='1' && task.getDays().charAt(1)=='1' && task.getDays().charAt(2)=='1' && task.getDays().charAt(3)=='1' && task.getDays().charAt(4)=='1'){
+                            repeatDays = getString(R.string.work_days);
+                        }
+                        if (task.getDays().charAt(5)=='1' && task.getDays().charAt(6)=='1'){
+                            repeatDays = getString(R.string.weekends);
+                        }
+                        if (task.getDays().charAt(0)=='1' && task.getDays().charAt(1)=='1' && task.getDays().charAt(2)=='1' && task.getDays().charAt(3)=='1' && task.getDays().charAt(4)=='1' && task.getDays().charAt(5)=='1' && task.getDays().charAt(6)=='1'){
+                            repeatDays = getString(R.string.everyday);
+                        }
+                        repeating.setText(repeatDays);
+                        break;
+                }
+
+
+
+
                 final TextView comment = taskInfoDialog.findViewById(R.id.dialog_task_info_comment);
                 comment.setText(task.getComment());
                 TextView label = taskInfoDialog.findViewById(R.id.dialog_task_info_label);
                 label.setText(task.getLabel());
                 TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
-                if (task.isCompleted()){
-                    completed.setText("Tak");
+                if (task.getRepeat_type()>0){
+                    if (task.isCompleted()){
+                        completed.setText("Ostatni ukończony z dnia "+f.Date(task.CompletedTime()));
+                    } else {
+                        completed.setText("Nie");
+                    }
                 } else {
-                    completed.setText("Nie");
+                    if (task.isCompleted()){
+                        completed.setText("Tak");
+                    } else {
+                        completed.setText("Nie");
+                    }
                 }
+
                 Button button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1321,9 +1357,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         task.setCompletedTime(now.getTimeInMillis());
                         imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
                     } else {
-                        Calendar cal = Calendar.getInstance();
-                        cal.add(Calendar.DATE, -1);
-                        task.setCompletedTime(cal.getTimeInMillis());
+                        task.setCompletedTime(now.getTimeInMillis()-86400000);
                         imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
                     }
                 } else {
@@ -1514,7 +1548,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             // Create the new table
             database.execSQL(
-                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, completed_time INTEGEAR NOT NULL, PRIMARY KEY(id))");
+                    "CREATE TABLE tasks (id INTEGER NOT NULL, time_type INTEGER NOT NULL, reminder INTEGER NOT NULL, year INTEGER NOT NULL, repeat_type INTEGER NOT NULL, completed INTEGER NOT NULL, priority INTEGER NOT NULL, minute INTEGER NOT NULL, repeat_gap INTEGER NOT NULL, month INTEGER NOT NULL, hour INTEGER NOT NULL, repeat INTEGER NOT NULL, name TEXT, label TEXT, days TEXT, comment TEXT, time INTEGER NOT NULL, day INTEGER NOT NULL,  cyear INTEGEAR NOT NULL, cmonth INTEGEAR NOT NULL,cday INTEGEAR NOT NULL, completed_time INTEGEAR NOT NULL, using_time INTEGEAR NOT NULL, PRIMARY KEY(id))");
         }
     };
 
