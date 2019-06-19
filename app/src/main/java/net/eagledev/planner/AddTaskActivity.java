@@ -64,7 +64,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     int timeType;
     int gap;
     String label;
-    List<String> labelList = new ArrayList<String>();
+    List<String> labelList = new ArrayList<>();
 
     boolean edit;
     int id;
@@ -76,6 +76,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     Context context;
     boolean completed;
     long completedTime;
+
 
 
 
