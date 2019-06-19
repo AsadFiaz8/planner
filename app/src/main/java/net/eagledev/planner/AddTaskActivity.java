@@ -1,8 +1,10 @@
 package net.eagledev.planner;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -66,6 +72,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     String label;
     List<String> labelList = new ArrayList<String>();
 
+    Dialog dialog;
     boolean edit;
     int id;
     boolean repeat = false;
@@ -87,6 +94,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_add_task);
         setup();
         setValues();
+
 
     }
 
@@ -204,8 +212,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
-        labelList.add("main");
-        labelList.add("Dodaj");
+        loadLabelList();
         ArrayAdapter<String> labelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -262,8 +269,35 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         setRepeatLayout(0);
     }
 
+    private void loadLabelList() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared_preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        List<String> firstLabel = new ArrayList<>();
+        firstLabel.add(getString(R.string.main));
+        String firstJson = gson.toJson(firstLabel);
+        String json = sharedPreferences.getString("label_list",firstJson);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        labelList= gson.fromJson(json, type);
+        if (labelList == null){
+            labelList = new ArrayList<>();
+            labelList.add(getString(R.string.main));
+        }
+        labelList.add(getString(R.string.add));
+
+    }
+
     private void addLabel() {
-        Toast.makeText(this, "Adding new label", Toast.LENGTH_LONG).show();
+
+
+        dialog = new Dialog(context);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared_preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(labelList);
+        editor.putString("label_list",json);
+        editor.apply();
     }
 
     @Override
