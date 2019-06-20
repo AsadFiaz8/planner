@@ -198,5 +198,16 @@
     <string name="to_use_this_function_buy_premium_or_watch_ad">Aby skorzystać z tej funkcji wykup plan premium lub obejrz reklamę</string>
     <string name="only_premium_users_can_use_this_function">Tylko gracze premium mogą korzystać z tej funkcji</string>
     <string name="loading_ad">Ładowanie reklamy. Proszę czekać</string>
+    <string name="new_task">Dodaj zadanie</string>
+    <string name="tasks">Zadania</string>
+    <string name="tasks_for_today">Zadania na dziś</string>
+    <string name="no_tasks_for_today">Brak zadań na dziś</string>
+    <string name="watch_ads_ore_premium">Używaj funkcji dla użytkowników premium w zamian za oglądanie reklam. Jedna reklama to jedno użycia fukcji premium</string>
+    <string name="premium_points_amount">Aktualna liczba punktóe premium</string>
+    <string name="reason_create_new_labels">Tylko użytkownicy premium mogą tworzyć nowe etykiety</string>
+    <string name="reason_select_labels">Tylko użytkownicy premium mogą używać innych etykiet niż główna</string>
+    <string name="reason_add_comment_to_task">Tylko użytkownicy premium mogą dodawać komentarze do zadań</string>
+    <string name="color">Kolor</string>
+    <string name="icon">Ikona</string>
 
 </resources>

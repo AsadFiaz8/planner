@@ -256,7 +256,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:paddingTop="2dp"
                                 android:paddingBottom="2dp"
-                                android:text="@string/goals_for_today"
+                                android:text="@string/tasks_for_today"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
                         </RelativeLayout>
 
@@ -273,7 +273,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="20dp"
-                            android:text="@string/no_goals_for_today"
+                            android:text="@string/no_tasks_for_today"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                             android:textColor="@color/black"
                             android:visibility="invisible" />
@@ -369,7 +369,7 @@
                 fab:fab_colorNormal="@color/colorAccent"
                 fab:fab_icon="@drawable/grid16"
                 fab:fab_size="mini"
-                fab:fab_title="@string/new_goal" />
+                fab:fab_title="@string/new_task" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_3"

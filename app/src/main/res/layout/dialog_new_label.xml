@@ -26,7 +26,7 @@
         android:ems="10"
         android:hint="Nazwa"
         android:layout_gravity="center_horizontal"
-        android:inputType="textCapCharacters" />
+        android:inputType="textCapSentences" />
 
     <Button
         android:id="@+id/newlabel_button"

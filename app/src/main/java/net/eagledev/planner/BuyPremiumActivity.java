@@ -32,7 +32,7 @@ import java.util.List;
 public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
 
     int messageID;
-    TextView reasonTextView, featuresTextView;
+    TextView featuresTextView, pointsTextView;
     ImageView toolbarConfirm;
     Button btnMonth, btnYear, btnAd;
     Context context;
@@ -61,7 +61,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         btnAd = findViewById(R.id.btn_premium_watch_ad);
         btnAd.setOnClickListener(this);
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
-        reasonTextView = findViewById(R.id.text_premium_reason);
+        pointsTextView = findViewById(R.id.text_premium_points);
+        pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
         Intent intent = getIntent();
         Bundle bundle = null;
         if(intent != null){
@@ -71,34 +72,12 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         if(valueHolder.isPremiumUser()){
             featuresTextView.setText(getResources().getString(R.string.you_have_premium));
         }
-        if(valueHolder.getAdsPremium() && valueHolder.getAdsPremiumActive()) {
-            featuresTextView.setText(getString(R.string.premium_activatetd_by_ad));
-        }
         if(bundle!=null) {
             messageID = (int) bundle.get("messageID");
         } else {
             messageID = 0;
         }
-        switch (messageID) {
-            case 0:
-                reasonTextView.setText("");
-                break;
-            case 1:
-                reasonTextView.setText(getResources().getString(R.string.premium_reason1));
-                break;
-            case 2:
-                reasonTextView.setText(getResources().getString(R.string.premium_reason2));
-                break;
-            case 3:
-                reasonTextView.setText(getResources().getString(R.string.premium_reason3));
-                break;
-            case 4:
-                reasonTextView.setText(getResources().getString(R.string.premium_reason4));
-                break;
-            case 5:
-                reasonTextView.setText(getResources().getString(R.string.premium_reason5));
-                break;
-        }
+
         bp = new BillingProcessor(this, valueHolder.licence_key, this);
         //bp = new BillingProcessor(this, null, this);
         bp.initialize();
@@ -148,12 +127,10 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         if(productId.equals("premium_month")){
-            valueHolder.setAdsPremium(false);
             valueHolder.setPremiumUser(true);
             finish();
         }
         if(productId.equals("premium_year")){
-            valueHolder.setAdsPremium(false);
             valueHolder.setPremiumUser(true);
             finish();
         }
@@ -206,9 +183,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        valueHolder.setAdsPremium(true);
-        valueHolder.setPremiumAdTime(Calendar.getInstance());
-        Toast.makeText(this, getResources().getString(R.string.premium_was_erxtended_by_one_day), Toast.LENGTH_LONG).show();
+        MainActivity.valueHolder.changePremiumPoints(1);
+        pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
     }
 
     @Override

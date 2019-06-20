@@ -223,7 +223,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
 
             // Buttons
 
-            btn_date = findViewById(R.id.btn_date);
+            btn_date = findViewById(R.id.action_date_start_btn);
             btn_date.setText(f.DateText(date_start));
             aDay = day;
             aMonth = month;
@@ -249,7 +249,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                     dpd.show();
                 }
             });
-            dateActionStartButton = (Button) findViewById(R.id.input_action_date_start);
+            dateActionStartButton = (Button) findViewById(R.id.action_time_start_btn);
             dateActionStartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -266,7 +266,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 }
             });
 
-            dateActionStopButton = (Button) findViewById(R.id.input_action_date_stop);
+            dateActionStopButton = (Button) findViewById(R.id.action_time_stop_btn);
             dateActionStopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -331,8 +331,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             imageCancel.setOnClickListener(this);
             imageConfirm = findViewById(R.id.toolbar_confirm);
             imageConfirm.setOnClickListener(this);
-            findViewById(R.id.btn_date_left).setOnClickListener(this);
-            findViewById(R.id.btn_date_right).setOnClickListener(this);
 
         }
 
@@ -358,17 +356,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.btn_date_left:
-                date_start.add(Calendar.DATE, -1);
-                date_stop.add(Calendar.DATE, -1);
-                btn_date.setText(f.Date(date_start));
-                break;
-
-            case R.id.btn_date_right:
-                date_start.add(Calendar.DATE, 1);
-                date_stop.add(Calendar.DATE, 1);
-                btn_date.setText(f.Date(date_start));
-                break;
         }
 
 
@@ -1216,8 +1203,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         startMinutePicker = findViewById(R.id.start_minute_picker);
         stopHourPicker = findViewById(R.id.stop_hour_picker);
         stopMinutePicker = findViewById(R.id.stop_minute_picker);
-        dateLinearLayout = findViewById(R.id.date_linear);
-        dateRelativeLayout = findViewById(R.id.date_relative);
+
 
         paramsLinear = dateLinearLayout.getLayoutParams();
         paramsRelative =  dateRelativeLayout.getLayoutParams();

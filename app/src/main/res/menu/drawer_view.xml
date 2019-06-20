@@ -15,7 +15,7 @@
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/grid16"
-            android:title="@string/goals" />
+            android:title="@string/tasks" />
         <item
             android:id="@+id/nav_reminders"
             android:icon="@drawable/ui11"

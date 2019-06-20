@@ -192,6 +192,17 @@
     <string name="to_use_this_function_buy_premium_or_watch_ad">To use this feature, buy a premium or watch an advertisement</string>
     <string name="only_premium_users_can_use_this_function">Only premium users can use this feature</string>
     <string name="loading_ad">Loading the ad. Please wait</string>
+    <string name="new_task">Add task</string>
+    <string name="tasks">Tasks</string>
+    <string name="tasks_for_today">Tasks for today</string>
+    <string name="no_tasks_for_today">No tasks for today</string>
+    <string name="watch_ads_ore_premium">Use features for premium users in exchange for watching ads. One ad is one use of premium features.</string>
+    <string name="premium_points_amount">Current number of premium points </string>
+    <string name="reason_create_new_labels">Only premium users can create new labels</string>
+    <string name="reason_select_labels">Only premium users can use labels other than the main one</string>
+    <string name="reason_add_comment_to_task">Only premium users can add comments to tasks</string>
+    <string name="color">Color</string>
+    <string name="icon">Icon</string>
 
 
 </resources>

@@ -10,7 +10,10 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,9 +34,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddTaskActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddTaskActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
     public static final String TAG = "AddTaskActivity";
+    public static final int NEW_LABEL = 0;
+    public static final int LABEL = 1;
+    public static final int COMMENT = 2;
+
+    int waitLabel;
+
+    boolean canComment = false;
     ImageView toolbar_confirm;
     ImageView toolbar_cancel;
     ImageView toolbar_delete;
@@ -214,23 +224,32 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
         loadLabelList();
-        ArrayAdapter<String> labelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
+        final ArrayAdapter<String> labelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == labelList.size()-1){
+                    labelSpinner.setSelection(0);
                     if(MainActivity.valueHolder.canUsePremium()){
                         addLabel();
                     } else {
                         NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                        needPremiumDialog.ShowDialog(0);
+                        needPremiumDialog.ShowDialog(NEW_LABEL);
                     }
-
                 } else {
-                    label = labelList.get(position);
+                    if(position>0){
+                        if (MainActivity.valueHolder.canUsePremium()){
+                                label = labelList.get(position);
+                        } else {
+                            labelSpinner.setSelection(0);
+                            waitLabel = position;
+                            NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
+                            needPremiumDialog.ShowDialog(LABEL);
+                        }
+                    }
+                    else label = labelList.get(0);
                 }
-
             }
 
             @Override
@@ -247,6 +266,48 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         priorityButton3.setOnClickListener(this);
         priorityButton4.setOnClickListener(this);
         commentText = findViewById(R.id.task_comment);
+        commentText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!canComment){
+                    if(MainActivity.valueHolder.canUsePremium()){
+                        canComment = true;
+                    } else {
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
+                        needPremiumDialog.ShowDialog(COMMENT);
+                    }
+                }
+
+            }
+        });
+        commentText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!canComment){
+                    if(MainActivity.valueHolder.canUsePremium()){
+                        canComment = true;
+                    } else {
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
+                        needPremiumDialog.ShowDialog(COMMENT);
+                    }
+                }
+
+            }
+        });
+        commentText.setOnHoverListener(new View.OnHoverListener() {
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                if (!canComment){
+                    if(MainActivity.valueHolder.canUsePremium()){
+                        canComment = true;
+                    } else {
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
+                        needPremiumDialog.ShowDialog(COMMENT);
+                    }
+                }
+                return false;
+            }
+        });
         dayButton1 = findViewById(R.id.task_mo);
         dayButton2 = findViewById(R.id.task_tu);
         dayButton3 = findViewById(R.id.task_we);
@@ -548,5 +609,22 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 priorityButton4.setBackgroundTintList(new ColorStateList(all,colorAccent));
                 break;
         }
+    }
+
+    @Override
+    public void getPremiumDialogResultCode(int resultColde) {
+
+        switch (resultColde){
+            case NEW_LABEL:
+                addLabel();
+                break;
+            case LABEL:
+                labelSpinner.setSelection(waitLabel);
+                break;
+            case COMMENT:
+                canComment = true;
+                break;
+        }
+
     }
 }

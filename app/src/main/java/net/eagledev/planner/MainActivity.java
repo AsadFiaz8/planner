@@ -450,7 +450,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
-                                toolbar.setTitle(R.string.aims);
+                                toolbar.setTitle(R.string.tasks);
 
                                 break;
                             case R.id.nav_reminders:
@@ -500,13 +500,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onDrawerOpened(@NonNull View view) {
                 floatingActionsMenu.collapse();
-                if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                    if(!valueHolder.isPremiumUser()){
-                        Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                        startActivity(adPremiumIntent);
-                    }
-
-                }
             }
 
             @Override
@@ -665,12 +658,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onMenuExpanded() {
                 //backgroundDimmer.setVisibility(View.VISIBLE);
-                if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                    if(!valueHolder.isPremiumUser()){
-                        Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                        startActivity(adPremiumIntent);
-                    }
-                }
                 params.height = bgH;
                 params.width = bgW;
                 linearLayout.setLayoutParams(params);

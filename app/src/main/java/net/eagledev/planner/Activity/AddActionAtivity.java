@@ -67,6 +67,8 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     ImageView imageCancel;
     ImageView imageIcon;
     ImageView imageColor;
+    Button colorButton;
+    Button imageButton;
     Dialog d1;
     Dialog d2;
     LinearLayout dateLinearLayout;
@@ -88,8 +90,11 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         btn_select_icon.setOnClickListener(this);
         //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.input_action_name);
-        findViewById(R.id.btn_date_left).setOnClickListener(this);
-        findViewById(R.id.btn_date_right).setOnClickListener(this);
+
+        colorButton = findViewById(R.id.action_select_color_button);
+        imageButton = findViewById(R.id.action_select_icon_button);
+        colorButton.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
 
 
         imageIcon = findViewById(R.id.icon_view);
@@ -112,11 +117,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         startMinutePicker = findViewById(R.id.start_minute_picker);
         stopHourPicker = findViewById(R.id.stop_hour_picker);
         stopMinutePicker = findViewById(R.id.stop_minute_picker);
-        dateLinearLayout = findViewById(R.id.date_linear);
-        dateRelativeLayout = findViewById(R.id.date_relative);
 
-        paramsLinear = dateLinearLayout.getLayoutParams();
-        paramsRelative =  dateRelativeLayout.getLayoutParams();
+        //paramsLinear = dateLinearLayout.getLayoutParams();
+        //paramsRelative =  dateRelativeLayout.getLayoutParams();
         SetupDate();
     }
 
@@ -132,25 +135,13 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                 confirm();
                 break;
 
-
-                case R.id.btn_date_left:
-                    date_start.add(Calendar.DATE, -1);
-                    date_stop.add(Calendar.DATE, -1);
-                    btn_date.setText(f.Date(date_start));
-                    break;
-
-                    case R.id.btn_date_right:
-                        date_start.add(Calendar.DATE, 1);
-                        date_stop.add(Calendar.DATE, 1);
-                        btn_date.setText(f.Date(date_start));
-                        break;
         }
     }
 
     private void clickColor(int id) {
         switch (id) {
 
-            case R.id.color_view:
+            case R.id.action_select_color_button:
                 d2 = new Dialog(AddActionAtivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
@@ -452,7 +443,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
     private void clickIcon(int id) {
         switch (id){
-            case R.id.icon_view:
+            case R.id.action_select_icon_button:
                 d1 = new Dialog(AddActionAtivity.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);
@@ -944,7 +935,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         for (int h = 0; h < displayHours.length; h++) {
             displayHours[h] = f.z(h);
         }
-        startHourPicker.setMinValue(0);
+        /*startHourPicker.setMinValue(0);
         startHourPicker.setMaxValue(23);
         startHourPicker.setDisplayedValues(displayHours);
         startMinutePicker.setMinValue(0);
@@ -959,9 +950,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         startMinutePicker.setValue(0);
         stopMinutePicker.setDisplayedValues(displayMinutes);
         date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-        date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
+        date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);*/
 
-
+/*
         startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -1000,9 +991,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                 }
             }
         });
-
+*/
         // Buttons
-        btn_date = findViewById(R.id.btn_date);
+        btn_date = findViewById(R.id.action_date_start_btn);
         btn_date.setText(f.Date(c));
         aDay = day;
         aMonth = month;
@@ -1031,7 +1022,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                 btn_date.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        dateActionStartButton = (Button) findViewById(R.id.input_action_date_start);
+        dateActionStartButton = (Button) findViewById(R.id.action_time_start_btn);
         dateActionStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1048,7 +1039,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         });
 
 
-        dateActionStopButton = (Button) findViewById(R.id.input_action_date_stop);
+        dateActionStopButton = (Button) findViewById(R.id.action_time_stop_btn);
         dateActionStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1168,14 +1159,14 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         if(!buttonPicker) {
 
             //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-            dateLinearLayout.setVisibility(View.INVISIBLE);
+            //dateLinearLayout.setVisibility(View.INVISIBLE);
             //dateRelativeLayout.setLayoutParams(paramsRelative);
-            dateRelativeLayout.setVisibility(View.VISIBLE);
+            //dateRelativeLayout.setVisibility(View.VISIBLE);
         } else {
-            dateLinearLayout.setLayoutParams(paramsLinear);
-            dateLinearLayout.setVisibility(View.VISIBLE);
-            dateRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
-            dateRelativeLayout.setVisibility(View.INVISIBLE);
+            //dateLinearLayout.setLayoutParams(paramsLinear);
+            //dateLinearLayout.setVisibility(View.VISIBLE);
+            //dateRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
+            //dateRelativeLayout.setVisibility(View.INVISIBLE);
         }
     }
 

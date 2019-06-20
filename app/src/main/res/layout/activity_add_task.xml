@@ -23,7 +23,6 @@
             android:ems="10"
             android:hint="@string/name"
             android:inputType="textCapSentences"
-
             android:layout_marginLeft="60dp"/>
 
         <TextView

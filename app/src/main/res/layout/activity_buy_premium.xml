@@ -14,19 +14,13 @@
 
     </include>
 
-    <TextView
-        android:id="@+id/text_premium_reason"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/black"/>
+
     <TextView
         android:id="@+id/text_premium_features"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="@string/premium_features"/>
@@ -35,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_premium_plan"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -72,12 +66,12 @@
         android:text="@string/year_pince" />
 
     <TextView
-        android:layout_width="243dp"
-        android:layout_height="36dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/black"
-        android:text="@string/free_premium_ad_account" />
+        android:text="@string/watch_ads_ore_premium"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/btn_premium_watch_ad"
@@ -86,6 +80,17 @@
         style="@style/AppTheme.Button"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/watch_ad" />
+
+    <TextView
+        android:id="@+id/text_premium_points"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/premium_points_amount"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        />
 
 
 
