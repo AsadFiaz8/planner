@@ -59,6 +59,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -88,7 +92,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public final class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener {
+public final class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener, RewardedVideoAdListener {
 
     public static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
@@ -127,6 +131,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     ViewGroup.LayoutParams params;
     int bgH;
     int bgW;
+    public RewardedVideoAd VideoAd;
     LinearLayout linearLayout;
     RelativeLayout clockLayout;
     Button btnActions;
@@ -209,6 +214,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             startService();
         }
 
+        loadAd();
         setNavText();
         aims = appDatabase.appDao().getAimsDateType(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 0);
 
@@ -227,6 +233,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         //--------------------------------------------------------
     }
 
+    private void loadAd() {
+
+        VideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        VideoAd.setRewardedVideoAdListener(this);
+    }
 
 
     @Override
@@ -1552,5 +1563,44 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         }
     };
 
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+    }
 }
 

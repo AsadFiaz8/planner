@@ -192,8 +192,7 @@
     <string name="sa">Sa</string>
     <string name="su">Su</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="main">główna</string>
     <string name="check_premium_plans">Sprawdź plany premium</string>
     <string name="to_use_this_function_buy_premium_or_watch_ad">Aby skorzystać z tej funkcji wykup plan premium lub obejrz reklamę</string>
