@@ -197,5 +197,6 @@
     <string name="check_premium_plans">Sprawdź plany premium</string>
     <string name="to_use_this_function_buy_premium_or_watch_ad">Aby skorzystać z tej funkcji wykup plan premium lub obejrz reklamę</string>
     <string name="only_premium_users_can_use_this_function">Tylko gracze premium mogą korzystać z tej funkcji</string>
+    <string name="loading_ad">Ładowanie reklamy. Proszę czekać</string>
 
 </resources>

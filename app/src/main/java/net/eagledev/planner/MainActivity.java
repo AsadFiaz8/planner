@@ -131,7 +131,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     ViewGroup.LayoutParams params;
     int bgH;
     int bgW;
-    public RewardedVideoAd VideoAd;
+    public static RewardedVideoAd VideoAd;
     LinearLayout linearLayout;
     RelativeLayout clockLayout;
     Button btnActions;
@@ -237,6 +237,15 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
         VideoAd = MobileAds.getRewardedVideoAdInstance(this);
         VideoAd.setRewardedVideoAdListener(this);
+    }
+
+    public void WatchAd(){
+        if (VideoAd.isLoaded()) {
+            VideoAd.show();
+
+        } else {
+            Toast.makeText(context, getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
+        }
     }
 
 

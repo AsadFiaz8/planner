@@ -191,6 +191,7 @@
     <string name="check_premium_plans">Check premium plans</string>
     <string name="to_use_this_function_buy_premium_or_watch_ad">To use this feature, buy a premium or watch an advertisement</string>
     <string name="only_premium_users_can_use_this_function">Only premium users can use this feature</string>
+    <string name="loading_ad">Loading the ad. Please wait</string>
 
 
 </resources>

@@ -152,6 +152,27 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         editor.commit();
     }
 
+    public int premiumPoints(){
+        return MainActivity.pref.getInt("premium_points", 0);
+    }
+
+    public void changePremiumPoints(int amount){
+        int points = MainActivity.pref.getInt("premium_points", 0);
+        points += amount;
+        if(points<0) points =0;
+        editor = MainActivity.pref.edit();
+        editor.putInt("premium_points", points);
+        editor.commit();
+
+    }
+
+    public boolean canUsePremium(){
+        if (premiumPoints()>0 || isPremiumUser()){
+            if(!isPremiumUser()) changePremiumPoints(-1);
+            return true;
+        } else return false;
+    }
+
     public boolean getFirstBackup(){
         return MainActivity.pref.getBoolean("first_backup", false);
     }
