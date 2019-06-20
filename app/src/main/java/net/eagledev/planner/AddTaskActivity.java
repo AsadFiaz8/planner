@@ -219,7 +219,13 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == labelList.size()-1){
-                    addLabel();
+                    if(MainActivity.valueHolder.premiumUser){
+                        addLabel();
+                    } else {
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
+                        needPremiumDialog.ShowDialog(0);
+                    }
+
                 } else {
                     label = labelList.get(position);
                 }
