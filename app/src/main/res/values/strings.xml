@@ -209,5 +209,6 @@
     <string name="reason_add_comment_to_task">Tylko użytkownicy premium mogą dodawać komentarze do zadań</string>
     <string name="color">Kolor</string>
     <string name="icon">Ikona</string>
+    <string name="time">Czas</string>
 
 </resources>

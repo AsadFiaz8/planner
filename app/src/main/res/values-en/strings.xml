@@ -203,6 +203,7 @@
     <string name="reason_add_comment_to_task">Only premium users can add comments to tasks</string>
     <string name="color">Color</string>
     <string name="icon">Icon</string>
+    <string name="time">Time</string>
 
 
 </resources>

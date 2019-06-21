@@ -37,8 +37,8 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     Calendar c;
     DatePickerDialog dpd;
     TimePickerDialog tpd;
-    Button dateActionStartButton;
-    Button dateActionStopButton;
+    TextView dateActionStartButton;
+    TextView dateActionStopButton;
     NumberPicker startHourPicker;
     NumberPicker startMinutePicker;
     NumberPicker stopHourPicker;
@@ -55,7 +55,8 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
     ValueHolder valueHolder;
     ImageView btn_select_icon;
-    Button btn_date;
+    TextView btn_date;
+    TextView btn_date2;
     int aDay;
     int aMonth;
     int aYear;
@@ -91,10 +92,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.input_action_name);
 
-        colorButton = findViewById(R.id.action_select_color_button);
-        imageButton = findViewById(R.id.action_select_icon_button);
-        colorButton.setOnClickListener(this);
-        imageButton.setOnClickListener(this);
+
 
 
         imageIcon = findViewById(R.id.icon_view);
@@ -141,7 +139,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     private void clickColor(int id) {
         switch (id) {
 
-            case R.id.action_select_color_button:
+            case R.id.color_view:
                 d2 = new Dialog(AddActionAtivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
@@ -443,7 +441,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
     private void clickIcon(int id) {
         switch (id){
-            case R.id.action_select_icon_button:
+            case R.id.icon_view:
                 d1 = new Dialog(AddActionAtivity.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);
@@ -994,14 +992,16 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 */
         // Buttons
         btn_date = findViewById(R.id.action_date_start_btn);
+        btn_date2 = findViewById(R.id.action_date_stop_btn);
         btn_date.setText(f.Date(c));
+        btn_date2.setText(f.Date(c));
         aDay = day;
         aMonth = month;
         aYear = year;
         btn_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
+                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
                 dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
@@ -1012,6 +1012,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                         date_start.set(Calendar.MONTH, mMonth);
                         date_start.set(Calendar.DAY_OF_MONTH, mDay);
                         btn_date.setText(f.Date(date_start));
+                        btn_date2.setText(f.Date(date_start));
                         date_stop.set(Calendar.YEAR, mYear);
                         date_stop.set(Calendar.MONTH, mMonth);
                         date_stop.set(Calendar.DAY_OF_MONTH, mDay);
@@ -1019,10 +1020,37 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                     }
                 },year, month , day);
                 dpd.show();
-                btn_date.setTextColor(getResources().getColor(R.color.white));
+                //btn_date.setTextColor(getResources().getColor(R.color.white));
             }
         });
-        dateActionStartButton = (Button) findViewById(R.id.action_time_start_btn);
+
+        btn_date2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
+                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
+                        aDay = mDay;
+                        aMonth = mMonth;
+                        aYear = mYear;
+                        date_start.set(Calendar.YEAR, mYear);
+                        date_start.set(Calendar.MONTH, mMonth);
+                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
+                        btn_date.setText(f.Date(date_start));
+                        btn_date2.setText(f.Date(date_start));
+                        date_stop.set(Calendar.YEAR, mYear);
+                        date_stop.set(Calendar.MONTH, mMonth);
+                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
+
+                    }
+                },year, month , day);
+                dpd.show();
+                //btn_date.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+
+        dateActionStartButton = (TextView) findViewById(R.id.action_time_start_btn);
         dateActionStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1039,7 +1067,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         });
 
 
-        dateActionStopButton = (Button) findViewById(R.id.action_time_stop_btn);
+        dateActionStopButton = (TextView) findViewById(R.id.action_time_stop_btn);
         dateActionStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

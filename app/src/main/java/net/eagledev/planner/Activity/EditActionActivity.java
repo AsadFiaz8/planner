@@ -35,8 +35,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         Calendar c;
         DatePickerDialog dpd;
         TimePickerDialog tpd;
-        Button dateActionStartButton;
-        Button dateActionStopButton;
+        TextView dateActionStartButton;
+        TextView dateActionStopButton;
         int iconID;
         int premiumIcon;
         int colorID;
@@ -49,7 +49,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         Calendar date_stop;
 
         ImageView btn_select_icon;
-        Button btn_date;
+        TextView btn_date;
+        TextView btn_date2;
         int aDay;
         int aMonth;
         int aYear;
@@ -165,6 +166,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             for (int h = 0; h < displayHours.length; h++) {
                 displayHours[h] = f.z(h);
             }
+            /*
             startHourPicker.setMinValue(0);
             startHourPicker.setMaxValue(23);
             startHourPicker.setDisplayedValues(displayHours);
@@ -220,11 +222,13 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                     }
                 }
             });
-
+*/
             // Buttons
 
             btn_date = findViewById(R.id.action_date_start_btn);
+            btn_date2 = findViewById(R.id.action_date_stop_btn);
             btn_date.setText(f.DateText(date_start));
+            btn_date2.setText(f.DateText(date_start));
             aDay = day;
             aMonth = month;
             aYear = year;
@@ -234,7 +238,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                     dpd = new DatePickerDialog(EditActionActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
-                            btn_date.setText(mDay+"." + mMonth + "."+mYear);
                             aDay = mDay;
                             aMonth = mMonth;
                             aYear = mYear;
@@ -244,12 +247,14 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                             date_stop.set(Calendar.YEAR, mYear);
                             date_stop.set(Calendar.MONTH, mMonth);
                             date_stop.set(Calendar.DAY_OF_MONTH, mDay);
+                            btn_date.setText(f.Date(date_start));
+                            btn_date2.setText(f.Date(date_start));
                         }
                     },year, month , day);
                     dpd.show();
                 }
             });
-            dateActionStartButton = (Button) findViewById(R.id.action_time_start_btn);
+            dateActionStartButton = (TextView) findViewById(R.id.action_time_start_btn);
             dateActionStartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -266,7 +271,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                 }
             });
 
-            dateActionStopButton = (Button) findViewById(R.id.action_time_stop_btn);
+            dateActionStopButton = (TextView) findViewById(R.id.action_time_stop_btn);
             dateActionStopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1185,14 +1190,14 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         if(!buttonPicker) {
 
             //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-            dateLinearLayout.setVisibility(View.INVISIBLE);
+            //dateLinearLayout.setVisibility(View.INVISIBLE);
             //dateRelativeLayout.setLayoutParams(paramsRelative);
-            dateRelativeLayout.setVisibility(View.VISIBLE);
+            //dateRelativeLayout.setVisibility(View.VISIBLE);
         } else {
-            dateLinearLayout.setLayoutParams(paramsLinear);
-            dateLinearLayout.setVisibility(View.VISIBLE);
-            dateRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
-            dateRelativeLayout.setVisibility(View.INVISIBLE);
+            //dateLinearLayout.setLayoutParams(paramsLinear);
+            //dateLinearLayout.setVisibility(View.VISIBLE);
+            //dateRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
+            //dateRelativeLayout.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -1205,8 +1210,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         stopMinutePicker = findViewById(R.id.stop_minute_picker);
 
 
-        paramsLinear = dateLinearLayout.getLayoutParams();
-        paramsRelative =  dateRelativeLayout.getLayoutParams();
+        //paramsLinear = dateLinearLayout.getLayoutParams();
+        //paramsRelative =  dateRelativeLayout.getLayoutParams();
 
     }
     int minute(int l) {
