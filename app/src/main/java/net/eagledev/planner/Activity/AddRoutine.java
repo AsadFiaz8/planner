@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -31,15 +32,16 @@ import java.util.List;
 
 public class AddRoutine extends Activity implements  View.OnClickListener{
 
-    CheckBox CheckboxMonday;
-    CheckBox CheckboxTuesday;
-    CheckBox CheckboxWednesday;
-    CheckBox CheckboxThursday;
-    CheckBox CheckboxFriday;
-    CheckBox CheckboxSaturday;
-    CheckBox CheckboxSunday;
-    CheckBox CheckboxWorkDays;
-    CheckBox CheckboxWeekends;
+
+
+    TextView mondayBtn;
+    TextView tuesdayBtn;
+    TextView wednesdayBtn;
+    TextView thursdayBtn;
+    TextView fridayBtn;
+    TextView saturdayBtn;
+    TextView sundayBtn;
+
 
     boolean monday;
     boolean tuesday;
@@ -71,10 +73,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     ImageView imageIcon;
     ImageView imageColor;
 
-    RelativeLayout buttonsLayout;
-    RelativeLayout pickersLayout;
-    ViewGroup.LayoutParams paramsButtons;
-    ViewGroup.LayoutParams paramsPickers;
+
 
     Formatter f = new Formatter();
     Dialog d1;
@@ -106,13 +105,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     private void setupDate() {
 
 
-        // Number pickers
 
-        String[] displayHours = new String[24];
-        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
-        for (int h = 0; h < displayHours.length; h++) {
-            displayHours[h] = f.z(h);
-        }
 
         start.set(Calendar.HOUR_OF_DAY,0);
         stop.set(Calendar.HOUR_OF_DAY,1);
@@ -135,24 +128,25 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
         imageCancel.setOnClickListener(this);
         findViewById(R.id.color_view).setOnClickListener(this);
 
+        mondayBtn = findViewById(R.id.routine_mo);
+        mondayBtn.setOnClickListener(this);
+        tuesdayBtn = findViewById(R.id.routine_tu);
+        tuesdayBtn.setOnClickListener(this);
+        wednesdayBtn = findViewById(R.id.routine_we);
+        wednesdayBtn.setOnClickListener(this);
+        thursdayBtn = findViewById(R.id.routine_th);
+        thursdayBtn.setOnClickListener(this);
+        fridayBtn = findViewById(R.id.routine_fr);
+        fridayBtn.setOnClickListener(this);
+        saturdayBtn = findViewById(R.id.routine_sa);
+        saturdayBtn.setOnClickListener(this);
+        sundayBtn = findViewById(R.id.routine_su);
+        sundayBtn.setOnClickListener(this);
     }
 
 
 
-    private void checkWorkDays() {
-        if(monday && tuesday && wednesday && thursday && friday) {
-            CheckboxWorkDays.setChecked(true);
-        } else
-        {
-                CheckboxWorkDays.setChecked(false);
-        }
-    }
 
-    private void checkWeekends() {
-        if(saturday && sunday) {
-            CheckboxWeekends.setChecked(true);
-        } else CheckboxWeekends.setChecked(false);
-    }
 
     @Override
     public void onClick(View view) {
@@ -198,8 +192,50 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
                 finish();
                 break;
 
+            case R.id.routine_mo:
+                monday = !monday;
+                setDay(monday, mondayBtn);
+                break;
+            case R.id.routine_tu:
+                tuesday = !tuesday;
+                setDay(tuesday, tuesdayBtn);
+                break;
+            case R.id.routine_we:
+                wednesday = !wednesday;
+                setDay(wednesday, wednesdayBtn);
+                break;
+            case R.id.routine_th:
+                thursday = !thursday;
+                setDay(thursday, thursdayBtn);
+                break;
+            case R.id.routine_fr:
+                friday = !friday;
+                setDay(friday, fridayBtn);
+                break;
+            case R.id.routine_sa:
+                saturday = !saturday;
+                setDay(saturday, saturdayBtn);
+                break;
+            case R.id.routine_su:
+                sunday = !sunday;
+                setDay(sunday, sundayBtn);
+                break;
+
         }
         imageIcon.setImageDrawable(getDrawable(icon));
+    }
+
+    private void setDay(boolean day, TextView textView) {
+
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colorBackground = {getColor(R.color.background)};
+        int[] colorAccent = {getColor(R.color.colorAccent)};
+        if(day){
+            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
+        } else {
+            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
+        }
     }
 
     private void confirm() {

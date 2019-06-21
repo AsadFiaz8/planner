@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -31,15 +32,13 @@ import java.util.List;
 
 public class EditRoutineActivity extends Activity implements View.OnClickListener{
 
-    CheckBox CheckboxMonday;
-    CheckBox CheckboxTuesday;
-    CheckBox CheckboxWednesday;
-    CheckBox CheckboxThursday;
-    CheckBox CheckboxFriday;
-    CheckBox CheckboxSaturday;
-    CheckBox CheckboxSunday;
-    CheckBox CheckboxWorkDays;
-    CheckBox CheckboxWeekends;
+    TextView mondayBtn;
+    TextView tuesdayBtn;
+    TextView wednesdayBtn;
+    TextView thursdayBtn;
+    TextView fridayBtn;
+    TextView saturdayBtn;
+    TextView sundayBtn;
 
     boolean monday;
     boolean tuesday;
@@ -48,8 +47,7 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
     boolean friday;
     boolean saturday;
     boolean sunday;
-    boolean workDays;
-    boolean weekends;
+
 
     String name;
     Calendar start;
@@ -65,11 +63,7 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
     EditText nameText;
     Button btnStartHour;
     Button btnStopHour;
-    NumberPicker startHourPicker;
-    NumberPicker startMinutePicker;
-    NumberPicker stopHourPicker;
-    NumberPicker stopMinutePicker;
-    Button btnSelectIcon;
+
     TimePickerDialog tpd;
     Routine selectedRoutine;
     int routineID;
@@ -104,81 +98,14 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
         imageIcon.setImageDrawable(getDrawable(icon));
 
 
-
-        paramsButtons = buttonsLayout.getLayoutParams();
-        paramsPickers =  pickersLayout.getLayoutParams();
         setupDate();
     }
 
     private void setupDate() {
-        setTimePicker(MainActivity.valueHolder.isDatePickerButton());
+
 
         // Number pickers
 
-        String[] displayHours = new String[24];
-        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
-        for (int h = 0; h < displayHours.length; h++) {
-            displayHours[h] = f.z(h);
-        }
-        startHourPicker.setMinValue(0);
-        startHourPicker.setMaxValue(23);
-        startHourPicker.setDisplayedValues(displayHours);
-        startMinutePicker.setMinValue(0);
-        startMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        startMinutePicker.setDisplayedValues(displayMinutes);
-        stopHourPicker.setMinValue(0);
-        stopHourPicker.setMaxValue(23);
-        stopHourPicker.setDisplayedValues(displayHours);
-        stopMinutePicker.setMinValue(0);
-        stopMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        stopMinutePicker.setDisplayedValues(displayMinutes);
-        startHourPicker.setValue(start.get(Calendar.HOUR_OF_DAY));
-        stopHourPicker.setValue(stop.get(Calendar.HOUR_OF_DAY));
-        startMinutePicker.setValue(Math.round(start.get(Calendar.MINUTE)/10));
-        stopMinutePicker.setValue(Math.round(stop.get(Calendar.MINUTE)/10));
-        stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
-
-
-        startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-
-                start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
-            }
-        });
-
-        startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-            }
-        });
-
-        stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
-                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
-                    stop.set(Calendar.HOUR_OF_DAY, 23);
-                    stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
-
-        stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
-                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
-                    stop.set(Calendar.HOUR_OF_DAY, 23);
-                    stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
 
     }
 
@@ -198,19 +125,19 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
             stop=selectedRoutine.getStop();
             btnStopHour.setText(f.Time(stop));
             monday=selectedRoutine.isMonday();
-            CheckboxMonday.setChecked(monday);
+            setDay(monday, mondayBtn);
             tuesday=selectedRoutine.isTuesday();
-            CheckboxTuesday.setChecked(tuesday);
+            setDay(tuesday, tuesdayBtn);
             wednesday=selectedRoutine.isWednesday();
-            CheckboxWednesday.setChecked(wednesday);
+            setDay(wednesday, wednesdayBtn);
             thursday=selectedRoutine.isThursday();
-            CheckboxThursday.setChecked(thursday);
+            setDay(thursday, thursdayBtn);
             friday=selectedRoutine.isFriday();
-            CheckboxFriday.setChecked(friday);
+            setDay(friday, fridayBtn);
             saturday=selectedRoutine.isSaturday();
-            CheckboxSaturday.setChecked(saturday);
+            setDay(saturday, saturdayBtn);
             sunday=selectedRoutine.isSunday();
-            CheckboxSunday.setChecked(sunday);
+            setDay(sunday, sundayBtn);
         }
 
 
@@ -230,26 +157,26 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
         imageDelete.setVisibility(View.VISIBLE);
         imageDelete.setOnClickListener(this);
         findViewById(R.id.color_view).setOnClickListener(this);
-
+        mondayBtn = findViewById(R.id.routine_mo);
+        mondayBtn.setOnClickListener(this);
+        tuesdayBtn = findViewById(R.id.routine_tu);
+        tuesdayBtn.setOnClickListener(this);
+        wednesdayBtn = findViewById(R.id.routine_we);
+        wednesdayBtn.setOnClickListener(this);
+        thursdayBtn = findViewById(R.id.routine_th);
+        thursdayBtn.setOnClickListener(this);
+        fridayBtn = findViewById(R.id.routine_fr);
+        fridayBtn.setOnClickListener(this);
+        saturdayBtn = findViewById(R.id.routine_sa);
+        saturdayBtn.setOnClickListener(this);
+        sundayBtn = findViewById(R.id.routine_su);
+        sundayBtn.setOnClickListener(this);
     }
 
 
 
 
-    private void checkWorkDays() {
-        if(monday && tuesday && wednesday && thursday && friday) {
-            CheckboxWorkDays.setChecked(true);
-        } else
-        {
-            CheckboxWorkDays.setChecked(false);
-        }
-    }
 
-    private void checkWeekends() {
-        if(saturday && sunday) {
-            CheckboxWeekends.setChecked(true);
-        } else CheckboxWeekends.setChecked(false);
-    }
 
     @Override
     public void onClick(View view) {
@@ -369,9 +296,52 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
                 Toast.makeText(getApplicationContext(), R.string.routine_deleted, Toast.LENGTH_LONG).show();
                 break;
 
+            case R.id.routine_mo:
+                monday = !monday;
+                setDay(monday, mondayBtn);
+                break;
+            case R.id.routine_tu:
+                tuesday = !tuesday;
+                setDay(tuesday, tuesdayBtn);
+                break;
+            case R.id.routine_we:
+                wednesday = !wednesday;
+                setDay(wednesday, wednesdayBtn);
+                break;
+            case R.id.routine_th:
+                thursday = !thursday;
+                setDay(thursday, thursdayBtn);
+                break;
+            case R.id.routine_fr:
+                friday = !friday;
+                setDay(friday, fridayBtn);
+                break;
+            case R.id.routine_sa:
+                saturday = !saturday;
+                setDay(saturday, saturdayBtn);
+                break;
+            case R.id.routine_su:
+                sunday = !sunday;
+                setDay(sunday, sundayBtn);
+                break;
+
+
 
         }
         imageIcon.setImageDrawable(getDrawable(icon));
+    }
+
+    private void setDay(boolean day, TextView textView) {
+
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colorBackground = {getColor(R.color.background)};
+        int[] colorAccent = {getColor(R.color.colorAccent)};
+        if(day){
+            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
+        } else {
+            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
@@ -1177,19 +1147,6 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private void setTimePicker(boolean buttonPicker) {
-        if(!buttonPicker) {
 
-            //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-            buttonsLayout.setVisibility(View.INVISIBLE);
-            //dateRelativeLayout.setLayoutParams(paramsRelative);
-            pickersLayout.setVisibility(View.VISIBLE);
-        } else {
-            buttonsLayout.setLayoutParams(paramsButtons);
-            buttonsLayout.setVisibility(View.VISIBLE);
-            pickersLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
-            pickersLayout.setVisibility(View.INVISIBLE);
-        }
-    }
 
 }

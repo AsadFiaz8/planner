@@ -111,6 +111,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             imageIcon = findViewById(R.id.icon_view);
             imageIcon.setImageDrawable(getDrawable(iconID));
             imageColor = findViewById(R.id.color_view);
+            dateActionStartButton.setText(f.Time(date_start));
+            dateActionStopButton.setText(f.Time(date_stop));
             int[] ints = {0};
             int[][] all = {ints};
             int[] colors = {colorID};
@@ -166,63 +168,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             for (int h = 0; h < displayHours.length; h++) {
                 displayHours[h] = f.z(h);
             }
-            /*
-            startHourPicker.setMinValue(0);
-            startHourPicker.setMaxValue(23);
-            startHourPicker.setDisplayedValues(displayHours);
-            startMinutePicker.setMinValue(0);
-            startMinutePicker.setMaxValue(5);
-            startMinutePicker.setDisplayedValues(displayMinutes);
-            stopHourPicker.setMinValue(0);
-            stopHourPicker.setMaxValue(23);
-            stopHourPicker.setDisplayedValues(displayHours);
-            stopMinutePicker.setMinValue(0);
-            stopMinutePicker.setMaxValue(5);
-            stopMinutePicker.setDisplayedValues(displayMinutes);
 
 
-
-            startHourPicker.setValue(startHour);
-            startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                    date_start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
-                }
-            });
-
-            startMinutePicker.setValue(minute(startMinute));
-            startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-                }
-            });
-
-            stopHourPicker.setValue(stopHour);
-            stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    date_stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
-                    if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
-                        date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                        date_stop.set(Calendar.MINUTE, 59);
-                    }
-                }
-            });
-
-            stopMinutePicker.setValue(minute(stopMinute));
-            stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
-                    if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
-                        date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                        date_stop.set(Calendar.MINUTE, 59);
-                    }
-                }
-            });
-*/
             // Buttons
 
             btn_date = findViewById(R.id.action_date_start_btn);
@@ -265,6 +212,15 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                             date_start.set(Calendar.HOUR_OF_DAY, mHour);
                             date_start.set(Calendar.MINUTE, mMinute);
                             dateActionStartButton.setText(f.Time(date_start) );
+                            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                                date_stop.set(Calendar.MINUTE,0);
+                                dateActionStopButton.setText(f.Time(date_stop));
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE,59);
+                                dateActionStopButton.setText(f.Time(date_stop));
+                            }
                         }
                     }, hour, 0, true);
                     tpd.show();

@@ -203,5 +203,6 @@
     <string name="color">Kolor</string>
     <string name="icon">Ikona</string>
     <string name="time">Czas</string>
+    <string name="repeat">Powtarzanie</string>
 
 </resources>

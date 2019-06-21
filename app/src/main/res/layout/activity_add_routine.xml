@@ -59,8 +59,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="65dp"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_centerInParent="true">
+
+                >
 
                 <Button
                     android:id="@+id/input_routine_start"
@@ -87,7 +87,7 @@
                 android:layout_below="@id/routine_time_layout"
                 android:layout_marginLeft="65dp"
                 android:layout_marginTop="5dp"
-                android:text="Powtarzanie" />
+                android:text="@string/repeat" />
 
             <ImageView
                 android:layout_width="wrap_content"

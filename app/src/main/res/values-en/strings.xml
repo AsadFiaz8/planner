@@ -204,6 +204,7 @@
     <string name="color">Color</string>
     <string name="icon">Icon</string>
     <string name="time">Time</string>
+    <string name="repeat">Repeat</string>
 
 
 </resources>

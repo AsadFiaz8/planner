@@ -39,10 +39,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     TimePickerDialog tpd;
     TextView dateActionStartButton;
     TextView dateActionStopButton;
-    NumberPicker startHourPicker;
-    NumberPicker startMinutePicker;
-    NumberPicker stopHourPicker;
-    NumberPicker stopMinutePicker;
+
     int iconID;
     int premiumIcon;
     int colorID;
@@ -98,6 +95,11 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         imageIcon = findViewById(R.id.icon_view);
         date_start = Calendar.getInstance();
         date_stop = Calendar.getInstance();
+        date_start.set(Calendar.HOUR_OF_DAY, 0);
+        date_start.set(Calendar.MINUTE, 0);
+        date_stop.set(Calendar.HOUR_OF_DAY, 1);
+        date_stop.set(Calendar.MINUTE, 0);
+
         iconID = MainActivity.icons[0];
         imageCancel = findViewById(R.id.toolbar_cancel);
         imageCancel.setOnClickListener(this);
@@ -116,6 +118,8 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         //paramsLinear = dateLinearLayout.getLayoutParams();
         //paramsRelative =  dateRelativeLayout.getLayoutParams();
         SetupDate();
+        dateActionStartButton.setText(f.Time(date_start));
+        dateActionStopButton.setText(f.Time(date_stop));
     }
 
     @Override
@@ -930,63 +934,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         for (int h = 0; h < displayHours.length; h++) {
             displayHours[h] = f.z(h);
         }
-        /*startHourPicker.setMinValue(0);
-        startHourPicker.setMaxValue(23);
-        startHourPicker.setDisplayedValues(displayHours);
-        startMinutePicker.setMinValue(0);
-        startMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        startMinutePicker.setDisplayedValues(displayMinutes);
-        stopHourPicker.setMinValue(0);
-        stopHourPicker.setMaxValue(23);
-        stopHourPicker.setDisplayedValues(displayHours);
-        stopMinutePicker.setMinValue(0);
-        stopMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        stopMinutePicker.setDisplayedValues(displayMinutes);
-        date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-        date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);*/
 
-/*
-        startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-
-                date_start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
-            }
-        });
-
-        startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                date_start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-            }
-        });
-
-        stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                date_stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
-                if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
-                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                    date_stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
-
-        stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                date_stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
-                if(date_stop.get(Calendar.HOUR_OF_DAY) == 0 && date_stop.get(Calendar.HOUR_OF_DAY)==0){
-                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                    date_stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
-*/
         // Buttons
         btn_date = findViewById(R.id.action_date_start_btn);
         btn_date2 = findViewById(R.id.action_date_stop_btn);
@@ -1057,6 +1005,15 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                                 date_start.set(Calendar.HOUR_OF_DAY, mHour);
                                 date_start.set(Calendar.MINUTE, mMinute);
                                 dateActionStartButton.setText(f.Time(date_start) );
+                                if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                                    date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                                    date_stop.set(Calendar.MINUTE,0);
+                                    dateActionStopButton.setText(f.Time(date_stop));
+                                } else {
+                                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                    date_stop.set(Calendar.MINUTE,59);
+                                    dateActionStopButton.setText(f.Time(date_stop));
+                                }
                             }
                         }, hour, 0, true);
                         tpd.show();
