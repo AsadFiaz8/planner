@@ -1204,10 +1204,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
     private void setupObjects() {
 
 
-        startHourPicker = findViewById(R.id.start_hour_picker);
-        startMinutePicker = findViewById(R.id.start_minute_picker);
-        stopHourPicker = findViewById(R.id.stop_hour_picker);
-        stopMinutePicker = findViewById(R.id.stop_minute_picker);
+
 
 
         //paramsLinear = dateLinearLayout.getLayoutParams();

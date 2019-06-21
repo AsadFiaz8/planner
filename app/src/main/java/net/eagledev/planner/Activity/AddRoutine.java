@@ -29,7 +29,7 @@ import net.eagledev.planner.WatchPremiumAdActivity;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddRoutine extends Activity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
+public class AddRoutine extends Activity implements  View.OnClickListener{
 
     CheckBox CheckboxMonday;
     CheckBox CheckboxTuesday;
@@ -63,10 +63,7 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
     EditText nameText;
     Button btnStartHour;
     Button btnStopHour;
-    NumberPicker startHourPicker;
-    NumberPicker startMinutePicker;
-    NumberPicker stopHourPicker;
-    NumberPicker stopMinutePicker;
+
     Button btnSelectIcon;
     TimePickerDialog tpd;
     ImageView imageConfirm;
@@ -92,7 +89,6 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         nameText = findViewById(R.id.input_routine_name);
         start = Calendar.getInstance();
         stop = Calendar.getInstance();
-        setupCheckboxes();
         imageIcon = findViewById(R.id.icon_view);
         imageColor = findViewById(R.id.color_view);
         icon = MainActivity.icons[0];
@@ -101,22 +97,14 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         int[][] all = {ints};
         int[] colors = {color};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-        startHourPicker = findViewById(R.id.start_hour_picker);
-        startMinutePicker = findViewById(R.id.start_minute_picker);
-        stopHourPicker = findViewById(R.id.stop_hour_picker);
-        stopMinutePicker = findViewById(R.id.stop_minute_picker);
-        buttonsLayout = findViewById(R.id.date_buttons);
-        pickersLayout = findViewById(R.id.date_pickers);
 
-        paramsButtons = buttonsLayout.getLayoutParams();
-        paramsPickers =  pickersLayout.getLayoutParams();
+
         setupDate();
 
     }
 
     private void setupDate() {
 
-        setTimePicker(MainActivity.valueHolder.isDatePickerButton());
 
         // Number pickers
 
@@ -125,65 +113,12 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         for (int h = 0; h < displayHours.length; h++) {
             displayHours[h] = f.z(h);
         }
-        startHourPicker.setMinValue(0);
-        startHourPicker.setMaxValue(23);
-        startHourPicker.setDisplayedValues(displayHours);
-        startMinutePicker.setMinValue(0);
-        startMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        startMinutePicker.setDisplayedValues(displayMinutes);
-        stopHourPicker.setMinValue(0);
-        stopHourPicker.setMaxValue(23);
-        stopHourPicker.setDisplayedValues(displayHours);
-        stopMinutePicker.setMinValue(0);
-        stopMinutePicker.setMaxValue(5);
-        startMinutePicker.setValue(0);
-        stopMinutePicker.setDisplayedValues(displayMinutes);
+
         start.set(Calendar.HOUR_OF_DAY,0);
         stop.set(Calendar.HOUR_OF_DAY,1);
-        stopHourPicker.setValue(1);
-        start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-        stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
 
 
-        startHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-
-                start.set(Calendar.HOUR_OF_DAY, startHourPicker.getValue());
-            }
-        });
-
-        startMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                start.set(Calendar.MINUTE, startMinutePicker.getValue()*10);
-            }
-        });
-
-        stopHourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                stop.set(Calendar.HOUR_OF_DAY, stopHourPicker.getValue());
-                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
-                    stop.set(Calendar.HOUR_OF_DAY, 23);
-                    stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
-
-        stopMinutePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                stop.set(Calendar.MINUTE, stopMinutePicker.getValue()*10);
-                if(stop.get(Calendar.HOUR_OF_DAY) == 0 && stop.get(Calendar.HOUR_OF_DAY)==0){
-                    stop.set(Calendar.HOUR_OF_DAY, 23);
-                    stop.set(Calendar.MINUTE, 59);
-                }
-            }
-        });
 
     }
 
@@ -202,121 +137,7 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
 
     }
 
-    private void setupCheckboxes() {
-        CheckboxMonday = findViewById(R.id.check_monday);
-        CheckboxMonday.setOnCheckedChangeListener(this);
-        CheckboxTuesday = findViewById(R.id.check_tuesday);
-        CheckboxTuesday.setOnCheckedChangeListener(this);
-        CheckboxWednesday = findViewById(R.id.check_wednesday);
-        CheckboxWednesday.setOnCheckedChangeListener(this);
-        CheckboxThursday = findViewById(R.id.check_thursday);
-        CheckboxThursday.setOnCheckedChangeListener(this);
-        CheckboxFriday = findViewById(R.id.check_friday);
-        CheckboxFriday.setOnCheckedChangeListener(this);
-        CheckboxSaturday = findViewById(R.id.check_saturday);
-        CheckboxSaturday.setOnCheckedChangeListener(this);
-        CheckboxSunday = findViewById(R.id.check_sunday);
-        CheckboxSunday.setOnCheckedChangeListener(this);
-        CheckboxWorkDays = findViewById(R.id.check_work_days);
-        CheckboxWorkDays.setOnCheckedChangeListener(this);
-        CheckboxWeekends = findViewById(R.id.check_weekends);
-        CheckboxWeekends.setOnCheckedChangeListener(this);
 
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.check_monday:
-                monday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_tuesday:
-                tuesday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_wednesday:
-                wednesday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_thursday:
-                thursday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_friday:
-                friday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_saturday:
-                saturday = b;
-                checkWeekends();
-                break;
-            case R.id.check_sunday:
-                sunday = b;
-                checkWeekends();
-                break;
-            case R.id.check_work_days:
-                workDays = b;
-                if(b) {
-                    monday = b;
-                    tuesday = b;
-                    wednesday = b;
-                    thursday = b;
-                    friday = b;
-                    CheckboxMonday.setChecked(b);
-                    CheckboxTuesday.setChecked(b);
-                    CheckboxWednesday.setChecked(b);
-                    CheckboxThursday.setChecked(b);
-                    CheckboxFriday.setChecked(b);
-                } else {
-                    if(monday && tuesday && wednesday && thursday && friday) {
-                        monday = b;
-                        tuesday = b;
-                        wednesday = b;
-                        thursday = b;
-                        friday = b;
-                        CheckboxMonday.setChecked(b);
-                        CheckboxTuesday.setChecked(b);
-                        CheckboxWednesday.setChecked(b);
-                        CheckboxThursday.setChecked(b);
-                        CheckboxFriday.setChecked(b);
-                    }
-                    else {
-                        CheckboxMonday.setChecked(monday);
-                        CheckboxTuesday.setChecked(tuesday);
-                        CheckboxWednesday.setChecked(wednesday);
-                        CheckboxThursday.setChecked(thursday);
-                        CheckboxFriday.setChecked(friday);
-                    }
-                }
-
-                break;
-            case R.id.check_weekends:
-                weekends = b;
-                if(b) {
-                    sunday = b;
-                    saturday = b;
-                    CheckboxSaturday.setChecked(b);
-                    CheckboxSunday.setChecked(b);
-                } else {
-                    if(sunday && saturday) {
-                        sunday = b;
-                        saturday = b;
-                        CheckboxSaturday.setChecked(b);
-                        CheckboxSunday.setChecked(b);
-                    }
-                    else {
-                        CheckboxSaturday.setChecked(saturday);
-                        CheckboxSunday.setChecked(sunday);
-                    }
-                }
-
-                break;
-
-
-
-        }
-    }
 
     private void checkWorkDays() {
         if(monday && tuesday && wednesday && thursday && friday) {
@@ -1247,19 +1068,6 @@ public class AddRoutine extends Activity implements CompoundButton.OnCheckedChan
         }
     }
 
-    private void setTimePicker(boolean buttonPicker) {
-        if(!buttonPicker) {
 
-            //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-            buttonsLayout.setVisibility(View.INVISIBLE);
-            //dateRelativeLayout.setLayoutParams(paramsRelative);
-            pickersLayout.setVisibility(View.VISIBLE);
-        } else {
-            buttonsLayout.setLayoutParams(paramsButtons);
-            buttonsLayout.setVisibility(View.VISIBLE);
-            pickersLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
-            pickersLayout.setVisibility(View.INVISIBLE);
-        }
-    }
 
 }

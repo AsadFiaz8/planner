@@ -111,10 +111,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         int[] colors = {MainActivity.colors[0]};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
 
-        startHourPicker = findViewById(R.id.start_hour_picker);
-        startMinutePicker = findViewById(R.id.start_minute_picker);
-        stopHourPicker = findViewById(R.id.stop_hour_picker);
-        stopMinutePicker = findViewById(R.id.stop_minute_picker);
+
 
         //paramsLinear = dateLinearLayout.getLayoutParams();
         //paramsRelative =  dateRelativeLayout.getLayoutParams();

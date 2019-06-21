@@ -29,7 +29,7 @@ import net.eagledev.planner.WatchPremiumAdActivity;
 import java.util.Calendar;
 import java.util.List;
 
-public class EditRoutineActivity extends Activity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener{
+public class EditRoutineActivity extends Activity implements View.OnClickListener{
 
     CheckBox CheckboxMonday;
     CheckBox CheckboxTuesday;
@@ -97,19 +97,13 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
         nameText = findViewById(R.id.input_routine_name);
         start = Calendar.getInstance();
         stop = Calendar.getInstance();
-        setupCheckboxes();
         setValues();
         imageIcon = findViewById(R.id.icon_view);
         imageColor = findViewById(R.id.color_view);
         setColor();
         imageIcon.setImageDrawable(getDrawable(icon));
 
-        startHourPicker = findViewById(R.id.start_hour_picker);
-        startMinutePicker = findViewById(R.id.start_minute_picker);
-        stopHourPicker = findViewById(R.id.stop_hour_picker);
-        stopMinutePicker = findViewById(R.id.stop_minute_picker);
-        buttonsLayout = findViewById(R.id.date_buttons);
-        pickersLayout = findViewById(R.id.date_pickers);
+
 
         paramsButtons = buttonsLayout.getLayoutParams();
         paramsPickers =  pickersLayout.getLayoutParams();
@@ -239,121 +233,8 @@ public class EditRoutineActivity extends Activity implements CompoundButton.OnCh
 
     }
 
-    private void setupCheckboxes() {
-        CheckboxMonday = findViewById(R.id.check_monday);
-        CheckboxMonday.setOnCheckedChangeListener(this);
-        CheckboxTuesday = findViewById(R.id.check_tuesday);
-        CheckboxTuesday.setOnCheckedChangeListener(this);
-        CheckboxWednesday = findViewById(R.id.check_wednesday);
-        CheckboxWednesday.setOnCheckedChangeListener(this);
-        CheckboxThursday = findViewById(R.id.check_thursday);
-        CheckboxThursday.setOnCheckedChangeListener(this);
-        CheckboxFriday = findViewById(R.id.check_friday);
-        CheckboxFriday.setOnCheckedChangeListener(this);
-        CheckboxSaturday = findViewById(R.id.check_saturday);
-        CheckboxSaturday.setOnCheckedChangeListener(this);
-        CheckboxSunday = findViewById(R.id.check_sunday);
-        CheckboxSunday.setOnCheckedChangeListener(this);
-        CheckboxWorkDays = findViewById(R.id.check_work_days);
-        CheckboxWorkDays.setOnCheckedChangeListener(this);
-        CheckboxWeekends = findViewById(R.id.check_weekends);
-        CheckboxWeekends.setOnCheckedChangeListener(this);
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.check_monday:
-                monday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_tuesday:
-                tuesday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_wednesday:
-                wednesday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_thursday:
-                thursday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_friday:
-                friday = b;
-                checkWorkDays();
-                break;
-            case R.id.check_saturday:
-                saturday = b;
-                checkWeekends();
-                break;
-            case R.id.check_sunday:
-                sunday = b;
-                checkWeekends();
-                break;
-            case R.id.check_work_days:
-                workDays = b;
-                if(b) {
-                    monday = b;
-                    tuesday = b;
-                    wednesday = b;
-                    thursday = b;
-                    friday = b;
-                    CheckboxMonday.setChecked(b);
-                    CheckboxTuesday.setChecked(b);
-                    CheckboxWednesday.setChecked(b);
-                    CheckboxThursday.setChecked(b);
-                    CheckboxFriday.setChecked(b);
-                } else {
-                    if(monday && tuesday && wednesday && thursday && friday) {
-                        monday = b;
-                        tuesday = b;
-                        wednesday = b;
-                        thursday = b;
-                        friday = b;
-                        CheckboxMonday.setChecked(b);
-                        CheckboxTuesday.setChecked(b);
-                        CheckboxWednesday.setChecked(b);
-                        CheckboxThursday.setChecked(b);
-                        CheckboxFriday.setChecked(b);
-                    }
-                    else {
-                        CheckboxMonday.setChecked(monday);
-                        CheckboxTuesday.setChecked(tuesday);
-                        CheckboxWednesday.setChecked(wednesday);
-                        CheckboxThursday.setChecked(thursday);
-                        CheckboxFriday.setChecked(friday);
-                    }
-                }
-
-                break;
-            case R.id.check_weekends:
-                weekends = b;
-                if(b) {
-                    sunday = b;
-                    saturday = b;
-                    CheckboxSaturday.setChecked(b);
-                    CheckboxSunday.setChecked(b);
-                } else {
-                    if(sunday && saturday) {
-                        sunday = b;
-                        saturday = b;
-                        CheckboxSaturday.setChecked(b);
-                        CheckboxSunday.setChecked(b);
-                    }
-                    else {
-                        CheckboxSaturday.setChecked(saturday);
-                        CheckboxSunday.setChecked(sunday);
-                    }
-                }
-
-                break;
 
 
-
-        }
-    }
 
     private void checkWorkDays() {
         if(monday && tuesday && wednesday && thursday && friday) {
