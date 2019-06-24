@@ -201,7 +201,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         Checker checker = new Checker();
 
 
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+        if(MainActivity.valueHolder.canUsePremium()) {
             if(checker.Before(date_start,date_stop)) {
                 checked = true;
             }

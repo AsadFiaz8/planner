@@ -46,9 +46,26 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
         loadRewardedVideoAd();
     }
 
+    public NeedPremiumDialog(Context context, int code){
+        this.context = context;
+        this.code = code;
+        try {
+            listener = (NeedPremiumDialogListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + "must implement NeedPremiumDialogListener");
+        }
+
+        VideoAd = MobileAds.getRewardedVideoAdInstance(context);
+        VideoAd.setRewardedVideoAdListener(this);
+        //MobileAds.initialize(context, "ca-app-pub-6069706356094406~2925415895");
+        MobileAds.initialize(context);
+        loadRewardedVideoAd();
+    }
+
     private void loadRewardedVideoAd() {
-        VideoAd.loadAd("ca-app-pub-6069706356094406/5168435855",
-                new AdRequest.Builder().build());
+        //VideoAd.loadAd("ca-app-pub-6069706356094406/5168435855", new AdRequest.Builder().build());
+        VideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
+
     }
 
 
@@ -113,7 +130,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        MainActivity.valueHolder.changePremiumPoints(1);
+        MainActivity.valueHolder.changePremiumPoints(5);
 
         listener.getPremiumDialogResultCode(code);
         dialog.dismiss();
@@ -135,7 +152,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
     }
 
     public interface NeedPremiumDialogListener{
-        void getPremiumDialogResultCode(int resultColde);
+        void getPremiumDialogResultCode(int resultCode);
     }
 
     private String Reason(int reason){

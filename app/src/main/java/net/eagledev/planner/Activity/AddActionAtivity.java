@@ -32,7 +32,7 @@ import net.eagledev.planner.ValueHolder;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActionAtivity extends Activity  implements View.OnClickListener{
+public class AddActionAtivity extends Activity  implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
     Calendar c;
     DatePickerDialog dpd;
@@ -49,6 +49,10 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     Calendar date_start;
     Calendar date_stop;
     Formatter f = new Formatter();
+
+    public static final int CODE_ACTIONS = 0;
+    public static final int CODE_ICONS = 1;
+    public static final int CODE_COLORS = 2;
 
     Context context;
     ValueHolder valueHolder;
@@ -420,7 +424,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
             //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_COLORS);
             pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
@@ -895,7 +899,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ICONS);
             pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
@@ -1032,7 +1036,6 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
 
     }
 
-
     protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
         super.onActivityResult(requestCode, resultCode, dataIntent);
 
@@ -1067,7 +1070,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         if(MainActivity.valueHolder == null){
             MainActivity.setValueHolder();
         }
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+        if(MainActivity.valueHolder.canUsePremium()) {
             if(checker.Before(date_start,date_stop)) {
                 checked = true;
             }
@@ -1107,7 +1110,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
                 MainActivity.needRefresh = true;
                 finish();
             } else {
-                NeedPremiumDialog pd = new NeedPremiumDialog(context);
+                NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ACTIONS);
                 pd.ShowDialog(getString(R.string.premium_reason2));
             }
 
@@ -1131,4 +1134,29 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        MainActivity.valueHolder.changePremiumPoints(-1);
+        switch (resultCode){
+            case CODE_ACTIONS:
+                CreateAction();
+                MainActivity.needRefresh = true;
+                finish();
+                break;
+            case CODE_COLORS:
+                colorID = MainActivity.colors[premiumColor];
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {colorID};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                //imageColor.setBackgroundColor(colorID);
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                iconID = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(iconID));
+                break;
+        }
+    }
 }

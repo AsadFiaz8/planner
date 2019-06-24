@@ -26,9 +26,11 @@ import net.eagledev.planner.Routine;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddRoutine extends Activity implements  View.OnClickListener{
+public class AddRoutine extends Activity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
 
+    public static final int CODE_ICONS = 1;
+    public static final int CODE_COLORS = 2;
 
     TextView mondayBtn;
     TextView tuesdayBtn;
@@ -80,7 +82,6 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_routine);
-
         setButtons();
         nameText = findViewById(R.id.input_routine_name);
         start = Calendar.getInstance();
@@ -93,24 +94,13 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
         int[][] all = {ints};
         int[] colors = {color};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-
         context = this;
-
         setupDate();
-
     }
 
     private void setupDate() {
-
-
-
-
         start.set(Calendar.HOUR_OF_DAY,0);
         stop.set(Calendar.HOUR_OF_DAY,1);
-
-
-
-
     }
 
     private void setButtons() {
@@ -141,10 +131,6 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
         sundayBtn = findViewById(R.id.routine_su);
         sundayBtn.setOnClickListener(this);
     }
-
-
-
-
 
     @Override
     public void onClick(View view) {
@@ -594,7 +580,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
             imageColor.setBackgroundTintList(new ColorStateList(all,colors));
             d2.dismiss();
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_COLORS);
             pd.ShowDialog(getString(R.string.premium_reason4));
         }
     }
@@ -1069,7 +1055,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(icon));
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ICONS);
             pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
@@ -1091,5 +1077,23 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     }
 
 
-
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        switch (resultCode){
+            case CODE_COLORS:
+                color = MainActivity.colors[premiumColor];
+                //imageColor.setBackgroundColor(color);
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {color};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                icon = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(icon));
+                break;
+        }
+    }
 }

@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,9 +34,9 @@ import java.util.List;
 public class AddTaskActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
     public static final String TAG = "AddTaskActivity";
-    public static final int NEW_LABEL = 0;
-    public static final int LABEL = 1;
-    public static final int COMMENT = 2;
+    public static final int CODE_NEW_LABEL = 0;
+    public static final int CODE_LABEL = 1;
+    public static final int CODE_COMMENT = 2;
 
     int waitLabel;
 
@@ -234,8 +231,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                     if(MainActivity.valueHolder.canUsePremium()){
                         addLabel();
                     } else {
-                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                        needPremiumDialog.ShowDialog(NEW_LABEL);
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context, CODE_NEW_LABEL);
+                        needPremiumDialog.ShowDialog(getString(R.string.reason_create_new_labels));
                     }
                 } else {
                     if(position>0){
@@ -244,8 +241,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         } else {
                             labelSpinner.setSelection(0);
                             waitLabel = position;
-                            NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                            needPremiumDialog.ShowDialog(LABEL);
+                            NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context, CODE_LABEL);
+                            needPremiumDialog.ShowDialog(getString(R.string.reason_select_labels));
                         }
                     }
                     else label = labelList.get(0);
@@ -273,8 +270,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                     if(MainActivity.valueHolder.canUsePremium()){
                         canComment = true;
                     } else {
-                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                        needPremiumDialog.ShowDialog(COMMENT);
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context, CODE_COMMENT);
+                        needPremiumDialog.ShowDialog(getString(R.string.reason_add_comment_to_task));
                     }
                 }
 
@@ -287,8 +284,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                     if(MainActivity.valueHolder.canUsePremium()){
                         canComment = true;
                     } else {
-                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                        needPremiumDialog.ShowDialog(COMMENT);
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context, CODE_COMMENT);
+                        needPremiumDialog.ShowDialog(getString(R.string.reason_add_comment_to_task));
                     }
                 }
 
@@ -301,8 +298,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                     if(MainActivity.valueHolder.canUsePremium()){
                         canComment = true;
                     } else {
-                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context);
-                        needPremiumDialog.ShowDialog(COMMENT);
+                        NeedPremiumDialog needPremiumDialog = new NeedPremiumDialog(context, CODE_COMMENT);
+                        needPremiumDialog.ShowDialog(getString(R.string.reason_add_comment_to_task));
                     }
                 }
                 return false;
@@ -612,16 +609,16 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void getPremiumDialogResultCode(int resultColde) {
+    public void getPremiumDialogResultCode(int resultCode) {
 
-        switch (resultColde){
-            case NEW_LABEL:
+        switch (resultCode){
+            case CODE_NEW_LABEL:
                 addLabel();
                 break;
-            case LABEL:
+            case CODE_LABEL:
                 labelSpinner.setSelection(waitLabel);
                 break;
-            case COMMENT:
+            case CODE_COMMENT:
                 canComment = true;
                 break;
         }

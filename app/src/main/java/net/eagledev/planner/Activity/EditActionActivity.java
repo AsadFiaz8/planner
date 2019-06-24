@@ -23,11 +23,12 @@ import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
 
 import java.util.Calendar;
 
-public class EditActionActivity extends Activity implements View.OnClickListener
+public class EditActionActivity extends Activity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener
 {
 
         Calendar c;
@@ -42,6 +43,11 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         TextView textView;
         boolean checked = false;
         Checker checker;
+
+
+    public static final int CODE_ACTIONS = 0;
+    public static final int CODE_ICONS = 1;
+    public static final int CODE_COLORS = 2;
 
         Calendar date_start;
         Calendar date_stop;
@@ -601,7 +607,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
     }
 
     private void setPremiumColor() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             colorID = MainActivity.colors[premiumColor];
             int[] ints = {0};
             int[][] all = {ints};
@@ -609,14 +615,8 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             imageColor.setBackgroundTintList(new ColorStateList(all,colors));
             d2.dismiss();
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 4);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_COLORS);
+            pd.ShowDialog(getString(R.string.premium_reason4));
         }
     }
 
@@ -1085,24 +1085,18 @@ public class EditActionActivity extends Activity implements View.OnClickListener
     }
 
     private void selectPremiumIcon() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             iconID = MainActivity.icons[premiumIcon];
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 3);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_ICONS);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 
     private void confirm() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+        if(MainActivity.valueHolder.canUsePremium()) {
             if(checker.Before(date_start,date_stop)) {
                 checked = true;
             }
@@ -1175,5 +1169,26 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         if(l <55) return 5;
         return 0;
 
+    }
+
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        MainActivity.valueHolder.changePremiumPoints(-1);
+        switch (resultCode){
+            case CODE_COLORS:
+                colorID = MainActivity.colors[premiumColor];
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {colorID};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                //imageColor.setBackgroundColor(colorID);
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                iconID = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(iconID));
+                break;
+        }
     }
 }

@@ -12,6 +12,7 @@ import net.eagledev.planner.Aim;
 import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
 
 import java.util.Calendar;
@@ -154,22 +155,15 @@ public class AddAimActivity extends Activity implements View.OnClickListener {
                 int id = MainActivity.appDatabase.appDao().getMaxAimsID()+1;
                 //String name = (String) textView.getText();
                 List<Aim> aimList = MainActivity.appDatabase.appDao().getAimsDateType(start.get(Calendar.YEAR), start.get(Calendar.MONTH),start.get(Calendar.DAY_OF_MONTH), type);
-                if(getResources().getInteger(R.integer.premium_max_goals_one_day) > aimList.size() || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+                if(getResources().getInteger(R.integer.premium_max_goals_one_day) > aimList.size() || MainActivity.valueHolder.canUsePremium()) {
                     Aim aim = new Aim(id, textView.getText().toString(),type, start, stop);
                     MainActivity.appDatabase.appDao().addAim(aim);
                     MainActivity.needRefresh = true;
                     finish();
                 }
                 else {
-                    if(MainActivity.valueHolder.getAdsPremium()){
-                        //Premium reklamowe wygasło
-                        Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                        startActivity(adPremiumIntent);
-                    } else {
-                        Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                        premiumIntent.putExtra("messageID", 5);
-                        startActivity(premiumIntent);
-                    }
+                    NeedPremiumDialog pd = new NeedPremiumDialog(this);
+                    pd.ShowDialog(getString(R.string.premium_reason5));
                 }
 
                 break;
