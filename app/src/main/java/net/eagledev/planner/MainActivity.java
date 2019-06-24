@@ -257,20 +257,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             case R.id.action_1:
 
                 Intent i1 = new Intent(cnt, AddRoutine.class);
-                if(appDatabase.appDao().getRoutinesCount() < getResources().getInteger(R.integer.premium_max_routines) || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
-                    //Spełnia warunki lub jest premium lub premium reklamowe
+                if(appDatabase.appDao().getRoutinesCount() < getResources().getInteger(R.integer.premium_max_routines) || valueHolder.canUsePremium()) {
+                    //Spełnia warunki
                     startActivity(i1);
                     floatingActionsMenu.collapse();
                 } else {
-                    if(MainActivity.valueHolder.getAdsPremium()){
-                        //Premium reklamowe wygasło
-                        Intent adPremiumIntent = new Intent(cnt, WatchPremiumAdActivity.class);
-                        startActivity(adPremiumIntent);
-                    }
-                    //Brak premium
-                    Intent premiumIntent = new Intent(cnt, BuyPremiumActivity.class);
-                    premiumIntent.putExtra("messageID", 1);
-                    startActivity(premiumIntent);
+                    NeedPremiumDialog pd = new NeedPremiumDialog(context);
+                    pd.ShowDialog(getString(R.string.premium_reason1));
                 }
 
 
@@ -888,12 +881,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         }
         if(!notify){
             todayActions= appDatabase.appDao().getActionsFromDay(currentDay(), currentMonth(), currentYear());
-            if (!valueHolder.getAdsPremiumActive() && valueHolder.getAdsPremium()) {
-                if(!valueHolder.isPremiumUser()){
-                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
-                }
-            }
         } else {
             actionList.clear();
             try {

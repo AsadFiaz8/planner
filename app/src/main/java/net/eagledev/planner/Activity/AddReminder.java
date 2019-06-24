@@ -69,6 +69,10 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
         date = Calendar.getInstance();
         date.setTimeInMillis(System.currentTimeMillis());
         dateButton.setText(f.DateText(date));
+
+        date.set(Calendar.HOUR_OF_DAY,0);
+        date.set(Calendar.MINUTE, 0);
+        timeButton.setText(f.Time(date));
         context = this;
 
     }

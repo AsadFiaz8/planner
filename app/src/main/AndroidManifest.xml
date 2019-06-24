@@ -31,7 +31,6 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6069706356094406~2925415895" />
 
-        <activity android:name=".WatchPremiumAdActivity" />
         <activity android:name=".BuyPremiumActivity" />
         <activity
             android:name=".SelectColor"

@@ -31,7 +31,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
 
 
 
-    NeedPremiumDialog(Context context){
+    public NeedPremiumDialog(Context context){
         this.context = context;
         this.code = code;
         try {
@@ -51,39 +51,40 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
                 new AdRequest.Builder().build());
     }
 
-    public void ShowDialog(int reason){
 
-        dialog = new Dialog(context);
-        dialog.setTitle("Need premium");
-        dialog.setContentView(R.layout.dialog_need_premium);
-        dialog.show();
-        code = reason;
-        textView = dialog.findViewById(R.id.need_premium_reason);
 
-        textView.setText(Reason(reason));
-        Button premiumButton = dialog.findViewById(R.id.need_premium_button);
-        premiumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pIntent = new Intent(context, BuyPremiumActivity.class);
-                context.startActivity(pIntent);
-                dialog.dismiss();
-            }
-        });
+        public void ShowDialog(String reason){
 
-        Button adButton = dialog.findViewById(R.id.need_premium_ad_button);
-        adButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MainActivity.VideoAd.isLoaded()) {
-                    MainActivity.VideoAd.show();
+            dialog = new Dialog(context);
+            dialog.setTitle("Need premium");
+            dialog.setContentView(R.layout.dialog_need_premium);
+            dialog.show();
+            textView = dialog.findViewById(R.id.need_premium_reason);
 
-                } else {
-                    waintingForAd = true;
-                    Toast.makeText(context, context.getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
+            textView.setText(reason);
+            Button premiumButton = dialog.findViewById(R.id.need_premium_button);
+            premiumButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent pIntent = new Intent(context, BuyPremiumActivity.class);
+                    context.startActivity(pIntent);
+                    dialog.dismiss();
                 }
-            }
-        });
+            });
+
+            Button adButton = dialog.findViewById(R.id.need_premium_ad_button);
+            adButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MainActivity.VideoAd.isLoaded()) {
+                        MainActivity.VideoAd.show();
+
+                    } else {
+                        waintingForAd = true;
+                        Toast.makeText(context, context.getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
     }
 
@@ -145,6 +146,9 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
                 return context.getString(R.string.reason_select_labels);
             case 2:
                 return context.getString(R.string.reason_add_comment_to_task);
+            case 3:
+                return context.getString(R.string.premium_reason1);
+
 
 
 

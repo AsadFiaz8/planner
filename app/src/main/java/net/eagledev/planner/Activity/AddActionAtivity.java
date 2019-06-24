@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,9 +25,9 @@ import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
 import net.eagledev.planner.ValueHolder;
-import net.eagledev.planner.WatchPremiumAdActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -50,6 +50,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     Calendar date_stop;
     Formatter f = new Formatter();
 
+    Context context;
     ValueHolder valueHolder;
     ImageView btn_select_icon;
     TextView btn_date;
@@ -88,10 +89,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
         btn_select_icon.setOnClickListener(this);
         //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.input_action_name);
-
-
-
-
+        context = this;
         imageIcon = findViewById(R.id.icon_view);
         date_start = Calendar.getInstance();
         date_stop = Calendar.getInstance();
@@ -413,7 +411,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     }
 
     private void setPremiumColor() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             colorID = MainActivity.colors[premiumColor];
             int[] ints = {0};
             int[][] all = {ints};
@@ -422,14 +420,8 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
             //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 4);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 
@@ -898,19 +890,13 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
     }
 
     private void selectPremiumIcon() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             iconID = MainActivity.icons[premiumIcon];
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 3);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 
@@ -1115,21 +1101,14 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener{
             int actionsCount = actionsFromDay.size();
             Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
 
-            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
+            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
                 //Spełnia warunki lub jest premium lub premium reklamowe
                 CreateAction();
                 MainActivity.needRefresh = true;
                 finish();
             } else {
-                if(MainActivity.valueHolder.getAdsPremium()){
-                    //Premium reklamowe wygasło
-                    Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
-                }
-                //Brak premium
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 2);
-                startActivity(premiumIntent);
+                NeedPremiumDialog pd = new NeedPremiumDialog(context);
+                pd.ShowDialog(getString(R.string.premium_reason2));
             }
 
 

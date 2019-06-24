@@ -1,11 +1,8 @@
 package net.eagledev.planner.Activity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -16,7 +13,6 @@ import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
-import net.eagledev.planner.WatchPremiumAdActivity;
 
 import java.util.Calendar;
 import java.util.List;

@@ -233,19 +233,13 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
             int actionsCount = actionsFromDay.size();
             //Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
 
-            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()) {
-                //Spełnia warunki lub jest premium lub premium reklamowe
+            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
+                //Spełnia warunki lub jest premium
                 CreateAction();
             } else {
-                if(MainActivity.valueHolder.getAdsPremium()){
-                    //Premium reklamowe wygasło
-                    Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
-                }
                 //Brak premium
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 2);
-                startActivity(premiumIntent);
+                NeedPremiumDialog pd = new NeedPremiumDialog(this);
+                pd.ShowDialog(getString(R.string.premium_reason2));
             }
 
 
@@ -495,12 +489,6 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         } catch (Exception e){
             Log.e("PlanNextDayActivity", e.getMessage());
         }
-            if (!MainActivity.valueHolder.getAdsPremiumActive() && MainActivity.valueHolder.getAdsPremium()) {
-                if(!MainActivity.valueHolder.isPremiumUser()){
-                    Intent adPremiumIntent = new Intent(context, WatchPremiumAdActivity.class);
-                    startActivity(adPremiumIntent);
-                }
-            }
 
         Action action = new Action(0,textView.getText().toString(), date_start, date_stop, iconID, actionColor );
         actionList.add(action);
@@ -907,7 +895,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setPremiumColor() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             colorID = MainActivity.colors[premiumColor];
             int[] ints = {0};
             int[][] all = {ints};
@@ -916,14 +904,8 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
             //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 4);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(this);
+            pd.ShowDialog(getString(R.string.premium_reason4));
         }
     }
 
@@ -1392,19 +1374,13 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void selectPremiumIcon() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             iconID = MainActivity.icons[premiumIcon];
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 3);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 

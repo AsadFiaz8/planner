@@ -3,18 +3,14 @@ package net.eagledev.planner.Activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,9 +19,9 @@ import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Routine;
-import net.eagledev.planner.WatchPremiumAdActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -43,6 +39,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     TextView sundayBtn;
 
 
+    Context context;
     boolean monday;
     boolean tuesday;
     boolean wednesday;
@@ -97,6 +94,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
         int[] colors = {color};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
 
+        context = this;
 
         setupDate();
 
@@ -587,7 +585,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     }
 
     private void setPremiumColor() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             color = MainActivity.colors[premiumColor];
             //imageColor.setBackgroundColor(color);
             int[] ints = {0};
@@ -596,14 +594,8 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
             imageColor.setBackgroundTintList(new ColorStateList(all,colors));
             d2.dismiss();
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 4);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            pd.ShowDialog(getString(R.string.premium_reason4));
         }
     }
 
@@ -1072,19 +1064,13 @@ public class AddRoutine extends Activity implements  View.OnClickListener{
     }
 
     private void selectPremiumIcon() {
-        if(MainActivity.valueHolder.isPremiumUser() || MainActivity.valueHolder.getAdsPremiumActive()){
+        if(MainActivity.valueHolder.canUsePremium()){
             icon = MainActivity.icons[premiumIcon];
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(icon));
         } else {
-            if (MainActivity.valueHolder.getAdsPremium()){
-                Intent adPremiumIntent = new Intent(this, WatchPremiumAdActivity.class);
-                startActivity(adPremiumIntent);
-            }else {
-                Intent premiumIntent = new Intent(this, BuyPremiumActivity.class);
-                premiumIntent.putExtra("messageID", 3);
-                startActivity(premiumIntent);
-            }
+            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 
