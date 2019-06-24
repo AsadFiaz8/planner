@@ -32,15 +32,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class PlanNextDayActivity extends AppCompatActivity implements View.OnClickListener {
-
-    Calendar c;
+public class PlanNextDayActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
     TimePickerDialog tpd;
     Button btnStart;
     Button btnStop;
-    Drawable d;
-
+    public static final int CODE_ACTIONS = 0;
+    public static final int CODE_ICONS = 1;
+    public static final int CODE_COLORS = 2;
     int iconID;
     int premiumIcon;
     int colorID;
@@ -50,15 +49,9 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     Calendar date_start;
     Calendar date_stop;
     Formatter f = new Formatter();
-
     ImageView btn_select_icon;
-
     int hour = 0;
     int minute = 0;
-    int aDay;
-    int aMonth;
-    int aYear;
-
     ImageView imageIcon;
     ImageView imageColor;
     Dialog d1;
@@ -70,13 +63,6 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
     int grayValue = 100;
     PieChart chart;
     int colorGray;
-    TextView actionInfoText;
-    TextView actionTimeText;
-    Button btnEdit;
-    Button btnEditRoutine;
-    TextView actionInfo;
-    String showDate;
-    Button btn_new_action;
     ImageView clockArrow;
     int selectedID;
     Context context;
@@ -238,7 +224,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                 CreateAction();
             } else {
                 //Brak premium
-                NeedPremiumDialog pd = new NeedPremiumDialog(this);
+                NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_ACTIONS);
                 pd.ShowDialog(getString(R.string.premium_reason2));
             }
 
@@ -904,7 +890,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
             //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(this);
+            NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_COLORS);
             pd.ShowDialog(getString(R.string.premium_reason4));
         }
     }
@@ -1379,7 +1365,7 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
             d1.dismiss();
             imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ICONS);
             pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
@@ -1405,5 +1391,29 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
         };
 
         thread.start();
+    }
+
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        MainActivity.valueHolder.changePremiumPoints(-1);
+        switch (resultCode){
+            case CODE_ACTIONS:
+                CreateAction();
+                break;
+            case CODE_COLORS:
+                colorID = MainActivity.colors[premiumColor];
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {colorID};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                //imageColor.setBackgroundColor(colorID);
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                iconID = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(iconID));
+                break;
+        }
     }
 }
