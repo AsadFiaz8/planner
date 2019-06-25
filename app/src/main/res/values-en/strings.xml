@@ -196,7 +196,7 @@
     <string name="tasks">Tasks</string>
     <string name="tasks_for_today">Tasks for today</string>
     <string name="no_tasks_for_today">No tasks for today</string>
-    <string name="watch_ads_ore_premium">Use features for premium users in exchange for watching ads. One ad is one use of premium features.</string>
+    <string name="watch_ads_ore_premium">Use features for premium users in exchange for watching ads. One ad allows you to use the premium features three times.</string>
     <string name="premium_points_amount">Current number of premium points </string>
     <string name="reason_create_new_labels">Only premium users can create new labels</string>
     <string name="reason_select_labels">Only premium users can use labels other than the main one</string>

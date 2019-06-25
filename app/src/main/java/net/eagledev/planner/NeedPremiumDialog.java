@@ -63,8 +63,9 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
     }
 
     private void loadRewardedVideoAd() {
-        //VideoAd.loadAd("ca-app-pub-6069706356094406/5168435855", new AdRequest.Builder().build());
-        VideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
+        VideoAd.loadAd("ca-app-pub-6069706356094406/5168435855", new AdRequest.Builder().build());
+        //Reklama testowa
+        //VideoAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
 
     }
 
@@ -130,7 +131,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        MainActivity.valueHolder.changePremiumPoints(5);
+        MainActivity.valueHolder.changePremiumPoints(3);
 
         listener.getPremiumDialogResultCode(code);
         dialog.dismiss();

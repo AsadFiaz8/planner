@@ -195,7 +195,7 @@
     <string name="tasks">Zadania</string>
     <string name="tasks_for_today">Zadania na dziś</string>
     <string name="no_tasks_for_today">Brak zadań na dziś</string>
-    <string name="watch_ads_ore_premium">Używaj funkcji dla użytkowników premium w zamian za oglądanie reklam. Jedna reklama to jedno użycia fukcji premium</string>
+    <string name="watch_ads_ore_premium">Używaj funkcji dla użytkowników premium w zamian za oglądanie reklam. Jedna reklama to trzy użycia fukcji premium</string>
     <string name="premium_points_amount">Aktualna liczba punktów premium</string>
     <string name="reason_create_new_labels">Tylko użytkownicy premium mogą tworzyć nowe etykiety</string>
     <string name="reason_select_labels">Tylko użytkownicy premium mogą używać innych etykiet niż główna</string>

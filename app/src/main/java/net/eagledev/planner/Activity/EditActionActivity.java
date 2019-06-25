@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -113,7 +114,12 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             imageDelete.setVisibility(View.VISIBLE);
             imageDelete.setOnClickListener(this);
             imageIcon = findViewById(R.id.icon_view);
-            imageIcon.setImageDrawable(getDrawable(iconID));
+            try{
+                imageIcon.setImageDrawable(getDrawable(iconID));
+            } catch (Exception e){
+                Log.e("EditActionActivity", e.getMessage());
+            }
+
             imageColor = findViewById(R.id.color_view);
             dateActionStartButton.setText(f.Time(date_start));
             dateActionStopButton.setText(f.Time(date_stop));
