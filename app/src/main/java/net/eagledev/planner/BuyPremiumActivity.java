@@ -107,9 +107,10 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_premium_watch_ad:
                 if (mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
-                    finish();
+                    pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
                 } else {
                     Toast.makeText(context, getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
+                    loadRewardedVideoAd();
                 }
 
 
@@ -183,7 +184,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
-        MainActivity.valueHolder.changePremiumPoints(1);
+        MainActivity.valueHolder.changePremiumPoints(3);
         pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
     }
 
@@ -200,8 +201,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRewardedVideoCompleted() {
         //Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
-        valueHolder.setAdsPremium(true);
-        valueHolder.setPremiumAdTime(Calendar.getInstance());
+
     }
 
     private void loadRewardedVideoAd() {
