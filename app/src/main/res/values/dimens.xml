@@ -23,6 +23,9 @@
     <dimen name="task_days_margin">3dp</dimen>
     <dimen name="select_color_icon">40dp</dimen>
     <dimen name="select_color_margins">2dp</dimen>
+    <dimen name="task_layout_line">3dp</dimen>
+    <dimen name="task_layout_margin_top">15dp</dimen>
+    <dimen name="task_layout_text_left_margin">10dp</dimen>
 
 
 </resources>

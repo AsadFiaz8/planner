@@ -92,9 +92,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public final class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener, RewardedVideoAdListener {
+public final class MainActivity extends AppCompatActivity implements View.OnClickListener, ActionsFragment.OnFragmentInteractionListener, RewardedVideoAdListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
     public static final String TAG = "MainActivity";
+    public static final int CODE_ROUTINES = 0;
+    public static final int CODE_ACTIONS = 1;
+
+
+
     private DrawerLayout drawerLayout;
     Calendar data = Calendar.getInstance();
     List<Action> ac = new ArrayList<Action>();
@@ -262,7 +267,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     startActivity(i1);
                     floatingActionsMenu.collapse();
                 } else {
-                    NeedPremiumDialog pd = new NeedPremiumDialog(context);
+                    NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ROUTINES);
                     pd.ShowDialog(getString(R.string.premium_reason1));
                 }
 
@@ -376,9 +381,14 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             Refresh();
 
         }
-        if(needShowMainPage){
-            showMainPage();
+        try{
+            if(needShowMainPage){
+                showMainPage();
+            }
+        } catch (Exception e){
+            Log.e(TAG, e.getMessage());
         }
+
         if(setMainPage){
             android.app.Fragment frag = new android.app.Fragment();
             fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
@@ -1584,6 +1594,20 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRewardedVideoCompleted() {
 
+    }
+
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        switch (resultCode){
+            case CODE_ROUTINES:
+                Intent i1 = new Intent(context, AddRoutine.class);
+                    startActivity(i1);
+                    floatingActionsMenu.collapse();
+                break;
+            case CODE_ACTIONS:
+
+                break;
+        }
     }
 }
 
