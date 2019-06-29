@@ -1134,8 +1134,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void EditAction(int id) {
-        Intent intentEdit = new Intent(getApplicationContext(), EditActionActivity.class);
+        Intent intentEdit = new Intent(getApplicationContext(), AddActionAtivity.class);
         intentEdit.putExtra("ID", id);
+        intentEdit.putExtra("edit", true);
         startActivityForResult(intentEdit, REQUEST_CODE_1);
     }
 

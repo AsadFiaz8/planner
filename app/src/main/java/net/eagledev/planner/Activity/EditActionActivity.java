@@ -44,6 +44,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
         TextView textView;
         boolean checked = false;
         Checker checker;
+        boolean edit = false;
 
 
     public static final int CODE_ACTIONS = 0;
@@ -134,29 +135,33 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             Bundle bundle = intent.getExtras();
             selectedAction = new Action();
             if(bundle!=null) {
-                actionID = (int) bundle.get("ID");
-                selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
-                if(selectedAction == null){
-                    finish();
+                edit = (boolean) bundle.get("edit");
+                if(edit){
+                    actionID = (int) bundle.get("ID");
+                    selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
+                    if(selectedAction == null){
+                        finish();
+                    }
+                    findViewById(R.id.color_view).setOnClickListener(this);
+                    if(selectedAction != null){
+                        desc = selectedAction.getDesc();
+                        year = selectedAction.getStart_year();
+                        month = selectedAction.getStart_month();
+                        day = selectedAction.getStart_day();
+                        startHour = selectedAction.getStart_hour();
+                        startMinute = selectedAction.getStart_minute();
+                        stopHour = selectedAction.getStop_hour();
+                        stopMinute = selectedAction.getStop_minute();
+                        date_start.set(year,month,day,startHour,startMinute);
+                        date_stop.set(year,month,day,stopHour,stopMinute);
+                        iconID = selectedAction.getIcon();
+                        colorID = selectedAction.getColor();
+                        textView.setText(desc);
+                    } else {
+                        finish();
+                    }
                 }
-                findViewById(R.id.color_view).setOnClickListener(this);
-                if(selectedAction != null){
-                    desc = selectedAction.getDesc();
-                    year = selectedAction.getStart_year();
-                    month = selectedAction.getStart_month();
-                    day = selectedAction.getStart_day();
-                    startHour = selectedAction.getStart_hour();
-                    startMinute = selectedAction.getStart_minute();
-                    stopHour = selectedAction.getStop_hour();
-                    stopMinute = selectedAction.getStop_minute();
-                    date_start.set(year,month,day,startHour,startMinute);
-                    date_stop.set(year,month,day,stopHour,stopMinute);
-                    iconID = selectedAction.getIcon();
-                    colorID = selectedAction.getColor();
-                    textView.setText(desc);
-                } else {
-                    finish();
-                }
+
 
 
             }

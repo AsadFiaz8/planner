@@ -93,7 +93,7 @@ public class AimsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //TODO dialog z wyborem filtrów
+
             }
         });
 

@@ -76,7 +76,6 @@ public class TasksFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment TasksFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static TasksFragment newInstance(String param1, String param2) {
         TasksFragment fragment = new TasksFragment();
         Bundle args = new Bundle();
@@ -366,7 +365,6 @@ public class TasksFragment extends Fragment {
         recyclerList.add((RecyclerView) view.findViewById(R.id.task_reycler_view7));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -396,7 +394,7 @@ public class TasksFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 }

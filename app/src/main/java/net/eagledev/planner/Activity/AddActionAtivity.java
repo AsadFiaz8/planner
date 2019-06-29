@@ -24,6 +24,7 @@ import net.eagledev.planner.Action;
 import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
+import net.eagledev.planner.HourPickerDialog;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
@@ -32,7 +33,7 @@ import net.eagledev.planner.ValueHolder;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActionAtivity extends Activity  implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
+public class AddActionAtivity extends Activity  implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
 
     Calendar c;
     DatePickerDialog dpd;
@@ -49,10 +50,14 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
     Calendar date_start;
     Calendar date_stop;
     Formatter f = new Formatter();
+    boolean edit = false;
+    int actionID;
 
     public static final int CODE_ACTIONS = 0;
     public static final int CODE_ICONS = 1;
     public static final int CODE_COLORS = 2;
+    public static final int CODE_START = 0;
+    public static final int CODE_STOP = 1;
 
     Context context;
     ValueHolder valueHolder;
@@ -74,14 +79,19 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
     Button imageButton;
     Dialog d1;
     Dialog d2;
-    LinearLayout dateLinearLayout;
-    RelativeLayout dateRelativeLayout;
-    int lWindth;
-    int lHeinght;
-    int rWindth;
-    int rHeight;
-    ViewGroup.LayoutParams paramsLinear;
-    ViewGroup.LayoutParams paramsRelative;
+
+    Action selectedAction;
+    String desc = "";
+    ImageView imageDelete;
+
+
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    int startHour = 0;
+    int startMinute = 0;
+    int stopHour = 0;
+    int stopMinute = 0;
 
 
 
@@ -135,6 +145,51 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
             case R.id.toolbar_confirm:
                 confirm();
                 break;
+
+        }
+    }
+
+    private void SetValues() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        Action selectedAction = new Action();
+        if(bundle!=null) {
+            edit = (boolean) bundle.get("edit");
+            if(edit){
+                actionID = (int) bundle.get("ID");
+                selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
+                if(selectedAction == null){
+                    finish();
+                }
+                findViewById(R.id.color_view).setOnClickListener(this);
+                if(selectedAction != null){
+
+                    desc = selectedAction.getDesc();
+                    year = selectedAction.getStart_year();
+                    month = selectedAction.getStart_month();
+                    day = selectedAction.getStart_day();
+                    startHour = selectedAction.getStart_hour();
+                    startMinute = selectedAction.getStart_minute();
+                    stopHour = selectedAction.getStop_hour();
+                    stopMinute = selectedAction.getStop_minute();
+                    date_start.set(year,month,day,startHour,startMinute);
+                    date_stop.set(year,month,day,stopHour,stopMinute);
+                    iconID = selectedAction.getIcon();
+                    colorID = selectedAction.getColor();
+                    textView.setText(desc);
+                    btn_date.setText(f.DateText(date_start));
+                    btn_date2.setText(f.DateText(date_start));
+                    imageIcon.setImageDrawable(getDrawable(iconID));
+                    setColor();
+                    textView.setText(desc);
+                    dateActionStartButton.setText(f.Time(date_start) );
+                    dateActionStopButton.setText(f.Time(date_stop));
+                } else {
+                    finish();
+                }
+            }
+
+
 
         }
     }
@@ -963,6 +1018,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
             @Override
             public void onClick(View view) {
                 //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
+
                 dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
@@ -989,24 +1045,30 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         dateActionStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
-                                date_start.set(Calendar.HOUR_OF_DAY, mHour);
-                                date_start.set(Calendar.MINUTE, mMinute);
-                                dateActionStartButton.setText(f.Time(date_start) );
-                                if(date_start.get(Calendar.HOUR_OF_DAY)<23){
-                                    date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
-                                    date_stop.set(Calendar.MINUTE,0);
-                                    dateActionStopButton.setText(f.Time(date_stop));
-                                } else {
-                                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                                    date_stop.set(Calendar.MINUTE,59);
-                                    dateActionStopButton.setText(f.Time(date_stop));
-                                }
+                if(MainActivity.valueHolder.isDatePickerButton()) {
+
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_START);
+                }else {
+                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            date_start.set(Calendar.HOUR_OF_DAY, mHour);
+                            date_start.set(Calendar.MINUTE, mMinute);
+                            dateActionStartButton.setText(f.Time(date_start) );
+                            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                                date_stop.set(Calendar.MINUTE,0);
+                                dateActionStopButton.setText(f.Time(date_stop));
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE,59);
+                                dateActionStopButton.setText(f.Time(date_stop));
                             }
-                        }, hour, 0, true);
-                        tpd.show();
+                        }
+                    }, hour, 0, true);
+                    tpd.show();
+                }
             }
         });
 
@@ -1015,22 +1077,25 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         dateActionStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                        tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
-
-                                if(mHour == 0 && mMinute == 0) {
-                                    date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                                    date_stop.set(Calendar.MINUTE, 59);
-                                } else {
-                                    date_stop.set(Calendar.HOUR_OF_DAY, mHour);
-                                    date_stop.set(Calendar.MINUTE, mMinute);
-                                }
-                                dateActionStopButton.setText(f.Time(date_stop));
+                if(MainActivity.valueHolder.isDatePickerButton()) {
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_STOP);
+                }else {
+                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            if(mHour == 0 && mMinute == 0) {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE, 59);
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour);
+                                date_stop.set(Calendar.MINUTE, mMinute);
                             }
-                        }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
-                        tpd.show();
+                            dateActionStopButton.setText(f.Time(date_stop));
+                        }
+                    }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
+                    tpd.show();
+                }
             }
         });
 
@@ -1157,6 +1222,33 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                 d1.dismiss();
                 imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
+        }
+    }
+
+    @Override
+    public void getHourPickerDialogTime(int requestCode, int hour, int minute) {
+        if(requestCode == CODE_START){
+            date_start.set(Calendar.HOUR_OF_DAY, hour);
+            date_start.set(Calendar.MINUTE, minute);
+            dateActionStartButton.setText(f.Time(date_start) );
+            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                date_stop.set(Calendar.HOUR_OF_DAY, hour+1);
+                date_stop.set(Calendar.MINUTE,0);
+                dateActionStopButton.setText(f.Time(date_stop));
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE,59);
+                dateActionStopButton.setText(f.Time(date_stop));
+            }
+        } else if(requestCode == CODE_STOP){
+            if(hour == 0 && minute == 0) {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE, 59);
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, hour);
+                date_stop.set(Calendar.MINUTE, minute);
+            }
+            dateActionStopButton.setText(f.Time(date_stop));
         }
     }
 }
