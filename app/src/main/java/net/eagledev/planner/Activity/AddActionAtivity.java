@@ -99,12 +99,12 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_action);
-        btn_select_icon = findViewById(R.id.icon_view);
-        btn_select_icon.setOnClickListener(this);
         //findViewById(R.id.color_view).setOnClickListener(this);
         textView = findViewById(R.id.input_action_name);
         context = this;
         imageIcon = findViewById(R.id.icon_view);
+        //imageIcon = new ImageView(context);
+        imageIcon.setOnClickListener(this);
         date_start = Calendar.getInstance();
         date_stop = Calendar.getInstance();
         date_start.set(Calendar.HOUR_OF_DAY, 0);
@@ -164,7 +164,6 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                 }
                 findViewById(R.id.color_view).setOnClickListener(this);
                 if(selectedAction != null){
-
                     desc = selectedAction.getDesc();
                     year = selectedAction.getStart_year();
                     month = selectedAction.getStart_month();
@@ -1046,7 +1045,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         dateActionStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(MainActivity.valueHolder.isDatePickerButton()) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
 
                     HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
                     hourPickerDialog.ShowDialog(CODE_START);
@@ -1078,7 +1077,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         dateActionStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(MainActivity.valueHolder.isDatePickerButton()) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
                     HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
                     hourPickerDialog.ShowDialog(CODE_STOP);
                 }else {
@@ -1130,6 +1129,12 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         MainActivity.fDatabase.AddAction(newAction);
     }
 
+    private void UpdateAction() {
+        Action newAction = new Action(actionID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().updateAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
+    }
+
     private void confirm() {
         Checker checker = new Checker();
 
@@ -1172,7 +1177,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
 
             if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
                 //Spełnia warunki lub jest premium lub premium reklamowe
-                CreateAction();
+                if(!edit) {
+                    CreateAction();
+                } else UpdateAction();
                 MainActivity.needRefresh = true;
                 finish();
             } else {

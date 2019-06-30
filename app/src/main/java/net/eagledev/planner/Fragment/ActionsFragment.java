@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.NumberPicker;
 
 import net.eagledev.planner.Action;
+import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Adapter.ActionAdapter;
 import net.eagledev.planner.Activity.EditActionActivity;
 import net.eagledev.planner.Formatter;
@@ -258,11 +259,12 @@ public class ActionsFragment extends Fragment {
         actionLister.clear();
         Calendar cal = Calendar.getInstance();
         int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        for (int i = 1;i < max; i++){
+        for (int i = 1;i <= max; i++){
 
 
             List<Action> actions = MainActivity.appDatabase.appDao().getActionsFromDay(i,month,year);
 
+            Log.e("ActionsFragment", i + " - " +String.valueOf(actions.size()));
 
             List <Integer> startTimes = new ArrayList<>();
             for(int s = 0; s<actions.size(); s++){
@@ -294,8 +296,9 @@ public class ActionsFragment extends Fragment {
                 @Override
                 public void onClick(View view, int position) {
                     Action action = aList.get(position);
-                    Intent intentEdit = new Intent(context, EditActionActivity.class);
+                    Intent intentEdit = new Intent(context, AddActionAtivity.class);
                     intentEdit.putExtra("ID", action.getId());
+                    intentEdit.putExtra("edit", true);
                     startActivityForResult(intentEdit, 1);
                 }
             });

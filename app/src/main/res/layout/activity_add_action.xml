@@ -161,7 +161,7 @@
                         android:layout_height="60dp"
                         android:src="@drawable/city18"
                         android:background="@drawable/btn_round"
-                        android:backgroundTint="@color/action_fragment_day_line"
+                        android:backgroundTint="@color/gray"
                         android:layout_marginTop="10dp"
                         android:padding="10dp"/>
 
