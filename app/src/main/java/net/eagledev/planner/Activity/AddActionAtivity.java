@@ -132,6 +132,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         SetupDate();
         dateActionStartButton.setText(f.Time(date_start));
         dateActionStopButton.setText(f.Time(date_stop));
+        SetValues();
     }
 
     @Override
