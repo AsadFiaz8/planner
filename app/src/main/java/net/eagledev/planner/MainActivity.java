@@ -337,8 +337,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.btn_edit_routine:
                 //Edit routine
-                Intent intentEditRoutine = new Intent(getApplicationContext(), EditRoutineActivity.class);
+                Intent intentEditRoutine = new Intent(getApplicationContext(), AddRoutine.class);
                 intentEditRoutine.putExtra("ID", selectedID);
+                intentEditRoutine.putExtra("edit", true);
                 startActivityForResult(intentEditRoutine, REQUEST_CODE_2);
                 break;
 
