@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import java.util.List;
 public class AddRoutine extends Activity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
 
 
+    public static final String TAG = "AddRoutine";
     public static final int CODE_ICONS = 1;
     public static final int CODE_COLORS = 2;
 
@@ -147,8 +149,11 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     }
 
     private void setupDate() {
-        start.set(Calendar.HOUR_OF_DAY,0);
-        stop.set(Calendar.HOUR_OF_DAY,1);
+        if(!edit){
+            start.set(Calendar.HOUR_OF_DAY,0);
+            stop.set(Calendar.HOUR_OF_DAY,1);
+        }
+
     }
 
     private void setButtons() {
@@ -302,7 +307,6 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
             if(delete != -1){
                 routines.remove(delete);
             }
-
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
