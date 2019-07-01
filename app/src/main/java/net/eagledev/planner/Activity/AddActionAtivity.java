@@ -146,8 +146,22 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
             case R.id.toolbar_confirm:
                 confirm();
                 break;
+            case R.id.toolbar_delete:
+                MainActivity.appDatabase.appDao().deleteAction(actionID);
+                MainActivity.fDatabase.DeleteAction(actionID);
+                refresh();
+                finish();
+                Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();
+                break;
 
         }
+    }
+
+    private void refresh(){
+        MainActivity.needRefresh = true;
+        Intent intent = new Intent();
+        intent.putExtra("message_return", "refresh");
+        setResult(RESULT_OK, intent);
     }
 
     private void SetValues() {
@@ -184,6 +198,9 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                     textView.setText(desc);
                     dateActionStartButton.setText(f.Time(date_start) );
                     dateActionStopButton.setText(f.Time(date_stop));
+                    imageDelete = findViewById(R.id.toolbar_delete);
+                    imageDelete.setVisibility(View.VISIBLE);
+                    imageDelete.setOnClickListener(this);
                 } else {
                     finish();
                 }

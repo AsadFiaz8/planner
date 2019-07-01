@@ -74,10 +74,6 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
     ImageView imageColor;
     Checker checker = new Checker();
 
-    RelativeLayout buttonsLayout;
-    RelativeLayout pickersLayout;
-    ViewGroup.LayoutParams paramsButtons;
-    ViewGroup.LayoutParams paramsPickers;
 
     private final static int REQUEST_CODE_2 = 2;
 

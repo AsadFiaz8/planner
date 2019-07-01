@@ -60,6 +60,9 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     int color;
     int premiumColor;
     Checker checker = new Checker();
+    boolean edit = false;
+    Routine selectedRoutine;
+    int routineID;
 
     EditText nameText;
     Button btnStartHour;
@@ -69,6 +72,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     TimePickerDialog tpd;
     ImageView imageConfirm;
     ImageView imageCancel;
+    ImageView imageDelete;
     ImageView imageIcon;
     ImageView imageColor;
 
@@ -95,7 +99,51 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         int[] colors = {color};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
         context = this;
+        setValues();
         setupDate();
+    }
+
+    private void setValues() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        selectedRoutine = new Routine();
+        if (bundle!=null) {
+            edit = (boolean) bundle.get("edit");
+            if(edit) {
+                routineID=(int) bundle.get("ID");
+                selectedRoutine = MainActivity.appDatabase.appDao().idRoutine(routineID);
+                name=selectedRoutine.getName();
+                nameText.setText(name);
+                icon=selectedRoutine.getIcon();
+                color=selectedRoutine.getColor();
+                start=selectedRoutine.getStart();
+                btnStartHour.setText(f.Time(start));
+                stop=selectedRoutine.getStop();
+                btnStopHour.setText(f.Time(stop));
+                monday=selectedRoutine.isMonday();
+                setDay(monday, mondayBtn);
+                tuesday=selectedRoutine.isTuesday();
+                setDay(tuesday, tuesdayBtn);
+                wednesday=selectedRoutine.isWednesday();
+                setDay(wednesday, wednesdayBtn);
+                thursday=selectedRoutine.isThursday();
+                setDay(thursday, thursdayBtn);
+                friday=selectedRoutine.isFriday();
+                setDay(friday, fridayBtn);
+                saturday=selectedRoutine.isSaturday();
+                setDay(saturday, saturdayBtn);
+                sunday=selectedRoutine.isSunday();
+                setDay(sunday, sundayBtn);
+                setColor();
+                imageIcon.setImageDrawable(getDrawable(icon));
+                imageDelete = findViewById(R.id.toolbar_delete);
+                imageDelete.setVisibility(View.VISIBLE);
+                imageDelete.setOnClickListener(this);
+            }
+
+        }
+
+
     }
 
     private void setupDate() {
@@ -176,6 +224,14 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
                 finish();
                 break;
 
+            case R.id.toolbar_delete:
+                MainActivity.appDatabase.appDao().deleteRoutine(routineID);
+                MainActivity.fDatabase.DeleteRoutine(routineID);
+                refresh();
+                finish();
+                Toast.makeText(getApplicationContext(), R.string.routine_deleted, Toast.LENGTH_LONG).show();
+                break;
+
             case R.id.routine_mo:
                 monday = !monday;
                 setDay(monday, mondayBtn);
@@ -222,6 +278,13 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
     }
 
+    private void refresh(){
+        MainActivity.needRefresh = true;
+        Intent intent = new Intent();
+        intent.putExtra("message_return", "refresh");
+        setResult(RESULT_OK, intent);
+    }
+
     private void confirm() {
 
         boolean isOK = true;
@@ -230,6 +293,16 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
 
         if(monday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getMonday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
+
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -238,6 +311,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(tuesday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getTuesday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -246,6 +328,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(wednesday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getWednesday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -254,6 +345,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(thursday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getThursday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -262,6 +362,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(friday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getFriday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -270,6 +379,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(saturday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getSaturday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -278,6 +396,15 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
         if(sunday) {
             List<Routine> routines = MainActivity.appDatabase.appDao().getSunday();
+            int delete = -1;
+            for(int i = 0; i<routines.size(); i++){
+                if(routines.get(i).getId() == routineID){
+                    delete = i;
+                }
+            }
+            if(delete != -1){
+                routines.remove(delete);
+            }
             for (int r= 0; r<routines.size(); r++ ) {
                 if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop())){
                     isOK = false;
@@ -286,11 +413,20 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
 
         if(isOK){
-            Routine newRoutine = new Routine(newID+1, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
-            MainActivity.appDatabase.appDao().addRoutine(newRoutine);
-            MainActivity.fDatabase.AddRoutine(newRoutine);
-            MainActivity.needRefresh = true;
-            finish();
+            if(!edit){
+                Routine newRoutine = new Routine(newID+1, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
+                MainActivity.appDatabase.appDao().addRoutine(newRoutine);
+                MainActivity.fDatabase.AddRoutine(newRoutine);
+                MainActivity.needRefresh = true;
+                finish();
+            } else {
+                Routine newRoutine = new Routine(routineID, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
+                MainActivity.appDatabase.appDao().updateRoutine(newRoutine);
+                MainActivity.fDatabase.AddRoutine(newRoutine);
+                refresh();
+                finish();
+            }
+
         } else Toast.makeText(getApplicationContext(), R.string.routine_cant_interfere, Toast.LENGTH_LONG).show();
 
     }
