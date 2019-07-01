@@ -97,9 +97,15 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     public static final String TAG = "MainActivity";
     public static final int CODE_ROUTINES = 0;
     public static final int CODE_ACTIONS = 1;
+    public static final int CODE_CREATED = 2;
+    public static final int CODE_NEW_ACTION = 3;
+    private final static int REQUEST_CODE_1 = 1;
+    private final static int REQUEST_CODE_2 = 2;
+    private final static int REQUEST_CODE_TUT = 4;
+    public final static int RESULT_CODE_TUT = 5;
 
 
-
+    int selectedScreen;
     private DrawerLayout drawerLayout;
     Calendar data = Calendar.getInstance();
     List<Action> ac = new ArrayList<Action>();
@@ -173,10 +179,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     public FirebaseFirestore fdb;
 
 
-    private final static int REQUEST_CODE_1 = 1;
-    private final static int REQUEST_CODE_2 = 2;
-    private final static int REQUEST_CODE_TUT = 3;
-    public final static int RESULT_CODE_TUT = 4355;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,7 +270,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     startActivity(i1);
                     floatingActionsMenu.collapse();
                 } else {
-                    NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ROUTINES);
+                    NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_ROUTINES);
                     pd.ShowDialog(getString(R.string.premium_reason1));
                 }
 
@@ -296,7 +299,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             case R.id.action_4:
                 cnt = findViewById(R.id.relative_layout).getContext();
                 Intent i4 = new Intent(cnt, AddActionAtivity.class);
-                startActivity(i4);
+                startActivityForResult(i4,CODE_NEW_ACTION);
                 floatingActionsMenu.collapse();
                 break;
 
@@ -417,6 +420,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
+        selectedScreen = R.id.nav_main;
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -434,34 +438,35 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 rl.setVisibility(View.VISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.main_page);
+                                selectedScreen = R.id.nav_main;
                                 break;
                             case R.id.nav_actions:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.scheduled_activities);
-
+                                selectedScreen = R.id.nav_actions;
                                 break;
                             case R.id.nav_routines:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RoutinesFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.routines);
-
+                                selectedScreen = R.id.nav_routines;
                                 break;
                             case R.id.nav_tasks:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.tasks);
-
+                                selectedScreen = R.id.nav_tasks;
                                 break;
                             case R.id.nav_reminders:
                                 fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RemindersFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.reminders);
-
+                                selectedScreen = R.id.nav_reminders;
                                 break;
 
                             case R.id.nav_settings:
@@ -469,6 +474,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 rl.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.settings);
                                 floatingActionsMenu.setVisibility(View.INVISIBLE);
+                                selectedScreen = R.id.nav_settings;
                                 break;
 
                             case R.id.nav_premium:
@@ -481,7 +487,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.contact);
-
+                                selectedScreen = R.id.nav_contact;
 
                                 break;
 
@@ -1543,6 +1549,68 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             floatingActionsMenu.setVisibility(View.INVISIBLE);
             toolbar.setTitle(R.string.account);
             drawerLayout.closeDrawers();
+        }
+        if(resultCode == CODE_CREATED)
+        {
+            switch (selectedScreen) {
+                case R.id.nav_main:
+                    android.app.Fragment frag = new android.app.Fragment();
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+                    rl.setVisibility(View.VISIBLE);
+                    toolbar.setTitle(R.string.main_page);
+                    break;
+                case R.id.nav_actions:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    floatingActionsMenu.setVisibility(View.VISIBLE);
+                    toolbar.setTitle(R.string.scheduled_activities);
+                    selectedScreen = R.id.nav_actions;
+                    break;
+                case R.id.nav_routines:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RoutinesFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    floatingActionsMenu.setVisibility(View.VISIBLE);
+                    toolbar.setTitle(R.string.routines);
+                    selectedScreen = R.id.nav_routines;
+                    break;
+                case R.id.nav_tasks:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    floatingActionsMenu.setVisibility(View.VISIBLE);
+                    toolbar.setTitle(R.string.tasks);
+                    selectedScreen = R.id.nav_tasks;
+                    break;
+                case R.id.nav_reminders:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RemindersFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    floatingActionsMenu.setVisibility(View.VISIBLE);
+                    toolbar.setTitle(R.string.reminders);
+                    selectedScreen = R.id.nav_reminders;
+                    break;
+
+                case R.id.nav_settings:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new SettingsFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    toolbar.setTitle(R.string.settings);
+                    floatingActionsMenu.setVisibility(View.INVISIBLE);
+                    selectedScreen = R.id.nav_settings;
+                    break;
+
+                case R.id.nav_premium:
+                    Intent premiumIntent = new Intent(context, BuyPremiumActivity.class);
+                    startActivity(premiumIntent);
+                    break;
+
+                case R.id.nav_contact:
+                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ContactFragment()).commit();
+                    rl.setVisibility(View.INVISIBLE);
+                    floatingActionsMenu.setVisibility(View.INVISIBLE);
+                    toolbar.setTitle(R.string.contact);
+                    selectedScreen = R.id.nav_contact;
+
+                    break;
+
+            }
         }
     }
 

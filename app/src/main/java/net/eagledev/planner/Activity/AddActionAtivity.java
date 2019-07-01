@@ -1177,10 +1177,13 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
 
             if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
                 //Spełnia warunki lub jest premium lub premium reklamowe
+                setResult(MainActivity.CODE_CREATED);
                 if(!edit) {
                     CreateAction();
                 } else UpdateAction();
-                MainActivity.needRefresh = true;
+                //MainActivity.needRefresh = true;
+                Intent resultIntent = new Intent();
+
                 finish();
             } else {
                 NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ACTIONS);

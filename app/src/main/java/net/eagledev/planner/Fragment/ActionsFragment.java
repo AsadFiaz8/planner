@@ -289,8 +289,8 @@ public class ActionsFragment extends Fragment {
 
 
 
-            recyclerList.get(i).setHasFixedSize(true);
-            recyclerList.get(i).setLayoutManager(new LinearLayoutManager(context));
+            recyclerList.get(i-1).setHasFixedSize(true);
+            recyclerList.get(i-1).setLayoutManager(new LinearLayoutManager(context));
             final List<Action> aList = actionLister.get(i-1);
             itemListnerList.add(new ItemClickListener() {
                 @Override
