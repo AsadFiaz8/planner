@@ -262,6 +262,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         Context cnt = findViewById(R.id.relative_layout).getContext();
         switch (view.getId()) {
 
+
+            case R.id.action_test:
+                GetOpinionDialog opinionDialog = new GetOpinionDialog(this);
+                opinionDialog.ShowDialog();
+                floatingActionsMenu.collapse();
+                break;
+
             case R.id.action_1:
 
                 Intent i1 = new Intent(cnt, AddRoutine.class);
@@ -564,6 +571,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         btnAims = (FloatingActionButton) findViewById(R.id.action_2);
         btnAims.setOnClickListener(this);
         findViewById(R.id.action_1).setOnClickListener(this);
+        findViewById(R.id.action_test).setOnClickListener(this);
         btnLeft = (FloatingActionButton) findViewById(R.id.btn_left);
         btnLeft.setOnClickListener(this);
         btnRight = (FloatingActionButton) findViewById(R.id.btn_right);
@@ -1470,8 +1478,15 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     private Drawable scaleDrawable(int drawable, int scale){
-        Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(drawable)).getBitmap();
-        return new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, scale, scale, true));
+
+        Bitmap bitmap;
+        try{
+            bitmap = ((BitmapDrawable) getResources().getDrawable(drawable)).getBitmap();
+            return new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, scale, scale, true));
+        } catch (Exception e){
+            return getResources().getDrawable(drawable);
+        }
+
     }
 
     public void showMainPage(){

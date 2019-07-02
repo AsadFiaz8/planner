@@ -133,6 +133,11 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         dateActionStartButton.setText(f.Time(date_start));
         dateActionStopButton.setText(f.Time(date_stop));
         SetValues();
+        if(edit){
+            imageDelete = findViewById(R.id.toolbar_delete);
+            imageDelete.setVisibility(View.VISIBLE);
+            imageDelete.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -150,6 +155,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                 MainActivity.appDatabase.appDao().deleteAction(actionID);
                 MainActivity.fDatabase.DeleteAction(actionID);
                 refresh();
+                setResult(MainActivity.CODE_CREATED);
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();
                 break;
@@ -208,6 +214,295 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
 
 
 
+        }
+    }
+
+    private void SetupDate() {
+        c = Calendar.getInstance();
+        final int day = c.get(Calendar.DAY_OF_MONTH);
+        final int month = c.get(Calendar.MONTH);
+        final int year = c.get(Calendar.YEAR);
+        final int hour = c.get(Calendar.HOUR_OF_DAY)+1;
+        final int min = c.get(Calendar.MINUTE);
+        colorID = MainActivity.colors[0];
+
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
+
+        // Number pickers
+
+        String[] displayHours = new String[24];
+        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
+        for (int h = 0; h < displayHours.length; h++) {
+            displayHours[h] = f.z(h);
+        }
+
+        // Buttons
+        btn_date = findViewById(R.id.action_date_start_btn);
+        btn_date2 = findViewById(R.id.action_date_stop_btn);
+        btn_date.setText(f.Date(c));
+        btn_date2.setText(f.Date(c));
+        aDay = day;
+        aMonth = month;
+        aYear = year;
+        btn_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
+                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
+                        aDay = mDay;
+                        aMonth = mMonth;
+                        aYear = mYear;
+                        date_start.set(Calendar.YEAR, mYear);
+                        date_start.set(Calendar.MONTH, mMonth);
+                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
+                        btn_date.setText(f.Date(date_start));
+                        btn_date2.setText(f.Date(date_start));
+                        date_stop.set(Calendar.YEAR, mYear);
+                        date_stop.set(Calendar.MONTH, mMonth);
+                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
+
+                    }
+                },year, month , day);
+                dpd.show();
+                //btn_date.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+
+        btn_date2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
+
+                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
+                        aDay = mDay;
+                        aMonth = mMonth;
+                        aYear = mYear;
+                        date_start.set(Calendar.YEAR, mYear);
+                        date_start.set(Calendar.MONTH, mMonth);
+                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
+                        btn_date.setText(f.Date(date_start));
+                        btn_date2.setText(f.Date(date_start));
+                        date_stop.set(Calendar.YEAR, mYear);
+                        date_stop.set(Calendar.MONTH, mMonth);
+                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
+
+                    }
+                },year, month , day);
+                dpd.show();
+                //btn_date.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+
+        dateActionStartButton = (TextView) findViewById(R.id.action_time_start_btn);
+        dateActionStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
+
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_START);
+                }else {
+                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            date_start.set(Calendar.HOUR_OF_DAY, mHour);
+                            date_start.set(Calendar.MINUTE, mMinute);
+                            dateActionStartButton.setText(f.Time(date_start) );
+                            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                                date_stop.set(Calendar.MINUTE,0);
+                                dateActionStopButton.setText(f.Time(date_stop));
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE,59);
+                                dateActionStopButton.setText(f.Time(date_stop));
+                            }
+                        }
+                    }, hour, 0, true);
+                    tpd.show();
+                }
+            }
+        });
+
+
+        dateActionStopButton = (TextView) findViewById(R.id.action_time_stop_btn);
+        dateActionStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_STOP);
+                }else {
+                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            if(mHour == 0 && mMinute == 0) {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE, 59);
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour);
+                                date_stop.set(Calendar.MINUTE, mMinute);
+                            }
+                            dateActionStopButton.setText(f.Time(date_stop));
+                        }
+                    }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
+                    tpd.show();
+                }
+            }
+        });
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        super.onActivityResult(requestCode, resultCode, dataIntent);
+
+        // The returned result data is identified by requestCode.
+        // The request code is specified in startActivityForResult(intent, REQUEST_CODE_1); method.
+        switch (requestCode)
+        {
+            // This request code is set by startActivityForResult(intent, REQUEST_CODE_1) method.
+            case REQUEST_CODE_1:
+
+                if(resultCode == RESULT_OK)
+                {
+                    String messageReturn = dataIntent.getStringExtra("message_return");
+                    iconID = Integer.parseInt(messageReturn);
+
+
+
+                }
+        }
+    }
+
+    private void CreateAction() {
+        int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
+        Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().addAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
+    }
+
+    private void UpdateAction() {
+        Action newAction = new Action(actionID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().updateAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
+    }
+
+    private void confirm() {
+        Checker checker = new Checker();
+
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
+        if(MainActivity.valueHolder.canUsePremium()) {
+            if(checker.Before(date_start,date_stop)) {
+                checked = true;
+            }
+            else {
+                Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+            }
+        }
+        else {
+            if(checker.DateTimeInFuture(date_start)) {
+                if(checker.DateTimeInFuture(date_stop)) {
+                    if(checker.Before(date_start,date_stop)) {
+                        checked = true;
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.stop_date_in_future, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.start_date_in_future, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+        if(checked) {
+            if(MainActivity.valueHolder == null){
+                MainActivity.setValueHolder();
+            }
+            List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
+            int actionsCount = actionsFromDay.size();
+            Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
+
+            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
+                //Spełnia warunki lub jest premium lub premium reklamowe
+                setResult(MainActivity.CODE_CREATED);
+                if(!edit) {
+                    CreateAction();
+                } else UpdateAction();
+                //MainActivity.needRefresh = true;
+
+                setResult(MainActivity.CODE_CREATED);
+                finish();
+            } else {
+                NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ACTIONS);
+                pd.ShowDialog(getString(R.string.premium_reason2));
+            }
+
+
+
+        }
+    }
+
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        MainActivity.valueHolder.changePremiumPoints(-1);
+        switch (resultCode){
+            case CODE_ACTIONS:
+                CreateAction();
+                MainActivity.needRefresh = true;
+                finish();
+                break;
+            case CODE_COLORS:
+                colorID = MainActivity.colors[premiumColor];
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {colorID};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                //imageColor.setBackgroundColor(colorID);
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                iconID = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(iconID));
+                break;
+        }
+    }
+
+    @Override
+    public void getHourPickerDialogTime(int requestCode, int hour, int minute) {
+        if(requestCode == CODE_START){
+            date_start.set(Calendar.HOUR_OF_DAY, hour);
+            date_start.set(Calendar.MINUTE, minute);
+            dateActionStartButton.setText(f.Time(date_start) );
+            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                date_stop.set(Calendar.HOUR_OF_DAY, hour+1);
+                date_stop.set(Calendar.MINUTE,0);
+                dateActionStopButton.setText(f.Time(date_stop));
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE,59);
+                dateActionStopButton.setText(f.Time(date_stop));
+            }
+        } else if(requestCode == CODE_STOP){
+            if(hour == 0 && minute == 0) {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE, 59);
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, hour);
+                date_stop.set(Calendar.MINUTE, minute);
+            }
+            dateActionStopButton.setText(f.Time(date_stop));
         }
     }
 
@@ -976,307 +1271,5 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
         }
     }
 
-    private void SetupDate() {
-        c = Calendar.getInstance();
-        final int day = c.get(Calendar.DAY_OF_MONTH);
-        final int month = c.get(Calendar.MONTH);
-        final int year = c.get(Calendar.YEAR);
-        final int hour = c.get(Calendar.HOUR_OF_DAY)+1;
-        final int min = c.get(Calendar.MINUTE);
-        colorID = MainActivity.colors[0];
 
-        if(MainActivity.valueHolder == null){
-            MainActivity.setValueHolder();
-        }
-        setTimePicker(MainActivity.valueHolder.isDatePickerButton());
-        // Number pickers
-
-        String[] displayHours = new String[24];
-        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
-        for (int h = 0; h < displayHours.length; h++) {
-            displayHours[h] = f.z(h);
-        }
-
-        // Buttons
-        btn_date = findViewById(R.id.action_date_start_btn);
-        btn_date2 = findViewById(R.id.action_date_stop_btn);
-        btn_date.setText(f.Date(c));
-        btn_date2.setText(f.Date(c));
-        aDay = day;
-        aMonth = month;
-        aYear = year;
-        btn_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
-                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
-                        aDay = mDay;
-                        aMonth = mMonth;
-                        aYear = mYear;
-                        date_start.set(Calendar.YEAR, mYear);
-                        date_start.set(Calendar.MONTH, mMonth);
-                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
-                        btn_date.setText(f.Date(date_start));
-                        btn_date2.setText(f.Date(date_start));
-                        date_stop.set(Calendar.YEAR, mYear);
-                        date_stop.set(Calendar.MONTH, mMonth);
-                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
-
-                    }
-                },year, month , day);
-                dpd.show();
-                //btn_date.setTextColor(getResources().getColor(R.color.white));
-            }
-        });
-
-        btn_date2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
-
-                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
-                        aDay = mDay;
-                        aMonth = mMonth;
-                        aYear = mYear;
-                        date_start.set(Calendar.YEAR, mYear);
-                        date_start.set(Calendar.MONTH, mMonth);
-                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
-                        btn_date.setText(f.Date(date_start));
-                        btn_date2.setText(f.Date(date_start));
-                        date_stop.set(Calendar.YEAR, mYear);
-                        date_stop.set(Calendar.MONTH, mMonth);
-                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
-
-                    }
-                },year, month , day);
-                dpd.show();
-                //btn_date.setTextColor(getResources().getColor(R.color.white));
-            }
-        });
-
-        dateActionStartButton = (TextView) findViewById(R.id.action_time_start_btn);
-        dateActionStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!MainActivity.valueHolder.isDatePickerButton()) {
-
-                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
-                    hourPickerDialog.ShowDialog(CODE_START);
-                }else {
-                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
-                            date_start.set(Calendar.HOUR_OF_DAY, mHour);
-                            date_start.set(Calendar.MINUTE, mMinute);
-                            dateActionStartButton.setText(f.Time(date_start) );
-                            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
-                                date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
-                                date_stop.set(Calendar.MINUTE,0);
-                                dateActionStopButton.setText(f.Time(date_stop));
-                            } else {
-                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                                date_stop.set(Calendar.MINUTE,59);
-                                dateActionStopButton.setText(f.Time(date_stop));
-                            }
-                        }
-                    }, hour, 0, true);
-                    tpd.show();
-                }
-            }
-        });
-
-
-        dateActionStopButton = (TextView) findViewById(R.id.action_time_stop_btn);
-        dateActionStopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!MainActivity.valueHolder.isDatePickerButton()) {
-                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
-                    hourPickerDialog.ShowDialog(CODE_STOP);
-                }else {
-                    tpd = new TimePickerDialog(AddActionAtivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
-                            if(mHour == 0 && mMinute == 0) {
-                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                                date_stop.set(Calendar.MINUTE, 59);
-                            } else {
-                                date_stop.set(Calendar.HOUR_OF_DAY, mHour);
-                                date_stop.set(Calendar.MINUTE, mMinute);
-                            }
-                            dateActionStopButton.setText(f.Time(date_stop));
-                        }
-                    }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
-                    tpd.show();
-                }
-            }
-        });
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
-        super.onActivityResult(requestCode, resultCode, dataIntent);
-
-        // The returned result data is identified by requestCode.
-        // The request code is specified in startActivityForResult(intent, REQUEST_CODE_1); method.
-        switch (requestCode)
-        {
-            // This request code is set by startActivityForResult(intent, REQUEST_CODE_1) method.
-            case REQUEST_CODE_1:
-
-                if(resultCode == RESULT_OK)
-                {
-                    String messageReturn = dataIntent.getStringExtra("message_return");
-                    iconID = Integer.parseInt(messageReturn);
-
-
-
-                }
-        }
-    }
-
-    private void CreateAction() {
-        int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
-        Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
-        MainActivity.appDatabase.appDao().addAction(newAction);
-        MainActivity.fDatabase.AddAction(newAction);
-    }
-
-    private void UpdateAction() {
-        Action newAction = new Action(actionID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
-        MainActivity.appDatabase.appDao().updateAction(newAction);
-        MainActivity.fDatabase.AddAction(newAction);
-    }
-
-    private void confirm() {
-        Checker checker = new Checker();
-
-        if(MainActivity.valueHolder == null){
-            MainActivity.setValueHolder();
-        }
-        if(MainActivity.valueHolder.canUsePremium()) {
-            if(checker.Before(date_start,date_stop)) {
-                checked = true;
-            }
-            else {
-                Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
-            }
-        }
-        else {
-            if(checker.DateTimeInFuture(date_start)) {
-                if(checker.DateTimeInFuture(date_stop)) {
-                    if(checker.Before(date_start,date_stop)) {
-                        checked = true;
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), R.string.stop_date_in_future, Toast.LENGTH_LONG).show();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), R.string.start_date_in_future, Toast.LENGTH_LONG).show();
-            }
-        }
-
-
-        if(checked) {
-            if(MainActivity.valueHolder == null){
-                MainActivity.setValueHolder();
-            }
-            List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
-            int actionsCount = actionsFromDay.size();
-            Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
-
-            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
-                //Spełnia warunki lub jest premium lub premium reklamowe
-                setResult(MainActivity.CODE_CREATED);
-                if(!edit) {
-                    CreateAction();
-                } else UpdateAction();
-                //MainActivity.needRefresh = true;
-                Intent resultIntent = new Intent();
-
-                finish();
-            } else {
-                NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ACTIONS);
-                pd.ShowDialog(getString(R.string.premium_reason2));
-            }
-
-
-
-        }
-    }
-
-    private void setTimePicker(boolean buttonPicker) {
-        if(!buttonPicker) {
-
-            //dateLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
-            //dateLinearLayout.setVisibility(View.INVISIBLE);
-            //dateRelativeLayout.setLayoutParams(paramsRelative);
-            //dateRelativeLayout.setVisibility(View.VISIBLE);
-        } else {
-            //dateLinearLayout.setLayoutParams(paramsLinear);
-            //dateLinearLayout.setVisibility(View.VISIBLE);
-            //dateRelativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
-            //dateRelativeLayout.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    public void getPremiumDialogResultCode(int resultCode) {
-        MainActivity.valueHolder.changePremiumPoints(-1);
-        switch (resultCode){
-            case CODE_ACTIONS:
-                CreateAction();
-                MainActivity.needRefresh = true;
-                finish();
-                break;
-            case CODE_COLORS:
-                colorID = MainActivity.colors[premiumColor];
-                int[] ints = {0};
-                int[][] all = {ints};
-                int[] colors = {colorID};
-                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-                //imageColor.setBackgroundColor(colorID);
-                d2.dismiss();
-                break;
-            case CODE_ICONS:
-                iconID = MainActivity.icons[premiumIcon];
-                d1.dismiss();
-                imageIcon.setImageDrawable(getDrawable(iconID));
-                break;
-        }
-    }
-
-    @Override
-    public void getHourPickerDialogTime(int requestCode, int hour, int minute) {
-        if(requestCode == CODE_START){
-            date_start.set(Calendar.HOUR_OF_DAY, hour);
-            date_start.set(Calendar.MINUTE, minute);
-            dateActionStartButton.setText(f.Time(date_start) );
-            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
-                date_stop.set(Calendar.HOUR_OF_DAY, hour+1);
-                date_stop.set(Calendar.MINUTE,0);
-                dateActionStopButton.setText(f.Time(date_stop));
-            } else {
-                date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                date_stop.set(Calendar.MINUTE,59);
-                dateActionStopButton.setText(f.Time(date_stop));
-            }
-        } else if(requestCode == CODE_STOP){
-            if(hour == 0 && minute == 0) {
-                date_stop.set(Calendar.HOUR_OF_DAY, 23);
-                date_stop.set(Calendar.MINUTE, 59);
-            } else {
-                date_stop.set(Calendar.HOUR_OF_DAY, hour);
-                date_stop.set(Calendar.MINUTE, minute);
-            }
-            dateActionStopButton.setText(f.Time(date_stop));
-        }
-    }
 }
