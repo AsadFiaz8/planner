@@ -98,6 +98,7 @@ public class FirestoreDatabase {
                                             action = new Action(id, desc, start, stop, (int) icon, color);
 
                                             Log.e(TAG, "Action  " + desc);
+
                                             if (MainActivity.appDatabase.appDao().idAction(id) != null) {
                                                 //Akcja istnieje
                                                 MainActivity.appDatabase.appDao().updateAction(action);

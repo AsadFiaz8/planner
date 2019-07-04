@@ -173,6 +173,38 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         } else return false;
     }
 
+    public boolean canGiveOpinion(){
+        boolean gaveOpinion = MainActivity.pref.getBoolean("gave_opinion", false);
+        if(gaveOpinion){
+            return false;
+        } else {
+            long time = MainActivity.pref.getLong("start_day",-1);
+            if(time == -1){
+                editor = MainActivity.pref.edit();
+                editor.putLong("start_day",Calendar.getInstance().getTimeInMillis());
+                editor.commit();
+                return false;
+            } else {
+                if(Calendar.getInstance().getTimeInMillis() - time >= 259200000){
+                    return true;
+                } else return false;
+            }
+        }
+
+    }
+
+    public void setGaveOpinion(boolean opinion){
+        editor=MainActivity.pref.edit();
+        editor.putBoolean("gave_opinion", opinion);
+        editor.commit();
+    }
+
+
+
+
+
+
+
     public boolean getFirstBackup(){
         return MainActivity.pref.getBoolean("first_backup", false);
     }

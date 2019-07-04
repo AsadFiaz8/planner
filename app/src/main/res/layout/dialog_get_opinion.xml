@@ -6,8 +6,9 @@
         android:id="@+id/opinion_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jak podoba Ci się nasza aplikacja?"
-        android:layout_centerHorizontal="true"/>
+        android:text="@string/do_you_like_our_app"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/opinion_star_layout"
@@ -65,7 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Czy chciałbyś ocenić naszą aplikację w sklepie Play?"/>
+            android:text="@string/do_you_like_rate_our_app"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,14 +79,14 @@
                 android:id="@+id/opinion_button_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nie"
+                android:text="@string/no"
                 android:layout_margin="3dp"/>
 
             <Button
                 android:id="@+id/opinion_button_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jasne"
+                android:text="@string/sure"
                 android:layout_margin="3dp"/>
         </LinearLayout>
 
@@ -107,7 +109,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Co chciałbyś abyśmy zmienili?"/>
+            android:text="@string/what_would_you_like_to_change"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"/>
 
         <EditText
             android:id="@+id/opinion_user_text"

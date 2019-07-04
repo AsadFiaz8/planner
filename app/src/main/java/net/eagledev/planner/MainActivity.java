@@ -191,7 +191,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         setupLanguage();
         rl = findViewById(R.id.relative_layout);
         pref = this.getPreferences(Context.MODE_PRIVATE);
-        context = getApplicationContext();
+        context = this;
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "planner").allowMainThreadQueries().addMigrations(MIGRATION_4_5).build();
         fDatabase = new FirestoreDatabase();
         valueHolder = new ValueHolder();
@@ -263,11 +263,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()) {
 
 
-            case R.id.action_test:
+           /* case R.id.action_test:
                 GetOpinionDialog opinionDialog = new GetOpinionDialog(this);
                 opinionDialog.ShowDialog();
                 floatingActionsMenu.collapse();
-                break;
+                break;*/
 
             case R.id.action_1:
 
@@ -571,7 +571,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         btnAims = (FloatingActionButton) findViewById(R.id.action_2);
         btnAims.setOnClickListener(this);
         findViewById(R.id.action_1).setOnClickListener(this);
-        findViewById(R.id.action_test).setOnClickListener(this);
+        //findViewById(R.id.action_test).setOnClickListener(this);
         btnLeft = (FloatingActionButton) findViewById(R.id.btn_left);
         btnLeft.setOnClickListener(this);
         btnRight = (FloatingActionButton) findViewById(R.id.btn_right);
@@ -687,6 +687,10 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 animatorSet.playTogether(anim, animatorY);
                 animatorSet.start();
                 HideButtons();
+                if(valueHolder.canGiveOpinion()){
+                    GetOpinionDialog opinionDialog = new GetOpinionDialog(context);
+                    opinionDialog.ShowDialog();
+                }
             }
 
             @Override
@@ -968,10 +972,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
                 int startA = ac.get(l).getStart_hour()*60+ac.get(l).getStart_minute();
                 int stopA = ac.get(l).getStop_hour()*60+ac.get(l).getStop_minute();
-                //Nie koliduje
-                if(stopA <= startR || startA >= stopR) {
-                    //Log.e(r.getName(),"Nie koliduje z "+ac.get(l).getDesc());
-                }
                 //Koliduje na początku
                 if(stopA > startR && stopA < stopR && startA < startR) {
                     //Log.e(r.getName(),"Koliduje na początku z "+ac.get(l).getDesc());

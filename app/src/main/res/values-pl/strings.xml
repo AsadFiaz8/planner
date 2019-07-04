@@ -204,5 +204,10 @@
     <string name="icon">Ikona</string>
     <string name="time">Czas</string>
     <string name="repeat">Powtarzanie</string>
+    <string name="do_you_like_our_app">Jak podoba Ci się nasza aplikacja?</string>
+    <string name="do_you_like_rate_our_app">Czy chciałbyś ocenić naszą aplikację w sklepie Play?</string>
+    <string name="what_would_you_like_to_change">Co chciałbyś zmienić w aplikacji Planner?</string>
+    <string name="no">Nie</string>
+    <string name="sure">Jasne</string>
 
 </resources>

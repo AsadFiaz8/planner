@@ -360,15 +360,7 @@
             fab:fab_addButtonPlusIconColor="@color/black"
             fab:fab_labelStyle="@style/menu_labels_style">
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorPressed="@color/black"
-                fab:fab_colorNormal="@color/colorAccent"
-                fab:fab_icon="@drawable/finance30"
-                fab:fab_size="mini"
-                fab:fab_title="Test" />
+
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_1"
