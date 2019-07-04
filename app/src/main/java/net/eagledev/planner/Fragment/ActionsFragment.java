@@ -310,6 +310,10 @@ public class ActionsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
         super.onActivityResult(requestCode, resultCode, dataIntent);
 
+        if(resultCode == MainActivity.CODE_CREATED){
+            SetupList(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
+        }
+
         if (dataIntent != null) {
             String messageReturn = dataIntent.getStringExtra("message_return");
             if(messageReturn.equals("refresh")) {

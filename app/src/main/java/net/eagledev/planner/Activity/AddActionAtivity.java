@@ -438,7 +438,10 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                 setResult(MainActivity.CODE_CREATED);
                 if(!edit) {
                     CreateAction();
-                } else UpdateAction();
+                } else {
+                    UpdateAction();
+                    setResult(MainActivity.CODE_CREATED);
+                }
                 //MainActivity.needRefresh = true;
 
                 setResult(MainActivity.CODE_CREATED);

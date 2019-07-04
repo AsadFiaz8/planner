@@ -233,6 +233,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
                 MainActivity.appDatabase.appDao().deleteRoutine(routineID);
                 MainActivity.fDatabase.DeleteRoutine(routineID);
                 refresh();
+                setResult(MainActivity.CODE_CREATED);
                 finish();
                 Toast.makeText(getApplicationContext(), R.string.routine_deleted, Toast.LENGTH_LONG).show();
                 break;
@@ -417,17 +418,16 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         }
 
         if(isOK){
+            setResult(MainActivity.CODE_CREATED);
             if(!edit){
                 Routine newRoutine = new Routine(newID+1, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
                 MainActivity.appDatabase.appDao().addRoutine(newRoutine);
                 MainActivity.fDatabase.AddRoutine(newRoutine);
-                MainActivity.needRefresh = true;
                 finish();
             } else {
                 Routine newRoutine = new Routine(routineID, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
                 MainActivity.appDatabase.appDao().updateRoutine(newRoutine);
                 MainActivity.fDatabase.AddRoutine(newRoutine);
-                refresh();
                 finish();
             }
 

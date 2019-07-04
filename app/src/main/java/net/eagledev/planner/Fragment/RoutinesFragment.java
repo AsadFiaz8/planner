@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.eagledev.planner.Activity.AddRoutine;
 import net.eagledev.planner.Adapter.RoutineAdapter;
 import net.eagledev.planner.Activity.EditRoutineActivity;
 import net.eagledev.planner.Formatter;
@@ -142,8 +143,9 @@ public class RoutinesFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Routine routine = routinesList.get(position);
-                Intent intentEdit = new Intent(context, EditRoutineActivity.class);
+                Intent intentEdit = new Intent(context, AddRoutine.class);
                 intentEdit.putExtra("ID", routine.getId());
+                intentEdit.putExtra("edit", true);
                 startActivityForResult(intentEdit, 1);
             }
         };
@@ -154,6 +156,10 @@ public class RoutinesFragment extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
         super.onActivityResult(requestCode, resultCode, dataIntent);
+
+        if(resultCode == MainActivity.CODE_CREATED){
+            setupList();
+        }
 
         if(dataIntent != null) {
             String messageReturn = dataIntent.getStringExtra("message_return");

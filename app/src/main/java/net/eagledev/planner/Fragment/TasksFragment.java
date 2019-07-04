@@ -298,7 +298,7 @@ public class TasksFragment extends Fragment {
                             Intent editTaskIntent = new Intent(context, AddTaskActivity.class);
                             editTaskIntent.putExtra("ID", task.getId());
                             editTaskIntent.putExtra("edit", true);
-                            startActivity(editTaskIntent);
+                            startActivityForResult(editTaskIntent,0);
                             taskInfoDialog.dismiss();
                         }
                     });
@@ -396,5 +396,14 @@ public class TasksFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == MainActivity.CODE_CREATED){
+            SetupList();
+        }
     }
 }

@@ -68,12 +68,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if(MainActivity.planNextDayCal != null){
                     Log.e(TAG, "planNextDayCal   "+f.dateWithTime(MainActivity.planNextDayCal));
                     Log.e(TAG, "now   "+f.dateWithTime(Calendar.getInstance()));
-                    if(checker.TimeEquals(MainActivity.planNextDayCal, Calendar.getInstance())){
+                    long t = MainActivity.planNextDayCal.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+                    if(t<0) t = t * -1;
+                    if(t < 300000){
                         nm1.notify(notificationId, b1.build());
-                        Log.e(TAG, "Match");
-                    } else {
-                        nm1.notify(notificationId, b1.build());
-                        Log.e(TAG, "Not match");
                     }
 
                 }

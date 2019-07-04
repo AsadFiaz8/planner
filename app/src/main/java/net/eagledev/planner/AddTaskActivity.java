@@ -116,7 +116,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 toolbar_delete.setVisibility(View.VISIBLE);
                 toolbar_delete.setOnClickListener(this);
                 Task task = MainActivity.appDatabase.appDao().idTask(bundle.getInt("ID"));
-                id = task.getId();
+                id = bundle.getInt("ID");
                 name = task.getName();
                 nameText.setText(name);
                 comment = task.getComment();
@@ -395,7 +395,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.toolbar_delete:
                 MainActivity.appDatabase.appDao().deleteTask(id);
-                MainActivity.needRefresh = true;
+                setResult(MainActivity.CODE_CREATED);
                 finish();
                 break;
             case R.id.task_date_button:
@@ -486,7 +486,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         "\nTime Type: "+task.getTime_type()+
                         "\nDays: " +task.getDays());
                 MainActivity.appDatabase.appDao().updateTask(task);
-                MainActivity.needRefresh = true;
+                setResult(MainActivity.CODE_CREATED);
                 finish();
             } catch (Exception e){
                 Log.e(TAG, "updateTask: "+e.getMessage());
@@ -550,7 +550,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         "\nTime Type: "+task.getTime_type()+
                         "\nDays: " +task.getDays());
                 MainActivity.appDatabase.appDao().addTask(task);
-                MainActivity.needRefresh = true;
+                setResult(MainActivity.CODE_CREATED);
                 finish();
 
             } catch (Exception e){
