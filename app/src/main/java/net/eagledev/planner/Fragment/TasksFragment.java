@@ -26,12 +26,14 @@ import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
+import net.eagledev.planner.Reminder;
 import net.eagledev.planner.Task;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -213,7 +215,23 @@ public class TasksFragment extends Fragment {
                     }
                 }
             }
-            taskLister.add(allTaskLists);
+            List <Integer> startTimes = new ArrayList<>();
+            for(int s = 0; s<allTaskLists.size(); s++){
+                startTimes.add(allTaskLists.get(s).getPriority());
+            }
+            Collections.sort(startTimes);
+
+            List<Task> tsk = new ArrayList<>();
+            for (int s = 0;  s < allTaskLists.size(); s++){
+                for(int l = 0; l<allTaskLists.size(); l++){
+                    if(startTimes.get(s) == allTaskLists.get(l).getPriority()){
+                        tsk.add(allTaskLists.get(l));
+                    }
+                }
+
+            }
+
+            taskLister.add(tsk);
 
             int taskDay = t;
             recyclerList.get(taskDay).setHasFixedSize(true);

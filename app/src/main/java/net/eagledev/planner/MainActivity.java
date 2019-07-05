@@ -89,6 +89,7 @@ import net.eagledev.planner.Interface.ItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -1267,7 +1268,22 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
-        final List<Task> taskList = allTaskLists;
+        List <Integer> startTimes = new ArrayList<>();
+        for(int s = 0; s<allTaskLists.size(); s++){
+            startTimes.add(allTaskLists.get(s).getPriority());
+        }
+        Collections.sort(startTimes);
+
+        List<Task> tsk = new ArrayList<>();
+        for (int s = 0;  s < allTaskLists.size(); s++){
+            for(int l = 0; l<allTaskLists.size(); l++){
+                if(startTimes.get(s) == allTaskLists.get(l).getPriority()){
+                    tsk.add(allTaskLists.get(l));
+                }
+            }
+
+        }
+        final List<Task> taskList = tsk;
         //final List<Task> taskList = appDatabase.appDao().getTasks();
         TextView aimNullText = findViewById(R.id.aims_null_text);
         if(taskList.size() == 0) {
