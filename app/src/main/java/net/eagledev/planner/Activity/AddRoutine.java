@@ -19,6 +19,7 @@ import android.widget.Toast;
 import net.eagledev.planner.BuyPremiumActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
+import net.eagledev.planner.HourPickerDialog;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
@@ -27,7 +28,7 @@ import net.eagledev.planner.Routine;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddRoutine extends Activity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
+public class AddRoutine extends Activity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
 
 
     public static final String TAG = "AddRoutine";
@@ -83,6 +84,8 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     Formatter f = new Formatter();
     Dialog d1;
     Dialog d2;
+    public static final int CODE_START = 1;
+    public static final int CODE_STOP = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,34 +198,49 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
                 break;
 
             case R.id.input_routine_start:
-                tpd = new TimePickerDialog(AddRoutine.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        start.set(Calendar.HOUR_OF_DAY, hour);
-                        start.set(Calendar.MINUTE, minute);
-                        btnStartHour.setText(f.Time(start));
-                    }
-                }, 0, 0 , true);
-                tpd.show();
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
+
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_START);
+                }else {
+                    tpd = new TimePickerDialog(AddRoutine.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                            start.set(Calendar.HOUR_OF_DAY, hour);
+                            start.set(Calendar.MINUTE, minute);
+                            btnStartHour.setText(f.Time(start));
+                        }
+                    }, 0, 0 , true);
+                    tpd.show();
+                }
+
                 break;
 
             case R.id.input_routine_stop:
-                tpd = new TimePickerDialog(AddRoutine.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
 
-                        if(hour == 0 && minute == 0) {
-                            stop.set(Calendar.HOUR_OF_DAY, 23);
-                            stop.set(Calendar.MINUTE, 59);
-                        } else {
-                            stop.set(Calendar.HOUR_OF_DAY, hour);
-                            stop.set(Calendar.MINUTE, minute);
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_STOP);
+                }else {
+
+                    tpd = new TimePickerDialog(AddRoutine.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+                            if(hour == 0 && minute == 0) {
+                                stop.set(Calendar.HOUR_OF_DAY, 23);
+                                stop.set(Calendar.MINUTE, 59);
+                            } else {
+                                stop.set(Calendar.HOUR_OF_DAY, hour);
+                                stop.set(Calendar.MINUTE, minute);
+                            }
+                            btnStopHour.setText(f.Time(stop));
+
                         }
-                        btnStopHour.setText(f.Time(stop));
+                    }, 0, 0 , true);
+                    tpd.show();
+                }
 
-                    }
-                }, 0, 0 , true);
-                tpd.show();
                 break;
 
             case R.id.toolbar_cancel:
@@ -1234,6 +1252,25 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
                 d1.dismiss();
                 imageIcon.setImageDrawable(getDrawable(icon));
                 break;
+        }
+    }
+
+    @Override
+    public void getHourPickerDialogTime(int requestCode, int hour, int minute) {
+        if(requestCode == CODE_START){
+            start.set(Calendar.HOUR_OF_DAY, hour);
+            start.set(Calendar.MINUTE, minute);
+            btnStartHour.setText(f.Time(start));
+        }
+        if(requestCode == CODE_STOP){
+            if(hour == 0 && minute == 0) {
+                stop.set(Calendar.HOUR_OF_DAY, 23);
+                stop.set(Calendar.MINUTE, 59);
+            } else {
+                stop.set(Calendar.HOUR_OF_DAY, hour);
+                stop.set(Calendar.MINUTE, minute);
+            }
+            btnStopHour.setText(f.Time(stop));
         }
     }
 }

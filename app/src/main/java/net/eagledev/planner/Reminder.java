@@ -100,6 +100,10 @@ public class Reminder {
         year = c.get(Calendar.YEAR);
     }
 
+    public int getStartMinutes(){
+        return hour*60+minute;
+    }
+
     public Calendar getDate() {
         Calendar cal = new Calendar() {
             @Override

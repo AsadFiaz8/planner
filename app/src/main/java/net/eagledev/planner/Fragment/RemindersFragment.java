@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import net.eagledev.planner.Action;
 import net.eagledev.planner.Adapter.ReminderAdapter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
@@ -21,6 +22,7 @@ import net.eagledev.planner.R;
 import net.eagledev.planner.Reminder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -123,6 +125,23 @@ public class RemindersFragment extends Fragment {
     }
 
     private void setupList() {
+        List<Reminder> reminderNoSortList = MainActivity.appDatabase.appDao().getUndoneRminders();
+        List <Integer> startTimes = new ArrayList<>();
+        for(int s = 0; s<reminderNoSortList.size(); s++){
+            startTimes.add(reminderNoSortList.get(s).getStartMinutes());
+        }
+        Collections.sort(startTimes);
+        List<Reminder> act = new ArrayList<>();
+        for (int s = 0;  s < reminderNoSortList.size(); s++){
+            for(int l = 0; l<reminderNoSortList.size(); l++){
+                if(startTimes.get(s) == reminderNoSortList.get(l).getStartMinutes()){
+                    act.add(reminderNoSortList.get(l));
+                }
+            }
+
+        }
+
+
         list = MainActivity.appDatabase.appDao().getUndoneRminders();
         recyclerView = (RecyclerView) view.findViewById(R.id.reminders_reycler_view);
         recyclerView.setHasFixedSize(true);
@@ -142,7 +161,7 @@ public class RemindersFragment extends Fragment {
                 }
             }
         };
-        adapter = new ReminderAdapter(context, list, itemClickListener);
+        adapter = new ReminderAdapter(context, act, itemClickListener);
         recyclerView.setAdapter(adapter);
     }
 
