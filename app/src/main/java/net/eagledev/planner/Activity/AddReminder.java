@@ -186,9 +186,13 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             date.set(Calendar.SECOND, 0);
+            Formatter f = new Formatter();
+            Log.e("AddReminder", f.Time(date));
 
 
-            alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            long elapsedTime = date.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+            //alarm.set(AlarmManager.RTC, date.getTimeInMillis(), alarmIntent);
+            alarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, elapsedTime, alarmIntent);
 
             //scheduleJob();
             
