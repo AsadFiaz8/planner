@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -171,6 +173,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     public static AppDatabase appDatabase;
     FragmentManager fragmentManager = getFragmentManager();
     public static FirebaseAnalytics mFirebaseAnalytics;
+    GestureDetectorCompat gestureObject;
 
     PieChart chart;
     Button btn;
@@ -231,6 +234,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         //------------------ Tutaj tymczasowo będę wrzucać nowy kod
 
 
+        gestureObject = new GestureDetectorCompat(this, new LearnGesture(this));
 
 
         if(appDatabase.appDao().getMaxActionID() > 0 && !valueHolder.getFirstBackup()){
@@ -1310,13 +1314,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 TextView repeating = taskInfoDialog.findViewById(R.id.dialog_task_info_repeating);
                 switch (task.getRepeat_type()){
                     case 0:
-                        repeating.setText("Brak");
+                        repeating.setText(getResources().getString(R.string.no));
                         break;
                     case 2:
                         String timeType="";
-                        if(task.time_type==0) timeType = "dni";
-                        if(task.time_type==1) timeType = "tygodnie";
-                        if(task.time_type==2) timeType = "miesiące";
+                        if(task.time_type==0) timeType = getResources().getString(R.string.days);
+                        if(task.time_type==1) timeType = getResources().getString(R.string.weeks);
+                        if(task.time_type==2) timeType = getResources().getString(R.string.months);
                         repeating.setText("Co "+task.getRepeat_gap()+" "+timeType);
                         break;
                     case 1:
@@ -1353,15 +1357,15 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
                 if (task.getRepeat_type()>0){
                     if (task.isCompleted()){
-                        completed.setText("Ostatni ukończony z dnia "+f.Date(task.CompletedTime()));
+                        completed.setText(getResources().getString(R.string.last_completed_from_day)+f.Date(task.CompletedTime()));
                     } else {
-                        completed.setText("Nie");
+                        completed.setText(getResources().getString(R.string.no));
                     }
                 } else {
                     if (task.isCompleted()){
-                        completed.setText("Tak");
+                        completed.setText(getResources().getString(R.string.yes));
                     } else {
-                        completed.setText("Nie");
+                        completed.setText(getResources().getString(R.string.no));
                     }
                 }
 
@@ -1717,6 +1721,41 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
                 break;
         }
+    }
+
+    public void dayLeft(){
+        currentDate.add(Calendar.DATE, -1);
+        chart.highlightValue(1, 1);
+        clockLayout.startAnimation(clockOut);
+        ReadData(false);
+        setupPieChart();
+        setDate();
+        switchClockArrow();
+        clockLayout.startAnimation(clockIn);
+        showDate = f.DateForClock(currentDate);
+        actionInfo.setText(showDate);
+        chart.setSelected(false);
+    }
+
+    public void dayRight(){
+        currentDate.add(Calendar.DATE, 1);
+        chart.highlightValue(1, 1);
+        clockLayout.startAnimation(clockOut);
+        ReadData(false);
+        setupPieChart();
+        setDate();
+        switchClockArrow();
+        clockLayout.startAnimation(clockIn);
+        showDate = f.DateForClock(currentDate);
+        actionInfo.setText(showDate);
+        chart.setSelected(false);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.e(TAG, "TouchEvent");
+        this.gestureObject.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 }
 

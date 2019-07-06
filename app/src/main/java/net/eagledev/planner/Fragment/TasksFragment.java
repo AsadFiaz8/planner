@@ -257,13 +257,13 @@ public class TasksFragment extends Fragment {
 
                     switch (task.getRepeat_type()){
                         case 0:
-                            repeating.setText("Brak");
+                            repeating.setText(getResources().getString(R.string.no));
                             break;
                         case 2:
                             String timeType="";
-                            if(task.getTime_type()==0) timeType = "dni";
-                            if(task.getTime_type()==1) timeType = "tygodnie";
-                            if(task.getTime_type()==2) timeType = "miesiące";
+                            if(task.getTime_type()==0) timeType = getResources().getString(R.string.days);
+                            if(task.getTime_type()==1) timeType = getResources().getString(R.string.weeks);
+                            if(task.getTime_type()==2) timeType = getResources().getString(R.string.months);
                             repeating.setText("Co "+task.getRepeat_gap()+" "+timeType);
                             break;
                         case 1:
@@ -297,15 +297,15 @@ public class TasksFragment extends Fragment {
                     TextView completed = taskInfoDialog.findViewById(R.id.dialog_task_info_completed);
                     if (task.getRepeat_type()>0){
                         if (task.isCompleted()){
-                            completed.setText("Ostatni ukończony z dnia "+f.Date(task.CompletedTime()));
+                            completed.setText(getResources().getString(R.string.last_completed_from_day)+f.Date(task.CompletedTime()));
                         } else {
-                            completed.setText("Nie");
+                            completed.setText(getResources().getString(R.string.no));
                         }
                     } else {
                         if (task.isCompleted()){
-                            completed.setText("Tak");
+                            completed.setText(getResources().getString(R.string.yes));
                         } else {
-                            completed.setText("Nie");
+                            completed.setText(getResources().getString(R.string.no));
                         }
                     }
 

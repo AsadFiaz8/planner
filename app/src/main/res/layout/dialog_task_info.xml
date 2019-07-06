@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nazwa"
+        android:text="@string/name"
         android:layout_marginLeft="10dp"/>
     <TextView
         android:id="@+id/dialog_task_info_name"
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data"
+        android:text="@string/date"
         android:layout_marginLeft="10dp"
         />
     <TextView
@@ -47,14 +47,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Powtarzanie"
+        android:text="@string/repeat"
         android:layout_marginLeft="10dp"
         />
     <TextView
         android:id="@+id/dialog_task_info_repeating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Codziennie"
+        android:text="@string/everyday"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginLeft="10dp"
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Etykieta"
+        android:text="@string/label"
         android:layout_marginLeft="10dp"
         />
     <TextView
@@ -77,7 +77,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Komentarz"
+        android:text="@string/comment"
         android:layout_marginLeft="10dp"
         />
     <TextView
@@ -93,7 +93,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ukończone"
+        android:text="@string/complete"
         android:layout_marginLeft="10dp"
         />
     <TextView
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         style="@style/AppTheme.Button"
-        android:text="Edytuj"/>
+        android:text="@string/edit"/>
 
 
 </LinearLayout>

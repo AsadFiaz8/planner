@@ -71,7 +71,7 @@
             android:layout_below="@id/task_date_button"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="5dp"
-            android:text="Powtarzanie" />
+            android:text="@string/repeat" />
 
         <Spinner
             android:id="@+id/task_repeat_spinner"
@@ -183,7 +183,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Powtarzaj co" />
+                    android:text="@string/every" />
 
                 <EditText
                     android:id="@+id/task_amout_edittext"
@@ -223,7 +223,7 @@
             android:layout_below="@id/task_repeat_layout"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="5dp"
-            android:text="Etykieta" />
+            android:text="@string/label" />
 
         <Spinner
             android:id="@+id/task_label_spinner"
@@ -249,7 +249,7 @@
             android:layout_below="@id/task_label_spinner"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="5dp"
-            android:text="Priorytet" />
+            android:text="@string/priority" />
 
         <LinearLayout
             android:id="@+id/task_priority_layout"
@@ -309,7 +309,7 @@
             android:layout_below="@id/task_priority_layout"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="5dp"
-            android:text="Komentarz" />
+            android:text="@string/comment" />
 
         <EditText
             android:id="@+id/task_comment"

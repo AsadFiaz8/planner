@@ -210,6 +210,16 @@
     <string name="what_would_you_like_to_change">What would you like to change in the Planner app?</string>
     <string name="no">No</string>
     <string name="sure">Sure!</string>
+    <string name="days">days</string>
+    <string name="weeks">weeks</string>
+    <string name="months">months</string>
+    <string name="yes">es</string>
+    <string name="last_completed_from_day">Last complete in day</string>
+    <string name="label">Label</string>
+    <string name="comment">Comment</string>
+    <string name="complete">Complete</string>
+    <string name="every">Every</string>
+    <string name="priority">Priority</string>
 
 
 </resources>

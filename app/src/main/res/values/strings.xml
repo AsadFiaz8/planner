@@ -215,5 +215,15 @@
     <string name="what_would_you_like_to_change">Co chciałbyś zmienić w aplikacji Planner?</string>
     <string name="no">Nie</string>
     <string name="sure">Jasne</string>
+    <string name="days">dni</string>
+    <string name="weeks">tygodnie</string>
+    <string name="months">miesiące</string>
+    <string name="yes">Tak</string>
+    <string name="last_completed_from_day">Ostatni ukończony z dnia</string>
+    <string name="label">Etykieta</string>
+    <string name="comment">Komentarz</string>
+    <string name="complete">Ukończone</string>
+    <string name="every">Powtarzaj co</string>
+    <string name="priority">Priorytet</string>
 
 </resources>
