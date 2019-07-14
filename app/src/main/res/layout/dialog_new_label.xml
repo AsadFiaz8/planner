@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nowa Etykieta"
+            android:text="@string/new_label"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nazwa"
+        android:hint="@string/name"
         android:layout_gravity="center_horizontal"
         android:inputType="textCapSentences" />
 

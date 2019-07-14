@@ -6,7 +6,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorAccent"
+        android:background="@drawable/toolbar_background"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -17,38 +17,37 @@
 
             <ImageView
                 android:id="@+id/toolbar_cancel"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
-                android:padding="10dp"
+
                 android:src="@drawable/common01"
                 android:tint="@color/toolbar_icons"
-                android:layout_centerVertical="true"/>
+                android:layout_marginTop="5dp"/>
 
             <ImageView
                 android:id="@+id/toolbar_confirm"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:padding="10dp"
                 android:src="@drawable/common02"
                 android:tint="@color/toolbar_icons"
+                android:layout_alignTop="@id/toolbar_cancel"
                 />
 
             <ImageView
                 android:id="@+id/toolbar_delete"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:src="@drawable/ui15"
-                android:layout_alignTop="@id/toolbar_confirm"
+                android:layout_alignTop="@id/toolbar_cancel"
                 android:layout_alignRight="@id/toolbar_confirm"
                 android:layout_marginRight="50dp"
                 android:visibility="invisible"
                 android:tint="@color/toolbar_icons"
                 android:layout_centerVertical="true"
-                android:padding="10dp"/>
+                />
 
         </RelativeLayout>
 

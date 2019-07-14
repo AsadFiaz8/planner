@@ -219,5 +219,6 @@
     <string name="complete">Ukończone</string>
     <string name="every">Powtarzaj co</string>
     <string name="priority">Priorytet</string>
+    <string name="new_label">Nowa Etykieta</string>
 
 </resources>

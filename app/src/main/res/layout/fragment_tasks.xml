@@ -1,13 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.eagledev.planner.Fragment.TasksFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/background"
+        >
 
         <LinearLayout
             android:id="@+id/task_day1"
@@ -20,15 +30,11 @@
                 android:id="@+id/task_name_day1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view1"
@@ -49,15 +55,11 @@
                 android:id="@+id/task_name_day2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view2"
@@ -78,15 +80,11 @@
                 android:id="@+id/task_name_day3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view3"
@@ -106,15 +104,11 @@
                 android:id="@+id/task_name_day4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view4"
@@ -135,15 +129,11 @@
                 android:id="@+id/task_name_day5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view5"
@@ -163,15 +153,11 @@
                 android:id="@+id/task_name_day6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view6"
@@ -191,15 +177,11 @@
                 android:id="@+id/task_name_day7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7"
+                android:text=""
                 android:textColor="@color/action_fragment_day_text"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/task_layout_line"
-                android:background="@color/action_fragment_day_line">
-            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view7"
@@ -210,5 +192,27 @@
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_gradient"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageButton
+            android:id="@+id/task_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plus"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

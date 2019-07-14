@@ -21,31 +21,31 @@
         android:id="@+id/main_linear_layout">
 
 
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:background="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_background"
             android:elevation="4dp"
+            android:layout_gravity="center_horizontal"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextColor="@color/white" />
 
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
 
 
 
             <FrameLayout
-                android:id="@+id/contnet_frame"
+                android:id="@+id/content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
                 <RelativeLayout
@@ -228,6 +228,7 @@
                         android:layout_alignTop="@+id/btn_left"
                         android:layout_alignParentEnd="true"
                         app:fab_colorPressed="@color/colorPrimaryDark"
+
                         fab:fab_colorNormal="@color/colorAccent"
                         fab:fab_icon="@drawable/ic_right" />
 
@@ -245,6 +246,8 @@
                         fab:fab_icon="@drawable/ic_left" />
 
 
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -256,17 +259,19 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorAccent"
-                            android:backgroundTint="@color/colorAccent">
+                            android:background="@drawable/task_for_toady_background"
+                            >
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
+                                android:layout_marginTop="4dp"
                                 android:paddingTop="2dp"
                                 android:paddingBottom="2dp"
                                 android:text="@string/tasks_for_today"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                                android:textColor="@color/white" />
                         </RelativeLayout>
 
 
@@ -314,9 +319,10 @@
                 </RelativeLayout>
 
 
+                </ScrollView>
             </FrameLayout>
 
-        </ScrollView>
+
 
 
 
@@ -398,6 +404,7 @@
                 android:id="@+id/action_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 app:fab_colorPressed="@color/colorPrimaryDark"
                 fab:fab_colorNormal="@color/colorAccent"
                 fab:fab_icon="@drawable/finance50"
