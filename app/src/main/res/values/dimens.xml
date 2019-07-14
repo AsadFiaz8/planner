@@ -27,5 +27,8 @@
     <dimen name="task_layout_margin_top">15dp</dimen>
     <dimen name="task_layout_text_left_margin">10dp</dimen>
 
+    <dimen name="add_task_text_size">16dp</dimen>
+    <dimen name="task_priority_btn_size">50dp</dimen>
+
 
 </resources>

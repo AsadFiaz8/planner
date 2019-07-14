@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,15 +46,15 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     ImageView toolbar_cancel;
     ImageView toolbar_delete;
     TextView nameText;
-    Button dateButton;
+    TextView dateButton;
     Spinner repeatSpinner;
     EditText gapText;
     Spinner timeSpinner;
     Spinner labelSpinner;
-    ImageButton priorityButton1;
-    ImageButton priorityButton2;
-    ImageButton priorityButton3;
-    ImageButton priorityButton4;
+    ImageView priorityButton1;
+    ImageView priorityButton2;
+    ImageView priorityButton3;
+    ImageView priorityButton4;
     LinearLayout daysLayout;
     LinearLayout intervalsLayout;
     EditText commentText;
@@ -90,9 +91,6 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     Context context;
     boolean completed;
     long completedTime;
-
-
-
 
 
 
@@ -178,7 +176,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         daysLayout = findViewById(R.id.task_days_layout);
         intervalsLayout = findViewById(R.id.task_other_layout);
         nameText = findViewById(R.id.task_name);
-        dateButton = findViewById(R.id.task_date_button);
+        dateButton = findViewById(R.id.task_date);
         dateButton.setOnClickListener(this);
         repeatSpinner = findViewById(R.id.task_repeat_spinner);
         ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this,
@@ -193,6 +191,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 setRepeatLayout(position);
                 if(position > 0){
                     repeat = true;
+
                 } else repeat = false;
             }
 

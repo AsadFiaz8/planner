@@ -107,7 +107,7 @@ public class TasksFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.context, AddTaskActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
         SetupList();
