@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -101,6 +102,14 @@ public class TasksFragment extends Fragment {
 
         context = getActivity();
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        ImageButton btnAdd = view.findViewById(R.id.task_add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.context, AddTaskActivity.class);
+                startActivity(intent);
+            }
+        });
         SetupList();
         return view;
     }
@@ -334,16 +343,16 @@ public class TasksFragment extends Fragment {
                         calendar.setTimeInMillis(task.getCompletedTime());
                         if (checker.Before(calendar, date)){
                             task.setCompletedTime(date.getTimeInMillis());
-                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui21));
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.task_check_on));
                         } else {
                             task.setCompletedTime(date.getTimeInMillis()-86400000);
-                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui96));
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.task_check_off));
                         }
                     } else {
                         if(task.isCompleted()) {
-                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui21));
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.task_check_on));
                         }else {
-                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.ui96));
+                            imageButton.setImageDrawable(getResources().getDrawable(R.drawable.task_check_off));
                         }
                     }
 

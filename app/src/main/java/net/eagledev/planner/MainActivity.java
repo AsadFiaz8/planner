@@ -4,7 +4,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.PendingIntent;
@@ -43,7 +42,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -71,17 +69,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.eagledev.planner.Activity.AddActionAtivity;
-import net.eagledev.planner.Activity.AddAimActivity;
 import net.eagledev.planner.Activity.AddReminder;
 import net.eagledev.planner.Activity.AddRoutine;
-import net.eagledev.planner.Activity.EditActionActivity;
-import net.eagledev.planner.Activity.EditAimActivity;
-import net.eagledev.planner.Activity.EditRoutineActivity;
-import net.eagledev.planner.Adapter.AimAdapter;
 import net.eagledev.planner.Adapter.TaskAdapter;
 import net.eagledev.planner.Fragment.AccountFragment;
 import net.eagledev.planner.Fragment.ActionsFragment;
-import net.eagledev.planner.Fragment.AimsFragment;
 import net.eagledev.planner.Fragment.ContactFragment;
 import net.eagledev.planner.Fragment.RemindersFragment;
 import net.eagledev.planner.Fragment.RoutinesFragment;
@@ -367,7 +359,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.header_layout:
-                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AccountFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new AccountFragment()).commit();
                 rl.setVisibility(View.INVISIBLE);
                 floatingActionsMenu.setVisibility(View.INVISIBLE);
                 toolbar.setTitle(R.string.account);
@@ -407,7 +399,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
         if(setMainPage){
             android.app.Fragment frag = new android.app.Fragment();
-            fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
             Refresh();
             rl.setVisibility(View.VISIBLE);
             floatingActionsMenu.setVisibility(View.VISIBLE);
@@ -427,7 +419,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.text09);
+        actionbar.setHomeAsUpIndicator(R.drawable.menu_filled);
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -445,36 +437,38 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         switch (menuItem.getItemId()) {
                             case R.id.nav_main:
                                 android.app.Fragment frag = new android.app.Fragment();
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
                                 Refresh();
                                 rl.setVisibility(View.VISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.main_page);
                                 selectedScreen = R.id.nav_main;
+                                floatingActionsMenu.setVisibility(View.VISIBLE);
                                 break;
                             case R.id.nav_actions:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new ActionsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.scheduled_activities);
                                 selectedScreen = R.id.nav_actions;
                                 break;
                             case R.id.nav_routines:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RoutinesFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new RoutinesFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.routines);
                                 selectedScreen = R.id.nav_routines;
                                 break;
                             case R.id.nav_tasks:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new TasksFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.tasks);
                                 selectedScreen = R.id.nav_tasks;
+                                floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 break;
                             case R.id.nav_reminders:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RemindersFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new RemindersFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.reminders);
@@ -482,7 +476,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 break;
 
                             case R.id.nav_settings:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new SettingsFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.settings);
                                 floatingActionsMenu.setVisibility(View.INVISIBLE);
@@ -495,7 +489,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 break;
 
                             case R.id.nav_contact:
-                                fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ContactFragment()).commit();
+                                fragmentManager.beginTransaction().replace(R.id.content_frame, new ContactFragment()).commit();
                                 rl.setVisibility(View.INVISIBLE);
                                 floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 toolbar.setTitle(R.string.contact);
@@ -1141,13 +1135,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         android.app.Fragment frag = new android.app.Fragment();
-        fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
         rl.setVisibility(View.VISIBLE);
         toolbar.setTitle(R.string.main_page);
     }
 
     public void CloseActionFragment() {
-        fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new ActionsFragment()).commit();
 
         rl.setVisibility(View.INVISIBLE);
     }
@@ -1168,8 +1162,8 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setDrawables() {
-        drawables.add(getDrawable(R.drawable.ui21));
-        drawables.add(getDrawable(R.drawable.ui96));
+        drawables.add(getDrawable(R.drawable.task_check_on));
+        drawables.add(getDrawable(R.drawable.task_check_off));
     }
 
     private void setupList() {
@@ -1394,16 +1388,16 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     calendar.setTimeInMillis(task.getCompletedTime());
                     if (checker.Before(calendar, now)){
                         task.setCompletedTime(now.getTimeInMillis());
-                        imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
+                        imageButton.setImageDrawable(getDrawable(R.drawable.task_check_on));
                     } else {
                         task.setCompletedTime(now.getTimeInMillis()-86400000);
-                        imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
+                        imageButton.setImageDrawable(getDrawable(R.drawable.task_check_off));
                     }
                 } else {
                     if(task.isCompleted()) {
-                        imageButton.setImageDrawable(getDrawable(R.drawable.ui21));
+                        imageButton.setImageDrawable(getDrawable(R.drawable.task_check_on));
                     }else {
-                        imageButton.setImageDrawable(getDrawable(R.drawable.ui96));
+                        imageButton.setImageDrawable(getDrawable(R.drawable.task_check_off));
                     }
                 }
 
@@ -1510,7 +1504,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
     public void showMainPage(){
         android.app.Fragment frag = new android.app.Fragment();
-        fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
         rl.setVisibility(View.VISIBLE);
         toolbar.setTitle(R.string.main_page);
         needShowMainPage = false;
@@ -1579,7 +1573,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_CODE_TUT){
-            fragmentManager.beginTransaction().replace(R.id.contnet_frame, new AccountFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new AccountFragment()).commit();
             rl.setVisibility(View.INVISIBLE);
             floatingActionsMenu.setVisibility(View.INVISIBLE);
             toolbar.setTitle(R.string.account);
@@ -1593,12 +1587,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     Log.e(TAG, "nav_main");
                     Refresh();
                     android.app.Fragment frag = new android.app.Fragment();
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, frag).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
                     rl.setVisibility(View.VISIBLE);
                     toolbar.setTitle(R.string.main_page);
                     break;
                 case R.id.nav_actions:
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ActionsFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new ActionsFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     floatingActionsMenu.setVisibility(View.VISIBLE);
                     toolbar.setTitle(R.string.scheduled_activities);
@@ -1607,7 +1601,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     break;
                 case R.id.nav_routines:
                     Log.e(TAG, "nav_routines");
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RoutinesFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new RoutinesFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     floatingActionsMenu.setVisibility(View.VISIBLE);
                     toolbar.setTitle(R.string.routines);
@@ -1615,7 +1609,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     break;
                 case R.id.nav_tasks:
                     Log.e(TAG, "nav_tasks");
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new TasksFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new TasksFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     floatingActionsMenu.setVisibility(View.VISIBLE);
                     toolbar.setTitle(R.string.tasks);
@@ -1623,7 +1617,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                     break;
                 case R.id.nav_reminders:
                     Log.e(TAG, "nav_reminders");
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new RemindersFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new RemindersFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     floatingActionsMenu.setVisibility(View.VISIBLE);
                     toolbar.setTitle(R.string.reminders);
@@ -1632,7 +1626,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
                 case R.id.nav_settings:
                     Log.e(TAG, "nav_settings");
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new SettingsFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     toolbar.setTitle(R.string.settings);
                     floatingActionsMenu.setVisibility(View.INVISIBLE);
@@ -1646,7 +1640,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
                 case R.id.nav_contact:
                     Log.e(TAG, "nav_contact");
-                    fragmentManager.beginTransaction().replace(R.id.contnet_frame, new ContactFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, new ContactFragment()).commit();
                     rl.setVisibility(View.INVISIBLE);
                     floatingActionsMenu.setVisibility(View.INVISIBLE);
                     toolbar.setTitle(R.string.contact);
