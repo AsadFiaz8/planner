@@ -153,24 +153,27 @@ public class TasksFragment extends Fragment {
                     }
                 }
                 if (!isExist){
-                    Log.e("Addeed" , "2");
+                    Log.e("Added" , "2");
                     dayTaskList.get(i).setUsingDate(date);
                     allTaskLists.add(dayTaskList.get(i));
                 }
             }
-            for (int i = 0 ; i<todayRepeatTypDay.size(); i++){
-                boolean isExist = false;
-                for (int l = 0; l<allTaskLists.size(); l++){
-                    if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
-                        //Sparwdzanie czy zadanie o danym id już zostało dodane
-                        isExist = true;
+            if(dayTaskList.size() > 0){
+                for (int i = 0 ; i<todayRepeatTypDay.size(); i++){
+                    boolean isExist = false;
+                    for (int l = 0; l<allTaskLists.size(); l++){
+                        if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
+                            //Sparwdzanie czy zadanie o danym id już zostało dodane
+                            isExist = true;
+                        }
+                    }
+                    if (!isExist){
+                        todayRepeatTypDay.get(i).setUsingDate(date);
+                        allTaskLists.add(todayRepeatTypDay.get(i));
                     }
                 }
-                if (!isExist){
-                    todayRepeatTypDay.get(i).setUsingDate(date);
-                    allTaskLists.add(todayRepeatTypDay.get(i));
-                }
             }
+
             for (int i = 0 ; i<todayRepeatTypInterval.size(); i++){
                 Task task = todayRepeatTypInterval.get(i);
                 Calendar tCal = Calendar.getInstance();

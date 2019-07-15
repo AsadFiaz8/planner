@@ -79,12 +79,14 @@
                     android:textSize="@dimen/add_task_text_size"
                     android:layout_alignTop="@id/task_date_icon"/>
 
-                <TextView
+                <Button
                     android:id="@+id/task_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/task_date_icon"
-                    android:textSize="@dimen/add_task_text_size"/>
+                    android:textSize="@dimen/add_task_text_size"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/colorAccent"/>
 
 
             </RelativeLayout>
@@ -132,10 +134,11 @@
                         android:id="@+id/task_mo"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/mo"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
 
 
@@ -144,59 +147,65 @@
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/tu"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/task_we"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/we"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/task_th"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/th"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/task_fr"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/fr"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/task_sa"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/sa"
                         android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
+                        android:layout_marginRight="@dimen/task_days_margin"
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/task_su"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
                         android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
+                        android:background="@drawable/task_day_unselected"
                         android:text="@string/su"
                         android:gravity="center"
+                        android:textColor="@color/colorAccent"
                         />
                 </LinearLayout>
 

@@ -46,7 +46,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     ImageView toolbar_cancel;
     ImageView toolbar_delete;
     TextView nameText;
-    TextView dateButton;
+    Button dateButton;
     Spinner repeatSpinner;
     EditText gapText;
     Spinner timeSpinner;
@@ -397,7 +397,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 setResult(MainActivity.CODE_CREATED);
                 finish();
                 break;
-            case R.id.task_date_button:
+            case R.id.task_date:
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int dyear, int dmonth, int ddayOfMonth) {
@@ -415,9 +415,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                     Log.e(TAG, e.getMessage());
                 }
                 break;
-                case R.id.task_priority1:
-                    setPriority(1);
-                    break;
+            case R.id.task_priority1:
+                setPriority(1);
+                break;
             case R.id.task_priority2:
                 setPriority(2);
                 break;
@@ -501,15 +501,19 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         int[] ints = {0};
         int[][] all = {ints};
         int[] colorBackground = {getColor(R.color.background)};
+        int[] colorWhite = {getColor(R.color.white)};
         int[] colorAccent = {getColor(R.color.colorAccent)};
+
         if(days.charAt(index)=='0'){
-            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
+            textView.setBackground(getDrawable(R.drawable.task_day_selected));
+            textView.setTextColor(new ColorStateList(all, colorWhite));
             if(index!=7){
                 days = days.substring(0, index)+"1"+days.substring(index+1);
             } else days = days.substring(0, index)+"1";
 
         } else {
-            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
+            textView.setBackground(getDrawable(R.drawable.task_day_unselected));
+            textView.setTextColor(new ColorStateList(all, colorAccent));
             if(i!=7){
                 days = days.substring(0, index)+"0"+days.substring(index+1);
             } else days = days.substring(0, index)+"0";
@@ -587,22 +591,26 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         int[][] all = {ints};
         int[] colorBackground = {getColor(R.color.background)};
         int[] colorAccent = {getColor(R.color.colorAccent)};
-        priorityButton1.setBackgroundTintList(new ColorStateList(all,colorBackground));
-        priorityButton2.setBackgroundTintList(new ColorStateList(all,colorBackground));
-        priorityButton3.setBackgroundTintList(new ColorStateList(all,colorBackground));
-        priorityButton4.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        //priorityButton1.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        //priorityButton2.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        //priorityButton3.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        //priorityButton4.setBackgroundTintList(new ColorStateList(all,colorBackground));
+        priorityButton1.setImageDrawable(getDrawable(R.drawable.icon_priority_1_off));
+        priorityButton2.setImageDrawable(getDrawable(R.drawable.icon_priority_2_off));
+        priorityButton3.setImageDrawable(getDrawable(R.drawable.icon_priority_3_off));
+        priorityButton4.setImageDrawable(getDrawable(R.drawable.icon_priority_4_off));
         switch (priority){
             case 1:
-                priorityButton1.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                priorityButton1.setImageDrawable(getDrawable(R.drawable.icon_priority_1_on));
                 break;
             case 2:
-                priorityButton2.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                priorityButton2.setImageDrawable(getDrawable(R.drawable.icon_priority_2_on));
                 break;
             case 3:
-                priorityButton3.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                priorityButton3.setImageDrawable(getDrawable(R.drawable.icon_priority_3_on));
                 break;
             case 4:
-                priorityButton4.setBackgroundTintList(new ColorStateList(all,colorAccent));
+                priorityButton4.setImageDrawable(getDrawable(R.drawable.icon_priority_4_on));
                 break;
         }
     }
