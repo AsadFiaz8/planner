@@ -181,7 +181,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         repeatSpinner = findViewById(R.id.task_repeat_spinner);
         ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this,
                 R.array.task_repeat_array,
-                android.R.layout.simple_spinner_item);
+                R.layout.spinner_layout_regular);
         repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repeatSpinner.setAdapter(repeatAdapter);
         repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -204,7 +204,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         timeSpinner = findViewById(R.id.task_time_spinner);
         ArrayAdapter<CharSequence> timeAdapter = ArrayAdapter.createFromResource(this,
                 R.array.task_time_array,
-                android.R.layout.simple_spinner_item);
+                R.layout.spinner_layout_regular);
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timeSpinner.setAdapter(timeAdapter);
         timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -220,7 +220,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         });
         labelSpinner = findViewById(R.id.task_label_spinner);
         loadLabelList();
-        final ArrayAdapter<String> labelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
+        final ArrayAdapter<String> labelAdapter = new ArrayAdapter<>(this, R.layout.spinner_layout_regular, labelList);
         labelSpinner.setAdapter(labelAdapter);
         labelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

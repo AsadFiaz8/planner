@@ -55,7 +55,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:src="@drawable/grid15"
-
+                    android:backgroundTint="@color/colorAccentDark"
                     />
 
                 <ImageView
@@ -67,7 +67,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="3dp"
                     android:src="@drawable/priority1"
-
+                    android:backgroundTint="@color/colorAccentDark"
                     />
 
                 <TextView

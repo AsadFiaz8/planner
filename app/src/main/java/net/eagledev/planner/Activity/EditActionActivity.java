@@ -56,7 +56,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
 
         ImageView btn_select_icon;
         TextView btn_date;
-        TextView btn_date2;
         int aDay;
         int aMonth;
         int aYear;
@@ -188,9 +187,7 @@ public class EditActionActivity extends Activity implements View.OnClickListener
             // Buttons
 
             btn_date = findViewById(R.id.action_date_start_btn);
-            btn_date2 = findViewById(R.id.action_date_stop_btn);
             btn_date.setText(f.DateText(date_start));
-            btn_date2.setText(f.DateText(date_start));
             aDay = day;
             aMonth = month;
             aYear = year;
@@ -210,7 +207,6 @@ public class EditActionActivity extends Activity implements View.OnClickListener
                             date_stop.set(Calendar.MONTH, mMonth);
                             date_stop.set(Calendar.DAY_OF_MONTH, mDay);
                             btn_date.setText(f.Date(date_start));
-                            btn_date2.setText(f.Date(date_start));
                         }
                     },year, month , day);
                     dpd.show();

@@ -22,7 +22,8 @@
             android:textSize="25dp"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
+            android:layout_marginRight="30dp"
+            style="@style/Planner.RegularText"/>
 
         <Button
             android:id="@+id/user_btn_login"
@@ -31,7 +32,11 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="50dp"
-            android:text="@string/sign_in"/>
+            android:text="@string/sign_in"
+            style="@style/Planner.Button"
+            android:background="@drawable/button_background" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +54,8 @@
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            style="@style/Planner.BoldText"/>
 
         <TextView
             android:id="@+id/user_id"
@@ -59,7 +65,8 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            style="@style/Planner.BoldText"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,7 +75,8 @@
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            style="@style/Planner.BoldText"/>
 
         <TextView
             android:id="@+id/user_mail"
@@ -78,7 +86,8 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            style="@style/Planner.BoldText"/>
         <Button
             android:id="@+id/user_btn_nuke_data"
             android:layout_width="match_parent"
@@ -86,7 +95,9 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="@string/delete_all_data"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button"
+            style="@style/Planner.Button"/>
 
         <Button
             android:id="@+id/user_btn_logout"
@@ -95,7 +106,9 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
-            android:text="@string/logout"/>
+            android:text="@string/logout"
+            android:background="@drawable/button"
+            style="@style/Planner.Button"/>
     </LinearLayout>
 
 </FrameLayout>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="net.eagledev.planner.AddTaskActivity"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    style="@style/Planner">
 
 
     <include layout="@layout/toolbar_confirm"></include>
@@ -16,7 +17,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:background="@drawable/background"
-        android:layout_marginTop="-15dp">
+        android:layout_marginTop="-15dp"
+        style="@style/Planner">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +27,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            style="@style/Planner">
 
 
             <RelativeLayout
@@ -46,7 +49,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/task_name_icon"
                     android:layout_alignTop="@id/task_name_icon"
-                    android:textSize="@dimen/add_task_text_size"/>
+                    android:textSize="@dimen/add_task_text_size"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-3dp"
+                    style="@style/Planner.BoldText"/>
 
                 <EditText
                     android:id="@+id/task_name"
@@ -56,6 +62,7 @@
                     android:hint="@string/name"
                     android:inputType="textCapSentences"
                     android:layout_below="@id/task_name_icon"
+                    style="@style/Planner.RegularText"
                     />
             </RelativeLayout>
             <RelativeLayout
@@ -77,7 +84,10 @@
                     android:layout_marginLeft="5dp"
                     android:text="@string/date"
                     android:textSize="@dimen/add_task_text_size"
-                    android:layout_alignTop="@id/task_date_icon"/>
+                    android:layout_alignTop="@id/task_date_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
 
                 <Button
                     android:id="@+id/task_date"
@@ -86,7 +96,8 @@
                     android:layout_below="@id/task_date_icon"
                     android:textSize="@dimen/add_task_text_size"
                     android:backgroundTint="@color/white"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/lato_bold"/>
 
 
             </RelativeLayout>
@@ -109,7 +120,10 @@
                 android:layout_toRightOf="@id/task_repeat_icon"
                 android:text="@string/repeat"
                 android:textSize="@dimen/add_task_text_size"
-                android:layout_alignTop="@id/task_repeat_icon"/>
+                android:layout_alignTop="@id/task_repeat_icon"
+                android:fontFamily="@font/lato_blackitalic"
+                android:layout_marginTop="-3dp"
+                style="@style/Planner.BoldText"/>
 
                 <Spinner
                     android:id="@+id/task_repeat_spinner"
@@ -221,7 +235,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/every" />
+                        android:text="@string/every"
+                        style="@style/Planner.RegularText"/>
 
                     <EditText
                         android:id="@+id/task_amout_edittext"
@@ -231,12 +246,14 @@
                         android:ems="10"
                         android:inputType="number"
                         android:text="1"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        style="@style/Planner.RegularText" />
 
                     <Spinner
                         android:id="@+id/task_time_spinner"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        style="@style/Planner.RegularText">
 
                     </Spinner>
 
@@ -266,7 +283,10 @@
                 android:layout_alignTop="@id/task_label_icon"
                 android:layout_marginLeft="5dp"
                 android:text="@string/label"
-                android:textSize="@dimen/add_task_text_size"/>
+                android:textSize="@dimen/add_task_text_size"
+                android:fontFamily="@font/lato_blackitalic"
+                android:layout_marginTop="-3dp"
+                style="@style/Planner.BoldText"/>
 
                 <Spinner
                     android:id="@+id/task_label_spinner"
@@ -274,6 +294,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/task_label_icon"
                     android:layout_marginTop="5dp"
+                    style="@style/Planner.RegularText"
                     />
 
             </RelativeLayout>
@@ -296,7 +317,10 @@
                     android:layout_alignTop="@id/task_priority_icon"
                     android:layout_marginLeft="5dp"
                     android:text="@string/priority"
-                    android:textSize="@dimen/add_task_text_size"/>
+                    android:textSize="@dimen/add_task_text_size"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-6dp"
+                    style="@style/Planner.BoldText"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -359,7 +383,10 @@
                 android:layout_alignTop="@id/task_comment_icon"
                 android:layout_marginLeft="5dp"
                 android:text="@string/comment"
-                android:textSize="@dimen/add_task_text_size"/>
+                android:textSize="@dimen/add_task_text_size"
+                android:fontFamily="@font/lato_blackitalic"
+                android:layout_marginTop="-4dp"
+                style="@style/Planner.BoldText"/>
 
 
                 <EditText

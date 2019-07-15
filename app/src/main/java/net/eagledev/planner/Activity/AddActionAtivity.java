@@ -63,7 +63,6 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
     ValueHolder valueHolder;
     ImageView btn_select_icon;
     TextView btn_date;
-    TextView btn_date2;
     int aDay;
     int aMonth;
     int aYear;
@@ -198,7 +197,6 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                     colorID = selectedAction.getColor();
                     textView.setText(desc);
                     btn_date.setText(f.DateText(date_start));
-                    btn_date2.setText(f.DateText(date_start));
                     imageIcon.setImageDrawable(getDrawable(iconID));
                     setColor();
                     textView.setText(desc);
@@ -240,9 +238,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
 
         // Buttons
         btn_date = findViewById(R.id.action_date_start_btn);
-        btn_date2 = findViewById(R.id.action_date_stop_btn);
         btn_date.setText(f.Date(c));
-        btn_date2.setText(f.Date(c));
         aDay = day;
         aMonth = month;
         aYear = year;
@@ -260,7 +256,6 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
                         date_start.set(Calendar.MONTH, mMonth);
                         date_start.set(Calendar.DAY_OF_MONTH, mDay);
                         btn_date.setText(f.Date(date_start));
-                        btn_date2.setText(f.Date(date_start));
                         date_stop.set(Calendar.YEAR, mYear);
                         date_stop.set(Calendar.MONTH, mMonth);
                         date_stop.set(Calendar.DAY_OF_MONTH, mDay);
@@ -272,32 +267,7 @@ public class AddActionAtivity extends Activity  implements View.OnClickListener,
             }
         });
 
-        btn_date2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //btn_date.setTextColor(getResources().getColor(R.color.colorAccent));
 
-                dpd = new DatePickerDialog(AddActionAtivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
-                        aDay = mDay;
-                        aMonth = mMonth;
-                        aYear = mYear;
-                        date_start.set(Calendar.YEAR, mYear);
-                        date_start.set(Calendar.MONTH, mMonth);
-                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
-                        btn_date.setText(f.Date(date_start));
-                        btn_date2.setText(f.Date(date_start));
-                        date_stop.set(Calendar.YEAR, mYear);
-                        date_stop.set(Calendar.MONTH, mMonth);
-                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
-
-                    }
-                },year, month , day);
-                dpd.show();
-                //btn_date.setTextColor(getResources().getColor(R.color.white));
-            }
-        });
 
         dateActionStartButton = (TextView) findViewById(R.id.action_time_start_btn);
         dateActionStartButton.setOnClickListener(new View.OnClickListener() {

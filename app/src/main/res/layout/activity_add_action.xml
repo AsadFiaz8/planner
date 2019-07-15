@@ -18,100 +18,159 @@
 
         </include>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/action_name_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/icon_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa zadania"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/action_name_icon"
+                    android:layout_alignTop="@id/action_name_icon"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-3dp"
+                    style="@style/Planner.BoldText"/>
+
+                <EditText
+                    android:id="@+id/input_action_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/name"
+                    android:inputType="textCapSentences"
+                    android:layout_below="@id/action_name_icon"
+                    style="@style/Planner.RegularText"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <EditText
-                android:id="@+id/input_action_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textCapSentences"
-                android:layout_marginLeft="60dp"/>
-
-            <TextView
-                android:id="@+id/action_day_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/input_action_name"
-                android:text="@string/time"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="5dp"/>
-
             <ImageView
+                android:id="@+id/action_date_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/input_action_name"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/tech25"/>
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/icon_day" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/action_date_icon"
+                android:layout_marginLeft="5dp"
+                android:text="@string/date"
+                android:textSize="@dimen/add_task_text_size"
+                android:layout_alignTop="@id/action_date_icon"
+                android:fontFamily="@font/lato_blackitalic"
+                android:layout_marginTop="-2dp"
+                style="@style/Planner.BoldText"/>
+
+            <Button
                 android:id="@+id/action_date_start_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/action_day_view"
-                android:layout_marginLeft="65dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="5dp"
-                android:text="Button"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
+                android:layout_below="@id/action_date_icon"
+                android:textSize="@dimen/add_task_text_size"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/lato_bold"/>
+        </RelativeLayout>
 
-                android:textSize="18sp"
-                 />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/action_time_start_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_day_view"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
-                android:text="Button"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
+                <ImageView
+                    android:id="@+id/action_time_start_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/icon_day" />
 
-                android:layout_marginRight="35dp"
-                android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/action_time_start_icon"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/start_hour"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:layout_alignTop="@id/action_time_start_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
 
-            <TextView
-                android:id="@+id/action_date_stop_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_date_start_btn"
-                android:layout_marginLeft="65dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="5dp"
-                android:text="Button"
-                android:textColor="@color/black"
+                <Button
+                    android:id="@+id/action_time_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/action_time_start_icon"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/lato_bold"/>
+            </RelativeLayout>
 
-                android:textSize="18sp"
-                />
 
-            <TextView
-                android:id="@+id/action_time_stop_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_date_start_btn"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
-                android:text="Button"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                android:layout_marginRight="35dp"
-                android:textSize="18sp"/>
+                <ImageView
+                    android:id="@+id/action_time_stop_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/icon_day" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/action_time_stop_icon"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/stop_hour"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:layout_alignTop="@id/action_time_stop_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
+
+                <Button
+                    android:id="@+id/action_time_stop_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/action_time_stop_icon"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/lato_bold"/>
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@id/action_date_stop_btn"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp">
 
 
@@ -120,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
+                    android:layout_marginRight="30dp"
                     >
 
                     <TextView
@@ -127,6 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/color"
+                        style="@style/Planner.BoldText"
                         />
 
                     <ImageView
@@ -135,7 +196,7 @@
                         android:layout_height="60dp"
                         style="@style/AppTheme.Button"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_round"
+                        android:background="@drawable/btn_color"
                         android:backgroundTint="@color/pie0"
                         />
                 </LinearLayout>
@@ -145,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="30dp"
                     >
 
                     <TextView
@@ -153,6 +214,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/icon"
+                        style="@style/Planner.BoldText"
                         />
 
                     <ImageView
@@ -160,8 +222,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:src="@drawable/city18"
-                        android:background="@drawable/btn_round"
-                        android:backgroundTint="@color/gray"
+                        android:background="@drawable/btn_icon"
                         android:layout_marginTop="10dp"
                         android:padding="10dp"/>
 
@@ -169,16 +230,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

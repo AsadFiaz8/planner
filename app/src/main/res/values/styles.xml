@@ -43,5 +43,29 @@
 
     </style>
 
+    <style name="Planner">
+
+
+
+    </style>
+
+    <style name="Planner.BoldText">
+        <item name="android:fontFamily">@font/lato_blackitalic</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
+
+    </style>
+
+    <style name="Planner.RegularText">
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/colorAccentDark</item>
+
+    </style>
+
+    <style name="Planner.Button">
+        <item name="android:background">@drawable/button</item>
+        <item name="android:fontFamily">@font/lato_blackitalic</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 </resources>
