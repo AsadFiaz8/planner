@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.AppCompat.Light"
-    >
+    tools:context="net.eagledev.planner.AddTaskActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    style="@style/Planner">
 
-    <LinearLayout
+
+    <include layout="@layout/toolbar_confirm"></include>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/toolbar_confirm">
-
-
-        </include>
-
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background"
+        android:layout_marginTop="-15dp"
+        style="@style/Planner">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal">
-
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_centerVertical="true"
+            style="@style/Planner">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -36,7 +39,9 @@
                     android:id="@+id/action_name_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/icon_name" />
+                    app:srcCompat="@drawable/icon_name"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,38 +68,46 @@
             </RelativeLayout>
 
             <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/action_date_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/icon_day" />
+                <ImageView
+                    android:id="@+id/action_date_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/icon_day" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/action_date_icon"
-                android:layout_marginLeft="5dp"
-                android:text="@string/date"
-                android:textSize="@dimen/add_task_text_size"
-                android:layout_alignTop="@id/action_date_icon"
-                android:fontFamily="@font/lato_blackitalic"
-                android:layout_marginTop="-2dp"
-                style="@style/Planner.BoldText"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/action_date_icon"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/date"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:layout_alignTop="@id/action_date_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
 
-            <Button
-                android:id="@+id/action_date_start_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_date_icon"
-                android:textSize="@dimen/add_task_text_size"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/colorAccent"
-                android:fontFamily="@font/lato_bold"/>
-        </RelativeLayout>
+
+                <ImageButton
+                    android:id="@+id/action_date_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/action_date_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/action_date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/action_date_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="07-06-2019"
+                    style="@style/Planner.RegularText"/>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -119,15 +132,22 @@
                     android:layout_marginTop="-2dp"
                     style="@style/Planner.BoldText"/>
 
-                <Button
-                    android:id="@+id/action_time_start_btn"
+                <ImageButton
+                    android:id="@+id/action_start_time_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/action_time_start_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/action_start_time_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/action_time_start_icon"
-                    android:textSize="@dimen/add_task_text_size"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/lato_bold"/>
+                    android:layout_alignTop="@id/action_start_time_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="06:00"
+                    style="@style/Planner.RegularText"/>
             </RelativeLayout>
 
 
@@ -154,15 +174,22 @@
                     android:layout_marginTop="-2dp"
                     style="@style/Planner.BoldText"/>
 
-                <Button
-                    android:id="@+id/action_time_stop_btn"
+                <ImageButton
+                    android:id="@+id/action_stop_time_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/action_time_stop_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/action_stop_time_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/action_time_stop_icon"
-                    android:textSize="@dimen/add_task_text_size"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/lato_bold"/>
+                    android:layout_alignTop="@id/action_stop_time_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="09:00"
+                    style="@style/Planner.RegularText"/>
             </RelativeLayout>
 
 
@@ -230,6 +257,10 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

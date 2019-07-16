@@ -17,9 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.eagledev.planner.Action;
-import net.eagledev.planner.Activity.EditActionActivity;
-import net.eagledev.planner.Adapter.ActionAdapter;
 import net.eagledev.planner.Adapter.TaskAdapter;
 import net.eagledev.planner.AddTaskActivity;
 import net.eagledev.planner.Checker;
@@ -27,10 +24,7 @@ import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
-import net.eagledev.planner.Reminder;
 import net.eagledev.planner.Task;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;

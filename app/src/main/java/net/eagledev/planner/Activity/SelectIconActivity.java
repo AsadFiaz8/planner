@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
-import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.R;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ public class SelectIconActivity extends Activity implements View.OnClickListener
     GridLayout gridLayout;
     Button imageButton;
     List<ImageButton> iconButtns = new ArrayList<>();
-    AddActionAtivity addActionAtivity;
     int iconID = 0;
 
     @Override

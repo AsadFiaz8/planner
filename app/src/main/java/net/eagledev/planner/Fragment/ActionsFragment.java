@@ -15,13 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.NumberPicker;
 
 import net.eagledev.planner.Action;
-import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Adapter.ActionAdapter;
-import net.eagledev.planner.Activity.EditActionActivity;
+import net.eagledev.planner.AddActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
@@ -296,7 +294,7 @@ public class ActionsFragment extends Fragment {
                 @Override
                 public void onClick(View view, int position) {
                     Action action = aList.get(position);
-                    Intent intentEdit = new Intent(context, AddActionAtivity.class);
+                    Intent intentEdit = new Intent(context, AddActivity.class);
                     intentEdit.putExtra("ID", action.getId());
                     intentEdit.putExtra("edit", true);
                     startActivityForResult(intentEdit, 1);

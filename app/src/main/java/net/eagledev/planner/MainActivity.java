@@ -68,7 +68,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import net.eagledev.planner.Activity.AddActionAtivity;
 import net.eagledev.planner.Activity.AddReminder;
 import net.eagledev.planner.Activity.AddRoutine;
 import net.eagledev.planner.Adapter.TaskAdapter;
@@ -302,7 +301,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.action_4:
                 cnt = findViewById(R.id.relative_layout).getContext();
-                Intent i4 = new Intent(cnt, AddActionAtivity.class);
+                Intent i4 = new Intent(cnt, AddActivity.class);
                 startActivityForResult(i4,CODE_NEW_ACTION);
                 floatingActionsMenu.collapse();
                 break;
@@ -354,7 +353,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.btn_new_action:
                 cnt = findViewById(R.id.relative_layout).getContext();
-                Intent i5 = new Intent(cnt, AddActionAtivity.class);
+                Intent i5 = new Intent(cnt, AddActivity.class);
                 startActivity(i5);
                 break;
 
@@ -1147,7 +1146,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void EditAction(int id) {
-        Intent intentEdit = new Intent(getApplicationContext(), AddActionAtivity.class);
+        Intent intentEdit = new Intent(getApplicationContext(), AddActivity.class);
         intentEdit.putExtra("ID", id);
         intentEdit.putExtra("edit", true);
         startActivityForResult(intentEdit, REQUEST_CODE_1);
