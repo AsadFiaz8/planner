@@ -143,7 +143,8 @@
 
                         <Button
                             android:id="@+id/btn_edit"
-                            style="@style/AppTheme.Button"
+                            android:background="@drawable/button"
+                            style="@style/Planner.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="false"
@@ -153,7 +154,8 @@
                             android:layout_marginRight="10dp"
                             android:gravity="center"
                             android:text="@string/edit"
-                            android:visibility="invisible" />
+                            android:visibility="visible"
+                            />
 
                         <Button
                             android:id="@+id/btn_new_action"

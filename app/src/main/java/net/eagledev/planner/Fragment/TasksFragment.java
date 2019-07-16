@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.eagledev.planner.Adapter.TaskAdapter;
-import net.eagledev.planner.AddTaskActivity;
+import net.eagledev.planner.Activity.AddTaskActivity;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;

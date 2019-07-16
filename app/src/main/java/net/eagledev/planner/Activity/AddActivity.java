@@ -1,361 +1,214 @@
 package net.eagledev.planner.Activity;
 
-import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import net.eagledev.planner.BuyPremiumActivity;
+import net.eagledev.planner.Action;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
+import net.eagledev.planner.HourPickerDialog;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.NeedPremiumDialog;
 import net.eagledev.planner.R;
-import net.eagledev.planner.Routine;
+import net.eagledev.planner.ValueHolder;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class EditRoutineActivity extends Activity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
+    Calendar c;
+    DatePickerDialog dpd;
+    TimePickerDialog tpd;
+    TextView timeStartText;
+    ImageButton timeStartButton;
+    TextView timeStopText;
+    ImageButton timeStopButton;
 
-    TextView mondayBtn;
-    TextView tuesdayBtn;
-    TextView wednesdayBtn;
-    TextView thursdayBtn;
-    TextView fridayBtn;
-    TextView saturdayBtn;
-    TextView sundayBtn;
+    int iconID;
+    int premiumIcon;
+    int colorID;
+    int premiumColor;
+    TextView textView;
+    boolean checked = false;
+    Calendar date_start;
+    Calendar date_stop;
+    Formatter f = new Formatter();
+    boolean edit = false;
+    int actionID;
 
+    public static final int CODE_ACTIONS = 0;
     public static final int CODE_ICONS = 1;
     public static final int CODE_COLORS = 2;
+    public static final int CODE_START = 0;
+    public static final int CODE_STOP = 1;
 
-    boolean monday;
-    boolean tuesday;
-    boolean wednesday;
-    boolean thursday;
-    boolean friday;
-    boolean saturday;
-    boolean sunday;
+    Context context;
+    ValueHolder valueHolder;
+    ImageView btn_select_icon;
+    TextView dateText;
+    ImageButton dateButton;
+    int aDay;
+    int aMonth;
+    int aYear;
 
 
-    String name;
-    Calendar start;
-    Calendar stop;
-    int icon;
-    int premiumIcon;
-    int color;
-    int premiumColor;
-    Formatter f = new Formatter();
+    private final static int REQUEST_CODE_1 = 1;
+
+    ImageView imageConfirm;
+    ImageView imageCancel;
+    ImageView imageIcon;
+    ImageView imageColor;
+    Button colorButton;
+    Button imageButton;
     Dialog d1;
     Dialog d2;
 
-    EditText nameText;
-    Button btnStartHour;
-    Button btnStopHour;
-
-    TimePickerDialog tpd;
-    Routine selectedRoutine;
-    int routineID;
-    ImageView imageConfirm;
-    ImageView imageCancel;
+    Action selectedAction;
+    String desc = "";
     ImageView imageDelete;
-    ImageView imageIcon;
-    ImageView imageColor;
-    Checker checker = new Checker();
 
 
-    private final static int REQUEST_CODE_2 = 2;
-
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    int startHour = 0;
+    int startMinute = 0;
+    int stopHour = 0;
+    int stopMinute = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_routine);
-
-        setButtons();
-        nameText = findViewById(R.id.input_routine_name);
-        start = Calendar.getInstance();
-        stop = Calendar.getInstance();
-        setValues();
+        setContentView(R.layout.activity_add_action);
+        textView = findViewById(R.id.input_action_name);
+        context = this;
         imageIcon = findViewById(R.id.icon_view);
-        imageColor = findViewById(R.id.color_view);
-        setColor();
-        imageIcon.setImageDrawable(getDrawable(icon));
+        //imageIcon = new ImageView(context);
+        imageIcon.setOnClickListener(this);
+        date_start = Calendar.getInstance();
+        date_stop = Calendar.getInstance();
+        date_start.set(Calendar.HOUR_OF_DAY, 0);
+        date_start.set(Calendar.MINUTE, 0);
+        date_stop.set(Calendar.HOUR_OF_DAY, 1);
+        date_stop.set(Calendar.MINUTE, 0);
 
-
-        setupDate();
-    }
-
-    private void setupDate() {
-
-
-        // Number pickers
-
-
-    }
-
-    private void setValues() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        selectedRoutine = new Routine();
-        if (bundle!=null) {
-            routineID=(int) bundle.get("ID");
-            selectedRoutine = MainActivity.appDatabase.appDao().idRoutine(routineID);
-            name=selectedRoutine.getName();
-            nameText.setText(name);
-            icon=selectedRoutine.getIcon();
-            color=selectedRoutine.getColor();
-            start=selectedRoutine.getStart();
-            btnStartHour.setText(f.Time(start));
-            stop=selectedRoutine.getStop();
-            btnStopHour.setText(f.Time(stop));
-            monday=selectedRoutine.isMonday();
-            setDay(monday, mondayBtn);
-            tuesday=selectedRoutine.isTuesday();
-            setDay(tuesday, tuesdayBtn);
-            wednesday=selectedRoutine.isWednesday();
-            setDay(wednesday, wednesdayBtn);
-            thursday=selectedRoutine.isThursday();
-            setDay(thursday, thursdayBtn);
-            friday=selectedRoutine.isFriday();
-            setDay(friday, fridayBtn);
-            saturday=selectedRoutine.isSaturday();
-            setDay(saturday, saturdayBtn);
-            sunday=selectedRoutine.isSunday();
-            setDay(sunday, sundayBtn);
-        }
-
-
-    }
-
-    private void setButtons() {
-        imageConfirm = findViewById(R.id.toolbar_confirm);
-        imageConfirm.setOnClickListener(this);
-        btnStartHour = findViewById(R.id.input_routine_start);
-        btnStartHour.setOnClickListener(this);
-        btnStopHour = findViewById(R.id.input_routine_stop);
-        btnStopHour.setOnClickListener(this);
-        findViewById(R.id.icon_view).setOnClickListener(this);
+        iconID = MainActivity.icons[0];
         imageCancel = findViewById(R.id.toolbar_cancel);
         imageCancel.setOnClickListener(this);
-        imageDelete = findViewById(R.id.toolbar_delete);
-        imageDelete.setVisibility(View.VISIBLE);
-        imageDelete.setOnClickListener(this);
-        findViewById(R.id.color_view).setOnClickListener(this);
-        mondayBtn = findViewById(R.id.routine_mo);
-        mondayBtn.setOnClickListener(this);
-        tuesdayBtn = findViewById(R.id.routine_tu);
-        tuesdayBtn.setOnClickListener(this);
-        wednesdayBtn = findViewById(R.id.routine_we);
-        wednesdayBtn.setOnClickListener(this);
-        thursdayBtn = findViewById(R.id.routine_th);
-        thursdayBtn.setOnClickListener(this);
-        fridayBtn = findViewById(R.id.routine_fr);
-        fridayBtn.setOnClickListener(this);
-        saturdayBtn = findViewById(R.id.routine_sa);
-        saturdayBtn.setOnClickListener(this);
-        sundayBtn = findViewById(R.id.routine_su);
-        sundayBtn.setOnClickListener(this);
+        imageConfirm = findViewById(R.id.toolbar_confirm);
+        imageConfirm.setOnClickListener(this);
+        imageColor = findViewById(R.id.color_view);
+        imageColor.setOnClickListener(this);
+        //imageColor.setBackgroundColor(MainActivity.colors[0]);
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {MainActivity.colors[0]};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+
+
+
+        //paramsLinear = dateLinearLayout.getLayoutParams();
+        //paramsRelative =  dateRelativeLayout.getLayoutParams();
+        SetupDate();
+        timeStartText.setText(f.Time(date_start));
+        timeStopText.setText(f.Time(date_stop));
+        SetValues();
+        if(edit){
+            imageDelete = findViewById(R.id.toolbar_delete);
+            imageDelete.setVisibility(View.VISIBLE);
+            imageDelete.setOnClickListener(this);
+        }
     }
 
-
-
-
-
-
     @Override
-    public void onClick(View view) {
-        clickColor(view.getId());
-        clickIcon(view.getId());
-        switch (view.getId()) {
-            case R.id.toolbar_confirm:
-                boolean isOK = true;
-                name = String.valueOf(nameText.getText());
-                int newID = MainActivity.appDatabase.appDao().getMaxRoutinesID();
-
-                if(monday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getMonday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(tuesday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getTuesday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(wednesday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getWednesday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(thursday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getThursday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(friday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getFriday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(saturday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getSaturday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(sunday) {
-                    List<Routine> routines = MainActivity.appDatabase.appDao().getSunday();
-                    for (int r= 0; r<routines.size(); r++ ) {
-                        if(checker.TimeCollision(start, stop, routines.get(r).getStart(), routines.get(r).getStop()) && routineID != routines.get(r).getId()){
-                            isOK = false;
-                        }
-                    }
-                }
-                if(isOK) {
-                    Routine newRoutine = new Routine(routineID, name, icon, color, start, stop, monday, tuesday, wednesday ,thursday, friday, saturday, sunday);
-                    MainActivity.appDatabase.appDao().updateRoutine(newRoutine);
-                    MainActivity.fDatabase.AddRoutine(newRoutine);
-                    refresh();
-                    finish();
-                } else Toast.makeText(getApplicationContext(), R.string.routine_cant_interfere, Toast.LENGTH_LONG).show();
-
-
-                break;
-
-            case R.id.input_routine_start:
-                tpd = new TimePickerDialog(EditRoutineActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        start.set(Calendar.HOUR_OF_DAY, hour);
-                        start.set(Calendar.MINUTE, minute);
-                        btnStartHour.setText(f.Time(start));
-                    }
-                }, 0, 0 , true);
-                tpd.show();
-                break;
-
-            case R.id.input_routine_stop:
-                tpd = new TimePickerDialog(EditRoutineActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        if(hour == 0 && minute == 0) {
-                            stop.set(Calendar.HOUR_OF_DAY, 23);
-                            stop.set(Calendar.MINUTE, 59);
-                        } else {
-                            stop.set(Calendar.HOUR_OF_DAY, hour);
-                            stop.set(Calendar.MINUTE, minute);
-                        }
-                        btnStopHour.setText(f.Time(stop));
-                    }
-                }, 0, 0 , true);
-                tpd.show();
-                break;
-
+    public void onClick(View v) {
+        clickIcon(v.getId());
+        clickColor(v.getId());
+        switch (v.getId()) {
             case R.id.toolbar_cancel:
                 finish();
                 break;
-
+            case R.id.toolbar_confirm:
+                confirm();
+                break;
             case R.id.toolbar_delete:
-                MainActivity.appDatabase.appDao().deleteRoutine(selectedRoutine.getId());
-                MainActivity.fDatabase.DeleteRoutine(selectedRoutine.getId());
+                MainActivity.appDatabase.appDao().deleteAction(actionID);
+                MainActivity.fDatabase.DeleteAction(actionID);
                 refresh();
+                setResult(MainActivity.CODE_CREATED);
                 finish();
-                Toast.makeText(getApplicationContext(), R.string.routine_deleted, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.action_deleted, Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.routine_mo:
-                monday = !monday;
-                setDay(monday, mondayBtn);
-                break;
-            case R.id.routine_tu:
-                tuesday = !tuesday;
-                setDay(tuesday, tuesdayBtn);
-                break;
-            case R.id.routine_we:
-                wednesday = !wednesday;
-                setDay(wednesday, wednesdayBtn);
-                break;
-            case R.id.routine_th:
-                thursday = !thursday;
-                setDay(thursday, thursdayBtn);
-                break;
-            case R.id.routine_fr:
-                friday = !friday;
-                setDay(friday, fridayBtn);
-                break;
-            case R.id.routine_sa:
-                saturday = !saturday;
-                setDay(saturday, saturdayBtn);
-                break;
-            case R.id.routine_su:
-                sunday = !sunday;
-                setDay(sunday, sundayBtn);
-                break;
-
-
-
-        }
-        imageIcon.setImageDrawable(getDrawable(icon));
-    }
-
-    private void setDay(boolean day, TextView textView) {
-
-        int[] ints = {0};
-        int[][] all = {ints};
-        int[] colorBackground = {getColor(R.color.background)};
-        int[] colorAccent = {getColor(R.color.colorAccent)};
-        if(day){
-            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
-        } else {
-            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
-        super.onActivityResult(requestCode, resultCode, dataIntent);
-        // The returned result data is identified by requestCode.
-        // The request code is specified in startActivityForResult(intent, REQUEST_CODE_1); method.
-        switch (requestCode)
-        {
-            // This request code is set by startActivityForResult(intent, REQUEST_CODE_1) method.
-            case 1:
-                if(resultCode == RESULT_OK)
-                {
-                    String messageReturn = dataIntent.getStringExtra("message_return");
-                    //icon = Integer.parseInt(messageReturn);
-                    icon=MainActivity.icons[Integer.parseInt(messageReturn)];
-
-                }
+    @Override
+    public void getPremiumDialogResultCode(int resultCode) {
+        MainActivity.valueHolder.changePremiumPoints(-1);
+        switch (resultCode){
+            case CODE_ACTIONS:
+                CreateAction();
+                MainActivity.needRefresh = true;
+                finish();
                 break;
+            case CODE_COLORS:
+                colorID = MainActivity.colors[premiumColor];
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {colorID};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+                //imageColor.setBackgroundColor(colorID);
+                d2.dismiss();
+                break;
+            case CODE_ICONS:
+                iconID = MainActivity.icons[premiumIcon];
+                d1.dismiss();
+                imageIcon.setImageDrawable(getDrawable(iconID));
+                break;
+        }
+    }
+
+    @Override
+    public void getHourPickerDialogTime(int requestCode, int hour, int minute) {
+        if(requestCode == CODE_START){
+            date_start.set(Calendar.HOUR_OF_DAY, hour);
+            date_start.set(Calendar.MINUTE, minute);
+            timeStartText.setText(f.Time(date_start) );
+            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                date_stop.set(Calendar.HOUR_OF_DAY, hour+1);
+                date_stop.set(Calendar.MINUTE,0);
+                timeStopText.setText(f.Time(date_stop));
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE,59);
+                timeStopText.setText(f.Time(date_stop));
+            }
+        } else if(requestCode == CODE_STOP){
+            if(hour == 0 && minute == 0) {
+                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                date_stop.set(Calendar.MINUTE, 59);
+            } else {
+                date_stop.set(Calendar.HOUR_OF_DAY, hour);
+                date_stop.set(Calendar.MINUTE, minute);
+            }
+            timeStopText.setText(f.Time(date_stop));
         }
     }
 
@@ -366,11 +219,289 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
         setResult(RESULT_OK, intent);
     }
 
+    private void SetValues() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        Action selectedAction = new Action();
+        if(bundle!=null) {
+            edit = (boolean) bundle.get("edit");
+            if(edit){
+                actionID = (int) bundle.get("ID");
+                selectedAction = MainActivity.appDatabase.appDao().idAction(actionID);
+                if(selectedAction == null){
+                    finish();
+                }
+                findViewById(R.id.color_view).setOnClickListener(this);
+                if(selectedAction != null){
+                    desc = selectedAction.getDesc();
+                    year = selectedAction.getStart_year();
+                    month = selectedAction.getStart_month();
+                    day = selectedAction.getStart_day();
+                    startHour = selectedAction.getStart_hour();
+                    startMinute = selectedAction.getStart_minute();
+                    stopHour = selectedAction.getStop_hour();
+                    stopMinute = selectedAction.getStop_minute();
+                    date_start.set(year,month,day,startHour,startMinute);
+                    date_stop.set(year,month,day,stopHour,stopMinute);
+                    iconID = selectedAction.getIcon();
+                    colorID = selectedAction.getColor();
+                    textView.setText(desc);
+                    dateText.setText(f.DateText(date_start));
+                    imageIcon.setImageDrawable(getDrawable(iconID));
+                    setColor();
+                    textView.setText(desc);
+                    timeStartText.setText(f.Time(date_start) );
+                    timeStopText.setText(f.Time(date_stop));
+                    imageDelete = findViewById(R.id.toolbar_delete);
+                    imageDelete.setVisibility(View.VISIBLE);
+                    imageDelete.setOnClickListener(this);
+                } else {
+                    finish();
+                }
+            }
+
+
+
+        }
+    }
+
+    private void SetupDate() {
+        c = Calendar.getInstance();
+        final int day = c.get(Calendar.DAY_OF_MONTH);
+        final int month = c.get(Calendar.MONTH);
+        final int year = c.get(Calendar.YEAR);
+        final int hour = c.get(Calendar.HOUR_OF_DAY)+1;
+        final int min = c.get(Calendar.MINUTE);
+        colorID = MainActivity.colors[0];
+
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
+
+        // Number pickers
+
+        String[] displayHours = new String[24];
+        String[] displayMinutes = {0+"0", String.valueOf(10), String.valueOf(20), String.valueOf(30), String.valueOf(40), String.valueOf(50)};
+        for (int h = 0; h < displayHours.length; h++) {
+            displayHours[h] = f.z(h);
+        }
+
+        // Buttons
+        dateText = findViewById(R.id.action_date_text);
+        dateText.setText(f.Date(c));
+        dateButton = findViewById(R.id.action_date_button);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateText.performClick();
+            }
+        });
+        aDay = day;
+        aMonth = month;
+        aYear = year;
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //dateText.setTextColor(getResources().getColor(R.color.colorAccent));
+                dpd = new DatePickerDialog(AddActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, final int mYear, final int mMonth, final int mDay) {
+                        aDay = mDay;
+                        aMonth = mMonth;
+                        aYear = mYear;
+                        date_start.set(Calendar.YEAR, mYear);
+                        date_start.set(Calendar.MONTH, mMonth);
+                        date_start.set(Calendar.DAY_OF_MONTH, mDay);
+                        dateText.setText(f.Date(date_start));
+                        date_stop.set(Calendar.YEAR, mYear);
+                        date_stop.set(Calendar.MONTH, mMonth);
+                        date_stop.set(Calendar.DAY_OF_MONTH, mDay);
+
+                    }
+                },year, month , day);
+                dpd.show();
+                //dateText.setTextColor(getResources().getColor(R.color.white));
+            }
+        });
+
+
+
+        timeStartText = (TextView) findViewById(R.id.action_start_time_text);
+        timeStartButton = findViewById(R.id.action_start_time_button);
+        timeStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeStartText.performClick();
+            }
+        });
+        timeStartText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
+
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_START);
+                }else {
+                    tpd = new TimePickerDialog(AddActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            date_start.set(Calendar.HOUR_OF_DAY, mHour);
+                            date_start.set(Calendar.MINUTE, mMinute);
+                            timeStartText.setText(f.Time(date_start) );
+                            if(date_start.get(Calendar.HOUR_OF_DAY)<23){
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour+1);
+                                date_stop.set(Calendar.MINUTE,0);
+                                timeStopText.setText(f.Time(date_stop));
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE,59);
+                                timeStopText.setText(f.Time(date_stop));
+                            }
+                        }
+                    }, hour, 0, true);
+                    tpd.show();
+                }
+            }
+        });
+
+
+        timeStopText = (TextView) findViewById(R.id.action_stop_time_text);
+        timeStopButton = findViewById(R.id.action_stop_time_button);
+        timeStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeStopText.performClick();
+            }
+        });
+        timeStopText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!MainActivity.valueHolder.isDatePickerButton()) {
+                    HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
+                    hourPickerDialog.ShowDialog(CODE_STOP);
+                }else {
+                    tpd = new TimePickerDialog(AddActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int mHour, int mMinute) {
+                            if(mHour == 0 && mMinute == 0) {
+                                date_stop.set(Calendar.HOUR_OF_DAY, 23);
+                                date_stop.set(Calendar.MINUTE, 59);
+                            } else {
+                                date_stop.set(Calendar.HOUR_OF_DAY, mHour);
+                                date_stop.set(Calendar.MINUTE, mMinute);
+                            }
+                            timeStopText.setText(f.Time(date_stop));
+                        }
+                    }, date_start.get(Calendar.HOUR_OF_DAY)+1, 0, true);
+                    tpd.show();
+                }
+            }
+        });
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        super.onActivityResult(requestCode, resultCode, dataIntent);
+
+        // The returned result data is identified by requestCode.
+        // The request code is specified in startActivityForResult(intent, REQUEST_CODE_1); method.
+        switch (requestCode)
+        {
+            // This request code is set by startActivityForResult(intent, REQUEST_CODE_1) method.
+            case REQUEST_CODE_1:
+
+                if(resultCode == RESULT_OK)
+                {
+                    String messageReturn = dataIntent.getStringExtra("message_return");
+                    iconID = Integer.parseInt(messageReturn);
+
+
+
+                }
+        }
+    }
+
+    private void CreateAction() {
+        int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
+        Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().addAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
+    }
+
+    private void UpdateAction() {
+        Action newAction = new Action(actionID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+        MainActivity.appDatabase.appDao().updateAction(newAction);
+        MainActivity.fDatabase.AddAction(newAction);
+    }
+
+    private void confirm() {
+        Checker checker = new Checker();
+
+        if(MainActivity.valueHolder == null){
+            MainActivity.setValueHolder();
+        }
+        if(MainActivity.valueHolder.canUsePremium()) {
+            if(checker.Before(date_start,date_stop)) {
+                checked = true;
+            }
+            else {
+                Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+            }
+        }
+        else {
+            if(checker.DateTimeInFuture(date_start)) {
+                if(checker.DateTimeInFuture(date_stop)) {
+                    if(checker.Before(date_start,date_stop)) {
+                        checked = true;
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), R.string.stop_must_be_after_start, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.stop_date_in_future, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.start_date_in_future, Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+        if(checked) {
+            if(MainActivity.valueHolder == null){
+                MainActivity.setValueHolder();
+            }
+            List<Action> actionsFromDay = MainActivity.appDatabase.appDao().getActionsFromDay(date_start.get(Calendar.DAY_OF_MONTH), date_start.get(Calendar.MONTH), date_start.get(Calendar.YEAR));
+            int actionsCount = actionsFromDay.size();
+            Log.e("actionsCount", String.valueOf(actionsCount) + "   " + getResources().getInteger(R.integer.premium_max_actions_one_day));
+
+            if(actionsCount < getResources().getInteger(R.integer.premium_max_actions_one_day) || MainActivity.valueHolder.canUsePremium()) {
+                //Spełnia warunki lub jest premium lub premium reklamowe
+                setResult(MainActivity.CODE_CREATED);
+                if(!edit) {
+                    CreateAction();
+                } else {
+                    UpdateAction();
+                    setResult(MainActivity.CODE_CREATED);
+                }
+                //MainActivity.needRefresh = true;
+
+                setResult(MainActivity.CODE_CREATED);
+                finish();
+            } else {
+                NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ACTIONS);
+                pd.ShowDialog(getString(R.string.premium_reason2));
+            }
+
+
+
+        }
+    }
+
     private void clickColor(int id) {
         switch (id) {
 
             case R.id.color_view:
-                d2 = new Dialog(EditRoutineActivity.this);
+                d2 = new Dialog(AddActivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
                 d2.show();
@@ -433,32 +564,32 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
                 break;
 
             case R.id.color_button0:
-                color = MainActivity.colors[0];
+                colorID = MainActivity.colors[0];
                 setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button1:
-                color = MainActivity.colors[1];
+                colorID = MainActivity.colors[1];
                 setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button2:
-                color = MainActivity.colors[2];
+                colorID = MainActivity.colors[2];
                 setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button3:
-                color = MainActivity.colors[3];
+                colorID = MainActivity.colors[3];
                 setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button4:
-                color = MainActivity.colors[4];
+                colorID = MainActivity.colors[4];
                 setColor();
                 d2.dismiss();
                 break;
             case R.id.color_button5:
-                color = MainActivity.colors[5];
+                colorID = MainActivity.colors[5];
                 setColor();
                 d2.dismiss();
                 break;
@@ -643,30 +774,30 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
 
     private void setPremiumColor() {
         if(MainActivity.valueHolder.canUsePremium()){
-            color = MainActivity.colors[premiumColor];
-            //imageColor.setBackgroundColor(color);
+            colorID = MainActivity.colors[premiumColor];
             int[] ints = {0};
             int[][] all = {ints};
-            int[] colors = {color};
+            int[] colors = {colorID};
             imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+            //imageColor.setBackgroundColor(colorID);
             d2.dismiss();
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_COLORS);
-            pd.ShowDialog(getString(R.string.premium_reason4));
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_COLORS);
+            pd.ShowDialog(getString(R.string.premium_reason3));
         }
     }
 
     private void setColor() {
         int[] ints = {0};
         int[][] all = {ints};
-        int[] colors = {color};
+        int[] colors = {colorID};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
     }
 
     private void clickIcon(int id) {
         switch (id){
             case R.id.icon_view:
-                d1 = new Dialog(EditRoutineActivity.this);
+                d1 = new Dialog(AddActivity.this);
                 d1.setTitle("Icon Picker");
                 d1.setContentView(R.layout.activity_select_icon);
                 d1.show();
@@ -756,123 +887,123 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
 
             case R.id.image_button1:
                 d1.dismiss();
-                icon = 0;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 0;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button2:
                 d1.dismiss();
-                icon = 1;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 1;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button3:
                 d1.dismiss();
-                icon = 2;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 2;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button4:
                 d1.dismiss();
-                icon = 3;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 3;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button5:
                 d1.dismiss();
-                icon = 4;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 4;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button6:
                 d1.dismiss();
-                icon = 5;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 5;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button7:
                 d1.dismiss();
-                icon = 6;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 6;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button8:
                 d1.dismiss();
-                icon = 7;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 7;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button9:
                 d1.dismiss();
-                icon = 8;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 8;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button10:
                 d1.dismiss();
-                icon = 9;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 9;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button11:
                 d1.dismiss();
-                icon = 10;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 10;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button12:
                 d1.dismiss();
-                icon = 11;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 11;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button13:
                 d1.dismiss();
-                icon = 12;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 12;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button14:
                 d1.dismiss();
-                icon = 13;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 13;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button15:
                 d1.dismiss();
-                icon = 14;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 14;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button16:
                 d1.dismiss();
-                icon = 15;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 15;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button17:
                 d1.dismiss();
-                icon = 16;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 16;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button18:
                 d1.dismiss();
-                icon = 17;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 17;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button19:
                 d1.dismiss();
-                icon = 18;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 18;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
             case R.id.image_button20:
                 d1.dismiss();
-                icon = 19;
-                icon = MainActivity.icons[icon];
-                imageIcon.setImageDrawable(getDrawable(icon));
+                iconID = 19;
+                iconID = MainActivity.icons[iconID];
+                imageIcon.setImageDrawable(getDrawable(iconID));
                 break;
 
             //Premium icons
@@ -1122,33 +1253,12 @@ public class EditRoutineActivity extends Activity implements View.OnClickListene
 
     private void selectPremiumIcon() {
         if(MainActivity.valueHolder.canUsePremium()){
-            icon = MainActivity.icons[premiumIcon];
+            iconID = MainActivity.icons[premiumIcon];
             d1.dismiss();
-            imageIcon.setImageDrawable(getDrawable(icon));
+            imageIcon.setImageDrawable(getDrawable(iconID));
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(this, CODE_ICONS);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_ICONS);
             pd.ShowDialog(getString(R.string.premium_reason3));
-        }
-    }
-
-
-    @Override
-    public void getPremiumDialogResultCode(int resultCode) {
-        switch (resultCode){
-            case CODE_COLORS:
-                color = MainActivity.colors[premiumColor];
-                //imageColor.setBackgroundColor(color);
-                int[] ints = {0};
-                int[][] all = {ints};
-                int[] colors = {color};
-                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-                d2.dismiss();
-                break;
-            case CODE_ICONS:
-                icon = MainActivity.icons[premiumIcon];
-                d1.dismiss();
-                imageIcon.setImageDrawable(getDrawable(icon));
-                break;
         }
     }
 }

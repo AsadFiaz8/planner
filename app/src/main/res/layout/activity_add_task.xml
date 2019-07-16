@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.eagledev.planner.AddTaskActivity"
+    tools:context="net.eagledev.planner.Activity.AddTaskActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     style="@style/Planner">
@@ -160,7 +160,6 @@
                         android:id="@+id/task_tu"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/tu"
                         android:gravity="center"
@@ -171,7 +170,6 @@
                         android:id="@+id/task_we"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/we"
                         android:gravity="center"
@@ -182,7 +180,6 @@
                         android:id="@+id/task_th"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/th"
                         android:gravity="center"
@@ -193,7 +190,6 @@
                         android:id="@+id/task_fr"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/fr"
                         android:gravity="center"
@@ -204,7 +200,6 @@
                         android:id="@+id/task_sa"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/sa"
                         android:gravity="center"
@@ -215,7 +210,6 @@
                         android:id="@+id/task_su"
                         android:layout_width="@dimen/task_days_button"
                         android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
                         android:background="@drawable/task_day_unselected"
                         android:text="@string/su"
                         android:gravity="center"
@@ -399,6 +393,11 @@
 
 
             </RelativeLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background" />
 
 
 

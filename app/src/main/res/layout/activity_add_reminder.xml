@@ -18,76 +18,156 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/reminder_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="65dp"
-                android:ems="10"
-                android:inputType="textCapSentences"
-                android:hint="@string/name" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/reminder_name"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/tech25"/>
-
-            <TextView
-                android:id="@+id/action_day_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/reminder_name"
-                android:text="@string/time"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="5dp"/>
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="@drawable/background"
+            android:layout_marginTop="-15dp"
+            style="@style/Planner">
 
             <LinearLayout
-                android:id="@+id/routine_time_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_day_view"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="65dp"
-                android:orientation="horizontal"
-
-                >
-
-                <Button
-                    android:id="@+id/btn_reminder_date"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:text="@string/date"
-                    style="@style/AppTheme.Button"
-                    />
-
-                <Button
-                    android:id="@+id/btn_reminder_time"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:text="@string/hour"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="15dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reminders_issue"
-                android:textAlignment="center"
-                android:textColor="@color/pie_red6"
-                android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@id/routine_time_layout"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                style="@style/Planner">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/reminder_name_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/icon_name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nazwa przypomnienia"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/reminder_name_icon"
+                        android:layout_alignTop="@id/reminder_name_icon"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-3dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <EditText
+                        android:id="@+id/reminder_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/name"
+                        android:inputType="textCapSentences"
+                        android:layout_below="@id/reminder_name_icon"
+                        style="@style/Planner.RegularText"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/reminder_date_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/icon_day" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/reminder_date_icon"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/date"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:layout_alignTop="@id/reminder_date_icon"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-2dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <ImageButton
+                        android:id="@+id/reminder_date_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_date"
+                        android:layout_below="@id/reminder_date_icon"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/btn_reminder_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/reminder_date_button"
+                        android:layout_marginTop="-4dp"
+                        android:text="07/07/2019"
+                        style="@style/Planner.RegularText"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/reminder_time_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/icon_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/reminder_time_icon"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/hour"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:layout_alignTop="@id/reminder_time_icon"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-2dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <ImageButton
+                        android:id="@+id/reminder_time_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_date"
+                        android:layout_below="@id/reminder_time_icon"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/btn_reminder_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/reminder_time_button"
+                        android:layout_marginTop="-4dp"
+                        android:text="00:00"
+                        style="@style/Planner.RegularText"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminders_issue"
+                    android:textAlignment="center"
+                    android:textColor="@color/pie_red6"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
         </RelativeLayout>
+
+
+
     </LinearLayout>
 </RelativeLayout>
