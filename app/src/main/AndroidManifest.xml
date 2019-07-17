@@ -15,9 +15,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-        <activity android:name=".AddTaskActivity"></activity>
-        <activity android:name=".AddGoalActivity" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".Activity.AddTaskActivity"></activity>
+        <activity android:name=".Activity.AddActivity" />
         <activity android:name=".TutorialActivity" />
         <activity android:name=".PlanNextDayActivity" />
 
@@ -34,9 +33,6 @@
             android:name=".SelectColor"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".Activity.AddAimActivity"
-            android:screenOrientation="sensorPortrait" />
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
@@ -48,14 +44,6 @@
         <activity
             android:name=".Activity.SelectIconActivity"
             android:screenOrientation="sensorPortrait" />
-        <activity
-            android:name=".Activity.EditRoutineActivity"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Activity.EditAimActivity"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.AddReminder"
             android:screenOrientation="sensorPortrait" />
@@ -70,8 +58,7 @@
 
         <activity
             android:name=".Activity.AddRoutine"
-            android:screenOrientation="sensorPortrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="sensorPortrait" />
 
         <service
             android:name=".BackgroundService"

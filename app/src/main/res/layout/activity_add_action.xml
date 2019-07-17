@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.eagledev.planner.AddTaskActivity"
+    tools:context="net.eagledev.planner.Activity.AddTaskActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     style="@style/Planner">
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    app:srcCompat="@drawable/icon_day" />
+                    app:srcCompat="@drawable/icon_time" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    app:srcCompat="@drawable/icon_day" />
+                    app:srcCompat="@drawable/icon_time" />
 
                 <TextView
                     android:layout_width="wrap_content"

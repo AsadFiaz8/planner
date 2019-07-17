@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/popup_background"
-    tools:context=".Activity.AddRoutine"
-    android:theme="@style/AppTheme">
+    tools:context=".Activity.AddRoutine">
 
 
 
@@ -21,233 +20,326 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/input_routine_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="17dp"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textCapSentences"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/input_routine_name"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/tech25"/>
-
-            <TextView
-                android:id="@+id/action_day_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/input_routine_name"
-                android:text="@string/time"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="5dp"/>
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="@drawable/background"
+            android:layout_marginTop="-15dp"
+            style="@style/Planner">
 
             <LinearLayout
-                android:id="@+id/routine_time_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/action_day_view"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="65dp"
-                android:orientation="horizontal"
-
-                >
-
-                <Button
-                    android:id="@+id/input_routine_start"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:text="@string/start_hour"
-                    style="@style/AppTheme.Button"
-                   />
-
-                <Button
-                    android:id="@+id/input_routine_stop"
-                    android:layout_width="130dp"
-                    android:layout_height="@dimen/button_height"
-                    android:text="@string/stop_hour"
-                    style="@style/AppTheme.Button"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="15dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/routine_repeat_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/routine_time_layout"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/repeat" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/routine_time_layout"
-                android:layout_alignParentLeft="true"
+                android:orientation="vertical"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/grid18"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                style="@style/Planner">
 
-            <RelativeLayout
-                android:id="@+id/routine_repeat_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/routine_repeat_view"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="5dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+
+                    <ImageView
+                        android:id="@+id/routine_name_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/icon_name"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nazwa rutyny"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/routine_name_icon"
+                        android:layout_alignTop="@id/routine_name_icon"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-3dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <EditText
+                        android:id="@+id/input_routine_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/name"
+                        android:inputType="textCapSentences"
+                        android:layout_below="@id/routine_name_icon"
+                        style="@style/Planner.RegularText"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/routine_time_start_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/icon_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/routine_time_start_icon"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/start_hour"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:layout_alignTop="@id/routine_time_start_icon"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-2dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <ImageButton
+                        android:id="@+id/routine_start_time_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_date"
+                        android:layout_below="@id/routine_time_start_icon"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/routine_start_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/routine_start_time_button"
+                        android:layout_marginTop="-4dp"
+                        android:text="00:00"
+                        style="@style/Planner.RegularText"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/routine_time_stop_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/icon_time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/routine_time_stop_icon"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/stop_hour"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:layout_alignTop="@id/routine_time_stop_icon"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-2dp"
+                        style="@style/Planner.BoldText"/>
+
+                    <ImageButton
+                        android:id="@+id/routine_stop_time_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_date"
+                        android:layout_below="@id/routine_time_stop_icon"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/routine_stop_time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/routine_stop_time_button"
+                        android:layout_marginTop="-4dp"
+                        android:text="00:00"
+                        style="@style/Planner.RegularText"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/routine_repeat_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/icon_repeat"
+                        android:layout_marginTop="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/routine_repeat_icon"
+                        android:text="@string/repeat"
+                        android:textSize="@dimen/add_task_text_size"
+                        android:layout_alignTop="@id/routine_repeat_icon"
+                        android:fontFamily="@font/lato_blackitalic"
+                        android:layout_marginTop="-3dp"
+                        style="@style/Planner.BoldText"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/task_days_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:layout_below="@id/routine_repeat_icon"
+                        android:layout_marginTop="5dp">
+
+
+                        <TextView
+                            android:id="@+id/routine_mo"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/mo"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+
+
+                        <TextView
+                            android:id="@+id/routine_tu"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/tu"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+                        <TextView
+                            android:id="@+id/routine_we"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/we"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+                        <TextView
+                            android:id="@+id/routine_th"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/th"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+                        <TextView
+                            android:id="@+id/routine_fr"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/fr"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+                        <TextView
+                            android:id="@+id/routine_sa"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/sa"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/task_days_margin"
+                            android:textColor="@color/colorAccent"/>
+
+                        <TextView
+                            android:id="@+id/routine_su"
+                            android:layout_width="@dimen/task_days_button"
+                            android:layout_height="@dimen/task_days_button"
+                            android:background="@drawable/task_day_unselected"
+                            android:text="@string/su"
+                            android:gravity="center"
+                            android:textColor="@color/colorAccent"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/routine_days_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp">
 
 
-                    <TextView
-                        android:id="@+id/routine_mo"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/mo"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-
-
-                    <TextView
-                        android:id="@+id/routine_tu"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/tu"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-                    <TextView
-                        android:id="@+id/routine_we"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/we"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-                    <TextView
-                        android:id="@+id/routine_th"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/th"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-                    <TextView
-                        android:id="@+id/routine_fr"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/fr"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-                    <TextView
-                        android:id="@+id/routine_sa"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/sa"
-                        android:gravity="center"
-                        android:layout_marginRight="@dimen/task_days_margin"/>
-
-                    <TextView
-                        android:id="@+id/routine_su"
-                        android:layout_width="@dimen/task_days_button"
-                        android:layout_height="@dimen/task_days_button"
-                        android:src="@drawable/others17"
-                        android:background="@drawable/task_round_button"
-                        android:text="@string/su"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/routine_repeat_layout"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="10dp">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    >
-
-                    <TextView
-                        android:id="@+id/action_color_view"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/color"
-                        />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_marginRight="30dp"
+                        >
 
-                    <ImageView
-                        android:id="@+id/color_view"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        style="@style/AppTheme.Button"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_round"
-                        android:backgroundTint="@color/pie0"
-                        />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/routine_color_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/color"
+                            style="@style/Planner.BoldText"
+                            />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="15dp"
-                    >
+                        <ImageView
+                            android:id="@+id/color_view"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            style="@style/AppTheme.Button"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/btn_color"
+                            android:backgroundTint="@color/pie0"
+                            />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/action_image_view"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/icon"
-                        />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="30dp"
+                        >
 
-                    <ImageView
-                        android:id="@+id/icon_view"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/city18"
-                        android:background="@drawable/btn_round"
-                        android:backgroundTint="@color/gray"
-                        android:layout_marginTop="10dp"
-                        android:padding="10dp"/>
+                        <TextView
+                            android:id="@+id/routine_image_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon"
+                            style="@style/Planner.BoldText"
+                            />
+
+                        <ImageView
+                            android:id="@+id/icon_view"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/city18"
+                            android:background="@drawable/btn_icon"
+                            android:layout_marginTop="10dp"
+                            android:padding="10dp"/>
+
+
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
+
             </LinearLayout>
+
+
         </RelativeLayout>
+
+
+
     </LinearLayout>
 </RelativeLayout>

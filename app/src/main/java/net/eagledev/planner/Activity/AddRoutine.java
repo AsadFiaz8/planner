@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,7 +30,7 @@ import net.eagledev.planner.Routine;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddRoutine extends Activity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
+public class AddRoutine extends AppCompatActivity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
 
 
     public static final String TAG = "AddRoutine";
@@ -68,8 +70,8 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     int routineID;
 
     EditText nameText;
-    Button btnStartHour;
-    Button btnStopHour;
+    TextView btnStartHour;
+    TextView btnStopHour;
 
     Button btnSelectIcon;
     TimePickerDialog tpd;
@@ -162,10 +164,24 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
     private void setButtons() {
         imageConfirm = findViewById(R.id.toolbar_confirm);
         imageConfirm.setOnClickListener(this);
-        btnStartHour = findViewById(R.id.input_routine_start);
+        btnStartHour = findViewById(R.id.routine_start_time_text);
         btnStartHour.setOnClickListener(this);
-        btnStopHour = findViewById(R.id.input_routine_stop);
+        ImageButton startHourImageButton = findViewById(R.id.routine_start_time_button);
+        startHourImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnStartHour.performClick();
+            }
+        });
+        btnStopHour = findViewById(R.id.routine_stop_time_text);
         btnStopHour.setOnClickListener(this);
+        ImageButton stopHourImageButton = findViewById(R.id.routine_stop_time_button);
+        stopHourImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnStopHour.performClick();
+            }
+        });
         findViewById(R.id.icon_view).setOnClickListener(this);
         //btnSelectIcon.setOnClickListener(this);
         imageCancel = findViewById(R.id.toolbar_cancel);
@@ -197,7 +213,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
                 confirm();
                 break;
 
-            case R.id.input_routine_start:
+            case R.id.routine_start_time_text:
                 if(!MainActivity.valueHolder.isDatePickerButton()) {
 
                     HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
@@ -216,7 +232,7 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
 
                 break;
 
-            case R.id.input_routine_stop:
+            case R.id.routine_stop_time_text:
                 if(!MainActivity.valueHolder.isDatePickerButton()) {
 
                     HourPickerDialog hourPickerDialog = new HourPickerDialog(context, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0);
@@ -294,11 +310,14 @@ public class AddRoutine extends Activity implements  View.OnClickListener, NeedP
         int[] ints = {0};
         int[][] all = {ints};
         int[] colorBackground = {getColor(R.color.background)};
+        int[] colorWhite = {getColor(R.color.white)};
         int[] colorAccent = {getColor(R.color.colorAccent)};
         if(day){
-            textView.setBackgroundTintList(new ColorStateList(all, colorAccent));
+            textView.setBackground(getDrawable(R.drawable.task_day_selected));
+            textView.setTextColor(new ColorStateList(all, colorWhite));
         } else {
-            textView.setBackgroundTintList(new ColorStateList(all, colorBackground));
+            textView.setBackground(getDrawable(R.drawable.task_day_unselected));
+            textView.setTextColor(new ColorStateList(all, colorAccent));
         }
     }
 

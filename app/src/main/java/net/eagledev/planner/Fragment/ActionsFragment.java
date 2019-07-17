@@ -19,7 +19,7 @@ import android.widget.NumberPicker;
 
 import net.eagledev.planner.Action;
 import net.eagledev.planner.Adapter.ActionAdapter;
-import net.eagledev.planner.AddActivity;
+import net.eagledev.planner.Activity.AddActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;

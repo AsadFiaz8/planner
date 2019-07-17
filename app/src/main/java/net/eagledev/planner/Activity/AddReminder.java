@@ -17,7 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,8 +38,8 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
     Button createButton;
     ImageView createImage;
     ImageView cancelImage;
-    Button dateButton;
-    Button timeButton;
+    TextView dateButton;
+    TextView timeButton;
     EditText nameText;
     Context context;
 
@@ -103,6 +105,13 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
 
 
+        ImageButton dateImageButton = findViewById(R.id.reminder_date_button);
+        dateImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateButton.performClick();
+            }
+        });
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +131,14 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        timeButton . setOnClickListener(new View.OnClickListener() {
+        ImageButton timeImageButton = findViewById(R.id.reminder_time_button);
+        timeImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeButton.performClick();
+            }
+        });
+        timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tpd = new TimePickerDialog(AddReminder.this, new TimePickerDialog.OnTimeSetListener() {

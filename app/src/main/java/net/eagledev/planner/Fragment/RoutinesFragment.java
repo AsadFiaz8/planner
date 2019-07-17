@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import net.eagledev.planner.Activity.AddRoutine;
 import net.eagledev.planner.Adapter.RoutineAdapter;
-import net.eagledev.planner.Activity.EditRoutineActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;

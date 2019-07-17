@@ -68,8 +68,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import net.eagledev.planner.Activity.AddActivity;
 import net.eagledev.planner.Activity.AddReminder;
 import net.eagledev.planner.Activity.AddRoutine;
+import net.eagledev.planner.Activity.AddTaskActivity;
 import net.eagledev.planner.Adapter.TaskAdapter;
 import net.eagledev.planner.Fragment.AccountFragment;
 import net.eagledev.planner.Fragment.ActionsFragment;
@@ -285,7 +287,6 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
 
                 Intent i2 = new Intent(cnt, AddTaskActivity.class);
-                //Intent i2 = new Intent(cnt, AddAimActivity.class);
 
                 startActivityForResult(i2,0);
                 floatingActionsMenu.collapse();
