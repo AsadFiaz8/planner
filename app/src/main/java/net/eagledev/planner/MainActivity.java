@@ -1199,7 +1199,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         for (int i = 0 ; i<todayRepeatTypDay.size(); i++){
             boolean isExist = false;
             for (int l = 0; l<allTaskLists.size(); l++){
-                if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
+                if(todayRepeatTypDay.get(i).getId() == allTaskLists.get(l).getId()){
                     //Sparwdzanie czy zadanie o danym id już zostało dodane
                     isExist = true;
                 }
