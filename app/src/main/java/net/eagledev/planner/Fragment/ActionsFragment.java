@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 
 import net.eagledev.planner.Action;
@@ -42,7 +43,7 @@ import java.util.List;
 public class ActionsFragment extends Fragment {
 
     Calendar date = Calendar.getInstance();
-    Button btnDate;
+    ImageButton btnDate;
     //View v;
     DatePickerDialog dpd;
     int year;
@@ -120,7 +121,7 @@ public class ActionsFragment extends Fragment {
 
         context = getActivity();
         View view = inflater.inflate(R.layout.fragment_actions, container, false);
-        btnDate = view.findViewById(R.id.btn_actions_date);
+        btnDate = view.findViewById(R.id.action_select_month);
         this.view = view;
         year = date.get(Calendar.YEAR);
         month = date.get(Calendar.MONTH);

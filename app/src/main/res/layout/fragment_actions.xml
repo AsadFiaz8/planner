@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.ActionsFragment"
-    style="@style/AppTheme">
+    style="@style/Theme.AppCompat">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,13 +12,6 @@
         android:orientation="vertical"
         style="@style/AppTheme"
         android:backgroundTint="@color/white">
-        <Button
-            android:id="@+id/btn_actions_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_month"
-            android:layout_gravity="center"
-            />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,18 +37,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
@@ -73,13 +61,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view2"
@@ -101,13 +85,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view3"
@@ -129,13 +109,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view4"
@@ -157,18 +133,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
@@ -185,13 +157,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view6"
@@ -213,13 +181,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view7"
@@ -241,13 +205,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="8"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view8"
@@ -269,13 +229,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="9"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view9"
@@ -297,13 +253,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view10"
@@ -325,13 +277,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="11"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view11"
@@ -353,13 +301,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view12"
@@ -381,13 +325,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view13"
@@ -409,13 +349,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="14"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view14"
@@ -437,13 +372,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view15"
@@ -465,13 +396,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="16"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view16"
@@ -493,13 +420,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="17"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view17"
@@ -521,13 +444,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="18"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view18"
@@ -549,13 +468,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="19"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view19"
@@ -577,13 +492,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view20"
@@ -605,13 +516,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="21"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view21"
@@ -633,13 +540,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="22"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view22"
@@ -661,13 +564,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="23"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view23"
@@ -689,13 +588,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="24"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view24"
@@ -717,13 +612,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="25"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view25"
@@ -745,13 +636,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="26"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view26"
@@ -773,13 +660,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="27"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view27"
@@ -801,13 +684,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="28"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view28"
@@ -829,13 +708,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="29"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view29"
@@ -857,13 +732,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="30"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view30"
@@ -885,13 +756,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="31"
-                        android:textColor="@color/action_fragment_day_text"
-                        android:textStyle="bold"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/action_fragment_day_line"
-                        android:background="@color/action_fragment_day_line">
-                    </LinearLayout>
+                        style="@style/Planner.BoldText"
+                        android:textSize="20sp"/>
+
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/actions_reycler_view31"
@@ -912,4 +779,36 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_gradient"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-18dp"/>
+
+        <ImageButton
+            android:id="@+id/action_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plus"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"/>
+
+        <ImageButton
+            android:id="@+id/action_select_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/calendar_round_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 </FrameLayout>

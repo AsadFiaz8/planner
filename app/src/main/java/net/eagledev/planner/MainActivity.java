@@ -451,6 +451,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 floatingActionsMenu.setVisibility(View.VISIBLE);
                                 toolbar.setTitle(R.string.scheduled_activities);
                                 selectedScreen = R.id.nav_actions;
+                                floatingActionsMenu.setVisibility(View.INVISIBLE);
                                 break;
                             case R.id.nav_routines:
                                 fragmentManager.beginTransaction().replace(R.id.content_frame, new RoutinesFragment()).commit();

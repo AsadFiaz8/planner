@@ -44,7 +44,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         style="@style/AppTheme.Button"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/button"
         android:text="@string/month_prince"
         />
 

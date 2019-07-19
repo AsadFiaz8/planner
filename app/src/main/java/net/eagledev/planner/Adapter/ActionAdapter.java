@@ -62,7 +62,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         int[] ints = {0};
         int[][] all = {ints};
         int[] colors = {action.getColor()};
-        actionViewHolder.relativeLayout.setBackgroundTintList(new ColorStateList(all,colors));
+
 
         //actionViewHolder.colorImageView.setImageDrawable(actionViewHolder.drawable);
     }
@@ -77,7 +77,6 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         ImageView imageView, colorImageView;
         TextView textViewTittle, textViewDate, textViewTime;
         Drawable drawable;
-        RelativeLayout relativeLayout;
         public ActionViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setTag(this);
@@ -86,7 +85,6 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             textViewTittle = itemView.findViewById(R.id.action_name);
             textViewDate = itemView.findViewById(R.id.actions_date);
             textViewTime = itemView.findViewById(R.id.action_time);
-            relativeLayout = itemView.findViewById(R.id.actions_layout);
             drawable = colorImageView.getDrawable();
 
             itemView.setOnClickListener(new View.OnClickListener() {
