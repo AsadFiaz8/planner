@@ -3,6 +3,7 @@ package net.eagledev.planner.Fragment;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import net.eagledev.planner.Action;
+import net.eagledev.planner.Activity.AddReminder;
 import net.eagledev.planner.Adapter.ReminderAdapter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
@@ -47,10 +50,9 @@ public class RemindersFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     int selectedID;
-    Button button;
-    CardView cardView;
     int duration = 200;
     float pos;
+    ImageButton doneButton;
 
     private String mParam1;
     private String mParam2;
@@ -95,30 +97,36 @@ public class RemindersFragment extends Fragment {
         context = getActivity();
         View view = inflater.inflate(R.layout.fragment_reminders, container, false);
         this.view = view;
-        button = view.findViewById(R.id.reminder_done_button);
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        doneButton = view.findViewById(R.id.reminder_done);
+        doneButton.setVisibility(View.INVISIBLE);
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Reminder reminder = MainActivity.appDatabase.appDao().idReminder(selectedID);
                 reminder.setDone(1);
                 MainActivity.appDatabase.appDao().updateReminder(reminder);
                 setupList();
-                ObjectAnimator anim = ObjectAnimator.ofFloat(cardView, "y", 2500);
-                anim.setDuration(duration);
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.playTogether(anim);
-                animatorSet.start();
+
+
+                doneButton.setVisibility(View.INVISIBLE);
                 buttonEnabled = false;
             }
         });
-        cardView = view.findViewById(R.id.reminder_button_view);
-        pos = cardView.getY();
 
-        ObjectAnimator anim = ObjectAnimator.ofFloat(cardView, "y", 900);
-        anim.setDuration(0);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(anim);
-        animatorSet.start();
+        ImageButton addReminder = view.findViewById(R.id.reminder_add);
+        addReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AddReminder.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+
+
+
         setupList();
 
         return view;
@@ -135,7 +143,16 @@ public class RemindersFragment extends Fragment {
         for (int s = 0;  s < reminderNoSortList.size(); s++){
             for(int l = 0; l<reminderNoSortList.size(); l++){
                 if(startTimes.get(s) == reminderNoSortList.get(l).getStartMinutes()){
-                    act.add(reminderNoSortList.get(l));
+                    boolean isAdded = false;
+                    for (Reminder r: act) {
+                        if (r.getId() == reminderNoSortList.get(l).getId()){
+                            isAdded = true;
+                        }
+                    }
+                    if (!isAdded){
+                        act.add(reminderNoSortList.get(l));
+
+                    }
                 }
             }
 
@@ -153,11 +170,8 @@ public class RemindersFragment extends Fragment {
                 selectedID = reminder.getId();
                 if(!buttonEnabled) {
                     buttonEnabled = true;
-                    ObjectAnimator anim = ObjectAnimator.ofFloat(cardView, "y", 1400);
-                    anim.setDuration(duration);
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.playTogether(anim);
-                    animatorSet.start();
+
+                    doneButton.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -211,4 +225,12 @@ public class RemindersFragment extends Fragment {
      * create an instance of this fragment.
      */
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == MainActivity.CODE_CREATED){
+            setupList();
+        }
+    }
 }

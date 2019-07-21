@@ -127,6 +127,15 @@ public class ActionsFragment extends Fragment {
         month = date.get(Calendar.MONTH);
         day = date.get(Calendar.DAY_OF_MONTH);
 
+        ImageButton btnAdd = view.findViewById(R.id.action_add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, AddActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
 
 
         SetupList(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));

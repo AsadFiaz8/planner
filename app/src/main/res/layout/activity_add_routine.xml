@@ -327,19 +327,9 @@
                             android:padding="10dp"/>
 
 
-
                     </LinearLayout>
-
-
-
                 </LinearLayout>
-
             </LinearLayout>
-
-
         </RelativeLayout>
-
-
-
     </LinearLayout>
 </RelativeLayout>

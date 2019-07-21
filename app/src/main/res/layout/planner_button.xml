@@ -12,12 +12,13 @@
         android:id="@+id/planner_button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@id/planner_button"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="9dp"
         android:text="Tekst"
         android:textColor="@color/white"
         android:fontFamily="@font/lato_bolditalic"
         android:textSize="25dp"
+
         />
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PersistableBundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -207,11 +208,12 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
 
 
             long elapsedTime = date.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+            Log.e("elasped time", String.valueOf(elapsedTime));
             //alarm.set(AlarmManager.RTC, date.getTimeInMillis(), alarmIntent);
-            alarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, elapsedTime, alarmIntent);
+            alarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + elapsedTime, alarmIntent);
 
             //scheduleJob();
-            
+            setResult(MainActivity.CODE_CREATED);
             finish();
         } else {
             Toast.makeText(getApplicationContext(), R.string.date_in_future , Toast.LENGTH_LONG).show();

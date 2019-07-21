@@ -10,20 +10,20 @@
         android:layout_height="match_parent"
 
         android:orientation="vertical"
-        style="@style/AppTheme"
-        android:backgroundTint="@color/white">
+        style="@style/AppTheme">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@+id/btn_actions_date"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp">
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/background">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                >
 
                 <LinearLayout
                     android:id="@+id/action_day1"
@@ -800,7 +800,7 @@
             android:background="@drawable/btn_plus"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="40dp"/>
+            />
 
         <ImageButton
             android:id="@+id/action_select_month"

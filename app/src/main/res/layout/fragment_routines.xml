@@ -8,27 +8,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:orientation="vertical"
-        style="@style/AppTheme">
+        android:orientation="vertical">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@+id/btn_actions_date"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp">
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/background">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                >
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/routines_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_gradient"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-18dp"/>
+
+        <ImageButton
+            android:id="@+id/routine_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_plus"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp"/>
+
+
+
+    </RelativeLayout>
 </FrameLayout>
