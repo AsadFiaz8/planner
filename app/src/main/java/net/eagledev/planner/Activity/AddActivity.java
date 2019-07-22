@@ -6,6 +6,8 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -504,6 +506,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 d2 = new Dialog(AddActivity.this);
                 d2.setTitle("Color Picker");
                 d2.setContentView(R.layout.activity_select_color);
+                d2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 d2.show();
                 d2.findViewById(R.id.color_button0).setOnClickListener(this);
                 d2.findViewById(R.id.color_button1).setOnClickListener(this);

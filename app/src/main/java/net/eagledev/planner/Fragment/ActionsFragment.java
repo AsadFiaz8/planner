@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -146,6 +148,7 @@ public class ActionsFragment extends Fragment {
                 dialog = new Dialog(context);
                 dialog.setTitle("Select Month");
                 dialog.setContentView(R.layout.dialog_set_month);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 monthPicker = dialog.findViewById(R.id.month_picker);
                 yearPicker = dialog.findViewById(R.id.year_picker);
