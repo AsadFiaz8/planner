@@ -5,7 +5,7 @@
 
 
         <attr name="text" format="string"/>
-        <attr name="background" format="integer"/>
+
 
 
     </declare-styleable>
