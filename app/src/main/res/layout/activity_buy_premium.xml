@@ -39,14 +39,13 @@
         android:textColor="@color/black"
         android:text="@string/month_plan" />
 
-    <Button
+
+    <net.eagledev.planner.PlannerButton
         android:id="@+id/btn_premium_month"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.Button"
-        android:background="@drawable/button"
-        android:text="@string/month_prince"
-        />
+        app:text="@string/month_prince"
+        app:size="2"/>
 
 
 
