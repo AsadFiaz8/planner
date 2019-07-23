@@ -3,6 +3,7 @@ package net.eagledev.planner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +16,11 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
 
     private String text;
     private int size;
+    private int scale;
+    private int h;
+    private int w;
+    LayoutParams layoutParams;
+
     ImageButton image;
     TextView textView;
 
@@ -34,23 +40,26 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PlannerButton);
 
         text = typedArray.getString(R.styleable.PlannerButton_text);
-        size = typedArray.getInt(R.styleable.PlannerButton_size,0);
+        size = typedArray.getInt(R.styleable.PlannerButton_size,1);
+        scale = typedArray.getInt(R.styleable.PlannerButton_scale, 1);
         typedArray.recycle();
+        w = getWidth();
+        h = getHeight();
+
+
 
         initComponents();
         setText(text);
-        if(size == 1){
-            image.setBackground(getResources().getDrawable(R.drawable.btn_s1));
-        }
-        if(size == 2){
-            image.setBackground(getResources().getDrawable(R.drawable.btn_s2));
-        }
+        setSize(size);
+        setScale(scale);
 
     }
 
     private void initComponents() {
         image = findViewById(R.id.planner_button);
         textView = findViewById(R.id.planner_button_text);
+        image.setOnClickListener(this);
+        textView.setOnClickListener(this);
     }
 
 
@@ -58,8 +67,29 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
         textView.setText(text);
     }
 
+    public void setSize(int size){
+        this.size=size;
+        if(size == 1){
+            image.setBackground(getResources().getDrawable(R.drawable.btn_s1));
+        }
+        if(size == 2){
+            image.setBackground(getResources().getDrawable(R.drawable.btn_s2));
+        }
+    }
+
+    public void setScale(int scale){
+
+
+
+    }
+
     @Override
     public void onClick(View v) {
+        performClick();
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 }

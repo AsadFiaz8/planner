@@ -57,12 +57,6 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         featuresTextView=findViewById(R.id.text_premium_features);
         btnMonth = findViewById(R.id.btn_premium_month);
         btnMonth.setOnClickListener(this);
-        btnMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "test", Toast.LENGTH_LONG).show();
-            }
-        });
         btnYear = findViewById(R.id.btn_premium_year);
         btnYear.setOnClickListener(this);
         btnAd = findViewById(R.id.btn_premium_watch_ad);
