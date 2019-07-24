@@ -147,18 +147,18 @@
 
                         <RelativeLayout
 
-                            android:layout_width="93dp"
-                            android:layout_height="40dp"
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentStart="false"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="5dp"
                             android:gravity="center"
                             android:visibility="visible"
                             >
 
-                            <Button
+                            <net.eagledev.planner.PlannerButton
                                 android:id="@+id/btn_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -167,10 +167,10 @@
                                 android:layout_alignParentRight="true"
                                 android:background="@drawable/button"
                                 android:gravity="center"
-                                android:text="@string/edit"
-                                style="@style/Planner.RegularText"
-                                android:textColor="@color/white"
-                                android:visibility="visible" />
+                                app:text="@string/edit"
+                                app:textSize="15"
+                                app:size="1"
+                                android:visibility="invisible" />
 
 
 
@@ -178,32 +178,34 @@
 
                         </RelativeLayout>
 
-                        <Button
+                        <net.eagledev.planner.PlannerButton
                             android:id="@+id/btn_new_action"
-                            style="@style/AppTheme.Button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentStart="false"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="5dp"
                             android:gravity="center"
-                            android:text="@string/lets_plan"
-                            android:visibility="invisible" />
+                            app:text="@string/lets_plan"
+                            android:visibility="invisible"
+                            app:textSize="15"
+                            app:size="1"/>
 
-                        <Button
+                        <net.eagledev.planner.PlannerButton
                             android:id="@+id/btn_edit_routine"
-                            style="@style/AppTheme.Button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentStart="false"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="5dp"
                             android:gravity="center"
-                            android:text="@string/edit"
+                            app:text="@string/edit"
+                            app:textSize="15"
+                            app:size="1"
                             android:visibility="invisible" />
 
                         <TextView

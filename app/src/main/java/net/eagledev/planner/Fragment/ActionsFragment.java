@@ -26,6 +26,7 @@ import net.eagledev.planner.Activity.AddActivity;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 import java.util.ArrayList;
@@ -169,7 +170,7 @@ public class ActionsFragment extends Fragment {
                 yearPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
 
-                Button selectButton = dialog.findViewById(R.id.btn_select_month);
+                PlannerButton selectButton = dialog.findViewById(R.id.btn_select_month);
                 selectButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

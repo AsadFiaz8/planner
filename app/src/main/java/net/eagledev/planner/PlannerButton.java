@@ -19,10 +19,12 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
     private int scale;
     private int h;
     private int w;
+    private int textSize;
     LayoutParams layoutParams;
 
     ImageButton image;
     TextView textView;
+
 
 
     public PlannerButton(Context context) {
@@ -42,6 +44,7 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
         text = typedArray.getString(R.styleable.PlannerButton_text);
         size = typedArray.getInt(R.styleable.PlannerButton_size,1);
         scale = typedArray.getInt(R.styleable.PlannerButton_scale, 1);
+        textSize = typedArray.getInt(R.styleable.PlannerButton_textSize, (int)getResources().getDimension(R.dimen.button_text_size));
         typedArray.recycle();
         w = getWidth();
         h = getHeight();
@@ -52,6 +55,7 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
         setText(text);
         setSize(size);
         setScale(scale);
+        setTextSize(textSize);
 
     }
 
@@ -79,9 +83,12 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
 
     public void setScale(int scale){
 
-
-
     }
+
+    public void setTextSize(int size){
+        textView.setTextSize(size);
+    }
+
 
     @Override
     public void onClick(View v) {

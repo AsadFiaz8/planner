@@ -7,6 +7,7 @@
         <attr name="text" format="string"/>
         <attr name="size" format="integer"/>
         <attr name="scale" format="integer"/>
+        <attr name="textSize" format="integer"/>
     </declare-styleable>
 
 

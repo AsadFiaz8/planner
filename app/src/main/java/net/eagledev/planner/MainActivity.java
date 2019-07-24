@@ -124,20 +124,15 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     int colorGray;
     ImageView clockArrow;
     public String emptyLabel = "432534253425345435345342532453425";
-    TextView actionInfo;
-    Button btnEdit;
-    Button btnEditRoutine;
-    Button btn_new_action;
-    TextView actionInfoText;
-    TextView actionTimeText;
+    PlannerButton btnEdit, btnEditRoutine, btn_new_action;
+    TextView actionInfoText, actionTimeText, actionInfo;
+
     public static boolean setMainPage = false;
-    int selectedID;
+    int selectedID, bgH, bgW;
     int notificationID = 1;
     float menuBgPos = 800;
     int menuAnimTime = 180;
     ViewGroup.LayoutParams params;
-    int bgH;
-    int bgW;
     public static RewardedVideoAd VideoAd;
     LinearLayout linearLayout;
     RelativeLayout clockLayout;
@@ -158,8 +153,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     public static List<Drawable> drawables = new ArrayList<>();
     public static ValueHolder valueHolder;
     public static Context context;
-    Animation clockOut;
-    Animation clockIn;
+    Animation clockOut, clockIn;
     public static SharedPreferences pref;
     private Calendar currentDate;
     private Calendar now = Calendar.getInstance();

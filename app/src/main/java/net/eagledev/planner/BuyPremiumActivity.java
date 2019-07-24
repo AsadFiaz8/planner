@@ -34,8 +34,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     int messageID;
     TextView featuresTextView, pointsTextView;
     ImageView toolbarConfirm;
-    Button btnYear, btnAd;
-    PlannerButton btnMonth;
+    PlannerButton btnMonth, btnYear, btnAd;
     Context context;
     private RewardedVideoAd mRewardedVideoAd;
     BillingProcessor bp;
