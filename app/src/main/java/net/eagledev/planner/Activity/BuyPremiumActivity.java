@@ -1,6 +1,5 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +19,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.GooglePlayServicesUtilLight;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-import java.util.Calendar;
-import java.util.List;
+import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
+import net.eagledev.planner.R;
+import net.eagledev.planner.ValueHolder;
 
 public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
 
@@ -62,7 +59,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         btnAd.setOnClickListener(this);
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
         pointsTextView = findViewById(R.id.text_premium_points);
-        pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
+        pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+ MainActivity.valueHolder.premiumPoints());
         Intent intent = getIntent();
         Bundle bundle = null;
         if(intent != null){

@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Service;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+
+import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.R;
 
 import static net.eagledev.planner.App.CHANNEL_ID;
 

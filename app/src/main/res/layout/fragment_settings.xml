@@ -2,11 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="net.eagledev.planner.Fragment.SettingsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
         <TextView
             android:id="@+id/settings_text_1"
@@ -43,23 +45,27 @@
             android:layout_marginRight="10dp"
            android:layout_alignTop="@id/settings_text_2"/>
 
-        <Button
+        <net.eagledev.planner.PlannerButton
             android:id="@+id/settings_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/privacy_policy"
+            app:text="@string/privacy_policy"
             android:layout_below="@id/settings_text_2"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            app:size="2"
+            app:textSize="20"/>
 
-        <Button
+        <net.eagledev.planner.PlannerButton
             android:id="@+id/settings_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete_all_data"
+            app:text="@string/delete_all_data"
             android:layout_below="@id/settings_button1"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            app:size="2"
+            app:textSize="20"/>
 
 
 

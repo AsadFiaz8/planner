@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.R;
 
 import java.util.HashMap;
 import java.util.Map;

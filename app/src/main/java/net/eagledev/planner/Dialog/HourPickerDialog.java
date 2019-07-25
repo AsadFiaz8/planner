@@ -1,10 +1,15 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+
+import net.eagledev.planner.Formatter;
+import net.eagledev.planner.R;
 
 import java.util.Calendar;
 
@@ -48,6 +53,7 @@ public class HourPickerDialog {
         dialog = new Dialog(context);
         dialog.setTitle("Hour Picker");
         dialog.setContentView(R.layout.dialog_hour_picker);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         hourPicker = dialog.findViewById(R.id.dialog_picker_hour);
         minutePicker = dialog.findViewById(R.id.dialog_picker_minute);

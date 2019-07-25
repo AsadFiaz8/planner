@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+
+import net.eagledev.planner.Checker;
+import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.R;
 
 public class AlarmService extends Service {
 

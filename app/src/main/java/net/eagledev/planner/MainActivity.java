@@ -72,7 +72,10 @@ import net.eagledev.planner.Activity.AddActivity;
 import net.eagledev.planner.Activity.AddReminder;
 import net.eagledev.planner.Activity.AddRoutine;
 import net.eagledev.planner.Activity.AddTaskActivity;
+import net.eagledev.planner.Activity.BuyPremiumActivity;
 import net.eagledev.planner.Adapter.TaskAdapter;
+import net.eagledev.planner.Dialog.GetOpinionDialog;
+import net.eagledev.planner.Dialog.NeedPremiumDialog;
 import net.eagledev.planner.Fragment.AccountFragment;
 import net.eagledev.planner.Fragment.ActionsFragment;
 import net.eagledev.planner.Fragment.ContactFragment;
@@ -81,6 +84,8 @@ import net.eagledev.planner.Fragment.RoutinesFragment;
 import net.eagledev.planner.Fragment.SettingsFragment;
 import net.eagledev.planner.Fragment.TasksFragment;
 import net.eagledev.planner.Interface.ItemClickListener;
+import net.eagledev.planner.Service.NotificationJobService;
+import net.eagledev.planner.Service.NotificationService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1509,7 +1514,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
     private void scheduleJob(){
 
-        ComponentName componentName = new ComponentName(this,NotificationJobService.class);
+        ComponentName componentName = new ComponentName(this, NotificationJobService.class);
         JobInfo jobInfo = new JobInfo.Builder(1, componentName)
                 .setRequiresCharging(false)
                 .setPersisted(true)

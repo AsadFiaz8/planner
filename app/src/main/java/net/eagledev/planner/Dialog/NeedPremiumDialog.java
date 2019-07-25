@@ -1,10 +1,8 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +14,9 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import java.util.concurrent.TimeUnit;
+import net.eagledev.planner.Activity.BuyPremiumActivity;
+import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.R;
 
 public class NeedPremiumDialog  implements RewardedVideoAdListener {
 

@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Service;
 
 import android.app.PendingIntent;
 import android.app.job.JobParameters;

@@ -296,8 +296,10 @@
                                 android:paddingTop="2dp"
                                 android:paddingBottom="2dp"
                                 android:text="@string/tasks_for_today"
-                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                                android:textColor="@color/white" />
+                                style="@style/Planner.BoldText"
+                                android:textColor="@color/white"
+                                android:textSize="20dp"
+                                android:layout_centerInParent="true" />
                         </RelativeLayout>
 
 

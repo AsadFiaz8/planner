@@ -31,7 +31,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     BillingHolder billingHolder;
     //BillingProcessor bp;
 
-    ValueHolder() {
+    public ValueHolder() {
         try {
             editor = MainActivity.pref.edit();
 

@@ -28,7 +28,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6069706356094406~2925415895" />
 
-        <activity android:name=".BuyPremiumActivity" />
+        <activity android:name=".Activity.BuyPremiumActivity" />
         <activity
             android:name=".SelectColor"
             android:screenOrientation="sensorPortrait" />
@@ -52,7 +52,7 @@
         <receiver android:name=".ReminderReceiver" />
 
         <service
-            android:name=".AlarmService"
+            android:name=".Service.AlarmService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
@@ -61,11 +61,11 @@
             android:screenOrientation="sensorPortrait" />
 
         <service
-            android:name=".BackgroundService"
+            android:name=".Service.BackgroundService"
             android:exported="false" />
-        <service android:name=".NotificationService" />
+        <service android:name=".Service.NotificationService" />
         <service
-            android:name=".NotificationJobService"
+            android:name=".Service.NotificationJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 

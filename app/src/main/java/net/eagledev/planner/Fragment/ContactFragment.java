@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class ContactFragment extends Fragment {
     Spinner spinneer;
     TextView emailText;
     TextView descText;
-    Button btnSend;
+    PlannerButton btnSend;
     String email;
     String tittle;
     String desc;

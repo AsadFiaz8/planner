@@ -1,4 +1,4 @@
-package net.eagledev.planner;
+package net.eagledev.planner.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import net.eagledev.planner.R;
 
 public class TaskLabelAdapter extends ArrayAdapter<String> {
 

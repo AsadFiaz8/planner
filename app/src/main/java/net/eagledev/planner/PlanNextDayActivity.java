@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +25,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
+import net.eagledev.planner.Dialog.NeedPremiumDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;

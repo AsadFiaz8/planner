@@ -28,7 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
-import net.eagledev.planner.NeedPremiumDialog;
+import net.eagledev.planner.Dialog.NeedPremiumDialog;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Task;
 
