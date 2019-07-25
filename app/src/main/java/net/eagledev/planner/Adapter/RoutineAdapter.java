@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
+import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Routine;
 
@@ -51,7 +52,24 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         routineViewHolder.textViewTittle.setText(routine.getName());
         routineViewHolder.textViewHours.setText(f.Time(routine.getStart())+" - "+ f.Time(routine.getStop()));
         routineViewHolder.imageView.setImageDrawable(context.getDrawable(routine.getIcon()));
-        routineViewHolder.drawable.setTint(routine.getColor());
+
+
+
+        int color = routine.getColor();
+
+        if(color < MainActivity.colors.length && color >= 0){
+            color = routine.getColor();
+        } else {
+            for(int l = 0; l<MainActivity.colors.length; l++){
+                if(routine.getColor() == MainActivity.colors[i]){
+                    color = l;
+                }
+            }
+            if(color >= MainActivity.colors.length || color < 0) color = 0;
+        }
+        color = MainActivity.colors[color];
+
+        routineViewHolder.drawable.setTint(color);
         int[] ints = {0};
         int[][] all = {ints};
         int[] colors = {routine.getColor()};

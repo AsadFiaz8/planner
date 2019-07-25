@@ -247,8 +247,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     date_start.set(year,month,day,startHour,startMinute);
                     date_stop.set(year,month,day,stopHour,stopMinute);
                     iconID = selectedAction.getIcon();
-
-                    if(colorID < MainActivity.colors.length){
+                    colorID = selectedAction.getColor();
+                    if(colorID < MainActivity.colors.length && colorID >= 0){
                         colorID = selectedAction.getColor();
                     } else {
                         for(int i = 0; i<MainActivity.colors.length; i++){
@@ -256,7 +256,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                                 colorID = i;
                             }
                         }
-                        if(colorID >= MainActivity.colors.length) colorID = 0;
+                        if(colorID >= MainActivity.colors.length || colorID < 0) colorID = 0;
                     }
                     textView.setText(desc);
                     dateText.setText(f.DateText(date_start));
@@ -746,7 +746,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private void setColor() {
         int[] ints = {0};
         int[][] all = {ints};
-        int[] colors = {colorID};
+        int[] colors = {MainActivity.colors[colorID]};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
     }
 

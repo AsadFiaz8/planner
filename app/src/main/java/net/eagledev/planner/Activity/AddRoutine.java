@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import net.eagledev.planner.Checker;
+import net.eagledev.planner.Dialog.SelectColorDialog;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Dialog.HourPickerDialog;
 import net.eagledev.planner.MainActivity;
@@ -27,7 +29,7 @@ import net.eagledev.planner.Routine;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddRoutine extends AppCompatActivity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener {
+public class AddRoutine extends AppCompatActivity implements  View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener, SelectColorDialog.SelectColorDialogListener {
 
 
     public static final String TAG = "AddRoutine";
@@ -138,7 +140,24 @@ public class AddRoutine extends AppCompatActivity implements  View.OnClickListen
                 setDay(saturday, saturdayBtn);
                 sunday=selectedRoutine.isSunday();
                 setDay(sunday, sundayBtn);
-                setColor();
+                Log.e(TAG, String.valueOf(color));
+                if(color < MainActivity.colors.length && color >= 0){
+                    color = selectedRoutine.getColor();
+                    Log.e(TAG, "1   "+ color);
+                } else {
+                    for(int i = 0; i<MainActivity.colors.length; i++){
+                        if(selectedRoutine.getColor() == MainActivity.colors[i]){
+                            color = i;
+                            Log.e(TAG, "2   "+ color);
+                        }
+                    }
+                    if(color >= MainActivity.colors.length || color < 0) color = 0;
+                    Log.e(TAG, "3   "+ color);
+                }
+                int[] ints = {0};
+                int[][] all = {ints};
+                int[] colors = {MainActivity.colors[color]};
+                imageColor.setBackgroundTintList(new ColorStateList(all,colors));
                 imageIcon.setImageDrawable(getDrawable(icon));
                 imageDelete = findViewById(R.id.toolbar_delete);
                 imageDelete.setVisibility(View.VISIBLE);
@@ -203,7 +222,6 @@ public class AddRoutine extends AppCompatActivity implements  View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        clickColor(view.getId());
         clickIcon(view.getId());
         switch (view.getId()) {
             case R.id.toolbar_confirm:
@@ -296,6 +314,10 @@ public class AddRoutine extends AppCompatActivity implements  View.OnClickListen
             case R.id.routine_su:
                 sunday = !sunday;
                 setDay(sunday, sundayBtn);
+                break;
+            case R.id.color_view:
+                SelectColorDialog colorDialog = new SelectColorDialog(context);
+                colorDialog.ShowDialog(0);
                 break;
 
         }
@@ -469,302 +491,8 @@ public class AddRoutine extends AppCompatActivity implements  View.OnClickListen
 
     }
 
-    private void clickColor(int id) {
-        switch (id) {
 
-            case R.id.color_view:
-                d2 = new Dialog(AddRoutine.this);
-                d2.setTitle("Color Picker");
-                d2.setContentView(R.layout.activity_select_color);
-                d2.show();
-                d2.findViewById(R.id.color_button0).setOnClickListener(this);
-                d2.findViewById(R.id.color_button1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button5).setOnClickListener(this);
 
-                d2.findViewById(R.id.color_button_green1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_green2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_green3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_green4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_green5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_green6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_yellow1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_yellow2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_yellow3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_yellow4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_yellow5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_yellow6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_orange1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_orange2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_orange3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_orange4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_orange5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_orange6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_red1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_red2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_red3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_red4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_red5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_red6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_violet1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_violet2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_violet3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_violet4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_violet5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_violet6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_blue1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_blue2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_blue3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_blue4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_blue5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_blue6).setOnClickListener(this);
-
-                d2.findViewById(R.id.color_button_navy1).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_navy2).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_navy3).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_navy4).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_navy5).setOnClickListener(this);
-                d2.findViewById(R.id.color_button_navy6).setOnClickListener(this);
-
-                break;
-
-            case R.id.color_button0:
-                color = MainActivity.colors[0];
-                setColor();
-                d2.dismiss();
-                break;
-            case R.id.color_button1:
-                color = MainActivity.colors[1];
-                setColor();
-                d2.dismiss();
-                break;
-            case R.id.color_button2:
-                color = MainActivity.colors[2];
-                setColor();
-                d2.dismiss();
-                break;
-            case R.id.color_button3:
-                color = MainActivity.colors[3];
-                setColor();
-                d2.dismiss();
-                break;
-            case R.id.color_button4:
-                color = MainActivity.colors[4];
-                setColor();
-                d2.dismiss();
-                break;
-            case R.id.color_button5:
-                color = MainActivity.colors[5];
-                setColor();
-                d2.dismiss();
-                break;
-
-            case R.id.color_button_green1:
-                premiumColor = 6;
-                setPremiumColor();
-                break;
-            case R.id.color_button_green2:
-                premiumColor = 7;
-                setPremiumColor();
-                break;
-            case R.id.color_button_green3:
-                premiumColor = 8;
-                setPremiumColor();
-                break;
-            case R.id.color_button_green4:
-                premiumColor = 9;
-                setPremiumColor();
-                break;
-            case R.id.color_button_green5:
-                premiumColor = 10;
-                setPremiumColor();
-                break;
-            case R.id.color_button_green6:
-                premiumColor = 11;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_yellow1:
-                premiumColor = 12;
-                setPremiumColor();
-                break;
-            case R.id.color_button_yellow2:
-                premiumColor = 13;
-                setPremiumColor();
-                break;
-            case R.id.color_button_yellow3:
-                premiumColor = 14;
-                setPremiumColor();
-                break;
-            case R.id.color_button_yellow4:
-                premiumColor = 15;
-                setPremiumColor();
-                break;
-            case R.id.color_button_yellow5:
-                premiumColor = 16;
-                setPremiumColor();
-                break;
-            case R.id.color_button_yellow6:
-                premiumColor = 17;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_orange1:
-                premiumColor = 18;
-                setPremiumColor();
-                break;
-            case R.id.color_button_orange2:
-                premiumColor = 19;
-                setPremiumColor();
-                break;
-            case R.id.color_button_orange3:
-                premiumColor = 20;
-                setPremiumColor();
-                break;
-            case R.id.color_button_orange4:
-                premiumColor = 21;
-                setPremiumColor();
-                break;
-            case R.id.color_button_orange5:
-                premiumColor = 22;
-                setPremiumColor();
-                break;
-            case R.id.color_button_orange6:
-                premiumColor = 23;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_red1:
-                premiumColor = 24;
-                setPremiumColor();
-                break;
-            case R.id.color_button_red2:
-                premiumColor = 25;
-                setPremiumColor();
-                break;
-            case R.id.color_button_red3:
-                premiumColor = 26;
-                setPremiumColor();
-                break;
-            case R.id.color_button_red4:
-                premiumColor = 27;
-                setPremiumColor();
-                break;
-            case R.id.color_button_red5:
-                premiumColor = 28;
-                setPremiumColor();
-                break;
-            case R.id.color_button_red6:
-                premiumColor = 29;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_violet1:
-                premiumColor = 36;
-                setPremiumColor();
-                break;
-            case R.id.color_button_violet2:
-                premiumColor = 37;
-                setPremiumColor();
-                break;
-            case R.id.color_button_violet3:
-                premiumColor = 38;
-                setPremiumColor();
-                break;
-            case R.id.color_button_violet4:
-                premiumColor = 39;
-                setPremiumColor();
-                break;
-            case R.id.color_button_violet5:
-                premiumColor = 40;
-                setPremiumColor();
-                break;
-            case R.id.color_button_violet6:
-                premiumColor = 41;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_blue1:
-                premiumColor = 42;
-                setPremiumColor();
-                break;
-            case R.id.color_button_blue2:
-                premiumColor = 43;
-                setPremiumColor();
-                break;
-            case R.id.color_button_blue3:
-                premiumColor = 44;
-                setPremiumColor();
-                break;
-            case R.id.color_button_blue4:
-                premiumColor = 45;
-                setPremiumColor();
-                break;
-            case R.id.color_button_blue5:
-                premiumColor = 46;
-                setPremiumColor();
-                break;
-            case R.id.color_button_blue6:
-                premiumColor = 47;
-                setPremiumColor();
-                break;
-
-            case R.id.color_button_navy1:
-                premiumColor = 48;
-                setPremiumColor();
-                break;
-            case R.id.color_button_navy2:
-                premiumColor = 49;
-                setPremiumColor();
-                break;
-            case R.id.color_button_navy3:
-                premiumColor = 50;
-                setPremiumColor();
-                break;
-            case R.id.color_button_navy4:
-                premiumColor = 51;
-                setPremiumColor();
-                break;
-            case R.id.color_button_navy5:
-                premiumColor = 52;
-                setPremiumColor();
-                break;
-            case R.id.color_button_navy6:
-                premiumColor = 53;
-                setPremiumColor();
-                break;
-
-        }
-    }
-
-    private void setPremiumColor() {
-        if(MainActivity.valueHolder.canUsePremium()){
-            color = MainActivity.colors[premiumColor];
-            //imageColor.setBackgroundColor(color);
-            int[] ints = {0};
-            int[][] all = {ints};
-            int[] colors = {color};
-            imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-            d2.dismiss();
-        } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context, CODE_COLORS);
-            pd.ShowDialog(getString(R.string.premium_reason4));
-        }
-    }
-
-    private void setColor() {
-        int[] ints = {0};
-        int[][] all = {ints};
-        int[] colors = {color};
-        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
-    }
 
     private void clickIcon(int id) {
         switch (id){
@@ -1288,5 +1016,14 @@ public class AddRoutine extends AppCompatActivity implements  View.OnClickListen
             }
             btnStopHour.setText(f.Time(stop));
         }
+    }
+
+    @Override
+    public void getColorPickerDialogColor(int requestCode, int color) {
+        this.color = color;
+        int[] ints = {0};
+        int[][] all = {ints};
+        int[] colors = {MainActivity.colors[color]};
+        imageColor.setBackgroundTintList(new ColorStateList(all,colors));
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import net.eagledev.planner.Action;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
+import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 
 import java.util.List;
@@ -57,7 +58,20 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         actionViewHolder.textViewTittle.setText(action.getDesc());
         actionViewHolder.textViewDate.setText(f.Date(action.getStart()));
         actionViewHolder.textViewTime.setText(f.Time(action.getStart())+" - "+ f.Time(action.getStop()));
-        actionViewHolder.drawable.setTint(action.getColor());
+        int color = action.getColor();
+
+        if(color < MainActivity.colors.length && color >= 0){
+            color = action.getColor();
+        } else {
+            for(int l = 0; l<MainActivity.colors.length; l++){
+                if(action.getColor() == MainActivity.colors[i]){
+                    color = l;
+                }
+            }
+            if(color >= MainActivity.colors.length || color < 0) color = 0;
+        }
+        color = MainActivity.colors[color];
+        actionViewHolder.drawable.setTint(color);
         actionViewHolder.imageView.setImageDrawable(context.getDrawable(action.getIcon()));
         int[] ints = {0};
         int[][] all = {ints};

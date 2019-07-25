@@ -720,6 +720,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             Action currentAction = ac.get(0);
             int currentActionNumber = 0;
             int actionTime = 24*60;
+            int color;
             //Powtarzaj dopki czas nie osiągie 24h
             while(t<24*60) {
                 if(!ac.isEmpty()) {
@@ -730,6 +731,19 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                             currentActionNumber = i;
                         }
                     } ac.remove(currentActionNumber);
+                    color = currentAction.getColor();
+
+                    if(color < MainActivity.colors.length && color >= 0){
+                        color = currentAction.getColor();
+                    } else {
+                        for(int i = 0; i<MainActivity.colors.length; i++){
+                            if(currentAction.getColor() == MainActivity.colors[i]){
+                                color = i;
+                            }
+                        }
+                        if(color >= MainActivity.colors.length || color < 0) color = 0;
+                    }
+                    color = colors[color];
                     isRoutine = false;
                     //Sprawdzanie akcja czy rutyna
                     if(startRoutinesTime.size() > 0) {
@@ -760,8 +774,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         }
 
 
-
-                        pieColors.add(currentAction.getColor());
+                        pieColors.add(color);
                         t=currentAction.getStopMinutes();
                         actionTime = 24*60;
                     } else {
@@ -775,7 +788,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
                         }
-                        pieColors.add(currentAction.getColor());
+                        pieColors.add(color);
                         t=currentAction.getStopMinutes();
                         actionTime = 24*60;
                     }
