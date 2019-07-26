@@ -266,7 +266,7 @@ public class SelectColorDialog implements View.OnClickListener {
             listener.getColorPickerDialogColor(requestCode, colorID);
             dialog.dismiss();
         } else {
-            NeedPremiumDialog pd = new NeedPremiumDialog(context, 1);
+            NeedPremiumDialog pd = new NeedPremiumDialog(context, 2);
             pd.ShowDialog(context.getString(R.string.premium_reason3));
         }
 

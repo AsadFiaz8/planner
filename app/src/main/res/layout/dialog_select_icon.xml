@@ -31,7 +31,7 @@
                     android:padding="10dp"
                     android:src="@drawable/city18"
                     android:visibility="visible"
-                    android:background="#00000000"/>
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button2"
@@ -39,7 +39,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/clothes01"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button3"
@@ -48,6 +49,7 @@
                     android:padding="10dp"
                     android:src="@drawable/clothes17"
                     android:visibility="visible"
+                    android:background="@color/transparent"
 
                     />
 
@@ -57,7 +59,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/finance06"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button5"
@@ -65,7 +68,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/finance26"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button6"
@@ -73,7 +77,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/food17"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button7"
@@ -81,7 +86,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/food13"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button8"
@@ -89,7 +95,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/home13"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button9"
@@ -97,7 +104,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/home16"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button10"
@@ -105,7 +113,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/home34"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button11"
@@ -113,7 +122,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/medical11"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button12"
@@ -121,7 +131,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/others18"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button13"
@@ -129,7 +140,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/sports08"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button14"
@@ -137,7 +149,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/sports20"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button15"
@@ -145,7 +158,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/tech02"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button16"
@@ -153,7 +167,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/transport04"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button17"
@@ -161,7 +176,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/transport05"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button18"
@@ -169,7 +185,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/transport09"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button19"
@@ -177,7 +194,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/transport19"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button20"
@@ -185,7 +203,8 @@
                     android:layout_height="50dp"
                     android:padding="10dp"
                     android:src="@drawable/ui34"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    android:background="@color/transparent" />
 
 
             </GridLayout>
@@ -219,56 +238,64 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/animals02" />
+                    android:src="@drawable/animals02"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button22"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/animals11" />
+                    android:src="@drawable/animals11"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button23"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/city08" />
+                    android:src="@drawable/city08"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button24"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/clothes23" />
+                    android:src="@drawable/clothes23"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button25"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/clothes28" />
+                    android:src="@drawable/clothes28"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button26"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/documents03" />
+                    android:src="@drawable/documents03"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button27"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/finance02" />
+                    android:src="@drawable/finance02"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button28"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/finance24" />
+                    android:src="@drawable/finance24"
+                    android:background="@color/transparent"/>
 
 
                 <ImageButton
@@ -276,363 +303,415 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/finance53" />
+                    android:src="@drawable/finance53"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button30"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food01" />
+                    android:src="@drawable/food01"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button31"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food05" />
+                    android:src="@drawable/food05"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button32"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food06" />
+                    android:src="@drawable/food06"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button33"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food08" />
+                    android:src="@drawable/food08"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button34"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food10" />
+                    android:src="@drawable/food10"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button35"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food12" />
+                    android:src="@drawable/food12"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button36"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/food15" />
+                    android:src="@drawable/food15"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button37"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home01" />
+                    android:src="@drawable/home01"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button38"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home05" />
+                    android:src="@drawable/home05"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button40"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home09" />
+                    android:src="@drawable/home09"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button41"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home10" />
+                    android:src="@drawable/home10"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button42"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home11" />
+                    android:src="@drawable/home11"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button43"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home20" />
+                    android:src="@drawable/home20"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button44"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home36" />
+                    android:src="@drawable/home36"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button45"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/home38" />
+                    android:src="@drawable/home38"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button46"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/mail14" />
+                    android:src="@drawable/mail14"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button47"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/medical01" />
+                    android:src="@drawable/medical01"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button48"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/medical03" />
+                    android:src="@drawable/medical03"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button49"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/medical04" />
+                    android:src="@drawable/medical04"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button50"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/medical06" />
+                    android:src="@drawable/medical06"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button51"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/nature01" />
+                    android:src="@drawable/nature01"
+                    android:background="@color/transparent" />
                 <ImageButton
                     android:id="@+id/image_button52"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/nature05" />
+                    android:src="@drawable/nature05"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button53"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/nature09" />
+                    android:src="@drawable/nature09"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button54"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/nature12" />
+                    android:src="@drawable/nature12"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button55"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/nature18" />
+                    android:src="@drawable/nature18"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button56"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others03" />
+                    android:src="@drawable/others03"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button57"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others11" />
+                    android:src="@drawable/others11"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button58"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others17" />
+                    android:src="@drawable/others17"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button59"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others19" />
+                    android:src="@drawable/others19"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button60"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others21" />
+                    android:src="@drawable/others21"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button61"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/others40" />
+                    android:src="@drawable/others40"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button62"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/phone15" />
+                    android:src="@drawable/phone15"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button63"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/space05" />
+                    android:src="@drawable/space05"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button64"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports01" />
+                    android:src="@drawable/sports01"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button65"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports06" />
+                    android:src="@drawable/sports06"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button66"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports09" />
+                    android:src="@drawable/sports09"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button67"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports12" />
+                    android:src="@drawable/sports12"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button68"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports14" />
+                    android:src="@drawable/sports14"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button69"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports25" />
+                    android:src="@drawable/sports25"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button70"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports27" />
+                    android:src="@drawable/sports27"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button71"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/sports29" />
+                    android:src="@drawable/sports29"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button72"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/tech06" />
+                    android:src="@drawable/tech06"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button73"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/tech09" />
+                    android:src="@drawable/tech09"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button74"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/tech18" />
+                    android:src="@drawable/tech18"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button75"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/tech37" />
+                    android:src="@drawable/tech37"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button76"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/transport06" />
+                    android:src="@drawable/transport06"
+                    android:background="@color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/image_button77"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/transport09" />
+                    android:src="@drawable/transport09"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button78"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/transport13" />
+                    android:src="@drawable/transport13"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button79"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/ui03" />
+                    android:src="@drawable/ui03"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button80"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/ui48" />
+                    android:src="@drawable/ui48"
+                    android:background="@color/transparent" />
 
                 <ImageButton
                     android:id="@+id/image_button81"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
-                    android:src="@drawable/ui65" />
+                    android:src="@drawable/ui65"
+                    android:background="@color/transparent" />
 
 
 

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import net.eagledev.planner.Action;
 import net.eagledev.planner.Checker;
 import net.eagledev.planner.Dialog.SelectColorDialog;
+import net.eagledev.planner.Dialog.SelectIconDialog;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Dialog.HourPickerDialog;
 import net.eagledev.planner.MainActivity;
@@ -34,7 +35,7 @@ import net.eagledev.planner.ValueHolder;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener, SelectColorDialog.SelectColorDialogListener {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener, NeedPremiumDialog.NeedPremiumDialogListener, HourPickerDialog.HourPickerDialogListener, SelectColorDialog.SelectColorDialogListener, SelectIconDialog.SelectIconDialogListener {
     Calendar c;
     DatePickerDialog dpd;
     TimePickerDialog tpd;
@@ -111,7 +112,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         date_stop.set(Calendar.HOUR_OF_DAY, 1);
         date_stop.set(Calendar.MINUTE, 0);
 
-        iconID = MainActivity.icons[0];
+        iconID = 0;
         imageCancel = findViewById(R.id.toolbar_cancel);
         imageCancel.setOnClickListener(this);
         imageConfirm = findViewById(R.id.toolbar_confirm);
@@ -247,6 +248,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     date_start.set(year,month,day,startHour,startMinute);
                     date_stop.set(year,month,day,stopHour,stopMinute);
                     iconID = selectedAction.getIcon();
+
+                    if(iconID < MainActivity.icons.length && iconID >= 0){
+                        iconID = selectedAction.getIcon();
+                    } else {
+                        for(int i = 0; i<MainActivity.icons.length; i++){
+                            if(selectedAction.getIcon() == MainActivity.icons[i]){
+                                iconID = i;
+                            }
+                        }
+                        if(iconID >= MainActivity.icons.length || iconID < 0) iconID = 0;
+                    }
+
+
                     colorID = selectedAction.getColor();
                     if(colorID < MainActivity.colors.length && colorID >= 0){
                         colorID = selectedAction.getColor();
@@ -260,7 +274,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     }
                     textView.setText(desc);
                     dateText.setText(f.DateText(date_start));
-                    imageIcon.setImageDrawable(getDrawable(iconID));
+                    imageIcon.setImageDrawable(getDrawable(MainActivity.icons[iconID]));
                     setColor();
                     textView.setText(desc);
                     timeStartText.setText(f.Time(date_start) );
@@ -753,92 +767,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private void clickIcon(int id) {
         switch (id){
             case R.id.icon_view:
-                d1 = new Dialog(AddActivity.this);
-                d1.setTitle("Icon Picker");
-                d1.setContentView(R.layout.activity_select_icon);
-                d1.show();
-                d1.findViewById(R.id.image_button1).setOnClickListener(this);
-                d1.findViewById(R.id.image_button2).setOnClickListener(this);
-                d1.findViewById(R.id.image_button3).setOnClickListener(this);
-                d1.findViewById(R.id.image_button4).setOnClickListener(this);
-                d1.findViewById(R.id.image_button5).setOnClickListener(this);
-                d1.findViewById(R.id.image_button6).setOnClickListener(this);
-                d1.findViewById(R.id.image_button7).setOnClickListener(this);
-                d1.findViewById(R.id.image_button8).setOnClickListener(this);
-                d1.findViewById(R.id.image_button9).setOnClickListener(this);
-                d1.findViewById(R.id.image_button10).setOnClickListener(this);
-                d1.findViewById(R.id.image_button11).setOnClickListener(this);
-                d1.findViewById(R.id.image_button12).setOnClickListener(this);
-                d1.findViewById(R.id.image_button13).setOnClickListener(this);
-                d1.findViewById(R.id.image_button14).setOnClickListener(this);
-                d1.findViewById(R.id.image_button15).setOnClickListener(this);
-                d1.findViewById(R.id.image_button16).setOnClickListener(this);
-                d1.findViewById(R.id.image_button17).setOnClickListener(this);
-                d1.findViewById(R.id.image_button18).setOnClickListener(this);
-                d1.findViewById(R.id.image_button19).setOnClickListener(this);
-                d1.findViewById(R.id.image_button20).setOnClickListener(this);
-
-                //Premium icons
-                d1.findViewById(R.id.image_button21).setOnClickListener(this);
-                d1.findViewById(R.id.image_button22).setOnClickListener(this);
-                d1.findViewById(R.id.image_button23).setOnClickListener(this);
-                d1.findViewById(R.id.image_button24).setOnClickListener(this);
-                d1.findViewById(R.id.image_button25).setOnClickListener(this);
-                d1.findViewById(R.id.image_button26).setOnClickListener(this);
-                d1.findViewById(R.id.image_button27).setOnClickListener(this);
-                d1.findViewById(R.id.image_button28).setOnClickListener(this);
-                d1.findViewById(R.id.image_button29).setOnClickListener(this);
-                d1.findViewById(R.id.image_button30).setOnClickListener(this);
-                d1.findViewById(R.id.image_button31).setOnClickListener(this);
-                d1.findViewById(R.id.image_button32).setOnClickListener(this);
-                d1.findViewById(R.id.image_button33).setOnClickListener(this);
-                d1.findViewById(R.id.image_button34).setOnClickListener(this);
-                d1.findViewById(R.id.image_button35).setOnClickListener(this);
-                d1.findViewById(R.id.image_button36).setOnClickListener(this);
-                d1.findViewById(R.id.image_button37).setOnClickListener(this);
-                d1.findViewById(R.id.image_button38).setOnClickListener(this);
-                d1.findViewById(R.id.image_button40).setOnClickListener(this);
-                d1.findViewById(R.id.image_button41).setOnClickListener(this);
-                d1.findViewById(R.id.image_button42).setOnClickListener(this);
-                d1.findViewById(R.id.image_button43).setOnClickListener(this);
-                d1.findViewById(R.id.image_button44).setOnClickListener(this);
-                d1.findViewById(R.id.image_button45).setOnClickListener(this);
-                d1.findViewById(R.id.image_button46).setOnClickListener(this);
-                d1.findViewById(R.id.image_button47).setOnClickListener(this);
-                d1.findViewById(R.id.image_button48).setOnClickListener(this);
-                d1.findViewById(R.id.image_button49).setOnClickListener(this);
-                d1.findViewById(R.id.image_button50).setOnClickListener(this);
-                d1.findViewById(R.id.image_button51).setOnClickListener(this);
-                d1.findViewById(R.id.image_button52).setOnClickListener(this);
-                d1.findViewById(R.id.image_button53).setOnClickListener(this);
-                d1.findViewById(R.id.image_button54).setOnClickListener(this);
-                d1.findViewById(R.id.image_button55).setOnClickListener(this);
-                d1.findViewById(R.id.image_button56).setOnClickListener(this);
-                d1.findViewById(R.id.image_button57).setOnClickListener(this);
-                d1.findViewById(R.id.image_button58).setOnClickListener(this);
-                d1.findViewById(R.id.image_button59).setOnClickListener(this);
-                d1.findViewById(R.id.image_button60).setOnClickListener(this);
-                d1.findViewById(R.id.image_button51).setOnClickListener(this);
-                d1.findViewById(R.id.image_button62).setOnClickListener(this);
-                d1.findViewById(R.id.image_button63).setOnClickListener(this);
-                d1.findViewById(R.id.image_button64).setOnClickListener(this);
-                d1.findViewById(R.id.image_button65).setOnClickListener(this);
-                d1.findViewById(R.id.image_button66).setOnClickListener(this);
-                d1.findViewById(R.id.image_button67).setOnClickListener(this);
-                d1.findViewById(R.id.image_button68).setOnClickListener(this);
-                d1.findViewById(R.id.image_button69).setOnClickListener(this);
-                d1.findViewById(R.id.image_button70).setOnClickListener(this);
-                d1.findViewById(R.id.image_button71).setOnClickListener(this);
-                d1.findViewById(R.id.image_button72).setOnClickListener(this);
-                d1.findViewById(R.id.image_button73).setOnClickListener(this);
-                d1.findViewById(R.id.image_button74).setOnClickListener(this);
-                d1.findViewById(R.id.image_button75).setOnClickListener(this);
-                d1.findViewById(R.id.image_button76).setOnClickListener(this);
-                d1.findViewById(R.id.image_button77).setOnClickListener(this);
-                d1.findViewById(R.id.image_button78).setOnClickListener(this);
-                d1.findViewById(R.id.image_button79).setOnClickListener(this);
-                d1.findViewById(R.id.image_button80).setOnClickListener(this);
-                d1.findViewById(R.id.image_button81).setOnClickListener(this);
+                SelectIconDialog dialog = new SelectIconDialog(context);
+                dialog.ShowDialog(0);
                 break;
 
             case R.id.image_button1:
@@ -1225,5 +1155,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         int[][] all = {ints};
         int[] colors = {MainActivity.colors[colorID]};
         imageColor.setBackgroundTintList(new ColorStateList(all,colors));
+    }
+
+    @Override
+    public void getIconPickedIcon(int requestCode, int icon) {
+        iconID = icon;
+        imageIcon.setImageDrawable(getDrawable(MainActivity.icons[iconID]));
     }
 }
