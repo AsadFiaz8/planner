@@ -29,6 +29,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     private List<Action> actionList;
     int row_index = -1;
     ItemClickListener onItemClickListener;
+    Formatter fo = new Formatter();
+
 
 
 
@@ -72,7 +74,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         }
         color = MainActivity.colors[color];
         actionViewHolder.drawable.setTint(color);
-        actionViewHolder.imageView.setImageDrawable(context.getDrawable(action.getIcon()));
+        actionViewHolder.imageView.setImageDrawable(context.getDrawable(fo.newIcon(action.getIcon())));
         int[] ints = {0};
         int[][] all = {ints};
         int[] colors = {action.getColor()};

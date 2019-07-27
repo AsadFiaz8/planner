@@ -1,11 +1,13 @@
 package net.eagledev.planner;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.Calendar;
 
 public final class Formatter {
 
+    public static final String TAG = "Formatter";
 
     public String dateWithTime(Calendar cal){
         return z(cal.get(Calendar.HOUR_OF_DAY)) + ":" + z(cal.get(Calendar.MINUTE)) + " " + z(cal.get(Calendar.DAY_OF_MONTH)) + "/" + z(cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR);
@@ -188,6 +190,45 @@ public final class Formatter {
         else if (c.get(Calendar.SUNDAY) == dayOfWeek) return 7;
         else return 0;
 
+    }
+
+    public int newIcon(int ic)
+    {
+        int icon;
+        icon = ic;
+
+        if(icon < MainActivity.icons.length && icon >= 0){
+            icon = ic;
+        } else {
+            for(int i = 0; i<MainActivity.icons.length; i++){
+                if(i == MainActivity.icons[i]){
+                    icon = i;
+                }
+            }
+            if(icon >= MainActivity.icons.length || icon < 0) icon = 0;
+        }
+        icon = MainActivity.icons[icon];
+
+        return icon;
+    }
+
+    public int newColor(int co)
+    {
+
+        int color = co;
+
+        if(color < MainActivity.colors.length && color >= 0){
+            color = co;
+        } else {
+            for(int i = 0; i<MainActivity.colors.length; i++){
+                if(co == MainActivity.colors[i]){
+                    color = i;
+                }
+            }
+            if(color >= MainActivity.colors.length || color < 0) color = 0;
+        }
+        color = MainActivity.colors[color];
+        return color;
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import net.eagledev.planner.Formatter;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 import java.util.Calendar;
@@ -76,7 +77,7 @@ public class HourPickerDialog {
         minutePicker.setMaxValue(59);
         hourPicker.setValue(hour);
         minutePicker.setValue(minute);
-        Button button = dialog.findViewById(R.id.dialog_picker_button);
+        PlannerButton button = dialog.findViewById(R.id.dialog_picker_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

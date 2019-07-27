@@ -28,6 +28,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     private Formatter f = new Formatter();
     private List<Routine> routineList;
 
+    Formatter fo = new Formatter();
     ItemClickListener onItemClickListener;
 
     public RoutineAdapter(Context context, List<Routine> routineList, ItemClickListener clickListener) {
@@ -51,7 +52,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         String pn, wt, sr, cz, pt, so, nd;
         routineViewHolder.textViewTittle.setText(routine.getName());
         routineViewHolder.textViewHours.setText(f.Time(routine.getStart())+" - "+ f.Time(routine.getStop()));
-        routineViewHolder.imageView.setImageDrawable(context.getDrawable(routine.getIcon()));
+        routineViewHolder.imageView.setImageDrawable(context.getDrawable(fo.newIcon(routine.getIcon())));
 
 
 

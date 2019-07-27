@@ -24,6 +24,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 import java.util.Arrays;
@@ -53,9 +54,9 @@ public class AccountFragment extends Fragment {
     List<AuthUI.IdpConfig> providers;
     TextView userNameText;
     TextView userMailText;
-    Button btnNuke;
-    Button btnLogout;
-    Button btnLogin;
+    PlannerButton btnNuke;
+    PlannerButton btnLogout;
+    PlannerButton btnLogin;
     LinearLayout loginLayout;
     LinearLayout logoutLayout;
     public static final String TAG = "AccountFragment";

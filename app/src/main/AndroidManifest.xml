@@ -30,9 +30,6 @@
 
         <activity android:name=".Activity.BuyPremiumActivity" />
         <activity
-            android:name=".SelectColor"
-            android:screenOrientation="sensorPortrait" />
-        <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
@@ -41,9 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.SelectIconActivity"
-            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".Activity.AddReminder"
             android:screenOrientation="sensorPortrait" />

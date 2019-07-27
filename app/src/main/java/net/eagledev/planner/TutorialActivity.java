@@ -19,8 +19,8 @@ public class TutorialActivity extends AppCompatActivity {
     ImageView image4;
     ImageView image5;
     TextView textView;
-    ImageButton buttonSkip;
-    ImageButton buttonNext;
+    PlannerButton buttonSkip;
+    PlannerButton buttonNext;
     int part = 1;
 
 

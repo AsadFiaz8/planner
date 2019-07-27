@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="net.eagledev.planner.PlanNextDayActivity"
     android:orientation="vertical"
+    android:background="@drawable/background"
     >
 
 
@@ -50,124 +51,223 @@
             </com.github.mikephil.charting.charts.PieChart>
         </RelativeLayout>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-        <EditText
-            android:id="@+id/pndTittle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:inputType="textCapSentences"
-            android:hint="Name"
-            />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/pndStartHour"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pndTittle"
-            android:text="@string/start_hour"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentLeft="true"/>
-
-        <Button
-            android:id="@+id/pndStopHour"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="@string/stop_hour"
-            android:layout_below="@id/pndTittle"
-            android:layout_alignParentRight="true"
-            android:layout_centerHorizontal="true"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
 
+                <ImageView
+                    android:id="@+id/action_name_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/icon_name"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
 
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        >
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_marginRight="15dp"
-            >
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa zadania"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/action_name_icon"
+                    android:layout_alignTop="@id/action_name_icon"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-3dp"
+                    style="@style/Planner.BoldText"/>
+
+                <EditText
+                    android:id="@+id/input_action_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/name"
+                    android:inputType="textCapSentences"
+                    android:layout_below="@id/action_name_icon"
+                    style="@style/Planner.RegularText"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/action_time_start_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/icon_time" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/action_time_start_icon"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/start_hour"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:layout_alignTop="@id/action_time_start_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
+
+                <ImageButton
+                    android:id="@+id/action_start_time_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/action_time_start_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/action_start_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/action_start_time_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="06:00"
+                    style="@style/Planner.RegularText"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/action_time_stop_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/icon_time" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/action_time_stop_icon"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/stop_hour"
+                    android:textSize="@dimen/add_task_text_size"
+                    android:layout_alignTop="@id/action_time_stop_icon"
+                    android:fontFamily="@font/lato_blackitalic"
+                    android:layout_marginTop="-2dp"
+                    style="@style/Planner.BoldText"/>
+
+                <ImageButton
+                    android:id="@+id/action_stop_time_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/action_time_stop_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/action_stop_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/action_stop_time_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="09:00"
+                    style="@style/Planner.RegularText"/>
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select_icon"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                />
-            <ImageView
-                android:id="@+id/icon_view"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                style="@style/AppTheme.Button"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/city18"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:padding="10dp"
-                android:background="@drawable/btn_round"
-                android:backgroundTint="@color/button"
-                />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginRight="30dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/action_color_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color"
+                        style="@style/Planner.BoldText"
+                        />
+
+                    <ImageView
+                        android:id="@+id/color_view"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        style="@style/AppTheme.Button"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btn_color"
+                        android:backgroundTint="@color/pie0"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="30dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/action_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon"
+                        style="@style/Planner.BoldText"
+                        />
+
+                    <ImageView
+                        android:id="@+id/icon_view"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/city18"
+                        android:background="@drawable/btn_icon"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"/>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <net.eagledev.planner.PlannerButton
+                android:id="@+id/pndAdd"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/select_color"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                />
-            <ImageView
-                android:id="@+id/color_view"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                style="@style/AppTheme.Button"
-                android:layout_alignParentBottom="true"
+                app:text="@string/add"
+                app:size="1"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_round"
-                android:backgroundTint="@color/pie0"
-                />
+                android:gravity="center_horizontal"/>
+
+            <net.eagledev.planner.PlannerButton
+                android:id="@+id/pndExit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="@string/exit"
+                app:size="1"
+                android:gravity="center_horizontal"/>
+
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
-    <Button
-        android:id="@+id/pndAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
 
-    <Button
-        android:id="@+id/pndExit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/exit"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
 
 
 </LinearLayout>

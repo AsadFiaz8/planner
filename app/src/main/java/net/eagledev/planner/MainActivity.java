@@ -204,6 +204,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        findViewById(R.id.test).setOnClickListener(this);
         setupList();
         setDate();
         setupUpdate();
@@ -266,6 +267,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 floatingActionsMenu.collapse();
                 break;*/
 
+            case R.id.test:
+                Intent testIntent = new Intent(context, PlanNextDayActivity.class);
+                startActivity(testIntent);
+
+                break;
             case R.id.action_1:
 
                 Intent i1 = new Intent(cnt, AddRoutine.class);
@@ -761,13 +767,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         pieEntries.add(new PieEntry(currentAction.getStartMinutes()-t,emptyLabel));
                         pieColors.add(colorGray);
                         if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>90){
-                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
+                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(newIcon(currentAction.getIcon()))));
                         } else {
                             //Czas trwania mniejszy niż 90 minut
 
                             //Drawable d = getDrawable(currentAction.getIcon());
                             if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
-                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(currentAction.getIcon(),50)));
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(newIcon(currentAction.getIcon()),50)));
                             } else {
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
@@ -779,11 +785,11 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                         actionTime = 24*60;
                     } else {
                         if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>90){
-                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(currentAction.getIcon())));
+                            pieEntries.add(new PieEntry(currentAction.getTime(), acID,getDrawable(newIcon(currentAction.getIcon()))));
                         } else {
                             //Czas trwania mniejszy niż 90 minut
                             if(currentAction.getStopMinutes()-currentAction.getStartMinutes()>45){
-                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(currentAction.getIcon(),50)));
+                                pieEntries.add(new PieEntry(currentAction.getTime(), acID, scaleDrawable(newIcon(currentAction.getIcon()),50)));
                             } else {
                                 pieEntries.add(new PieEntry(currentAction.getTime(), acID));
                             }
@@ -1765,6 +1771,26 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         Log.e(TAG, "TouchEvent");
         this.gestureObject.onTouchEvent(event);
         return super.onTouchEvent(event);
+    }
+
+    private int newIcon(int ic)
+    {
+        int icon;
+        icon = ic;
+
+        if(icon < icons.length && icon >= 0){
+            icon = ic;
+        } else {
+            for(int i = 0; i<icons.length; i++){
+                if(i == icons[i]){
+                    icon = i;
+                }
+            }
+            if(icon >= icons.length || icon < 0) icon = 0;
+        }
+        icon = icons[icon];
+
+        return icon;
     }
 }
 

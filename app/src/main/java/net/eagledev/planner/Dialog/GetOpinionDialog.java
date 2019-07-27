@@ -3,6 +3,8 @@ package net.eagledev.planner.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -50,6 +52,7 @@ public class GetOpinionDialog implements View.OnClickListener {
     public void ShowDialog(){
         d = new Dialog(context);
         d.setContentView(R.layout.dialog_get_opinion);
+        d.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         d.show();
 
         db = FirebaseFirestore.getInstance();

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TutorialActivity"
+    android:background="@drawable/background"
    >
 
     <ImageView
@@ -97,6 +98,7 @@
         android:layout_alignTop="@+id/tut_text_box"
         android:layout_alignEnd="@+id/tut_text_box"
 
+        style="@style/Planner.RegularText"
         android:layout_marginStart="10dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="10dp"
@@ -110,56 +112,36 @@
         app:layout_constraintTop_toTopOf="@+id/tut_text_box" />
 
 
-    <ImageButton
+    <net.eagledev.planner.PlannerButton
         android:id="@+id/tut_btn_skip"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/tut_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tut_btn_next"
         app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:size="1"
+        app:text="@string/skip"/>
 
-    <TextView
+
+
+    <net.eagledev.planner.PlannerButton
+        android:id="@+id/tut_btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/skip"
-        android:textColor="@color/white"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tut_btn_skip"
-        app:layout_constraintEnd_toEndOf="@+id/tut_btn_skip"
-        app:layout_constraintVertical_bias="0.4"
-
-        app:layout_constraintStart_toStartOf="@+id/tut_btn_skip"
-        app:layout_constraintTop_toTopOf="@+id/tut_btn_skip" />
-
-    <ImageButton
-        android:id="@+id/tut_btn_next"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/tut_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:size="1"
+        app:text="@string/next"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:textColor="@color/white"
-        android:textSize="22dp"
-        app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintBottom_toBottomOf="@+id/tut_btn_next"
-        app:layout_constraintEnd_toEndOf="@+id/tut_btn_next"
-        app:layout_constraintStart_toStartOf="@+id/tut_btn_next"
-        app:layout_constraintTop_toTopOf="@+id/tut_btn_next" />
 
 
 

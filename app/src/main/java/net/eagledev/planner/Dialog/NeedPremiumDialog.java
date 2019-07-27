@@ -1,6 +1,7 @@
 package net.eagledev.planner.Dialog;
 
 import android.app.Dialog;
+import android.app.Presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import net.eagledev.planner.Activity.BuyPremiumActivity;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 public class NeedPremiumDialog  implements RewardedVideoAdListener {
@@ -80,7 +82,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
             textView = dialog.findViewById(R.id.need_premium_reason);
 
             textView.setText(reason);
-            Button premiumButton = dialog.findViewById(R.id.need_premium_button);
+            PlannerButton premiumButton = dialog.findViewById(R.id.need_premium_button);
             premiumButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,7 +92,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
                 }
             });
 
-            Button adButton = dialog.findViewById(R.id.need_premium_ad_button);
+            PlannerButton adButton = dialog.findViewById(R.id.need_premium_ad_button);
             adButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="net.eagledev.planner.Fragment.AccountFragment">
 
 
@@ -25,16 +26,14 @@
             android:layout_marginRight="30dp"
             style="@style/Planner.RegularText"/>
 
-        <Button
+        <net.eagledev.planner.PlannerButton
             android:id="@+id/user_btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/sign_in"
-            style="@style/Planner.Button"
-            android:background="@drawable/button_background" />
+            app:text="@string/sign_in"
+            android:gravity="center_horizontal"
+            app:size="2"
+            android:layout_marginTop="10dp"/>
 
 
     </LinearLayout>
@@ -88,27 +87,24 @@
             android:textColor="@color/black"
             android:textSize="25dp"
             style="@style/Planner.BoldText"/>
-        <Button
+        <net.eagledev.planner.PlannerButton
             android:id="@+id/user_btn_nuke_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="@string/delete_all_data"
+            app:text="@string/delete_all_data"
+            app:size="2"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button"
-            style="@style/Planner.Button"/>
+            android:gravity="center_horizontal"/>
 
-        <Button
+        <net.eagledev.planner.PlannerButton
             android:id="@+id/user_btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+
             android:layout_marginTop="10dp"
-            android:text="@string/logout"
-            android:background="@drawable/button"
-            style="@style/Planner.Button"/>
+            app:text="@string/logout"
+            app:size="2"
+            android:gravity="center_horizontal"/>
     </LinearLayout>
 
 </FrameLayout>

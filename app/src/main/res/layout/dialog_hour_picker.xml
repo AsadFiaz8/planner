@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@drawable/dialog_box_1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:gravity="center_horizontal"
-        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wybierz godzinę"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="5dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -42,12 +29,12 @@
 
     </LinearLayout>
 
-    <Button
+    <net.eagledev.planner.PlannerButton
         android:id="@+id/dialog_picker_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.Button"
-        android:text="@string/select"
+        app:text="@string/select"
+        app:size="1"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 
