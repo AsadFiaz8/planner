@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nazwa rutyny"
+                        android:text="@string/routine_name"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/routine_name_icon"
                         android:layout_alignTop="@id/routine_name_icon"

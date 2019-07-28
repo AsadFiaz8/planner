@@ -48,6 +48,7 @@ public class TasksFragment extends Fragment {
     RecyclerView recyclerView;
     TaskAdapter adapter;
     List<Task> taskList = new ArrayList<>();
+    public static final String TAG = "TasksFragment";
     View view;
     Context context = getContext();
     ItemClickListener itemClickListener;
@@ -139,6 +140,7 @@ public class TasksFragment extends Fragment {
                     todayRepeatTypDay.add(repeatTaskList.get(i));
                 }
             }
+            Log.e(TAG, String.valueOf(todayRepeatTypDay.size()));
             List<Task> todayRepeatTypInterval = MainActivity.appDatabase.appDao().getTasksRepeatType(2);
             List<Task> allTaskLists = new ArrayList<>();
             for (int i = 0 ; i<dayTaskList.size(); i++){
@@ -155,21 +157,24 @@ public class TasksFragment extends Fragment {
                     allTaskLists.add(dayTaskList.get(i));
                 }
             }
-            if(dayTaskList.size() > 0){
+
                 for (int i = 0 ; i<todayRepeatTypDay.size(); i++){
                     boolean isExist = false;
                     for (int l = 0; l<allTaskLists.size(); l++){
-                        if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
-                            //Sparwdzanie czy zadanie o danym id już zostało dodane
-                            isExist = true;
+                        if(dayTaskList.size() > 0){
+                            if(dayTaskList.get(i).getId() == allTaskLists.get(l).getId()){
+                                //Sparwdzanie czy zadanie o danym id już zostało dodane
+                                isExist = true;
+                            }
                         }
+
                     }
                     if (!isExist){
                         todayRepeatTypDay.get(i).setUsingDate(date);
                         allTaskLists.add(todayRepeatTypDay.get(i));
                     }
                 }
-            }
+
 
             for (int i = 0 ; i<todayRepeatTypInterval.size(); i++){
                 Task task = todayRepeatTypInterval.get(i);

@@ -205,7 +205,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        findViewById(R.id.test).setOnClickListener(this);
+
         setupList();
         setDate();
         setupUpdate();
@@ -268,12 +268,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
                 floatingActionsMenu.collapse();
                 break;*/
 
-            case R.id.test:
-                GetOpinionDialog opinionDialog = new GetOpinionDialog(this);
-                opinionDialog.ShowDialog();
-                floatingActionsMenu.collapse();
 
-                break;
+
+
             case R.id.action_1:
 
                 Intent i1 = new Intent(cnt, AddRoutine.class);
@@ -1506,6 +1503,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             case "pl":
                 lang = "pl";
+                break;
+            case "en":
+                lang = "en";
                 break;
             default:
                 lang = "en";

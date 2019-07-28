@@ -4,7 +4,7 @@
     android:layout_height="370dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/dialog_box_3">
+    android:background="@drawable/dialog_box_2">
 
 <LinearLayout
     android:layout_width="310dp"

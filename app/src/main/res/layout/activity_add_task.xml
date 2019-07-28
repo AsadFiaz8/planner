@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nazwa zadania"
+                    android:text="@string/task_name"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/task_name_icon"
                     android:layout_alignTop="@id/task_name_icon"

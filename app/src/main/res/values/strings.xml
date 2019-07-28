@@ -1,178 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Planner</string>
     <string name="bar">Bar</string>
     <string name="todo">TODO</string>
-    <string name="date">Data</string>
+    <string name="date">Date</string>
+
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="start_hour">Godzina rozpoczęcia</string>
-    <string name="stop_hour">Godzina zakończenia</string>
-    <string name="select_icon">Wybierz ikonę</string>
-
-    <string name="name">Nazwa</string>
-    <string name="hour">Godzina</string>
-    <string name="monday">Poniedziałek</string>
-    <string name="tuesday">Wtorek</string>
-    <string name="wednesday">Środa</string>
-    <string name="thursday">Czwartek</string>
-    <string name="friday">Piątek</string>
-    <string name="saturday">Sobota</string>
-    <string name="sunday">Niedziela</string>
-    <string name="work_days">Dni robocze</string>
-    <string name="weekends">Weekendy</string>
-    <string name="edit">Edytuj</string>
-    <string name="lets_plan">Zaplanuj!</string>
-    <string name="goals_for_today">Cele na dzisiaj</string>
-    <string name="new_routine">Nowa rutyna</string>
-    <string name="new_action">Nowa czynność</string>
-    <string name="new_reminder">Dodaj przypomnienie</string>
-    <string name="reminder">Przypomnienie</string>
-    <string name="new_goal">Dodaj cel</string>
-    <string name="filter_by_date">Filtruj według daty</string>
-    <string name="filter">Filtruj</string>
-    <string name="done">Zrobione</string>
-    <string name="set_time_by_digital_clock">Wybieranie godziny zgarem cyfrowym</string>
-    <string name="notification_with_current_action">Powiadomienie z nazwą akatualnej czynności</string>
-    <string name="header_tittle">Zaplanuj swój czas!</string>
-    <string name="main_page">Strona Główna</string>
-    <string name="scheduled_activities">Zaplanowane czynności</string>
-    <string name="routines">Rutny</string>
-    <string name="goals">Cele</string>
-    <string name="reminders">Przypomnienia</string>
-    <string name="settings">Ustawienia</string>
-    <string name="date_in_future">Podana data musi być z przyszłości</string>
-    <string name="start_date_in_future">Czas rozpoczęcia musi być z przyszłości</string>
-    <string name="stop_date_in_future">Czas zakończenia musi być z przyszłości</string>
-    <string name="stop_must_be_after_start">Czas zakończenia musi być po czasie rozpoczęcia</string>
-    <string name="action_deleted">Czynność usunięta</string>
-    <string name="routine_cant_interfere">Tworzona rutyna nie może kolidować z istniejącymi</string>
-    <string name="day">Dzień</string>
-    <string name="month">Miesiąc</string>
-    <string name="year">Rok</string>
-    <string name="today">Dzisiaj</string>
-    <string name="tomorrow">Jutro</string>
-    <string name="aim_deleted">Cel został usunięty</string>
-    <string name="routine_deleted">Rutyna została usunięta</string>
-    <string name="select_color">Wybierz kolor</string>
-    <string name="planned_actions">Zaplanowane czynności</string>
-    <string name="aims">Cele</string>
-    <string name="add_now">Dodaj teraz</string>
-    <string name="no_scheduled_activity">Brak zaplanowanej czynności</string>
-    <string name="yesterday">Wczoraj</string>
-    <string name="january">Styczeń</string>
-    <string name="february">Luty</string>
-    <string name="march">Marzec</string>
-    <string name="april">Kwiecień</string>
-    <string name="may">Maj</string>
-    <string name="june">Czerwiec</string>
-    <string name="july">Lipiec</string>
-    <string name="august">Sierpień</string>
-    <string name="october">Wrzesień</string>
-    <string name="september">Październik</string>
-    <string name="november">Listopad</string>
-    <string name="december">Grudzień</string>
-
-    <string name="january2">Stycznia</string>
-    <string name="february2">Lutego</string>
-    <string name="march2">Marca</string>
-    <string name="april2">Kwietnia</string>
-    <string name="may2">Maja</string>
-    <string name="june2">Czerwca</string>
-    <string name="july2">Lipca</string>
-    <string name="august2">Sierpnia</string>
-    <string name="october2">Września</string>
-    <string name="september2">Października</string>
-    <string name="november2">Listopada</string>
-    <string name="december2">Grudnia</string>
-    <string name="no_goals_for_today">Brak celów na dziś</string>
-    <string name="contact">Kontakt</string>
-    <string name="you_have_premium">Masz już konto premium</string>
-    <string name="premium_reason1">Tylko użytkownicy premium mogą tworzyć więcej niż 3 rutyny</string>
-    <string name="premium_reason2">Tylko użytkownicy premium mogą tworzyć więcej niż 5 akcji dziennie</string>
-    <string name="premium_reason3">Aby korzystać z większej ilości ikonek wykup konto premium</string>
-    <string name="premium_reason4">Aby korzystać z większej ilości kolorów wykup konto premium</string>
-    <string name="premium_reason5">Tylko użytkownicy premium mogą tworyć więcej niż 2 cele dziennie</string>
-    <string name="premium_updated_by_one_day">Konto premium przedłużone reklamą o jeden dzień</string>
-    <string name="premium_features">Korzyści konta Premium:\n  Nieograniczona ilość rutyn oraz czynności\n  60 dodatkowych ikon dla rutyn i czynności\n  42 dodatkowe kolory\n  Brak dziennego limitu celów</string>
-    <string name="select_premium_plan">Wybierz plan premium!</string>
-    <string name="month_plan">Plan miesięczny</string>
-    <string name="month_prince">3zł / miesiąc</string>
-    <string name="yearly_plan">Plan roczny</string>
-    <string name="year_pince">2 zł / miesiąc</string>
-    <string name="free_premium_ad_account">Darmowe konto premium w zamian za oglądanie reklam</string>
-    <string name="watch_ad">Obejrzyj reklamę</string>
-
-
-    <string name="your_premium_account_expired">Twoje konto premium straciło ważność  obeejrz reklamę aby przedłużyć je o jeden dzień</string>
-    <string name="you_can_also_buy_premium">Możesz również skorzystać z abonamentów konta premium</string>
-    <string name="premium_was_erxtended_by_one_day">Konto premium przedłużone reklamą o jeden dzień</string>
-    <string name="premium_activatetd_by_ad">Konto premium zostało dzisiaj aktywowane przez reklame</string>
-    <string name="sorry_no_ads">Przepraszamy. Żadna reklama nie jest dostępna</string>
-    <string name="everyday">Codzinnie</string>
-    <string name="pn">PN</string>
-    <string name="wt">WT</string>
-    <string name="sr">SR</string>
-    <string name="cz">CZ</string>
-    <string name="pt">PT</string>
-    <string name="so">SO</string>
-    <string name="nd">ND</string>
-    <string name="current_activity">Aktualna czynność</string>
-    <string name="select">Wybierz</string>
+    <string name="start_hour">Start Hour</string>
+    <string name="stop_hour">Stop hour</string>
+    <string name="select_icon">Select icon</string>
+    <string name="name">Name</string>
+    <string name="hour">Hour</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="work_days">Work days</string>
+    <string name="weekends">Weekends</string>
+    <string name="edit">Edit</string>
+    <string name="lets_plan">Let\'s plan</string>
+    <string name="goals_for_today">Today goals</string>
+    <string name="new_routine">New routine</string>
+    <string name="new_action">New activity</string>
+    <string name="new_reminder">New reminder</string>
+    <string name="reminder">Reminder</string>
+    <string name="new_goal">New goal</string>
+    <string name="filter_by_date">Filter by date</string>
+    <string name="filter">Filter</string>
+    <string name="done">Done</string>
+    <string name="set_time_by_digital_clock">Selecting the time of a digital clock</string>
+    <string name="notification_with_current_action">Notification with the name of the current activity</string>
+    <string name="header_tittle"> Plan your time! </string>
+    <string name="main_page">Home Page</string>
+    <string name = "scheduled_activities">" Scheduled activities"</string>
+    <string name = "routines"> Routines </string>    
+    <string name = "goals"> Goals </string>
+    <string name = "reminders"> Reminders </string>
+    <string name = "settings"> Settings </string>
+    <string name = "date_in_future"> The given date must be from the future </string>
+    <string name = "start_date_in_future"> Only premium users can add activities in past </string>
+    <string name = "stop_date_in_future"> Only premium users can add activities in past </string>
+    <string name = "stop_must_be_after_start"> The end time must be after the start time </string> 
+    <string name = "action_deleted"> Action removed </string>
+    <string name = "routine_cant_interfere"> Created routine can not interfere with existing </string>
+    <string name = "day"> Day </string>
+    <string name = "month"> Month </string>
+    <string name = "year"> Year </string>
+    <string name = "today"> Today </string>
+    <string name = "tomorrow"> Tomorrow </string>
+    <string name = "aim_deleted"> Goal has been deleted </string>
+    <string name = "routine_deleted"> Routine has been removed </string>
+    <string name = "select_color">Select color</string>
+    <string name="planned_actions">Scheduled activities</string>
+    <string name="add_now">Add now</string>
+    <string name="no_scheduled_activity">No scheduled activity</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="aims">Goals</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="january2">January</string>
+    <string name="february2">February</string>
+    <string name="march2">March</string>
+    <string name="april2">April</string>
+    <string name="may2">May</string>
+    <string name="june2">June</string>
+    <string name="july2">July</string>
+    <string name="august2">August</string>
+    <string name="october2">October</string>
+    <string name="september2">October</string>
+    <string name="november2">November</string>
+    <string name="december2">December</string>
+    <string name="contact">Contact</string>
+    <string name="no_goals_for_today">No goals for today</string>
+    <string name="you_have_premium">You already have a premium account</string>
+    <string name="premium_reason1">Only premium users can create more than 3 routines</string>
+    <string name="premium_reason2">Only premium users can create more than 5 activities in day</string>
+    <string name="premium_reason3">You must have premium account to use more icons</string>
+    <string name="premium_reason4">You must have premium account to use more colors</string>
+    <string name="premium_reason5">Only premium users can create more than 2 goals for day</string>
+    <string name="premium_updated_by_one_day">The premium account has been extended by one day</string>
+    <string name="select_premium_plan">Select premium plan!</string>
+    <string name="month_plan">Monthly</string>
+    <string name="month_prince">1 $ / month</string>
+    <string name="yearly_plan">Yearly</string>
+    <string name="year_pince">0,5 $ / month</string>
+    <string name="free_premium_ad_account">Free premium account for watching ads</string>
+    <string name="watch_ad">Watch ad</string>
+    <string name="premium_features">Premium Features:\n  Unlimited amount of activities and routines\n  60 more incons for activities and routines\n  42 more colors\n  Unlimited goals</string>
+    <string name="your_premium_account_expired">Your premium account has expired,\n watch the ad to extend it by one day</string>
+    <string name="you_can_also_buy_premium">You can also use premium account subscriptions</string>
+    <string name="premium_was_erxtended_by_one_day">The premium account has been extended by one day</string>
+    <string name="premium_activatetd_by_ad">Premium account was activated for today by ad</string>
+    <string name="sorry_no_ads">No ads loaded. Please try again in a moment</string>
+    <string name="everyday">Everyday</string>
+    <string name="pn">MO  </string>
+    <string name="wt">TU  </string>
+    <string name="sr">WE  </string>
+    <string name="cz">TH  </string>
+    <string name="pt">FR  </string>
+    <string name="so">SA  </string>
+    <string name="nd">SU</string>
+    <string name="current_activity">Current activity</string>
+    <string name="select">Select</string>
     <string name="slect_month">Select month</string>
-    <string name="select_month">Wybierz miesiąc</string>
-    <string name="add">Dodaj</string>
-    <string name="exit">Wyjdź</string>
-    <string name="privacy_policy">Polityka prywatności</string>
-    <string name="delete_all_data">Usuń wszystkie dane</string>
-    <string name="your_email">Twój email</string>
-    <string name="issue_desc">Opis problemu</string>
-    <string name="send">Wyślij</string>
-    <string name="message_send_error">Bład wysyłania wiadomości</string>
-    <string name="messagee_send">Wiadomość wysłana</string>
-    <string name="day_is_coming_to_end">Dzień dobiega końca</string>
-    <string name="plan_next_day">Zaplanuj kolejny!</string>
-    <string name="notify_plan_next_day">Planowanie kolejnego dnia</string>
-    <string name="skip">Pomiń</string>
-    <string name="next">Dalej</string>
-    <string name="tut1">Na tym wykresie wyświetlane będą wszystkie rutyny oraz aktywności z wybranego dnia</string>
-    <string name="tut2">Możesz przełączać dni używając strzałek umiejscowionych po bokach wykresu</string>
-    <string name="tut3">Gdy kliknisz w czynność lub rutynę na wykresie będziesz mógł zoabczyć jej szczegóły lub rozpocząć edycję</string>
-    <string name="tut4">Gdy klikniesz w przycisk na dole ekranu będziesz mieć możliwość dodania nowych czynności, rutyn, powiadomień lub celów.</string>
-    <string name="reminders_issue">Na niektórych urządzeniach powiadomienia mogą się nie wyświetlać. Pracujemy nad rozwiązaniem tego problemu. Dziękujemy za ciepliwość.</string>
-    <string name="error_loading_activities">Błąd wczytywania czynności. Jeśli problem nie ustąpi uruchom aplikację ponownie.</string>
-
-
-    <string-array name="contact_messages">
-        <item>Problem z subskrybcją</item>
-        <item>Problem techniczny</item>
-        <item>Błąd w tłumaczeniu</item>
-        <item>Zaproponuj zmiany</item>
-        <item>Inne</item>
-    </string-array>
-
-    <string-array name="task_repeat_array">
-        <item>Wyłączone</item>
-        <item>W wybrane dni</item>
-        <item>W odstępach czasu</item>
-    </string-array>
-
-    <string-array name="task_time_array">
-        <item>dni</item>
-        <item>tygodni</item>
-        <item>miesięcy</item>
-    </string-array>
-
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-
-
+    <string name="select_month">Select month</string>
+    <string name="add">Add</string>
+    <string name="exit">Exit</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="delete_all_data">Delete all data</string>
+    <string name="your_email">Your email</string>
+    <string name="issue_desc">Describe the issue</string>
+    <string name="send">Send</string>
+    <string name="message_send_error">Error sending a message</string>
+    <string name="messagee_send">Message sent</string>
+    <string name="day_is_coming_to_end">The day is coming to an end</string>
+    <string name="plan_next_day">Plan next one!</string>
+    <string name="notify_plan_next_day">Plan next day</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="tut1"> This chart will display all routines and activities from the selected day </string>
+    <string name="tut2"> You can switch days using the arrows located on the sides of the chart </string>
+    <string name="tut3"> When you click on an activity or a routine in the chart, you will be able to get the details or start editing </string>
+    <string name="tut4"> When you click on the button at the bottom of the screen you will be able to add new activities, routines, reminders or goals. </string>
+    <string name="reminders_issue">On some devices, notifications may not be displayed. We are working on solving this problem. Thank you for the warmth.</string>
+    <string name="error_loading_activities">Error loading activities. If the problem persists, restart the app.</string>
     <string name="account">Account</string>
     <string name="sign_in">Sign in</string>
     <string name="you_must_sign_in_to_see_your_account">You must sign in to see your account</string>
@@ -180,9 +145,41 @@
     <string name="e_mail_address">E-mail adress</string>
     <string name="logout">Logout</string>
     <string name="completed">Completed</string>
-    <string name="your_planner">Twój Planner</string>
-    <string name="tut5">Zaloguj się za pomocą maila lub konta Google aby kopia twojego planu zapisywała się na chmurze.</string>
-    <string name="signed_in_by_mail">Signed in by mail </string>
+    <string name="your_planner">Your Planner</string>
+    <string name="tut5">Log in with an email or Google account to have a copy of your plan saved on the cloud.</string>
+    <string name="signed_in_by_mail">Signed in by email </string>
+
+
+    <string-array name="contact_messages">
+               <item> Problem with subscribing </item>
+               <item> Technical problem </item>
+               <item> Error in translation </item>
+               <item> Suggest changes </item>
+               <item> Other </item>
+    </string-array>
+
+    <string-array name="task_repeat_array">
+        <item>Off</item>
+        <item>On selected days</item>
+        <item>At intervals</item>
+    </string-array>
+
+    <string-array name="task_time_array">
+        <item>days</item>
+        <item>weeks</item>
+        <item>months</item>
+    </string-array>
+
+
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="login_failed">Login failed</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="welcome">Welcome !</string>
     <string name="mo">Mo</string>
     <string name="tu">Tu</string>
     <string name="we">We</string>
@@ -190,41 +187,44 @@
     <string name="fr">Fr</string>
     <string name="sa">Sa</string>
     <string name="su">Su</string>
+    <string name="main">main</string>
+    <string name="check_premium_plans">Check premium plans</string>
+    <string name="to_use_this_function_buy_premium_or_watch_ad">To use this feature, buy a premium or watch an advertisement</string>
+    <string name="only_premium_users_can_use_this_function">Only premium users can use this feature</string>
+    <string name="loading_ad">Loading the ad. Please wait</string>
+    <string name="new_task">Add task</string>
+    <string name="tasks">Tasks</string>
+    <string name="tasks_for_today">Tasks for today</string>
+    <string name="no_tasks_for_today">No tasks for today</string>
+    <string name="watch_ads_ore_premium">Use features for premium users in exchange for watching ads. One ad allows you to use the premium features three times.</string>
+    <string name="premium_points_amount">Current number of premium points </string>
+    <string name="reason_create_new_labels">Only premium users can create new labels</string>
+    <string name="reason_select_labels">Only premium users can use labels other than the main one</string>
+    <string name="reason_add_comment_to_task">Only premium users can add comments to tasks</string>
+    <string name="color">Color</string>
+    <string name="icon">Icon</string>
+    <string name="time">Time</string>
+    <string name="repeat">Repeat</string>
+    <string name="do_you_like_our_app">How do you like our app?</string>
+    <string name="do_you_like_rate_our_app">Would you like to rate our app in the Google Play store?</string>
+    <string name="what_would_you_like_to_change">What would you like to change in the Planner app?</string>
+    <string name="no">No</string>
+    <string name="sure">Sure!</string>
+    <string name="days">days</string>
+    <string name="weeks">weeks</string>
+    <string name="months">months</string>
+    <string name="yes">es</string>
+    <string name="last_completed_from_day">Last complete in day</string>
+    <string name="label">Label</string>
+    <string name="comment">Comment</string>
+    <string name="complete">Complete</string>
+    <string name="every">Every</string>
+    <string name="priority">Priority</string>
+    <string name="new_label">New label</string>
+    <string name="activity_name">Activity name</string>
+    <string name="reminder_name">Reminder name</string>
+    <string name="routine_name">Routine name</string>
+    <string name="task_name">Task name</string>
 
-
-    <string name="main">główna</string>
-    <string name="check_premium_plans">Sprawdź plany premium</string>
-    <string name="to_use_this_function_buy_premium_or_watch_ad">Aby skorzystać z tej funkcji wykup plan premium lub obejrz reklamę</string>
-    <string name="only_premium_users_can_use_this_function">Tylko gracze premium mogą korzystać z tej funkcji</string>
-    <string name="loading_ad">Ładowanie reklamy. Proszę czekać</string>
-    <string name="new_task">Dodaj zadanie</string>
-    <string name="tasks">Zadania</string>
-    <string name="tasks_for_today">Zadania na dziś</string>
-    <string name="no_tasks_for_today">Brak zadań na dziś</string>
-    <string name="watch_ads_ore_premium">Używaj funkcji dla użytkowników premium w zamian za oglądanie reklam. Jedna reklama to jedno użycia fukcji premium</string>
-    <string name="premium_points_amount">Aktualna liczba punktóe premium</string>
-    <string name="reason_create_new_labels">Tylko użytkownicy premium mogą tworzyć nowe etykiety</string>
-    <string name="reason_select_labels">Tylko użytkownicy premium mogą używać innych etykiet niż główna</string>
-    <string name="reason_add_comment_to_task">Tylko użytkownicy premium mogą dodawać komentarze do zadań</string>
-    <string name="color">Kolor</string>
-    <string name="icon">Ikona</string>
-    <string name="time">Czas</string>
-    <string name="repeat">Powtarzanie</string>
-    <string name="do_you_like_our_app">Jak podoba Ci się nasza aplikacja?</string>
-    <string name="do_you_like_rate_our_app">Czy chciałbyś ocenić naszą aplikację w sklepie Play?</string>
-    <string name="what_would_you_like_to_change">Co chciałbyś zmienić w aplikacji Planner?</string>
-    <string name="no">Nie</string>
-    <string name="sure">Jasne</string>
-    <string name="days">dni</string>
-    <string name="weeks">tygodnie</string>
-    <string name="months">miesiące</string>
-    <string name="yes">Tak</string>
-    <string name="last_completed_from_day">Ostatni ukończony z dnia</string>
-    <string name="label">Etykieta</string>
-    <string name="comment">Komentarz</string>
-    <string name="complete">Ukończone</string>
-    <string name="every">Powtarzaj co</string>
-    <string name="priority">Priorytet</string>
-    <string name="new_label">Nowa Etykieta</string>
 
 </resources>

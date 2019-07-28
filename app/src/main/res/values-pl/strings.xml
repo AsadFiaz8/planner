@@ -220,5 +220,9 @@
     <string name="every">Powtarzaj co</string>
     <string name="priority">Priorytet</string>
     <string name="new_label">Nowa Etykieta</string>
+    <string name="activity_name">Nazwa zadania</string>
+    <string name="reminder_name">Nazwa przypomnienia</string>
+    <string name="routine_name">Nazwa rutyny</string>
+    <string name="task_name">Nazwa zadania</string>
 
 </resources>

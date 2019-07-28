@@ -49,7 +49,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nazwa przypomnienia"
+                        android:text="@string/reminder_name"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/reminder_name_icon"
                         android:layout_alignTop="@id/reminder_name_icon"

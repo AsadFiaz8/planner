@@ -221,6 +221,10 @@
     <string name="every">Every</string>
     <string name="priority">Priority</string>
     <string name="new_label">New label</string>
+    <string name="activity_name">Activity name</string>
+    <string name="reminder_name">Reminder name</string>
+    <string name="routine_name">Routine name</string>
+    <string name="task_name">Task name</string>
 
 
 </resources>
