@@ -79,6 +79,12 @@ public class PlannerButton extends RelativeLayout implements View.OnClickListene
         if(size == 2){
             image.setBackground(getResources().getDrawable(R.drawable.btn_s2));
         }
+        if(size == 3){
+            image.setBackground(getResources().getDrawable(R.drawable.btn_s3));
+        }
+        if(size == 4){
+            image.setBackground(getResources().getDrawable(R.drawable.btn_s4));
+        }
     }
 
     public void setScale(int scale){

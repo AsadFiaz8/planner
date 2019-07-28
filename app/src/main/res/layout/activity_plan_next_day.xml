@@ -246,23 +246,33 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-            <net.eagledev.planner.PlannerButton
-                android:id="@+id/pndAdd"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:text="@string/add"
-                app:size="1"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
 
-            <net.eagledev.planner.PlannerButton
-                android:id="@+id/pndExit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:text="@string/exit"
-                app:size="1"
-                android:gravity="center_horizontal"/>
+
+                <net.eagledev.planner.PlannerButton
+                    android:id="@+id/pndExit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:text="@string/exit"
+                    app:size="1" />
+
+                <net.eagledev.planner.PlannerButton
+                    android:id="@+id/pndAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:text="@string/add"
+                    app:size="1" />
+
+
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

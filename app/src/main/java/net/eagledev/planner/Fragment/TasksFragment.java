@@ -3,6 +3,8 @@ package net.eagledev.planner.Fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -23,6 +25,7 @@ import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.Interface.ItemClickListener;
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Task;
 
@@ -231,7 +234,11 @@ public class TasksFragment extends Fragment {
             for (int s = 0;  s < allTaskLists.size(); s++){
                 for(int l = 0; l<allTaskLists.size(); l++){
                     if(startTimes.get(s) == allTaskLists.get(l).getPriority()){
-                        tsk.add(allTaskLists.get(l));
+                        boolean e = false;
+                        for (Task task: tsk){
+                            if (task.getId() == allTaskLists.get(l).getId()) e = true;
+                        }
+                        if (!e) tsk.add(allTaskLists.get(l));
                     }
                 }
 
@@ -252,6 +259,7 @@ public class TasksFragment extends Fragment {
                     taskInfoDialog = new Dialog(context);
                     taskInfoDialog.setTitle("Task info");
                     taskInfoDialog.setContentView(R.layout.dialog_task_info);
+                    taskInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     taskInfoDialog.show();
                     TextView name = taskInfoDialog.findViewById(R.id.dialog_task_info_name);
                     name.setText(task.getName());
@@ -315,7 +323,7 @@ public class TasksFragment extends Fragment {
                         }
                     }
 
-                    Button button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
+                    PlannerButton button = taskInfoDialog.findViewById(R.id.dialog_task_info_button);
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

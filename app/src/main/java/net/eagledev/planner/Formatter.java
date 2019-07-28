@@ -32,6 +32,16 @@ public final class Formatter {
 
     public String DateForClock(Calendar cal) {
         String month = month(cal.get(Calendar.MONTH));
+        Calendar now = Calendar.getInstance();
+        if (now.get(Calendar.YEAR)==cal.get(Calendar.YEAR)){
+            if (now.get(Calendar.DAY_OF_YEAR)==cal.get(Calendar.DAY_OF_YEAR)) {
+                return "\n" +s(R.string.today);
+            } else if(now.get(Calendar.DAY_OF_YEAR)==cal.get(Calendar.DAY_OF_YEAR)-1) {
+                return "\n" +s(R.string.tomorrow);
+            } else if (now.get(Calendar.DAY_OF_YEAR)==cal.get(Calendar.DAY_OF_YEAR)+1) {
+                return "\n" +s(R.string.yesterday);
+            }
+        }
         return cal.get(Calendar.DAY_OF_MONTH) + "\n" + month + "\n" + cal.get(Calendar.YEAR);
     }
 

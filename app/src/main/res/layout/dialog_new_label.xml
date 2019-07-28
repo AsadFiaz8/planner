@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/diaglog_box_1">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
-        <TextView
+
+        <EditText
+            android:id="@+id/newlabel_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_label"
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:ems="10"
+            android:hint="@string/name"
+            android:layout_gravity="center_horizontal"
+            android:inputType="textCapSentences" />
+
+        <net.eagledev.planner.PlannerButton
+            android:id="@+id/newlabel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:text="@string/add"
+            app:size="1"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/newlabel_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/name"
-        android:layout_gravity="center_horizontal"
-        android:inputType="textCapSentences" />
-
-    <Button
-        android:id="@+id/newlabel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        style="@style/AppTheme.Button"
-        android:text="@string/add"
-        android:layout_marginBottom="10dp"/>
 
 
-</LinearLayout>
+
+</RelativeLayout>

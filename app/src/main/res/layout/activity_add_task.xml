@@ -69,7 +69,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
                 <ImageView
                     android:id="@+id/task_date_icon"
                     android:layout_width="wrap_content"
@@ -89,17 +88,23 @@
                     android:layout_marginTop="-2dp"
                     style="@style/Planner.BoldText"/>
 
-                <Button
-                    android:id="@+id/task_date"
+
+                <ImageButton
+                    android:id="@+id/task_date_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_date"
+                    android:layout_below="@id/task_date_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/task_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/task_date_icon"
-                    android:textSize="@dimen/add_task_text_size"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/lato_bold"/>
-
-
+                    android:layout_alignTop="@id/task_date_button"
+                    android:layout_marginTop="-4dp"
+                    android:text="07-06-2019"
+                    style="@style/Planner.RegularText"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"

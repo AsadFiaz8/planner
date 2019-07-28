@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -29,6 +32,7 @@ import net.eagledev.planner.Checker;
 import net.eagledev.planner.Formatter;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.Dialog.NeedPremiumDialog;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 import net.eagledev.planner.Task;
 
@@ -51,7 +55,8 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
     ImageView toolbar_cancel;
     ImageView toolbar_delete;
     TextView nameText;
-    Button dateButton;
+    ImageButton dateButton;
+    TextView dateText;
     Spinner repeatSpinner;
     EditText gapText;
     Spinner timeSpinner;
@@ -125,7 +130,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 comment = task.getComment();
                 commentText.setText(comment);
                 calendar.setTimeInMillis(task.getTime());
-                dateButton.setText(f.Date(calendar));
+                dateText.setText(f.Date(calendar));
                 setPriority(task.getPriority());
                 label = task.getLabel();
                 completed = task.isCompleted();
@@ -181,8 +186,9 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         daysLayout = findViewById(R.id.task_days_layout);
         intervalsLayout = findViewById(R.id.task_other_layout);
         nameText = findViewById(R.id.task_name);
-        dateButton = findViewById(R.id.task_date);
+        dateButton = findViewById(R.id.task_date_button);
         dateButton.setOnClickListener(this);
+        dateText = findViewById(R.id.task_date_text);
         repeatSpinner = findViewById(R.id.task_repeat_spinner);
         ArrayAdapter<CharSequence> repeatAdapter = ArrayAdapter.createFromResource(this,
                 R.array.task_repeat_array,
@@ -334,7 +340,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        dateButton.setText(f.Date(calendar));
+        dateText.setText(f.Date(calendar));
         setRepeatLayout(0);
     }
 
@@ -361,9 +367,10 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
         dialog = new Dialog(context);
         dialog.setTitle("New label");
         dialog.setContentView(R.layout.dialog_new_label);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         final EditText labelName = dialog.findViewById(R.id.newlabel_name);
-        Button labelButton = dialog.findViewById(R.id.newlabel_button);
+        PlannerButton labelButton = dialog.findViewById(R.id.newlabel_button);
         labelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -402,7 +409,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                 setResult(MainActivity.CODE_CREATED);
                 finish();
                 break;
-            case R.id.task_date:
+            case R.id.task_date_button:
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddTaskActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int dyear, int dmonth, int ddayOfMonth) {
@@ -411,7 +418,7 @@ public class AddTaskActivity extends AppCompatActivity implements View.OnClickLi
                         day = ddayOfMonth;
                         calendar .set(year, month, day);
                         time = (int) calendar.getTimeInMillis();
-                        dateButton.setText(f.Date(calendar));
+                        dateText.setText(f.Date(calendar));
                     }
                 },year, month, day);
                 try {

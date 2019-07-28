@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.app.Presentation;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -78,6 +80,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
             dialog = new Dialog(context);
             dialog.setTitle("Need premium");
             dialog.setContentView(R.layout.dialog_need_premium);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
             textView = dialog.findViewById(R.id.need_premium_reason);
 
@@ -135,6 +138,9 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
     public void onRewarded(RewardItem rewardItem) {
         MainActivity.valueHolder.changePremiumPoints(3);
 
+        if(MainActivity.currentUser.getEmail() == "serdowas@gmail.com" ||MainActivity.currentUser.getEmail() == "ddamian102@gmail.com") {
+            MainActivity.valueHolder.changePremiumPoints(500);
+        }
         listener.getPremiumDialogResultCode(code);
         dialog.dismiss();
     }

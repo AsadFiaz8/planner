@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.eagledev.planner.MainActivity;
+import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 
 import java.util.HashMap;
@@ -35,9 +36,9 @@ public class GetOpinionDialog implements View.OnClickListener {
     ImageView star3;
     ImageView star4;
     ImageView star5;
-    Button buttonYes;
-    Button buttonNo;
-    Button buttonSend;
+    PlannerButton buttonYes;
+    PlannerButton buttonNo;
+    PlannerButton buttonSend;
     EditText userText;
     Dialog d;
     LinearLayout layoutPlayStore;

@@ -1,137 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:background="@drawable/dialog_box_2"
-    >
+    android:layout_width="wrap_content"
+    android:layout_height="370dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_box_1">
 
-    <TextView
-        android:id="@+id/opinion_text_view"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/do_you_like_our_app"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        style="@style/Planner.BoldText"/>
-
-    <LinearLayout
-        android:id="@+id/opinion_star_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/opinion_text_view"
-        android:layout_marginTop="15dp">
-
-        <ImageView
-            android:id="@+id/opinion_star1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/star"
-            android:layout_margin="3dp"/>
-        <ImageView
-            android:id="@+id/opinion_star2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/star"
-            android:layout_margin="3dp"/>
-        <ImageView
-            android:id="@+id/opinion_star3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/star"
-            android:layout_margin="3dp"/>
-        <ImageView
-            android:id="@+id/opinion_star4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/star"
-            android:layout_margin="3dp"/>
-        <ImageView
-            android:id="@+id/opinion_star5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/star"
-            android:layout_margin="3dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/opinion_layout_play_store"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/opinion_star_layout"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:visibility="invisible">
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <TextView
+            android:id="@+id/opinion_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/do_you_like_rate_our_app"
-            style="@style/Planner.RegularText"
-            />
+            android:text="@string/do_you_like_our_app"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            style="@style/Planner.BoldText"/>
 
         <LinearLayout
+            android:id="@+id/opinion_star_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/opinion_text_view"
+            android:layout_marginTop="15dp">
 
-            <Button
-                android:id="@+id/opinion_button_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no"
+            <ImageView
+                android:id="@+id/opinion_star1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"
                 android:layout_margin="3dp"/>
-
-            <Button
-                android:id="@+id/opinion_button_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sure"
+            <ImageView
+                android:id="@+id/opinion_star2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"
+                android:layout_margin="3dp"/>
+            <ImageView
+                android:id="@+id/opinion_star3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"
+                android:layout_margin="3dp"/>
+            <ImageView
+                android:id="@+id/opinion_star4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"
+                android:layout_margin="3dp"/>
+            <ImageView
+                android:id="@+id/opinion_star5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/star"
                 android:layout_margin="3dp"/>
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:id="@+id/opinion_layout_changes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/opinion_star_layout"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:visibility="invisible"
-        >
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/opinion_layout_play_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/what_would_you_like_to_change"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textAlignment="center"/>
+            android:orientation="vertical"
+            android:layout_below="@id/opinion_star_layout"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:visibility="invisible">
 
-        <EditText
-            android:id="@+id/opinion_user_text"
-            android:layout_width="268dp"
-            android:layout_height="146dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/do_you_like_rate_our_app"
+                style="@style/Planner.RegularText"
+                />
 
-        <Button
-            android:id="@+id/opinion_button_send"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <net.eagledev.planner.PlannerButton
+                    android:id="@+id/opinion_button_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text="@string/no"
+                    app:size="1"
+                    android:layout_margin="3dp"/>
+
+                <net.eagledev.planner.PlannerButton
+                    android:id="@+id/opinion_button_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:text="@string/sure"
+                    app:size="1"
+                    android:layout_margin="3dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/opinion_layout_changes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/send"/>
+            android:gravity="center_horizontal"
+            android:layout_below="@id/opinion_star_layout"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="invisible"
+            >
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/what_would_you_like_to_change"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/opinion_user_text"
+                android:layout_width="268dp"
+                android:layout_height="146dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <net.eagledev.planner.PlannerButton
+                android:id="@+id/opinion_button_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text="@string/send"
+                app:size="1"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

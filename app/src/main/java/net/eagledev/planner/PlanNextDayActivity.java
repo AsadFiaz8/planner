@@ -360,7 +360,9 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                             }
                         }
 
-                        pieColors.add(f.newColor(currentAction.getColor()));
+                        if(currentAction.getColor() == actionColor){
+                            pieColors.add(currentAction.getColor());
+                        } else pieColors.add(f.newColor(currentAction.getColor()));
                         t=currentAction.getStopMinutes();
                         actionTime = 24*60;
                     } else {
@@ -375,7 +377,9 @@ public class PlanNextDayActivity extends AppCompatActivity implements View.OnCli
                             }
                         }
 
-                        pieColors.add(f.newColor(currentAction.getColor()));
+                        if(currentAction.getColor() == actionColor){
+                            pieColors.add(currentAction.getColor());
+                        } else pieColors.add(f.newColor(currentAction.getColor()));
                         t=currentAction.getStopMinutes();
                         actionTime = 24*60;
                     }

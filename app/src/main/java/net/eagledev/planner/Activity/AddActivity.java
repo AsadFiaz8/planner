@@ -449,10 +449,13 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void CreateAction() {
-        int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
-        Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
-        MainActivity.appDatabase.appDao().addAction(newAction);
-        MainActivity.fDatabase.AddAction(newAction);
+        if(!edit){
+            int newID = MainActivity.appDatabase.appDao().getMaxActionID()+1;
+            Action newAction = new Action(newID,textView.getText().toString(), date_start, date_stop, iconID, colorID );
+            MainActivity.appDatabase.appDao().addAction(newAction);
+            MainActivity.fDatabase.AddAction(newAction);
+        } else UpdateAction();
+
     }
 
     private void UpdateAction() {

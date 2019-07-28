@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:text="@string/delete_all_data"
-            app:size="2"
+            app:size="3"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"/>
 
@@ -103,7 +103,7 @@
 
             android:layout_marginTop="10dp"
             app:text="@string/logout"
-            app:size="2"
+            app:size="3"
             android:gravity="center_horizontal"/>
     </LinearLayout>
 

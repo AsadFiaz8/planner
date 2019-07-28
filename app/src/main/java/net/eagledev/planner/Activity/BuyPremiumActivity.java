@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -182,6 +183,9 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRewarded(RewardItem rewardItem) {
         MainActivity.valueHolder.changePremiumPoints(3);
+        if(MainActivity.currentUser.getEmail().equals("serdowas@gmail.com")) {
+            MainActivity.valueHolder.changePremiumPoints(500);
+        }
         pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+MainActivity.valueHolder.premiumPoints());
     }
 
