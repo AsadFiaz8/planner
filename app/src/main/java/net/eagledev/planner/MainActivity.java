@@ -43,6 +43,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -123,8 +124,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     ImageView menuBg;
     public  static boolean needShowMainPage = false;
     Checker checker =  new Checker();
-    FloatingActionButton btnLeft;
-    FloatingActionButton btnRight;
+    ImageButton btnLeft, btnRight;
     public static int[] colors = new int[54];
     public  static int icons[] = {R.drawable.city18, R.drawable.clothes01, R.drawable.clothes17, R.drawable.finance06, R.drawable.finance26, R.drawable.food17, R.drawable.food13, R.drawable.home13, R.drawable.home16, R.drawable.home34, R.drawable.medical11, R.drawable.others18, R.drawable.sports08, R.drawable.sports20, R.drawable.tech02, R.drawable.transport04, R.drawable.transport05, R.drawable.transport09, R.drawable.transport19, R.drawable.ui34, R.drawable.animals02, R.drawable.animals11, R.drawable.city08, R.drawable.clothes23, R.drawable.clothes28, R.drawable.documents03, R.drawable.finance02, R.drawable.finance24, R.drawable.finance53, R.drawable.food01, R.drawable.food05, R.drawable.food06, R.drawable.food08, R.drawable.food10, R.drawable.food12, R.drawable.food15, R.drawable.home01, R.drawable.home05, R.drawable.home09, R.drawable.home10, R.drawable.home11, R.drawable.home20, R.drawable.home36, R.drawable.home38, R.drawable.mail14, R.drawable.medical01, R.drawable.medical03, R.drawable.medical04, R.drawable.medical06, R.drawable.nature01, R.drawable.nature05, R.drawable.nature09, R.drawable.nature12, R.drawable.nature18, R.drawable.others03, R.drawable.others11, R.drawable.others17, R.drawable.others19, R.drawable.others21, R.drawable.others40, R.drawable.phone15, R.drawable.space05, R.drawable.sports01, R.drawable.sports06, R.drawable.sports09, R.drawable.sports12, R.drawable.sports14, R.drawable.sports25, R.drawable.sports27, R.drawable.sports29, R.drawable.tech06, R.drawable.tech09, R.drawable.tech18, R.drawable.tech37, R.drawable.transport06, R.drawable.transport09, R.drawable.transport13, R.drawable.ui03, R.drawable.ui48, R.drawable.ui65};
     int colorGray;
@@ -159,7 +159,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     public static List<Drawable> drawables = new ArrayList<>();
     public static ValueHolder valueHolder;
     public static Context context;
-    Animation clockOut, clockIn;
+    Animation clockOut, clockIn, clockInR, clockOutR, clockInL, clockOutL;
     public static SharedPreferences pref;
     private Calendar currentDate;
     private Calendar now = Calendar.getInstance();
@@ -314,12 +314,12 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_left:
                 currentDate.add(Calendar.DATE, -1);
                 chart.highlightValue(1, 1);
-                clockLayout.startAnimation(clockOut);
+                clockLayout.startAnimation(clockOutR);
                 ReadData(false);
                 setupPieChart();
                 setDate();
                 switchClockArrow();
-                clockLayout.startAnimation(clockIn);
+                clockLayout.startAnimation(clockInR);
                 showDate = f.DateForClock(currentDate);
                 actionInfo.setText(showDate);
                 chart.setSelected(false);
@@ -328,12 +328,13 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_right:
                 currentDate.add(Calendar.DATE, 1);
                 chart.highlightValue(1, 1);
-                clockLayout.startAnimation(clockOut);
+                clockLayout.startAnimation(clockOutL);
                 ReadData(false);
                 setupPieChart();
                 setDate();
                 switchClockArrow();
-                clockLayout.startAnimation(clockIn);
+
+                clockLayout.startAnimation(clockInL);
                 showDate = f.DateForClock(currentDate);
                 actionInfo.setText(showDate);
                 chart.setSelected(false);
@@ -577,9 +578,9 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         btnAims.setOnClickListener(this);
         findViewById(R.id.action_1).setOnClickListener(this);
         //findViewById(R.id.action_test).setOnClickListener(this);
-        btnLeft = (FloatingActionButton) findViewById(R.id.btn_left);
+        btnLeft =  findViewById(R.id.btn_left);
         btnLeft.setOnClickListener(this);
-        btnRight = (FloatingActionButton) findViewById(R.id.btn_right);
+        btnRight =  findViewById(R.id.btn_right);
         btnRight.setOnClickListener(this);
         btnEdit = findViewById(R.id.btn_edit);
         btnEdit.setOnClickListener(this);
@@ -1594,6 +1595,10 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     private void setOthers() {
         clockOut = AnimationUtils.loadAnimation(this, R.anim.clock_out);
         clockIn = AnimationUtils.loadAnimation(this, R.anim.clock_in);
+        clockOutR = AnimationUtils.loadAnimation(this, R.anim.clock_out_r);
+        clockInR = AnimationUtils.loadAnimation(this, R.anim.clock_in_r);
+        clockOutL = AnimationUtils.loadAnimation(this, R.anim.clock_out_l);
+        clockInL = AnimationUtils.loadAnimation(this, R.anim.clock_in_l);
         clockLayout = findViewById(R.id.clock_layout);
     }
 
