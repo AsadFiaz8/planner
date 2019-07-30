@@ -844,7 +844,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
                     } else {
                         Action selectedAction = appDatabase.appDao().idAction(Integer.parseInt(s));
-                        selectedID = Integer.parseInt(s);
+                        selectedID = selectedAction.getId();
                         actionTimeText.setText(f.Time(selectedAction.getStart())+"\n"+f.Time(selectedAction.getStop()));
                         actionTimeText.setVisibility(View.VISIBLE);
                         actionInfoText.setText(selectedAction.getDesc());
