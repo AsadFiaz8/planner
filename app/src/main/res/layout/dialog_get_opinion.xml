@@ -94,16 +94,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:text="@string/no"
-                    app:size="1"
-                    android:layout_margin="3dp"/>
+                    app:size="0"
+                    />
 
                 <net.eagledev.planner.PlannerButton
                     android:id="@+id/opinion_button_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:text="@string/sure"
-                    app:size="1"
-                    android:layout_margin="3dp"/>
+                    app:size="0"
+                    />
             </LinearLayout>
 
 

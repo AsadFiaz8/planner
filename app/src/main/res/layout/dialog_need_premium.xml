@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="350dp"
-    android:layout_height="wrap_content"
+    android:layout_height="330dp"
 
     android:background="@drawable/dialog_box_1">
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:text="@string/only_premium_users_can_use_this_function"
         android:textAlignment="center"
         android:textColor="@color/black"

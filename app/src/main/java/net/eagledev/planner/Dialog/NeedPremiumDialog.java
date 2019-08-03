@@ -138,7 +138,7 @@ public class NeedPremiumDialog  implements RewardedVideoAdListener {
     public void onRewarded(RewardItem rewardItem) {
         MainActivity.valueHolder.changePremiumPoints(3);
 
-        if(MainActivity.currentUser.getEmail() == "serdowas@gmail.com" ||MainActivity.currentUser.getEmail() == "ddamian102@gmail.com") {
+        if(MainActivity.currentUser.getEmail().equals("serdowas@gmail.com") ||MainActivity.currentUser.getEmail().equals("ddamian102@gmail.com")||MainActivity.currentUser.getEmail().equals("emilia.szornak@gmail.com")||MainActivity.currentUser.getEmail().equals("glembink97@gmail.com")) {
             MainActivity.valueHolder.changePremiumPoints(500);
         }
         listener.getPremiumDialogResultCode(code);
