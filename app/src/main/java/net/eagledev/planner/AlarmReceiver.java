@@ -14,7 +14,6 @@ import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
 
 import java.util.Calendar;
 
