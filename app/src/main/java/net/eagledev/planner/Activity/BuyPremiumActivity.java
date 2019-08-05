@@ -2,6 +2,7 @@ package net.eagledev.planner.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import net.eagledev.planner.MainActivity;
@@ -29,6 +31,8 @@ import net.eagledev.planner.ValueHolder;
 
 public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
 
+    private static final String TAG = "BuyPremiumActivity";
+    private static final int REQUEST_INVITE = 0;
     int messageID;
     TextView featuresTextView, pointsTextView;
     ImageView toolbarConfirm;
@@ -58,6 +62,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         btnYear.setOnClickListener(this);
         btnAd = findViewById(R.id.btn_premium_watch_ad);
         btnAd.setOnClickListener(this);
+        findViewById(R.id.premium_invite_button).setOnClickListener(this);
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
         pointsTextView = findViewById(R.id.text_premium_points);
         pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+ MainActivity.valueHolder.premiumPoints());
@@ -110,9 +115,17 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                     Toast.makeText(context, getString(R.string.sorry_no_ads), Toast.LENGTH_LONG).show();
                     loadRewardedVideoAd();
                 }
-
+                break;
+            case R.id.premium_invite_button:
+                Intent intent = new AppInviteInvitation.IntentBuilder("Tytuł")
+                        .setMessage("Wiadomość")
+                        .setDeepLink(Uri.parse("http//degeapps.net/invited"))
+                        .setCallToActionText("Nwm co to")
+                        .build();
+                startActivityForResult(intent, REQUEST_INVITE);
 
                 break;
+
         }
     }
 
@@ -218,5 +231,24 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         }
         bp = null;
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    Log.d(TAG, "onActivityResult: sent invitation " + id);
+                }
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                // ...
+            }
+        }
     }
 }

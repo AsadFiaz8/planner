@@ -96,6 +96,16 @@
         style="@style/Planner.BoldText"
         />
 
+    <net.eagledev.planner.PlannerButton
+        android:id="@+id/premium_invite_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:text="Zaproś"
+        app:size="1"/>
+
 
 
 
