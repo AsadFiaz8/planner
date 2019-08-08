@@ -29,6 +29,8 @@ import net.eagledev.planner.PlannerButton;
 import net.eagledev.planner.R;
 import net.eagledev.planner.ValueHolder;
 
+import java.util.Calendar;
+
 public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
 
     private static final String TAG = "BuyPremiumActivity";
@@ -140,10 +142,16 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
         if(productId.equals("premium_month")){
             valueHolder.setPremiumUser(true);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 3);
+            valueHolder.setPremiumTime(calendar.getTimeInMillis());
             finish();
         }
         if(productId.equals("premium_year")){
             valueHolder.setPremiumUser(true);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, 3);
+            valueHolder.setPremiumTime(calendar.getTimeInMillis());
             finish();
         }
     }

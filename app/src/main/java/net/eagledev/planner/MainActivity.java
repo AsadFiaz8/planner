@@ -563,7 +563,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         planNextDayCal.set(Calendar.SECOND, 0);
 
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, planNextDayCal.getTimeInMillis(),
-                1000 * 60 * 60 * 24, alarmIntent);
+                86400000, alarmIntent);
 
     }
 

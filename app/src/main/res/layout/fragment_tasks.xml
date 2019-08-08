@@ -35,12 +35,27 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/task_reycler_view1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/task_no_plan1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Brak zadań na ten dzień"
+                    android:visibility="invisible"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/task_reycler_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
@@ -60,12 +75,23 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -86,11 +112,23 @@
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -109,12 +147,23 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -135,11 +184,25 @@
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
@@ -158,12 +221,23 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -182,12 +256,23 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/task_layout_text_left_margin"/>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/task_no_plan7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brak zadań na ten dzień"
+                android:visibility="invisible"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_reycler_view7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </LinearLayout>
 

@@ -59,6 +59,7 @@ public class TasksFragment extends Fragment {
     Formatter f = new Formatter();
     List<List<Task>> taskLister = new ArrayList<>();
     List<RecyclerView> recyclerList = new ArrayList<>();
+    List<TextView> noTaskList = new ArrayList<>();
     List<ItemClickListener> itemListnerList = new ArrayList<>();
     List<ItemClickListener> longListeneerList = new ArrayList<>();
     List<TextView> dateNameList = new ArrayList<>();
@@ -371,6 +372,12 @@ public class TasksFragment extends Fragment {
                 }
             });
 
+            if (taskLister.get(taskDay).size() == 0){
+                noTaskList.get(taskDay).setVisibility(View.VISIBLE);
+            } else
+            {
+                noTaskList.get(taskDay).setVisibility(View.INVISIBLE);
+            }
 
             adapter = new TaskAdapter(context, taskLister.get(taskDay) ,itemListnerList.get(taskDay), longListeneerList.get(taskDay));
             recyclerList.get(taskDay).setAdapter(adapter);
@@ -400,6 +407,13 @@ public class TasksFragment extends Fragment {
         recyclerList.add((RecyclerView) view.findViewById(R.id.task_reycler_view5));
         recyclerList.add((RecyclerView) view.findViewById(R.id.task_reycler_view6));
         recyclerList.add((RecyclerView) view.findViewById(R.id.task_reycler_view7));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan1));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan2));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan3));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan4));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan5));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan6));
+        noTaskList.add((TextView) view.findViewById(R.id.task_no_plan7));
     }
 
     public void onButtonPressed(Uri uri) {

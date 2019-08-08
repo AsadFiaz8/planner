@@ -53,6 +53,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         billingHolder = new BillingHolder();
         if(billingHolder.isPremium()){
             //User is still subscribed
+
             editor.putBoolean("premium_user", true);
             editor.commit();
             billingHolder = null;
@@ -61,7 +62,9 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
             if (!billingHolder.isBillingAvailable()){
                 billingHolder = null;
                 Log.e(TAG, "Billing is not available");
-                return MainActivity.pref.getBoolean("premium_user", false);
+                if(MainActivity.pref.getBoolean("premium_user", false)) return true;
+                Calendar calendar = Calendar.getInstance();
+                if(premiumTime() > calendar.getTimeInMillis()) return true;
             } else {
                 editor.putBoolean("premium_user", false);
                 editor.commit();
@@ -71,6 +74,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
                 return false;
             }
         }
+        return false;
 
     }
 
@@ -162,6 +166,17 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         if(points<0) points =0;
         editor = MainActivity.pref.edit();
         editor.putInt("premium_points", points);
+        editor.commit();
+
+    }
+
+    public long premiumTime() {
+        return MainActivity.pref.getLong("premium_time", 0);
+    }
+
+    public void setPremiumTime(long time){
+        editor = MainActivity.pref.edit();
+        editor.putLong("premium_time", time);
         editor.commit();
 
     }
