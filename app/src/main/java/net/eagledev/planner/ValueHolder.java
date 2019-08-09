@@ -54,6 +54,7 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
         if(billingHolder.isPremium()){
             //User is still subscribed
 
+            Log.e(TAG, "Is premium");
             editor.putBoolean("premium_user", true);
             editor.commit();
             billingHolder = null;
