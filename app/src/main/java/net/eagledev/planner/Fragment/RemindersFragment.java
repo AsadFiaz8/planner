@@ -43,7 +43,7 @@ public class RemindersFragment extends Fragment {
     ReminderAdapter adapter;
     List<Reminder> list = new ArrayList<>();
     View view;
-    Context context = getContext();
+    public Context context = getContext();
     ItemClickListener itemClickListener;
     boolean buttonEnabled = false;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,6 +53,7 @@ public class RemindersFragment extends Fragment {
     int duration = 200;
     float pos;
     ImageButton doneButton;
+
 
     private String mParam1;
     private String mParam2;

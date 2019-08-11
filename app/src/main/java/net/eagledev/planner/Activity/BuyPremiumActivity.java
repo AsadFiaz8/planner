@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, RewardedVideoAdListener {
+public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, RewardedVideoAdListener, PurchaseHelper.PurchaseHelperListener {
 
     private static final String TAG = "BuyPremiumActivity";
     private static final int REQUEST_INVITE = 0;
@@ -55,6 +55,8 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     SkuDetailsParams.Builder params;
     SkuDetails monthDetails;
     SkuDetails yearDetails;
+    PurchaseHelper purchaseHelper;
+    List<Purchase> purchaseHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.toolbar_cancel).setOnClickListener(this);
         pointsTextView = findViewById(R.id.text_premium_points);
         pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+ MainActivity.valueHolder.premiumPoints());
+        purchaseHelper = new PurchaseHelper(this, this);
         Intent intent = getIntent();
         Bundle bundle = null;
         if(intent != null){
@@ -117,10 +120,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btn_premium_month:
 
+                purchaseHelper.launchBillingFLow(BillingClient.SkuType.SUBS, "premium_month");
                 //bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
                 break;
             case R.id.btn_premium_year:
-
+                purchaseHelper.launchBillingFLow(BillingClient.SkuType.SUBS, "premium_year");
                 break;
             case R.id.btn_premium_watch_ad:
                 if (mRewardedVideoAd.isLoaded()) {
@@ -232,4 +236,25 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     }
 
 
+    @Override
+    public void onServiceConnected(int resultCode) {
+
+        Log.d(TAG, "onServiceConnected: " + resultCode);
+    }
+
+    @Override
+    public void onSkuQueryResponse(List<SkuDetails> skuDetails) {
+
+    }
+
+    @Override
+    public void onPurchasehistoryResponse(List<Purchase> purchasedItems) {
+
+        purchaseHistory = purchasedItems;
+    }
+
+    @Override
+    public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+        Log.d(TAG, "onPurchasesUpdated: " + responseCode);
+    }
 }

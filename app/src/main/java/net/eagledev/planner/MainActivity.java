@@ -1614,6 +1614,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
             toolbar.setTitle(R.string.account);
             drawerLayout.closeDrawers();
         }
+
         if(resultCode == CODE_CREATED)
         {
 
@@ -1685,6 +1686,16 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
 
             }
         }
+
+        if(requestCode == valueHolder.CODE_REMINDERS){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new RemindersFragment()).commit();
+            rl.setVisibility(View.INVISIBLE);
+            floatingActionsMenu.setVisibility(View.VISIBLE);
+            toolbar.setTitle(R.string.reminders);
+            selectedScreen = R.id.nav_reminders;
+            floatingActionsMenu.setVisibility(View.INVISIBLE);
+        }
+
     }
 
 
@@ -1805,6 +1816,19 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
         icon = icons[icon];
 
         return icon;
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        if(requestCode == valueHolder.CODE_REMINDERS){
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new RemindersFragment()).commit();
+            rl.setVisibility(View.INVISIBLE);
+            floatingActionsMenu.setVisibility(View.VISIBLE);
+            toolbar.setTitle(R.string.reminders);
+            selectedScreen = R.id.nav_reminders;
+            floatingActionsMenu.setVisibility(View.INVISIBLE);
+        }
     }
 }
 
