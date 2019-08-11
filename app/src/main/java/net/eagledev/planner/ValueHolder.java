@@ -5,12 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
+
 
 import java.util.Calendar;
 
-public class ValueHolder implements BillingProcessor.IBillingHandler {
+public class ValueHolder  {
 
 
     SharedPreferences.Editor editor;
@@ -226,24 +225,6 @@ public class ValueHolder implements BillingProcessor.IBillingHandler {
     }
 
 
-    @Override
-    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
 
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, @Nullable Throwable error) {
-
-    }
-
-    @Override
-    public void onBillingInitialized() {
-
-    }
 
 }

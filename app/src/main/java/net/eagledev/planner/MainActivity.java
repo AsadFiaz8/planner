@@ -2,6 +2,7 @@ package net.eagledev.planner;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Dialog;
@@ -115,6 +116,7 @@ public final class MainActivity extends AppCompatActivity implements View.OnClic
     FloatingActionsMenu floatingActionsMenu;
     FloatingActionButton btnNewAction;
     Dialog taskInfoDialog;
+    public Activity activity;
     FloatingActionButton btnNewReminder;
     FloatingActionButton btnAims;
     public static FirestoreDatabase fDatabase = new FirestoreDatabase();

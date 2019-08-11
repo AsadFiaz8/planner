@@ -14,8 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -26,12 +32,15 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.PlannerButton;
+import net.eagledev.planner.PurchaseHelper;
 import net.eagledev.planner.R;
 import net.eagledev.planner.ValueHolder;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, BillingProcessor.IBillingHandler, RewardedVideoAdListener {
+public class BuyPremiumActivity extends AppCompatActivity implements View.OnClickListener, RewardedVideoAdListener {
 
     private static final String TAG = "BuyPremiumActivity";
     private static final int REQUEST_INVITE = 0;
@@ -41,8 +50,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     PlannerButton btnMonth, btnYear, btnAd;
     Context context;
     private RewardedVideoAd mRewardedVideoAd;
-    BillingProcessor bp;
     ValueHolder valueHolder;
+    private BillingClient billingClient;
+    SkuDetailsParams.Builder params;
+    SkuDetails monthDetails;
+    SkuDetails yearDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +95,12 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
             messageID = 0;
         }
 
-        bp = new BillingProcessor(this, valueHolder.licence_key, this);
-        //bp = new BillingProcessor(this, null, this);
-        bp.initialize();
+
+
+
+
+
+
         MobileAds.initialize(this, "ca-app-pub-6069706356094406~2925415895");
         loadRewardedVideoAd();
 
@@ -96,18 +111,16 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId())
         {
             case R.id.toolbar_cancel:
-                if (bp != null) {
-                    bp.release();
-                }
+
 
                 finish();
                 break;
             case R.id.btn_premium_month:
-                bp.subscribe(BuyPremiumActivity.this, "premium_month");
+
                 //bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
                 break;
             case R.id.btn_premium_year:
-                bp.subscribe(BuyPremiumActivity.this, "premium_year");
+
                 break;
             case R.id.btn_premium_watch_ad:
                 if (mRewardedVideoAd.isLoaded()) {
@@ -132,50 +145,11 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    @Override
-    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
 
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, productId);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "sub");
-        MainActivity.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-
-        if(productId.equals("premium_month")){
-            valueHolder.setPremiumUser(true);
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, 3);
-            valueHolder.setPremiumTime(calendar.getTimeInMillis());
-            finish();
-        }
-        if(productId.equals("premium_year")){
-            valueHolder.setPremiumUser(true);
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, 3);
-            valueHolder.setPremiumTime(calendar.getTimeInMillis());
-            finish();
-        }
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, @Nullable Throwable error) {
-
-    }
-
-    @Override
-    public void onBillingInitialized() {
-
-    }
 
     @Override
     public void onDestroy() {
-        if (bp != null) {
-            bp.release();
-        }
+
 
         super.onDestroy();
     }
@@ -234,10 +208,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (bp != null) {
-            bp.release();
-        }
-        bp = null;
+
         finish();
     }
 
@@ -259,4 +230,6 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
             }
         }
     }
+
+
 }
