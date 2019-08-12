@@ -211,7 +211,7 @@ public class AddReminder extends AppCompatActivity implements View.OnClickListen
             long elapsedTime = date.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
             Log.e("elasped time", String.valueOf(elapsedTime));
             //alarm.set(AlarmManager.RTC, date.getTimeInMillis(), alarmIntent);
-            alarm.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
+            alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), alarmIntent);
 
             //scheduleJob();
             setResult(MainActivity.CODE_CREATED);
