@@ -8,10 +8,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClient.BillingResponse;
+
 import com.android.billingclient.api.BillingClient.SkuType;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
@@ -63,11 +64,11 @@ public class PurchaseHelper {
     private void startConnection(final Runnable onSuccessRequest) {
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onBillingSetupFinished(@BillingResponse int billingResponseCode) {
-
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                int billingResponseCode = billingResult.getResponseCode();
                 Log.d(TAG, "onBillingSetupFinished: " + billingResponseCode);
 
-                if (billingResponseCode == BillingResponse.OK) {
+                if (billingResponseCode == BillingClient.BillingResponseCode.OK) {
                     mIsServiceConnected = true;
 
                     billingSetupResponseCode = billingResponseCode;
@@ -121,10 +122,10 @@ public class PurchaseHelper {
      * @return
      */
     private boolean isSubscriptionSupported() {
-        int responseCode = mBillingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS);
-        if (responseCode != BillingResponse.OK)
+        int responseCode = mBillingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS).getResponseCode();
+        if (responseCode != BillingClient.BillingResponseCode.OK)
             Log.w(TAG, "isSubscriptionSupported() got an error response: " + responseCode);
-        return responseCode == BillingResponse.OK;
+        return responseCode == BillingClient.BillingResponseCode.OK;
     }
 
     /**
@@ -132,10 +133,10 @@ public class PurchaseHelper {
      * @return
      */
     private boolean isInAppSupported() {
-        int responseCode = mBillingClient.isFeatureSupported(BillingClient.FeatureType.IN_APP_ITEMS_ON_VR);
-        if (responseCode != BillingResponse.OK)
+        int responseCode = mBillingClient.isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS_UPDATE).getResponseCode();
+        if (responseCode != BillingClient.BillingResponseCode.OK)
             Log.w(TAG, "isInAppSupported() got an error response: " + responseCode);
-        return responseCode == BillingResponse.OK;
+        return responseCode == BillingClient.BillingResponseCode.OK;
     }
 
 
@@ -178,11 +179,11 @@ public class PurchaseHelper {
 
                 mBillingClient.querySkuDetailsAsync(skuParams, new SkuDetailsResponseListener() {
                     @Override
-                    public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-
+                    public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
+                        int responseCode = billingResult.getResponseCode();
                         Log.d(TAG, "getSkuDetails: " + responseCode);
 
-                        if (responseCode == BillingResponse.OK && skuDetailsList != null) {
+                        if (responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
 
                             if (purchaseHelperListener != null)
                                 purchaseHelperListener.onSkuQueryResponse(skuDetailsList);
@@ -205,16 +206,21 @@ public class PurchaseHelper {
      * Developer console.
      */
     public void launchBillingFLow(@SkuType final String skuType, final String productId) {
+        final SkuDetails skuDetails;
+
 
         Runnable launchBillingRequest = new Runnable() {
             @Override
             public void run() {
 
+
+
+                mBillingClient.querySkuDetailsAsync();
+
                 BillingFlowParams mBillingFlowParams;
 
                 mBillingFlowParams = BillingFlowParams.newBuilder()
-                        .setSku(productId)
-                        .setType(skuType)
+                        .setSkuDetails(skuDetails)
                         .build();
 
                 mBillingClient.launchBillingFlow((Activity) context, mBillingFlowParams);
@@ -246,9 +252,9 @@ public class PurchaseHelper {
     private PurchasesUpdatedListener getPurchaseUpdatedListener() {
         return new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+            public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> purchases) {
                 if (purchaseHelperListener != null)
-                    purchaseHelperListener.onPurchasesUpdated(responseCode, purchases);
+                    purchaseHelperListener.onPurchasesUpdated(billingResult.getResponseCode(), purchases);
             }
         };
     }
@@ -275,7 +281,7 @@ public class PurchaseHelper {
      * Listener interface for handling the various responses of the Purchase helper util
      */
     public interface PurchaseHelperListener {
-        void onServiceConnected(@BillingResponse int resultCode);
+        void onServiceConnected(@BillingClient.BillingResponseCode int resultCode);
 
         void onSkuQueryResponse(List<SkuDetails> skuDetails);
 
