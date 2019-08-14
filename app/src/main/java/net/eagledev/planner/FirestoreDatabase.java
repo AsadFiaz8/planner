@@ -1,6 +1,7 @@
 package net.eagledev.planner;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -9,15 +10,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 
 
 public class FirestoreDatabase {
@@ -36,6 +39,68 @@ public class FirestoreDatabase {
             setup();
     }
 
+    public void setPremium(boolean premium){
+        try{
+            if(MainActivity.currentUser != null) {
+                if (user == null) {
+                    setup();
+                }
+                Map<String, Object> map = new HashMap<>();
+                map.put("premium", premium);
+                user.set(map);
+            }
+        } catch(Exception e){
+            Log.e(TAG, "setPremium "+e.getMessage());
+        }
+    }
+
+    public void setPremiumTime(long premiumTime){
+        try{
+            if(MainActivity.currentUser != null) {
+                if (user == null) {
+                    setup();
+                }
+                Map<String, Object> map = new HashMap<>();
+                map.put("premiumTime", premiumTime);
+                user.set(map);
+            }
+        } catch(Exception e){
+            Log.e(TAG, "setPremium "+e.getMessage());
+        }
+    }
+
+    public long getPremiumTime(){
+        try{
+            final long premiumTime = 0;
+            if(MainActivity.currentUser != null) {
+                if (user == null) {
+                    setup();
+                }
+                user.get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    try {
+                                        DocumentSnapshot documentSnapshot=  task.getResult();
+                                        Map<String, Object> map = documentSnapshot.getData();
+                                        MainActivity.valueHolder.setPremiumTime((long)map.get("premiumTime"));
+                                    }catch (Exception e){
+                                        Log.e(TAG, e.getMessage());
+                                    }
+                                }
+                            }
+                        });
+            }
+
+        }catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return MainActivity.valueHolder.premiumTime();
+    }
+
+
+
     public void AddAction(Action action){
         try{
         if(MainActivity.currentUser != null) {
@@ -45,7 +110,7 @@ public class FirestoreDatabase {
             actions.document(String.valueOf(action.getId())).set(action);
         }
             } catch(Exception e){
-                Log.e(TAG, "AddAction"+e.getMessage());
+                Log.e(TAG, "AddAction "+e.getMessage());
             }
     }
 
@@ -389,6 +454,7 @@ public class FirestoreDatabase {
                 user = users.document(mail);
                 actions = user.collection("actions");
                 routines = user.collection("routines");
+
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

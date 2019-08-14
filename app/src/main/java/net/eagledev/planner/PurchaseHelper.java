@@ -49,7 +49,7 @@ public class PurchaseHelper {
      */
     public PurchaseHelper(Context context, PurchaseHelperListener purchaseHelperListener) {
         this.context = context;
-        mBillingClient = BillingClient.newBuilder(context).setListener(getPurchaseUpdatedListener()).build();
+        mBillingClient = BillingClient.newBuilder(context).enablePendingPurchases().setListener(getPurchaseUpdatedListener()).build();
         this.purchaseHelperListener = purchaseHelperListener;
         startConnection(getServiceConnectionRequest());
     }
@@ -181,11 +181,14 @@ public class PurchaseHelper {
                     @Override
                     public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
                         int responseCode = billingResult.getResponseCode();
-                        Log.d(TAG, "getSkuDetails: " + responseCode);
+
 
                         if (responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                            Log.e(TAG, "getSkuDetails: " + responseCode + "   "+ BillingClient.BillingResponseCode.OK);
+                            Log.e(TAG, "skuDetailsListSize: " + skuDetailsList.size());
 
                             if (purchaseHelperListener != null)
+                                Log.e(TAG, "purchaseHelperListener: " + purchaseHelperListener);
                                 purchaseHelperListener.onSkuQueryResponse(skuDetailsList);
 
                         }
@@ -201,21 +204,15 @@ public class PurchaseHelper {
     /**
      * Initiate the billing flow for an in-app purchase or subscription.
      *
-     * @param skuType The type of SKU, either "inapp" or "subs"
-     * @param productId Specify the SKU that is being purchased to as published in the Google
+     *  skuType The type of SKU, either "inapp" or "subs"
+     *  productId Specify the SKU that is being purchased to as published in the Google
      * Developer console.
      */
-    public void launchBillingFLow(@SkuType final String skuType, final String productId) {
-        final SkuDetails skuDetails;
-
+    public void launchBillingFLow(@SkuType final SkuDetails skuDetails) {
 
         Runnable launchBillingRequest = new Runnable() {
             @Override
             public void run() {
-
-
-
-                mBillingClient.querySkuDetailsAsync();
 
                 BillingFlowParams mBillingFlowParams;
 

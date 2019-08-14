@@ -30,12 +30,14 @@ public class ValueHolder  {
     public String licence_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgiu1qd45rq20wP3/5taqJ/LTpJFp7S+tllkgtJU3nkM1HJgGU0EHQRXw0JUgSAv8mM2vcCuiKopf5MiASCW3AVeD7FUeRPpKqjOJEmABEJPhFrmtpb8eyHd75DhCP9bgscVHeRe7ljrSqepnDDhq5Xh76tcXqXhzcITVZYQH/l/Vy+3zZ8zvTl28JtZ2Lcg3l3+I9k/uI7kLelWW63o5nRBX5dg68KiqN71kj83RyYxgcXMzkt7aCAAyo+aCMqsRPwOeTEjCH2NjUTdBaVrNPEp9B4OasOpx/FErBTiCaAhfmTd1DX6/knT3Q4N9+Al5lOCOjww59J4Zre921PEc8QIDAQAB";
 
     BillingHolder billingHolder;
+    FirestoreDatabase firestoreDatabase;
 
     public static final int CODE_REMINDERS = 999;
     //BillingProcessor bp;
 
     public ValueHolder() {
         try {
+            firestoreDatabase = MainActivity.fDatabase;
             editor = MainActivity.pref.edit();
 
         } catch (Exception e){
@@ -75,9 +77,19 @@ public class ValueHolder  {
                 Log.e(TAG, "Billing is available");
                 billingHolder = null;
 
-                return false;
+
             }
         }
+        if(firestoreDatabase.getPremiumTime()>Calendar.getInstance().getTimeInMillis()){
+            return true;
+        }
+        /*
+        firestoreDatabase.setPremium(true);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 14);
+        firestoreDatabase.setPremiumTime(calendar.getTimeInMillis());
+        */
+
         return false;
 
     }

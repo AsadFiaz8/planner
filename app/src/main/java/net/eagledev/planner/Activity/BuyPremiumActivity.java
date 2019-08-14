@@ -57,6 +57,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     SkuDetails yearDetails;
     PurchaseHelper purchaseHelper;
     List<Purchase> purchaseHistory;
+    public List<SkuDetails> skuDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         pointsTextView = findViewById(R.id.text_premium_points);
         pointsTextView.setText(getResources().getString(R.string.premium_points_amount)+" "+ MainActivity.valueHolder.premiumPoints());
         purchaseHelper = new PurchaseHelper(this, this);
+
         Intent intent = getIntent();
         Bundle bundle = null;
         if(intent != null){
@@ -106,6 +108,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
 
         MobileAds.initialize(this, "ca-app-pub-6069706356094406~2925415895");
         loadRewardedVideoAd();
+        setSkuDetails();
 
     }
 
@@ -120,11 +123,23 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btn_premium_month:
 
-                purchaseHelper.launchBillingFLow(BillingClient.SkuType.SUBS, "premium_month");
+                if(skuDetails == null){
+                    setSkuDetails();
+                }
+                if(skuDetails != null){
+                    purchaseHelper.launchBillingFLow(skuDetails.get(0));
+
+                } else setSkuDetails();
                 //bp.purchase(BuyPremiumActivity.this,"android.test.purchased");
                 break;
             case R.id.btn_premium_year:
-                purchaseHelper.launchBillingFLow(BillingClient.SkuType.SUBS, "premium_year");
+                if(skuDetails == null){
+                    setSkuDetails();
+                }
+                if(skuDetails != null){
+                    purchaseHelper.launchBillingFLow(skuDetails.get(1));
+
+                } else setSkuDetails();
                 break;
             case R.id.btn_premium_watch_ad:
                 if (mRewardedVideoAd.isLoaded()) {
@@ -149,6 +164,12 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     }
 
 
+    void setSkuDetails(){
+        List<String> skuNames = new ArrayList<>();
+        skuNames.add("premium_month");
+        skuNames.add("premium_year");
+        purchaseHelper.getSkuDetails(skuNames, BillingClient.SkuType.SUBS);
+    }
 
 
     @Override
@@ -245,6 +266,9 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onSkuQueryResponse(List<SkuDetails> skuDetails) {
 
+
+        this.skuDetails = skuDetails;
+        Log.e(TAG, "onSkuQueryResponse" + this.skuDetails.size());
     }
 
     @Override
