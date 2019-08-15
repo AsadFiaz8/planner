@@ -147,17 +147,23 @@ public class PurchaseHelper {
      */
     public void getPurchasedItems(@SkuType final String skuType) {
 
-        Runnable purchaseHistoryRequest = new Runnable() {
-            @Override
-            public void run() {
-                Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(skuType);
+        Log.e(TAG,"getPurchasedItems" );
+        //Runnable purchaseHistoryRequest = new Runnable() {
+        //    @Override
+        //    public void run() {
 
-                if (purchaseHelperListener != null)
-                    purchaseHelperListener.onPurchasehistoryResponse(purchasesResult.getPurchasesList());
-            }
-        };
+        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(skuType);
 
-        executeServiceRequest(purchaseHistoryRequest);
+        if(purchasesResult.getPurchasesList() != null){
+            Log.e(TAG, "   getPurchasedItems  size"+ purchasesResult.getPurchasesList().size() );
+
+        }
+        if (purchaseHelperListener != null)
+            purchaseHelperListener.onPurchasehistoryResponse(purchasesResult.getPurchasesList());
+          //  }
+        //};
+
+       // executeServiceRequest(purchaseHistoryRequest);
     }
 
 

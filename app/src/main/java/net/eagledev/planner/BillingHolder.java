@@ -25,11 +25,14 @@ public class BillingHolder implements PurchaseHelper.PurchaseHelperListener {
     List<String> skuList;
     PurchaseHelper purchaseHelper;
     List<Purchase> purchaseHistory;
+    List<SkuDetails> skuDetails;
 
 
     BillingHolder() {
 
         purchaseHelper = new PurchaseHelper(MainActivity.context, this);
+        purchaseHelper.getPurchasedItems(BillingClient.SkuType.SUBS);
+        setSkuDetails();
 
 
 
@@ -37,10 +40,13 @@ public class BillingHolder implements PurchaseHelper.PurchaseHelperListener {
     }
 
     public boolean isPremium() {
-        //Log.e("BillingHolder","Billing Holder is Premium check");
+        Log.e("BillingHolder","Billing Holder is Premium check");
+
         purchaseHelper.getPurchasedItems(BillingClient.SkuType.SUBS);
+
         if(purchaseHistory != null){
             for(Purchase purchase: purchaseHistory){
+                Log.e(TAG, "purchaseHistory" + purchaseHistory.size());
                 if (purchase.getSku().equals("premium_month")) return true;
                 if (purchase.getSku().equals("premium_year")) return true;
             }
@@ -60,8 +66,11 @@ public class BillingHolder implements PurchaseHelper.PurchaseHelperListener {
 
 
 
-    public void test(){
-
+    void setSkuDetails(){
+        List<String> skuNames = new ArrayList<>();
+        skuNames.add("premium_month");
+        skuNames.add("premium_year");
+        purchaseHelper.getSkuDetails(skuNames, BillingClient.SkuType.SUBS);
     }
 
 
@@ -74,6 +83,7 @@ public class BillingHolder implements PurchaseHelper.PurchaseHelperListener {
     @Override
     public void onSkuQueryResponse(List<SkuDetails> skuDetails) {
 
+        this.skuDetails = skuDetails;
     }
 
     @Override
