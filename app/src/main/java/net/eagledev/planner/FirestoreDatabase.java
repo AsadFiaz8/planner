@@ -31,6 +31,7 @@ public class FirestoreDatabase {
     DocumentReference user;
     CollectionReference actions;
     CollectionReference routines;
+    CollectionReference info;
     Formatter f = new Formatter();
 
 
@@ -42,12 +43,13 @@ public class FirestoreDatabase {
     public void setPremium(boolean premium){
         try{
             if(MainActivity.currentUser != null) {
-                if (user == null) {
+                if (info == null) {
                     setup();
                 }
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("premium", premium);
-                user.set(map);
+                info.document("premium").set(map);
             }
         } catch(Exception e){
             Log.e(TAG, "setPremium "+e.getMessage());
@@ -84,7 +86,8 @@ public class FirestoreDatabase {
                                     try {
                                         DocumentSnapshot documentSnapshot=  task.getResult();
                                         Map<String, Object> map = documentSnapshot.getData();
-                                        MainActivity.valueHolder.setPremiumTime((long)map.get("premiumTime"));
+                                        long premiumTime = (long)map.get("premiumTime");
+                                        MainActivity.valueHolder.setPremiumTime(premiumTime);
                                     }catch (Exception e){
                                         Log.e(TAG, e.getMessage());
                                     }
@@ -97,6 +100,50 @@ public class FirestoreDatabase {
             Log.e(TAG, e.getMessage());
         }
         return MainActivity.valueHolder.premiumTime();
+    }
+
+    public boolean getPremium() {
+        try {
+            if (MainActivity.currentUser != null) {
+                if (user == null) {
+                    setup();
+                }
+                info.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                    }
+                                    }
+
+                            }
+                        });
+
+                        /*
+                        {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    try {
+                                        DocumentSnapshot documentSnapshot=  task.getResult();
+                                        Map<String, Object> map = documentSnapshot.getData();
+                                        MainActivity.valueHolder.setPremiumUser((boolean)map.get("premium"));
+                                    }catch (Exception e){
+                                        Log.e(TAG, e.getMessage());
+                                    }
+                                }
+                            }
+                        });
+                        */
+
+            }
+            }catch(Exception e){
+                Log.e(TAG, e.getMessage());
+            }
+            return MainActivity.valueHolder.getPremiumUser();
     }
 
 
@@ -454,6 +501,7 @@ public class FirestoreDatabase {
                 user = users.document(mail);
                 actions = user.collection("actions");
                 routines = user.collection("routines");
+                info = user.collection("info");
 
             }
         } catch (Exception e) {

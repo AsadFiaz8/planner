@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
+import android.widget.TextView;
 
 
 import java.util.Calendar;
@@ -70,7 +70,7 @@ public class ValueHolder  {
                 Log.e(TAG, "Billing is not available");
                 if(MainActivity.pref.getBoolean("premium_user", false)) return true;
                 Calendar calendar = Calendar.getInstance();
-                if(premiumTime() > calendar.getTimeInMillis()) return true;
+                //if(premiumTime() > calendar.getTimeInMillis()) return true;
             } else {
                 editor.putBoolean("premium_user", false);
                 editor.commit();
@@ -80,15 +80,10 @@ public class ValueHolder  {
 
             }
         }
+        Log.e(TAG, "Premium time " + String.valueOf(firestoreDatabase.getPremiumTime()> Calendar.getInstance().getTimeInMillis())+  "  " +firestoreDatabase.getPremiumTime() );
         if(firestoreDatabase.getPremiumTime()>Calendar.getInstance().getTimeInMillis()){
             return true;
         }
-        /*
-        firestoreDatabase.setPremium(true);
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 14);
-        firestoreDatabase.setPremiumTime(calendar.getTimeInMillis());
-        */
 
         return false;
 
@@ -98,6 +93,10 @@ public class ValueHolder  {
         this.premiumUser = premiumUser;
         editor.putBoolean("premium_user", premiumUser);
         editor.commit();
+    }
+
+    public boolean getPremiumUser(){
+        return MainActivity.pref.getBoolean("premium_user", false);
     }
 
     public void setPremiumAdTime(Calendar cal) {

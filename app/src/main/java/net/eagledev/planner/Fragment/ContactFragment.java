@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +48,7 @@ public class ContactFragment extends Fragment {
     public static final String TAG = "ContactFragment";
     private OnFragmentInteractionListener mListener;
 
-    Spinner spinneer;
+    Spinner spinner;
     TextView emailText;
     TextView descText;
     PlannerButton btnSend;
@@ -93,12 +92,12 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-         spinneer = view.findViewById(R.id.spinner);
+         spinner = view.findViewById(R.id.spinner);
          final Context context = getContext();
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.contact_messages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinneer.setAdapter(adapter);
-        spinneer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tittle = parent.getItemAtPosition(position).toString();
@@ -116,7 +115,13 @@ public class ContactFragment extends Fragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 email = String.valueOf(emailText.getText());
+                if (email.length()<3){
+                    if(MainActivity.currentUser != null) {
+                        email = MainActivity.currentUser.getEmail();
+                    }
+                }
                 desc = String.valueOf(descText.getText());
 
                 Map<String, Object> message = new HashMap<>();

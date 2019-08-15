@@ -59,6 +59,7 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
     List<Purchase> purchaseHistory;
     public List<SkuDetails> skuDetails;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,9 @@ public class BuyPremiumActivity extends AppCompatActivity implements View.OnClic
         loadRewardedVideoAd();
         setSkuDetails();
 
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 365);
     }
 
     @Override
