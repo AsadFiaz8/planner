@@ -89,7 +89,13 @@ public class BillingHolder implements PurchaseHelper.PurchaseHelperListener {
     @Override
     public void onPurchasehistoryResponse(List<Purchase> purchasedItems) {
 
-        purchaseHistory = purchasedItems;
+        if(purchasedItems != null){
+            purchaseHistory = purchasedItems;
+
+        }
+        else {
+            Log.e(TAG, "purchasedItems is null");
+        }
     }
 
     @Override
