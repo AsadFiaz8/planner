@@ -13,6 +13,8 @@ import android.widget.Switch;
 import net.eagledev.planner.MainActivity;
 import net.eagledev.planner.R;
 
+import java.util.Calendar;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,6 +145,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 MainActivity.appDatabase.appDao().nukeAimsTable();
                 MainActivity.appDatabase.appDao().nukeRemindersTable();
                 MainActivity.appDatabase.appDao().nukeRoutinesTable();
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 365);
+                //MainActivity.fDatabase.setPremiumTime(calendar.getTimeInMillis());
                 break;
         }
     }

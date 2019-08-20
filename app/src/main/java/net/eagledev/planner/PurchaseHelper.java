@@ -166,6 +166,24 @@ public class PurchaseHelper {
        // executeServiceRequest(purchaseHistoryRequest);
     }
 
+    public void querySubscriptions() {
+        Runnable queryToExecute = new Runnable() {
+            @Override
+            public void run() {
+                Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.SUBS);
+
+                if (mBillingClient == null ||
+                        purchasesResult.getResponseCode() != BillingClient.BillingResponseCode.OK) {
+                    return;
+                }
+                //mPurchases.clear();
+                //onPurchasesUpdated(BillingClient.BillingResponseCode.OK, purchasesResult.getPurchasesList());
+            }
+        };
+
+        executeServiceRequest(queryToExecute);
+    }
+
 
     /**
      * Perform a network query to get SKU details and return the result asynchronously.
