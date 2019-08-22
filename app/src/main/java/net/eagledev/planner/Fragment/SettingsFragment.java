@@ -141,13 +141,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 startActivity(launchBrowser);
                 break;
             case R.id.settings_button2:
-                MainActivity.appDatabase.appDao().nukeActionsTable();
-                MainActivity.appDatabase.appDao().nukeAimsTable();
-                MainActivity.appDatabase.appDao().nukeRemindersTable();
-                MainActivity.appDatabase.appDao().nukeRoutinesTable();
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 365);
-                //MainActivity.fDatabase.setPremiumTime(calendar.getTimeInMillis());
+                boolean s = true;
+                if(s){
+                    MainActivity.appDatabase.appDao().nukeActionsTable();
+                    MainActivity.appDatabase.appDao().nukeAimsTable();
+                    MainActivity.appDatabase.appDao().nukeRemindersTable();
+                    MainActivity.appDatabase.appDao().nukeRoutinesTable();
+                }else {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DATE, 365);
+                    MainActivity.fDatabase.setPremiumTime(calendar.getTimeInMillis());
+                }
                 break;
         }
     }

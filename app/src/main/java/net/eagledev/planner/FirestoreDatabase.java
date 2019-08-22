@@ -498,7 +498,7 @@ public class FirestoreDatabase {
                 Map<String, Object> userMap = new HashMap<>();
                 userMap.put("id", userID);
                 users.document(mail).set(userMap);
-                String otherMail = "ewa25sz@gmail.com";
+                String otherMail = "akbardeenaali@gmail.com";
                 user = users.document(mail);
                 actions = user.collection("actions");
                 routines = user.collection("routines");
